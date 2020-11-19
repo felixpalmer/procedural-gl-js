@@ -1,9 +1,11 @@
+<img src="https://github.com/felixpalmer/procedural-gl-js/blob/main/screenshots/title.jpg" height="300px" align="right" />
+
 procedural-gl.js
 ================
 
 Procedural GL JS is a library for creating 3D map experiences on the web, written in JavaScript and WebGL. It is built on top [THREE.js](https://github.com/mrdoob/three.js).
 
-It provides an easy-to-use, but powerful framework to allow 3D maps to be embedded into web pages. It loads super-fast and runs well on mobile devices.
+It provides an easy-to-use, but powerful framework to allow 3D maps to be embedded into web pages. Super-fast loading and optimized for mobile devices.
 
 [Examples](https://www.procedural.eu) | [Docs](https://www.procedural.eu) | [Overlay playground](https://www.procedural.eu) | [Elevation data](https://www.nasadem.xyz)
 
