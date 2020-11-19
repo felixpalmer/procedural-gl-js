@@ -1,0 +1,60 @@
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+/* Animation */
+@keyframes procedural-shrink-1 { 
+  0% { transform: rotate(90deg) scale(1) translate(-60%, -60%); } 
+  100% { transform: rotate(180deg) scale(0.5) translate(-70%, -70%); } 
+}
+@keyframes procedural-shrink-2 { 
+  0% { transform: rotate(180deg) scale(0.5) translate(-70%, -70%); } 
+  100% { transform: rotate(270deg) scale(0.25) translate(-90%, -90%); } 
+}
+@keyframes procedural-shrink-3 { 
+  0% { transform: rotate(270deg) scale(0.25) translate(-90%, -90%); } 
+  100% { transform: rotate(360deg) scale(0.125) translate(-130%, -130%); } 
+}
+@keyframes procedural-shrink-4 { 
+  0% { 
+    transform: rotate(0deg) scale(0.125) translate(-130%, -130%);
+    animation-timing-function: ease-in; 
+  } 
+  50% { 
+    transform: rotate(0deg) scale(0.125) translate(-130%, -130%);
+    animation-timing-function: ease-in; 
+  } 
+  100% { 
+    transform: rotate(90deg) scale(1) translate(-60%, -60%);
+  }  
+}
+
+/* Shapes */
+.square {
+  position: absolute;
+  background: #666;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+}
+
+.square-1 { animation: procedural-shrink-1 1.8s infinite cubic-bezier(0.6, -0.1337, 0.735, 0.045); }
+.square-2 { animation: procedural-shrink-2 1.8s infinite cubic-bezier(0.6, -0.1337, 0.735, 0.045); }
+.square-3 { animation: procedural-shrink-3 1.8s infinite cubic-bezier(0.6, -0.1337, 0.735, 0.045); }
+.square-4 { animation: procedural-shrink-4 1.8s infinite cubic-bezier(0.6, -0.1337, 0.735, 0.045); }
+
+#logo-container {
+  position: relative;
+  left: -45%;
+  width: 100%;
+  height: 100%;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

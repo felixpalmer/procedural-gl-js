@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <title>Procedural GL JS</title>
+        <meta name="viewport" content="user-scalable=no, width=device-width, height=device-height, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/css/autoComplete.min.css">
+        <style>
+            html, body {
+                margin: 0;
+            }
+        </style>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div style="position: absolute; width: 100%; height: 100%;" id="container">
+        </div>
+    </body>
+    <script type="module">
+        import Procedural from './build/procedural-gl.module.js';
+
+        // Initialize the engine with a location and inject into page
+        const container = document.getElementById( 'container' );
+
+        // Define API Keys (replace these with your own!)
+        const NASADEM_APIKEY = null;
+        const MAPTILER_APIKEY = null;
+        if ( !NASADEM_APIKEY || !MAPTILER_APIKEY ) {
+          const error = Error( 'Modify index.html to include API keys' );
+          container.innerHTML = error; 
+          throw error;
+        }
+
+        const datasource = {
+          elevation: {
+            apiKey: NASADEM_APIKEY
+          },
+          imagery: {
+            apiKey: MAPTILER_APIKEY,
+            urlFormat: 'https://api.maptiler.com/tiles/satellite/{z}/{x}/{y}.jpg?key={apiKey}',
+            attribution: '<a href="https://www.maptiler.com/copyright/">Maptiler</a> <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          }
+        }
+        Procedural.init( { container, datasource } );
+        Procedural.setCameraModeControlVisible( true );
+        Procedural.setCompassVisible( true );
+        Procedural.setUserLocationControlVisible( true );
+        Procedural.setRotationControlVisible( true );
+        Procedural.setZoomControlVisible( true );
+
+        // Load random location
+        const latitude = 42 + 8 * Math.random();
+        const longitude = 6 + 8 * Math.random();
+        Procedural.displayLocation( {
+          latitude:latitude, longitude:longitude
+        } );
+    </script>
+</html>
