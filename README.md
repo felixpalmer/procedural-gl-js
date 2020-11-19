@@ -1,4 +1,4 @@
-<img src="https://github.com/felixpalmer/procedural-gl-js/blob/main/screenshots/title.jpg" height="300px" align="right" />
+<img src="https://github.com/felixpalmer/procedural-gl-js/blob/main/screenshots/title.jpg" width="40%" align="right" />
 
 procedural-gl.js
 ================
