@@ -1,0 +1,54 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+  {
+    "id": 0,
+    "type": "Feature",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+        13.454,
+      47.219
+        ],
+      [
+        13.435,
+      47.214
+        ],
+      [
+        13.451,
+      47.23
+        ],
+      [
+        13.48,
+      47.213
+        ]
+        ]
+    },
+    "properties": {
+      "color": "#f30e32"
+    }
+  },
+  {
+    "id": 1,
+    "type": "Feature",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+        13.48,
+      47.213
+        ],
+      [
+        13.454,
+      47.219
+        ]
+        ]
+    },
+    "properties": {
+      "color": "#12133d",
+      "thickness": 5
+    }
+  }
+  ]
+}

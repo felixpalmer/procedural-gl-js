@@ -1,0 +1,57 @@
+{
+  "type": "FeatureCollection",
+  "defaults": {
+    "properties": {
+      "color": "blue",
+      "padding": 10,
+      "background": "white"
+    }
+  },
+  "features": [
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.56,
+          47.25
+        ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "borderRadius": 0,
+        "icon": "info"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.559,
+          47.25
+        ]
+      },
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "borderRadius": 4,
+        "icon": "info"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.558,
+          47.25
+        ]
+      },
+      "type": "Feature",
+      "id": 2,
+      "properties": {
+        "borderRadius": 100,
+        "icon": "info"
+      }
+    }
+  ]
+}

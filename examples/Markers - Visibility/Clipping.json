@@ -1,0 +1,42 @@
+{
+  "type": "FeatureCollection",
+  "defaults": {
+     "properties": {
+        "color": "green",
+        "padding": 20,
+        "background": "white"
+     }
+  },
+  "features": [
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.55,
+          47.233
+        ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "clipping": "pixel",
+        "name": "Visibility calculated per pixel - (default)"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.55,
+          47.237
+        ]
+      },
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "clipping": "object",
+        "name": "Visibility based on anchor point"
+      }
+    }
+  ]
+}

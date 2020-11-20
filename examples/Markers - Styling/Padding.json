@@ -1,0 +1,58 @@
+{
+  "type": "FeatureCollection",
+  "defaults": {
+    "properties": {
+      "color": "green"
+    }
+  },
+  "features": [
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.56,
+          47.25
+        ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "padding": 0,
+        "name": "small",
+        "background": "#fff"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.559,
+          47.25
+        ]
+      },
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "padding": 10,
+        "name": "medium",
+        "background": "#ccc"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.558,
+          47.25
+        ]
+      },
+      "type": "Feature",
+      "id": 2,
+      "properties": {
+        "padding": 20,
+        "name": "large",
+        "background": "#999"
+      }
+    }
+  ]
+}

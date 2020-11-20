@@ -1,0 +1,56 @@
+{
+  "type": "FeatureCollection",
+    "defaults": {
+    "properties": {
+      "color": "white",
+      "padding": 10
+    }
+  },
+  "features": [
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.56,
+          47.25
+        ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "background": "black",
+        "icon": "info"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.557,
+          47.25
+        ]
+      },
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "background": "red",
+        "icon": "bus"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.561,
+          47.2505
+        ]
+      },
+      "type": "Feature",
+      "id": 2,
+      "properties": {
+        "background": "blue",
+        "icon": "coffee"
+      }
+    }
+  ]
+}

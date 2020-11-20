@@ -1,0 +1,71 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.54,
+          47.252
+        ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "name": "Hex value: '#6719f3'",
+        "background": "#6719f3"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.54,
+          47.254
+        ]
+      },
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "name": "Named color: 'crimson'",
+        "background": "crimson"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.543,
+          47.252
+        ]
+      },
+      "type": "Feature",
+      "id": 2,
+      "properties": {
+        "name": "RGB: 'rgb(101, 32, 77)'",
+        "background": "rgb(101, 32, 77)"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.543,
+          47.254
+        ]
+      },
+      "type": "Feature",
+      "id": 3,
+      "properties": {
+        "name": "RGBA: 'rgba(44, 244, 11, 0.2)'",
+        "background": "rgba(44, 244, 11, 0.2)"
+      }
+    }
+  ],
+  "defaults": {
+    "properties": {
+      "padding": 10,
+      "clipping": "object"
+    }
+  }
+}
