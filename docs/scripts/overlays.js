@@ -78,7 +78,7 @@ var init = function () {
   // Once location data is loaded initialize in `app` element
   var datasource = {
     elevation: {
-      apiKey: '1fddafe22d6604fb1adc14d6cbd881d19'
+      apiKey: '12c27d08882df417c977cf5af64fd84f0'
     },
     imagery: {
       apiKey: 'EIvJ3LPyMVsxeNd3Lyao',
