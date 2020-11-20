@@ -66,7 +66,7 @@ var lookupFeature = function ( id ) {
  * later by other methods.
  *
  * To explore the different options available when styling
- * the overlays, take a look at the [Overlay Editor]{@link http://www.procedural.eu/js-sdk/overlays.html}
+ * the overlays, take a look at the [Overlay Editor]{@link https://felixpalmer.github.io/procedural-gl-js/docs/overlays.html}
  *
  * @example
  * // Add an overlay and focus on features when clicked
