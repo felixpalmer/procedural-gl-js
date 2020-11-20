@@ -49,11 +49,11 @@ Procedural.displayLocation( montBlanc );
 Screenshots
 ===========
 <p>
-<img src="https://github.com/felixpalmer/procedural-gl-js/blob/main/screenshots/1.jpg" width="17%" >
-<img src="https://github.com/felixpalmer/procedural-gl-js/blob/main/screenshots/2.jpg" width="17%" align="left" />
-<img src="https://github.com/felixpalmer/procedural-gl-js/blob/main/screenshots/3.jpg" width="17%" align="left" />
-<img src="https://github.com/felixpalmer/procedural-gl-js/blob/main/screenshots/4.jpg" width="17%" align="left" />
-<img src="https://github.com/felixpalmer/procedural-gl-js/blob/main/screenshots/5.jpg" width="17%" align="left" />
+<img src="https://raw.githubusercontent.com/felixpalmer/procedural-gl-js/screenshots/1.jpg" width="17%" >
+<img src="https://raw.githubusercontent.com/felixpalmer/procedural-gl-js/screenshots/2.jpg" width="17%" align="left" />
+<img src="https://raw.githubusercontent.com/felixpalmer/procedural-gl-js/screenshots/3.jpg" width="17%" align="left" />
+<img src="https://raw.githubusercontent.com/felixpalmer/procedural-gl-js/screenshots/4.jpg" width="17%" align="left" />
+<img src="https://raw.githubusercontent.com/felixpalmer/procedural-gl-js/screenshots/5.jpg" width="17%" align="left" />
 </p>
 
 License
