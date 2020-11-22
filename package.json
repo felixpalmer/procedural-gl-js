@@ -7,8 +7,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run compile && npm run uglify",
+    "build-dev": "rollup -c --environment DEV",
     "compile": "cd shaders && ./minify.sh && cd - && rollup -c",
-    "dev": "find src lib shaders -type f \\( -iname \\*js -o -iname \\*jsx -o -iname \\*vert -o -iname \\*frag -o -iname \\*glsl \\) | entr rollup -c --environment DEV",
+    "dev": "find src lib shaders -type f \\( -iname \\*js -o -iname \\*jsx -o -iname \\*vert -o -iname \\*frag -o -iname \\*glsl \\) | entr npm run build-dev",
     "lint": "eslint src --ext js --fix",
     "uglify": "uglifyjs build/procedural-gl.js -o build/procedural-gl.min.js -c -m"
   },

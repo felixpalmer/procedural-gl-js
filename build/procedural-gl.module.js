@@ -419,7 +419,7 @@ function CoreExport() {
  * the Procedural engine into their web pages. To use this library
  * include a script tag on your page like so:
  * <pre>&lt;script
- *   src="https://planet.procedural.eu/procedural-js/latest/procedural.js"&gt;
+ *   src="https://unpkg.com/procedural-gl/build/procedural-gl.js"&gt;
  * &lt;/script&gt;
  * </pre>
  * This will create a <tt>Procedural</tt> object that your JavaScript code
@@ -44367,7 +44367,7 @@ var lookupFeature = function ( id ) {
  * later by other methods.
  *
  * To explore the different options available when styling
- * the overlays, take a look at the [Overlay Editor]{@link http://www.procedural.eu/js-sdk/overlays.html}
+ * the overlays, take a look at the [Overlay Editor]{@link https://felixpalmer.github.io/procedural-gl-js/docs/overlays.html}
  *
  * @example
  * // Add an overlay and focus on features when clicked
@@ -48332,7 +48332,7 @@ app.init();
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-console.log( 'Procedural v' + '1.0.0' );
+console.log( 'Procedural v' + '1.0.1' );
 
 // Re-export public API
 const Procedural$9 = {
