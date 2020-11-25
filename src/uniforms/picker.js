@@ -15,7 +15,7 @@ const pickerUniforms = {
 };
 
 ContainerStore.listen( ( { canvasHeight, canvasWidth,
- height, width, pixelRatio } ) => {
+  height, width, pixelRatio } ) => {
   pickerUniforms.uViewportCanvasInverse.value.set(
     1.0 / canvasWidth, 1.0 / canvasHeight );
   pickerUniforms.uViewportInverse.value.set( 1.0 / width, 1.0 / height );

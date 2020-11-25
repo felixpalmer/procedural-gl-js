@@ -39,8 +39,8 @@ var picker = {
     var pickerMaterial = new THREE.RawShaderMaterial( {
       name: 'picker',
       uniforms: _.assign( {},
-      heightUniforms,
-      pickerUniforms
+        heightUniforms,
+        pickerUniforms
       ),
       vertexShader: pickerVertex.value,
       fragmentShader: pickerFragment.value

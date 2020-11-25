@@ -212,7 +212,7 @@ function draw() {
       debugClick = null;
     }
 
-    let pixel = {}, pl = tilepicker.data.length;
+    let pl = tilepicker.data.length;
     for ( p = 0; p < pl; p += 4 ) {
       pickedTile = 256 * tilepicker.data[ p ] + tilepicker.data[ p + 1 ];
       terrainError = ( tilepicker.data[ p + 3 ] / 255 ); // range 0-1

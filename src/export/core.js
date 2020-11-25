@@ -85,6 +85,7 @@ Procedural.init = function ( { container, datasource } ) {
     console.error( 'Error: tried to init Procedural API with invalid container' );
     return;
   }
+
   if ( datasource === undefined || datasource === null ) {
     console.error( 'Error: tried to init Procedural API without datasource definition' );
     return;
@@ -95,6 +96,7 @@ Procedural.init = function ( { container, datasource } ) {
     console.error( 'Error: elevation datasource configuration is invalid' );
     return;
   }
+
   if ( imagery === undefined || imagery.urlFormat === undefined ) {
     console.error( 'Error: imagery datasource configuration is invalid' );
     return;
