@@ -45,7 +45,6 @@ varying float vReadDepth;
 varying vec3 vLayout;
 
 #include lengthNormalize.glsl
-#define MANUAL_TEXTURE_BILINEAR 1
 #include getHeight.glsl
 
 // Size of atlas scaled by atlas pixel ratio

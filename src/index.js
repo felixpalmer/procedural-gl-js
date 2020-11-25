@@ -17,6 +17,7 @@ import UserInterfaceExport from '/export/userInterface';
 
 // Entry point into app
 import '/views/root.jsx';
+/*global __buildVersion__*/
 console.log( 'Procedural v' + __buildVersion__ );
 
 // Re-export public API
@@ -30,5 +31,5 @@ const Procedural = {
   ...PauseExport,
   ...LocationExport,
   ...UserInterfaceExport
-}
+};
 export default Procedural;

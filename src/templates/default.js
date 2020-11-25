@@ -6,7 +6,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 export default {
-  "env" : {
+  "env": {
     "turbidity": 2.928118393234672,
     "reileigh": 0.631430584918957,
     "mieCoefficient": 0.006765327695560254,
@@ -24,4 +24,4 @@ export default {
     "backscatterColor": "#181d20",
     "ambientOcclusion": 1.17
   }
-}
+};

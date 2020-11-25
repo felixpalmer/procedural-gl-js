@@ -8,6 +8,7 @@
 import THREE from 'three';
 import tilebelt from '@mapbox/tilebelt';
 
+import { INTERPOLATE_FLOAT } from "/constants";
 import renderer from '/renderer';
 import GeoprojectStore from '/stores/geoproject';
 import log from '/log';
@@ -35,6 +36,9 @@ class BaseDatasource {
 
     let virtualTextureSize = textureSize * n;
 
+    const TextureFilter = ( this.useFloat && !INTERPOLATE_FLOAT ) ?
+      THREE.NearestFilter : THREE.LinearFilter;
+
     this.textureArray = new THREE.DataTexture( null,
       virtualTextureSize, virtualTextureSize,
       // RGB seems to run *slower* than RGBA on iOS
@@ -43,8 +47,7 @@ class BaseDatasource {
       this.useFloat ? THREE.FloatType : THREE.UnsignedByteType,
       THREE.UVMapping,
       THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping,
-      this.useFloat ? THREE.NearestFilter : THREE.LinearFilter,
-      this.useFloat ? THREE.NearestFilter : THREE.LinearFilter,
+      TextureFilter, TextureFilter,
       //THREE.LinearFilter, THREE.LinearFilter,
       //THREE.NearestFilter, THREE.NearestFilter,
       renderer.capabilities.getMaxAnisotropy()

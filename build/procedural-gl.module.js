@@ -419,7 +419,7 @@ function CoreExport() {
  * the Procedural engine into their web pages. To use this library
  * include a script tag on your page like so:
  * <pre>&lt;script
- *   src="https://planet.procedural.eu/procedural-js/latest/procedural.js"&gt;
+ *   src="https://unpkg.com/procedural-gl/build/procedural-gl.js"&gt;
  * &lt;/script&gt;
  * </pre>
  * This will create a <tt>Procedural</tt> object that your JavaScript code
@@ -469,6 +469,7 @@ Procedural$2.init = function ( { container, datasource } ) {
     console.error( 'Error: tried to init Procedural API with invalid container' );
     return;
   }
+
   if ( datasource === undefined || datasource === null ) {
     console.error( 'Error: tried to init Procedural API without datasource definition' );
     return;
@@ -479,6 +480,7 @@ Procedural$2.init = function ( { container, datasource } ) {
     console.error( 'Error: elevation datasource configuration is invalid' );
     return;
   }
+
   if ( imagery === undefined || imagery.urlFormat === undefined ) {
     console.error( 'Error: imagery datasource configuration is invalid' );
     return;
@@ -629,7 +631,7 @@ var ApiUtils = {
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 var template = {
-  "env" : {
+  "env": {
     "turbidity": 2.928118393234672,
     "reileigh": 0.631430584918957,
     "mieCoefficient": 0.006765327695560254,
@@ -38124,6 +38126,32 @@ var AppStore$1 = alt.createStore( AppStore );
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
+let params = new URLSearchParams( window.location.search.slice( 1 ) );
+
+// TODO could support non-square POT textures also
+let elevationPoolSize = 4 * 4;
+let imageryPoolSize = 16 * 16;
+if ( params.has( 'elevationPoolSize' ) ) {
+  elevationPoolSize = Number.parseInt( params.get( 'elevationPoolSize' ) );
+}
+
+if ( params.has( 'imageryPoolSize' ) ) {
+  imageryPoolSize = Number.parseInt( params.get( 'imageryPoolSize' ) );
+}
+
+const ELEVATION_POOL_SIZE = elevationPoolSize;
+const ELEVATION_TILE_SIZE = 512;
+const IMAGERY_POOL_SIZE = imageryPoolSize;
+const IMAGERY_TILE_SIZE = 256;
+const INTERPOLATE_FLOAT = params.has( 'interpolateFloat' );
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
 var renderer = new THREE.WebGLRenderer( {
   alpha: true,
   antialias: false,
@@ -38227,31 +38255,6 @@ var ImageLoader$2 = new ImageLoader$1();
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-let params = new URLSearchParams( window.location.search.slice( 1 ) );
-
-// TODO could support non-square POT textures also
-let elevationPoolSize = 4 * 4;
-let imageryPoolSize = 16 * 16;
-if ( params.has( 'elevationPoolSize' ) ) {
-  elevationPoolSize = Number.parseInt( params.get( 'elevationPoolSize' ) );
-}
-
-if ( params.has( 'imageryPoolSize' ) ) {
-  imageryPoolSize = Number.parseInt( params.get( 'imageryPoolSize' ) );
-}
-
-const ELEVATION_POOL_SIZE = elevationPoolSize;
-const ELEVATION_TILE_SIZE = 512;
-const IMAGERY_POOL_SIZE = imageryPoolSize;
-const IMAGERY_TILE_SIZE = 256;
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
 
 const canvas$1 = document.createElement( 'canvas' );
 const width = ELEVATION_TILE_SIZE;
@@ -38329,6 +38332,9 @@ class BaseDatasource {
 
     let virtualTextureSize = textureSize * n;
 
+    const TextureFilter = ( this.useFloat && !INTERPOLATE_FLOAT ) ?
+      THREE.NearestFilter : THREE.LinearFilter;
+
     this.textureArray = new THREE.DataTexture( null,
       virtualTextureSize, virtualTextureSize,
       // RGB seems to run *slower* than RGBA on iOS
@@ -38337,8 +38343,7 @@ class BaseDatasource {
       this.useFloat ? THREE.FloatType : THREE.UnsignedByteType,
       THREE.UVMapping,
       THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping,
-      this.useFloat ? THREE.NearestFilter : THREE.LinearFilter,
-      this.useFloat ? THREE.NearestFilter : THREE.LinearFilter,
+      TextureFilter, TextureFilter,
       //THREE.LinearFilter, THREE.LinearFilter,
       //THREE.NearestFilter, THREE.NearestFilter,
       renderer.capabilities.getMaxAnisotropy()
@@ -40285,7 +40290,6 @@ vec2 saturate( vec2 t ) { return clamp( t, 0.0, 1.0 ); }
 vec3 saturate( vec3 t ) { return clamp( t, 0.0, 1.0 ); }
 vec4 saturate( vec4 t ) { return clamp( t, 0.0, 1.0 ); }
 
-#define MANUAL_TEXTURE_BILINEAR 1
 /**
  * Copyright 2020 (c) Felix Palmer
  *
@@ -41949,7 +41953,6 @@ vec4 positionFromTangent( const in vec3 center,
   return c4;
 }
 
-#define MANUAL_TEXTURE_BILINEAR 1
 /**
  * Copyright 2020 (c) Felix Palmer
  *
@@ -42221,7 +42224,6 @@ float lengthNormalize( inout vec3 v ) {
   return lengthSquared * rcpLength; // Vector length
 }
 
-#define MANUAL_TEXTURE_BILINEAR 1
 /**
  * Copyright 2020 (c) Felix Palmer
  *
@@ -42802,7 +42804,6 @@ uniform vec4 uImageryUvOffset;
 varying vec4 vUV;
 varying float D;
 
-#define MANUAL_TEXTURE_BILINEAR 1
 /**
  * Copyright 2020 (c) Felix Palmer
  *
@@ -43347,7 +43348,15 @@ const tilepickerUniforms = {
  */
 
 // Update shaders defines
-[ terrainVertex, terrainPickerVertex ].forEach( shader => {
+// TODO also define picker.js shaders here and update defines
+[
+  beaconVertex, lineVertex, markerVertex, /*pickerVertex, raycastVertex,*/
+  terrainVertex, terrainPickerVertex
+].forEach( shader => {
+  if ( !INTERPOLATE_FLOAT ) {
+    shader.define( 'MANUAL_TEXTURE_BILINEAR', '1' );
+  }
+
   shader.define(
     'VIRTUAL_TEXTURE_ARRAY_BLOCKS',
     Math.sqrt( ELEVATION_POOL_SIZE ).toExponential() );
@@ -43553,7 +43562,6 @@ float lengthNormalize( inout vec3 v ) {
   return lengthSquared * rcpLength; // Vector length
 }
 
-#define MANUAL_TEXTURE_BILINEAR 1
 /**
  * Copyright 2020 (c) Felix Palmer
  *
@@ -43855,7 +43863,7 @@ const pickerUniforms = {
 };
 
 ContainerStore$1.listen( ( { canvasHeight, canvasWidth,
- height, width, pixelRatio } ) => {
+  height, width, pixelRatio } ) => {
   pickerUniforms.uViewportCanvasInverse.value.set(
     1.0 / canvasWidth, 1.0 / canvasHeight );
   pickerUniforms.uViewportInverse.value.set( 1.0 / width, 1.0 / height );
@@ -43881,7 +43889,6 @@ uniform vec4 uOffset;
 
 varying vec2 vPosition;
 
-#define MANUAL_TEXTURE_BILINEAR 1
 /**
  * Copyright 2020 (c) Felix Palmer
  *
@@ -44071,8 +44078,8 @@ var picker = {
     var pickerMaterial = new THREE.RawShaderMaterial( {
       name: 'picker',
       uniforms: lodash_min.assign( {},
-      heightUniforms,
-      pickerUniforms
+        heightUniforms,
+        pickerUniforms
       ),
       vertexShader: pickerVertex.value,
       fragmentShader: pickerFragment.value
@@ -44367,7 +44374,7 @@ var lookupFeature = function ( id ) {
  * later by other methods.
  *
  * To explore the different options available when styling
- * the overlays, take a look at the [Overlay Editor]{@link http://www.procedural.eu/js-sdk/overlays.html}
+ * the overlays, take a look at the [Overlay Editor]{@link https://felixpalmer.github.io/procedural-gl-js/docs/overlays.html}
  *
  * @example
  * // Add an overlay and focus on features when clicked
@@ -46896,42 +46903,6 @@ skyBox.init();
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-
-// Picking
-const canvas$2 = renderer.domElement;
-const tilepicker = {
-  data: new Uint8Array( 4 * canvas$2.width * canvas$2.height ),
-  target: new THREE.WebGLRenderTarget( canvas$2.width, canvas$2.height )
-};
-
-function updateSize( { width, height, renderRatio } ) {
-  // Want to scale down so that resulting canvas is 500 pixels
-  let downScale = Math.sqrt( ( width * height ) / 500 );
-  let w = 2 * Math.round( 0.5 * width / downScale );
-  let h = 2 * Math.round( 0.5 * height / downScale );
-  if ( !tilepicker.target ||
-       w !== tilepicker.target.width ||
-       h !== tilepicker.target.height ) {
-    tilepicker.target = new THREE.WebGLRenderTarget( w, h );
-    tilepicker.data = new Uint8Array( 4 * tilepicker.target.width * tilepicker.target.height );
-
-    // Update shaders
-    tilepickerUniforms.uScaling.value.set(
-      0.5 * w, 0.5 * h, // Location of center pixel
-      256 / ( renderRatio * downScale ) // Scaling factor for uv error to compensate downScale
-    );
-  }
-}
-
-ContainerStore$1.listen( updateSize );
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
 class MapTileGeometry {
   constructor( dimensions, segments ) {
     let position = [ 0, 0 ];
@@ -47335,6 +47306,42 @@ while ( segments >= 1 ) {
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+// Picking
+const canvas$2 = renderer.domElement;
+const tilepicker = {
+  data: new Uint8Array( 4 * canvas$2.width * canvas$2.height ),
+  target: new THREE.WebGLRenderTarget( canvas$2.width, canvas$2.height )
+};
+
+function updateSize( { width, height, renderRatio } ) {
+  // Want to scale down so that resulting canvas is 500 pixels
+  let downScale = Math.sqrt( ( width * height ) / 500 );
+  let w = 2 * Math.round( 0.5 * width / downScale );
+  let h = 2 * Math.round( 0.5 * height / downScale );
+  if ( !tilepicker.target ||
+       w !== tilepicker.target.width ||
+       h !== tilepicker.target.height ) {
+    tilepicker.target = new THREE.WebGLRenderTarget( w, h );
+    tilepicker.data = new Uint8Array( 4 * tilepicker.target.width * tilepicker.target.height );
+
+    // Update shaders
+    tilepickerUniforms.uScaling.value.set(
+      0.5 * w, 0.5 * h, // Location of center pixel
+      256 / ( renderRatio * downScale ) // Scaling factor for uv error to compensate downScale
+    );
+  }
+}
+
+ContainerStore$1.listen( updateSize );
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 let x, y, z;
 const baseZ = 7;
 const tileDelta = new THREE.Vector2();
@@ -47523,7 +47530,7 @@ function draw() {
       debugClick = null;
     }
 
-    let pixel = {}, pl = tilepicker.data.length;
+    let pl = tilepicker.data.length;
     for ( p = 0; p < pl; p += 4 ) {
       pickedTile = 256 * tilepicker.data[ p ] + tilepicker.data[ p + 1 ];
       terrainError = ( tilepicker.data[ p + 3 ] / 255 ); // range 0-1
@@ -48332,7 +48339,8 @@ app.init();
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-console.log( 'Procedural v' + '1.0.0' );
+/*global '1.0.2'*/
+console.log( 'Procedural v' + '1.0.2' );
 
 // Re-export public API
 const Procedural$9 = {

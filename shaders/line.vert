@@ -24,7 +24,6 @@ varying vec4 vColor;
 varying float vAlpha;
 
 #include positionFromTangent.glsl
-#define MANUAL_TEXTURE_BILINEAR 1
 #include getHeight.glsl
 
 void main() {

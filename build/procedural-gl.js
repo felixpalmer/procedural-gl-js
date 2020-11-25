@@ -416,7 +416,7 @@
 	 * the Procedural engine into their web pages. To use this library
 	 * include a script tag on your page like so:
 	 * <pre>&lt;script
-	 *   src="https://planet.procedural.eu/procedural-js/latest/procedural.js"&gt;
+	 *   src="https://unpkg.com/procedural-gl/build/procedural-gl.js"&gt;
 	 * &lt;/script&gt;
 	 * </pre>
 	 * This will create a <tt>Procedural</tt> object that your JavaScript code
@@ -466,6 +466,7 @@
 	    console.error( 'Error: tried to init Procedural API with invalid container' );
 	    return;
 	  }
+
 	  if ( datasource === undefined || datasource === null ) {
 	    console.error( 'Error: tried to init Procedural API without datasource definition' );
 	    return;
@@ -476,6 +477,7 @@
 	    console.error( 'Error: elevation datasource configuration is invalid' );
 	    return;
 	  }
+
 	  if ( imagery === undefined || imagery.urlFormat === undefined ) {
 	    console.error( 'Error: imagery datasource configuration is invalid' );
 	    return;
@@ -626,7 +628,7 @@
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
 	var template = {
-	  "env" : {
+	  "env": {
 	    "turbidity": 2.928118393234672,
 	    "reileigh": 0.631430584918957,
 	    "mieCoefficient": 0.006765327695560254,
@@ -34260,6 +34262,32 @@
 	 * License, v. 2.0. If a copy of the MPL was not distributed with this
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
+	let params = new URLSearchParams( window.location.search.slice( 1 ) );
+
+	// TODO could support non-square POT textures also
+	let elevationPoolSize = 4 * 4;
+	let imageryPoolSize = 16 * 16;
+	if ( params.has( 'elevationPoolSize' ) ) {
+	  elevationPoolSize = Number.parseInt( params.get( 'elevationPoolSize' ) );
+	}
+
+	if ( params.has( 'imageryPoolSize' ) ) {
+	  imageryPoolSize = Number.parseInt( params.get( 'imageryPoolSize' ) );
+	}
+
+	const ELEVATION_POOL_SIZE = elevationPoolSize;
+	const ELEVATION_TILE_SIZE = 512;
+	const IMAGERY_POOL_SIZE = imageryPoolSize;
+	const IMAGERY_TILE_SIZE = 256;
+	const INTERPOLATE_FLOAT = params.has( 'interpolateFloat' );
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
 	var renderer = new THREE.WebGLRenderer( {
 	  alpha: true,
 	  antialias: false,
@@ -34363,31 +34391,6 @@
 	 * License, v. 2.0. If a copy of the MPL was not distributed with this
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
-	let params = new URLSearchParams( window.location.search.slice( 1 ) );
-
-	// TODO could support non-square POT textures also
-	let elevationPoolSize = 4 * 4;
-	let imageryPoolSize = 16 * 16;
-	if ( params.has( 'elevationPoolSize' ) ) {
-	  elevationPoolSize = Number.parseInt( params.get( 'elevationPoolSize' ) );
-	}
-
-	if ( params.has( 'imageryPoolSize' ) ) {
-	  imageryPoolSize = Number.parseInt( params.get( 'imageryPoolSize' ) );
-	}
-
-	const ELEVATION_POOL_SIZE = elevationPoolSize;
-	const ELEVATION_TILE_SIZE = 512;
-	const IMAGERY_POOL_SIZE = imageryPoolSize;
-	const IMAGERY_TILE_SIZE = 256;
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
 
 	const canvas$1 = document.createElement( 'canvas' );
 	const width = ELEVATION_TILE_SIZE;
@@ -34465,6 +34468,9 @@
 
 	    let virtualTextureSize = textureSize * n;
 
+	    const TextureFilter = ( this.useFloat && !INTERPOLATE_FLOAT ) ?
+	      THREE.NearestFilter : THREE.LinearFilter;
+
 	    this.textureArray = new THREE.DataTexture( null,
 	      virtualTextureSize, virtualTextureSize,
 	      // RGB seems to run *slower* than RGBA on iOS
@@ -34473,8 +34479,7 @@
 	      this.useFloat ? THREE.FloatType : THREE.UnsignedByteType,
 	      THREE.UVMapping,
 	      THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping,
-	      this.useFloat ? THREE.NearestFilter : THREE.LinearFilter,
-	      this.useFloat ? THREE.NearestFilter : THREE.LinearFilter,
+	      TextureFilter, TextureFilter,
 	      //THREE.LinearFilter, THREE.LinearFilter,
 	      //THREE.NearestFilter, THREE.NearestFilter,
 	      renderer.capabilities.getMaxAnisotropy()
@@ -34843,8 +34848,6 @@
 	var beaconVertex = new Shader(`uniform mat4 modelMatrix;uniform mat4 viewMatrix;uniform mat4 projectionMatrix;uniform vec3 cameraPosition;attribute vec3 position;attribute vec3 normal;uniform float uAccuracy;varying vec3 vPosition;varying vec3 vCenter;varying float vRingRadius;
 #define BEACON_RADIUS 50.0
 float a(float b){return clamp(b,0.0,1.0);}vec2 a(vec2 b){return clamp(b,0.0,1.0);}vec3 a(vec3 b){return clamp(b,0.0,1.0);}vec4 a(vec4 b){return clamp(b,0.0,1.0);}
-#define MANUAL_TEXTURE_BILINEAR 1
-
 #define VIRTUAL_TEXTURE_ARRAY_BLOCKS 4.0
 
 #define VIRTUAL_TEXTURE_ARRAY_SIZE 512.0
@@ -38519,8 +38522,6 @@ const vec3 a=vec3(0.299,0.587,0.114);const vec2 b=vec2(FXAA_SPAN_MAX);void main(
 	} );
 
 	var lineVertex = new Shader(`precision highp float;uniform mat4 viewMatrix;uniform mat4 projectionMatrix;uniform vec3 cameraPosition;attribute vec3 tag;attribute vec4 tangent;attribute vec3 position;attribute vec4 color;uniform float uThickness;uniform vec3 uSelectedTag;varying vec4 vColor;varying float vAlpha;uniform vec2 uViewportInverse;vec4 a(const in vec3 b,const in float c){vec4 d=vec4(b,1.0);vec4 e=projectionMatrix*viewMatrix*d;d.xyz+=tangent.xyz;vec4 f=projectionMatrix*viewMatrix*d;vec2 g=f.xy/f.w-e.xy/e.w;vec2 h=g.yx*vec2(1.0,-1.0);h=c*e.w*normalize(h)*uViewportInverse;e.xy+=h;return e;}
-#define MANUAL_TEXTURE_BILINEAR 1
-
 #define VIRTUAL_TEXTURE_ARRAY_BLOCKS 4.0
 
 #define VIRTUAL_TEXTURE_ARRAY_SIZE 512.0
@@ -38563,8 +38564,6 @@ return texture2D(v,A);
 uniform sampler2D uDepth;
 #endif
 attribute vec2 position;attribute vec4 anchor;attribute vec4 atlas;attribute vec4 background;attribute vec4 clipping;attribute vec4 color;attribute vec3 layout;attribute vec4 normal;attribute vec4 offset;attribute vec4 tag;varying vec4 vUv;varying vec4 vBox;varying vec4 vBackground;varying vec4 vColor;varying float vReadDepth;varying vec3 vLayout;float a(inout vec3 b){float c=dot(b,b);float d=inversesqrt(c);b=d*b;return c*d;}
-#define MANUAL_TEXTURE_BILINEAR 1
-
 #define VIRTUAL_TEXTURE_ARRAY_BLOCKS 4.0
 
 #define VIRTUAL_TEXTURE_ARRAY_SIZE 512.0
@@ -38679,8 +38678,6 @@ vec3 m=0.04*(x+y)+vec3(0.0,0.0003,0.00075);m=l(tonemapScale*m);return a(m,vec3(g
 	} );
 
 	var terrainVertex = new Shader(`precision highp float;uniform mat4 viewMatrix;uniform mat4 projectionMatrix;uniform vec3 cameraPosition;attribute vec4 position;uniform vec4 uOffset;uniform vec4 uImageryUvOffset;varying vec4 vUV;varying float D;
-#define MANUAL_TEXTURE_BILINEAR 1
-
 #define VIRTUAL_TEXTURE_ARRAY_BLOCKS 4.0
 
 #define VIRTUAL_TEXTURE_ARRAY_SIZE 512.0
@@ -38769,7 +38766,15 @@ precision highp float;uniform vec3 uScaling;varying vec4 vUV;void main(){vec2 a=
 	 */
 
 	// Update shaders defines
-	[ terrainVertex, terrainPickerVertex ].forEach( shader => {
+	// TODO also define picker.js shaders here and update defines
+	[
+	  beaconVertex, lineVertex, markerVertex, /*pickerVertex, raycastVertex,*/
+	  terrainVertex, terrainPickerVertex
+	].forEach( shader => {
+	  if ( !INTERPOLATE_FLOAT ) {
+	    shader.define( 'MANUAL_TEXTURE_BILINEAR', '1' );
+	  }
+
 	  shader.define(
 	    'VIRTUAL_TEXTURE_ARRAY_BLOCKS',
 	    Math.sqrt( ELEVATION_POOL_SIZE ).toExponential() );
@@ -38912,8 +38917,6 @@ precision highp float;uniform vec3 uScaling;varying vec4 vUV;void main(){vec2 a=
 	} );
 
 	var pickerVertex = new Shader(`uniform mat4 viewMatrix;uniform mat4 projectionMatrix;uniform vec3 cameraPosition;uniform float uPixelRatio;uniform vec2 uViewportCanvasInverse;attribute vec3 tag;attribute vec3 position;attribute vec3 tangent;attribute vec4 atlas;attribute vec4 anchor;attribute vec4 clipping;attribute vec3 layout;attribute vec4 normal;attribute vec4 offset;varying vec4 vTag;float a(inout vec3 b){float c=dot(b,b);float d=inversesqrt(c);b=d*b;return c*d;}
-#define MANUAL_TEXTURE_BILINEAR 1
-
 #define VIRTUAL_TEXTURE_ARRAY_BLOCKS 4.0
 
 #define VIRTUAL_TEXTURE_ARRAY_SIZE 512.0
@@ -38958,7 +38961,7 @@ bg.xy=bh*floor(bg.xy/bh);vec2 bl=0.5*bh*be;bg.xy+=bh*(0.5*anchor.xy*be+anchor.zw
 	};
 
 	ContainerStore$1.listen( ( { canvasHeight, canvasWidth,
-	 height, width, pixelRatio } ) => {
+	  height, width, pixelRatio } ) => {
 	  pickerUniforms.uViewportCanvasInverse.value.set(
 	    1.0 / canvasWidth, 1.0 / canvasHeight );
 	  pickerUniforms.uViewportInverse.value.set( 1.0 / width, 1.0 / height );
@@ -38966,8 +38969,6 @@ bg.xy=bh*floor(bg.xy/bh);vec2 bl=0.5*bh*be;bg.xy+=bh*(0.5*anchor.xy*be+anchor.zw
 	} );
 
 	var raycastVertex = new Shader(`precision highp float;uniform mat4 viewMatrix;uniform mat4 projectionMatrix;attribute vec4 position;uniform vec4 uOffset;varying vec2 vPosition;
-#define MANUAL_TEXTURE_BILINEAR 1
-
 #define VIRTUAL_TEXTURE_ARRAY_BLOCKS 4.0
 
 #define VIRTUAL_TEXTURE_ARRAY_SIZE 512.0
@@ -39015,8 +39016,8 @@ return texture2D(n,s);
 	    var pickerMaterial = new THREE.RawShaderMaterial( {
 	      name: 'picker',
 	      uniforms: lodash_min.assign( {},
-	      heightUniforms,
-	      pickerUniforms
+	        heightUniforms,
+	        pickerUniforms
 	      ),
 	      vertexShader: pickerVertex.value,
 	      fragmentShader: pickerFragment.value
@@ -39311,7 +39312,7 @@ return texture2D(n,s);
 	 * later by other methods.
 	 *
 	 * To explore the different options available when styling
-	 * the overlays, take a look at the [Overlay Editor]{@link http://www.procedural.eu/js-sdk/overlays.html}
+	 * the overlays, take a look at the [Overlay Editor]{@link https://felixpalmer.github.io/procedural-gl-js/docs/overlays.html}
 	 *
 	 * @example
 	 * // Add an overlay and focus on features when clicked
@@ -41868,42 +41869,6 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	 * License, v. 2.0. If a copy of the MPL was not distributed with this
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
-
-	// Picking
-	const canvas$2 = renderer.domElement;
-	const tilepicker = {
-	  data: new Uint8Array( 4 * canvas$2.width * canvas$2.height ),
-	  target: new THREE.WebGLRenderTarget( canvas$2.width, canvas$2.height )
-	};
-
-	function updateSize( { width, height, renderRatio } ) {
-	  // Want to scale down so that resulting canvas is 500 pixels
-	  let downScale = Math.sqrt( ( width * height ) / 500 );
-	  let w = 2 * Math.round( 0.5 * width / downScale );
-	  let h = 2 * Math.round( 0.5 * height / downScale );
-	  if ( !tilepicker.target ||
-	       w !== tilepicker.target.width ||
-	       h !== tilepicker.target.height ) {
-	    tilepicker.target = new THREE.WebGLRenderTarget( w, h );
-	    tilepicker.data = new Uint8Array( 4 * tilepicker.target.width * tilepicker.target.height );
-
-	    // Update shaders
-	    tilepickerUniforms.uScaling.value.set(
-	      0.5 * w, 0.5 * h, // Location of center pixel
-	      256 / ( renderRatio * downScale ) // Scaling factor for uv error to compensate downScale
-	    );
-	  }
-	}
-
-	ContainerStore$1.listen( updateSize );
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
 	class MapTileGeometry {
 	  constructor( dimensions, segments ) {
 	    let position = [ 0, 0 ];
@@ -42296,6 +42261,42 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	  Tile.geometry[ segments ] = bufferGeometry;
 	  segments /= 2;
 	}
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+
+	// Picking
+	const canvas$2 = renderer.domElement;
+	const tilepicker = {
+	  data: new Uint8Array( 4 * canvas$2.width * canvas$2.height ),
+	  target: new THREE.WebGLRenderTarget( canvas$2.width, canvas$2.height )
+	};
+
+	function updateSize( { width, height, renderRatio } ) {
+	  // Want to scale down so that resulting canvas is 500 pixels
+	  let downScale = Math.sqrt( ( width * height ) / 500 );
+	  let w = 2 * Math.round( 0.5 * width / downScale );
+	  let h = 2 * Math.round( 0.5 * height / downScale );
+	  if ( !tilepicker.target ||
+	       w !== tilepicker.target.width ||
+	       h !== tilepicker.target.height ) {
+	    tilepicker.target = new THREE.WebGLRenderTarget( w, h );
+	    tilepicker.data = new Uint8Array( 4 * tilepicker.target.width * tilepicker.target.height );
+
+	    // Update shaders
+	    tilepickerUniforms.uScaling.value.set(
+	      0.5 * w, 0.5 * h, // Location of center pixel
+	      256 / ( renderRatio * downScale ) // Scaling factor for uv error to compensate downScale
+	    );
+	  }
+	}
+
+	ContainerStore$1.listen( updateSize );
 
 	/**
 	 * Copyright 2020 (c) Felix Palmer
@@ -43189,7 +43190,8 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	 * License, v. 2.0. If a copy of the MPL was not distributed with this
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
-	console.log( 'Procedural v' + '1.0.0' );
+	/*global '1.0.2'*/
+	console.log( 'Procedural v' + '1.0.2' );
 
 	// Re-export public API
 	const Procedural$9 = {

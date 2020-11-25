@@ -7,15 +7,15 @@
  */
 'use strict';
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+function _interopDefault( ex ) { return ( ex && ( typeof ex === 'object' ) && 'default' in ex ) ? ex[ 'default' ] : ex }
 
-const { readFileSync } = require('fs');
-const { dirname } = require('path');
-var rollupPluginutils = require('rollup-pluginutils');
-var MagicString = _interopDefault(require('magic-string'));
+const { readFileSync } = require( 'fs' );
+const { dirname } = require( 'path' );
+var rollupPluginutils = require( 'rollup-pluginutils' );
+var MagicString = _interopDefault( require( 'magic-string' ) );
 
 // Loads #includes into passed shader
-function loadIncludes ( source, id ) {
+function loadIncludes( source, id ) {
   // First, search for any include statements
   var matches = [];
   source.replace( /#include (.*)/g, function ( match, includeFile ) {
@@ -28,7 +28,7 @@ function loadIncludes ( source, id ) {
     var includeFile = matches[ m ];
     var includeShader = readFileSync(
       `${pathName}/${includeFile}`, { encoding: 'utf8' } );
-    var regexp = new RegExp("#include " + includeFile, "g");
+    var regexp = new RegExp( "#include " + includeFile, "g" );
     source = source.replace( regexp, includeShader );
   }
 
@@ -36,7 +36,7 @@ function loadIncludes ( source, id ) {
 }
 
 // Plugin to load shader files and return them wrapped in Shader class
-function shader(options) {
+function shader( options ) {
   if ( options === void 0 ) options = {};
 
   var filter = rollupPluginutils.createFilter(
@@ -51,14 +51,14 @@ function shader(options) {
       // TODO perhaps could be nice to sourcemap this also?
       source = loadIncludes( source, id );
 
-      var s = new MagicString( source.replace( /`/g, '\\`') );
+      var s = new MagicString( source.replace( /`/g, '\\`' ) );
       s.prepend( 'import Shader from "/utils/shader"; export default new Shader(`' )
-      .append( '`);' );
+        .append( '`);' );
       var code = s.toString();
 
-      var result = { code }
-      result.map = s.generateMap( { hires: true } )
-      return result
+      var result = { code };
+      result.map = s.generateMap( { hires: true } );
+      return result;
     }
   };
 }

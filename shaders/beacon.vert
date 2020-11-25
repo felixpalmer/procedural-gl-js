@@ -24,7 +24,6 @@ varying float vRingRadius; // Radius to draw inner ring at
 #define BEACON_RADIUS 50.0
 
 #include saturate.glsl
-#define MANUAL_TEXTURE_BILINEAR 1
 #include getHeight.glsl
 
 void main() {

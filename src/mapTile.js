@@ -10,7 +10,6 @@ import tilebelt from "@mapbox/tilebelt";
 
 import material from '/material';
 import scene from '/scene';
-import tilepicker from '/tilepicker';
 import MapTileGeometry from "/geometry/mapTile";
 
 import ImageryDatasource from '/datasources/imagery';

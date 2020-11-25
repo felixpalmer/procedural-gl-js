@@ -20,7 +20,6 @@ import '/skyBox';
 import '/terrain';
 
 import picker from '/picker';
-import RenderActions from '/actions/render';
 import UserActions from '/actions/user';
 import UserInputStore from '/stores/userInput';
 var container = ContainerStore.getState().element;

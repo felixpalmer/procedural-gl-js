@@ -14,7 +14,8 @@ import beaconFragment from 'shader/beacon.frag';
 import Color from '/patched/Color';
 import {
   ELEVATION_POOL_SIZE, ELEVATION_TILE_SIZE,
-  IMAGERY_POOL_SIZE, IMAGERY_TILE_SIZE } from "/constants";
+  IMAGERY_POOL_SIZE, IMAGERY_TILE_SIZE,
+  INTERPOLATE_FLOAT } from "/constants";
 import depthUniforms from '/uniforms/depth';
 import fogUniforms from '/uniforms/fog';
 import heightUniforms from '/uniforms/height';
@@ -38,7 +39,15 @@ import tonemapUniforms from '/uniforms/tonemap';
 import webgl from '/webgl';
 
 // Update shaders defines
-[ terrainVertex, terrainPickerVertex ].forEach( shader => {
+// TODO also define picker.js shaders here and update defines
+[
+  beaconVertex, lineVertex, markerVertex, /*pickerVertex, raycastVertex,*/
+  terrainVertex, terrainPickerVertex
+].forEach( shader => {
+  if ( !INTERPOLATE_FLOAT ) {
+    shader.define( 'MANUAL_TEXTURE_BILINEAR', '1' );
+  }
+
   shader.define(
     'VIRTUAL_TEXTURE_ARRAY_BLOCKS',
     Math.sqrt( ELEVATION_POOL_SIZE ).toExponential() );

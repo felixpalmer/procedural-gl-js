@@ -22,3 +22,4 @@ export const ELEVATION_POOL_SIZE = elevationPoolSize;
 export const ELEVATION_TILE_SIZE = 512;
 export const IMAGERY_POOL_SIZE = imageryPoolSize;
 export const IMAGERY_TILE_SIZE = 256;
+export const INTERPOLATE_FLOAT = params.has( 'interpolateFloat' );
