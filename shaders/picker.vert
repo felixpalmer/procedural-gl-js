@@ -46,7 +46,6 @@ attribute vec4 offset; // (xyz: offset, w: fadeDistance)
 varying vec4 vTag;
 
 #include lengthNormalize.glsl
-#define MANUAL_TEXTURE_BILINEAR 1
 #include getHeight.glsl
 
 #define TUBE_RADIUS 20.0

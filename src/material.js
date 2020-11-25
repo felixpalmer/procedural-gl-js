@@ -38,7 +38,12 @@ import tonemapUniforms from '/uniforms/tonemap';
 import webgl from '/webgl';
 
 // Update shaders defines
-[ terrainVertex, terrainPickerVertex ].forEach( shader => {
+// TODO also define picker.js shaders here and update defines
+[
+  beaconVertex, lineVertex, markerVertex, /*pickerVertex, raycastVertex,*/
+  terrainVertex, terrainPickerVertex
+].forEach( shader => {
+  shader.define( 'MANUAL_TEXTURE_BILINEAR', '1' );
   shader.define(
     'VIRTUAL_TEXTURE_ARRAY_BLOCKS',
     Math.sqrt( ELEVATION_POOL_SIZE ).toExponential() );

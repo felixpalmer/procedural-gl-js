@@ -20,7 +20,6 @@ uniform vec4 uImageryUvOffset;
 varying vec4 vUV;
 varying float D;
 
-#define MANUAL_TEXTURE_BILINEAR 1
 #include getHeight.glsl
 
 void main() {

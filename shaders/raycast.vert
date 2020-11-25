@@ -17,7 +17,6 @@ uniform vec4 uOffset;
 
 varying vec2 vPosition;
 
-#define MANUAL_TEXTURE_BILINEAR 1
 #include getHeight.glsl
 
 // TODO, not yet working, but shader should look something like this
