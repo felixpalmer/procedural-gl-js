@@ -97,8 +97,7 @@ class BaseDatasource {
 
     // Actually fetch data
     let url = this.urlForTile( ...tilebelt.quadkeyToTile( quadkey ) );
-    ImageLoader.load( url )
-      .then( ( image ) => {
+    ImageLoader.load( url, ( image ) => {
       // Image loaded OK
         this.imgCache[ quadkey ] = image;
         insertIntoTextureArray( this.textureArray, newIndex, image );
