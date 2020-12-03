@@ -66,7 +66,7 @@ class BaseDatasource {
         THREE.UVMapping,
         THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping,
         THREE.NearestFilter, THREE.NearestFilter,
-        renderer.capabilities.getMaxAnisotropy()
+        1 // anisotropy
       );
     }
   }
