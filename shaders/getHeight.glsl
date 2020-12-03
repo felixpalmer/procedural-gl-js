@@ -39,8 +39,8 @@ float getHeight( in vec2 p ) {
   // Get tile coord (at z = 10), currently we are at z = 15
   const float zoomScale = 32.0; // pow( 2, 15 - 10 )
   const float indirectionSize = 1024.0;
-  //vec2 tile = p.xy;
-  vec2 tile = p.xy - uGlobalOffset;
+  vec2 tile = p.xy;
+  //vec2 tile = p.xy - uGlobalOffset;
   tile /= ( uSceneScale * zoomScale );
   tile *= vec2( 1.0, -1.0 );
 
@@ -65,5 +65,9 @@ float getHeight( in vec2 p ) {
   vec2 scaledUv = indirectionUv * tileSize + tileOrigin;
 
   // Finally read out height, and unpack to single float
-  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;// [debug] * step( fract( 512.0 * scaledUv.x ), 0.5 ); // (256 steps, 512 none)
+  //return 1000.0 * sin( 25.0 * scaledUv.x ); // Broken
+  //return 1000.0 * sin( 25.0 * tileSize * indirectionUv.x ); // Broken
+  return 1000.0 * sin( 25.0 * 1024.0 * indirectionUv.x + tileOrigin.x ); // Broken
+  //return 1000.0 * sin( 25.0 * 1024.0 * indirectionUv.x ); // OK
+  //return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;// [debug] * step( fract( 512.0 * scaledUv.x ), 0.5 ); // (256 steps, 512 none)
 }
