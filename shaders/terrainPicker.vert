@@ -27,13 +27,13 @@ void main() {
   vec4 p = vec4( position.xy, 0.0, 1.0 );
   p.xy *= uOffset.z; // Scale
   p.xy += uOffset.xy; // Shift
-  p.xy += uGlobalOffset;
 
   // Extract the height (for skirting from the uv)
   vec2 skirt = 10.0 * floor( position.zw / 10.0 );
   vec2 uv = position.zw - skirt;
 
   p.z = getHeight( p.xy );
+  p.xy += uGlobalOffset;
 
   // Pull down skirt vertices
   p.z -= 0.01 * uOffset.z * skirt.x;
