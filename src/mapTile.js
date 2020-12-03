@@ -104,10 +104,10 @@ class Tile {
     let minH = -200, maxH = 4000; // Guess terrain height
     const { globalOffset } = GeoprojectStore.getState();
     let center = new THREE.Vector3(
-      this.offset.x + 0.5 * this.offset.z + globalOffset.x,
-      this.offset.y - 0.5 * this.offset.z + globalOffset.y,
-      //this.offset.x + 0.5 * this.offset.z,
-      //this.offset.y - 0.5 * this.offset.z,
+      //this.offset.x + 0.5 * this.offset.z + globalOffset.x,
+      //this.offset.y - 0.5 * this.offset.z + globalOffset.y,
+      this.offset.x + 0.5 * this.offset.z,
+      this.offset.y - 0.5 * this.offset.z,
       this.offset.w * 0.5 * ( minH + maxH )
     );
     // Radius could be calculated more exactly, assume max
@@ -127,10 +127,10 @@ class Tile {
     const { sceneScale, globalOffset } = GeoprojectStore.getState();
     let scale = Math.pow( 2, 15 - this.z ) * sceneScale;
     this.offset.set(
-      this.x * scale,// + globalOffset.x,
-      -this.y * scale,// + globalOffset.y,
-      //this.x * scale + globalOffset.x,
-      //-this.y * scale + globalOffset.y,
+      //this.x * scale,// + globalOffset.x,
+      //-this.y * scale,// + globalOffset.y,
+      this.x * scale + globalOffset.x,
+      -this.y * scale + globalOffset.y,
       scale,
       this.id ); // Put id here to avoid another uniform
   }

@@ -33,7 +33,6 @@ void main() {
   vec2 uv = position.zw - skirt;
 
   p.z = getHeight( p.xy );
-  p.xy += uGlobalOffset;
 
   // Pull down skirt vertices
   p.z -= 0.01 * uOffset.z * skirt.x;
