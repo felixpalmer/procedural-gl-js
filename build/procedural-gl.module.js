@@ -24405,6 +24405,7 @@ function WebGLRenderer( parameters ) {
 
 		_gl.pixelStorei( 37440, dstTexture.flipY );
 		_gl.pixelStorei( 37441, dstTexture.premultiplyAlpha );
+		_gl.pixelStorei( 3317, dstTexture.unpackAlignment );
 		if ( srcTexture.isDataTexture ) {
 
 			_gl.texSubImage2D( 3553, level || 0, position.x, position.y, width, height, glFormat, glType, srcTexture.image.data );
@@ -35961,7 +35962,7 @@ var ContainerStore$1 = alt.createStore( ContainerStore );
 var camera = new THREE.PerspectiveCamera(
   45, // fov
   1, // aspect
-  25, // near
+  250, // near
   2500000 // far
 );
 
@@ -38224,27 +38225,8 @@ class IntegerPool {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-class ImageLoader$1 {
-  load( url ) {
-    return new Promise( ( resolve, reject ) => {
-      let image = new Image();
-      image.onload = () => {
-        resolve( image );
-        image.onload = null;
-        image.onerror = null;
-      };
-
-      image.onerror = ( e ) => {
-        reject( e );
-        image.onload = null;
-        image.onerror = null;
-      };
-
-      image.crossOrigin = 'Anonymous';
-      image.src = url;
-    } );
-  }
-}
+const ImageLoader$1 = ( typeof createImageBitmap === 'undefined' ) ?
+  THREE.ImageLoader : THREE.ImageBitmapLoader;
 
 var ImageLoader$2 = new ImageLoader$1();
 
@@ -38362,7 +38344,7 @@ class BaseDatasource {
         THREE.UVMapping,
         THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping,
         THREE.NearestFilter, THREE.NearestFilter,
-        renderer.capabilities.getMaxAnisotropy()
+        1 // anisotropy
       );
     }
   }
@@ -38393,8 +38375,7 @@ class BaseDatasource {
 
     // Actually fetch data
     let url = this.urlForTile( ...tilebelt.quadkeyToTile( quadkey ) );
-    ImageLoader$2.load( url )
-      .then( ( image ) => {
+    ImageLoader$2.load( url, ( image ) => {
       // Image loaded OK
         this.imgCache[ quadkey ] = image;
         insertIntoTextureArray( this.textureArray, newIndex, image );
@@ -38545,7 +38526,10 @@ class BaseDatasource {
 
     const q = tilebelt.tileToQuadkey( tile );
     const { quadkey } = this.findBestAvailableData( q );
-    if ( !quadkey ) { return null }
+
+    // If we have no data, return 0 so at least something is
+    // displayed
+    if ( !quadkey ) { return [128,0] }
 
     // Convert to zoom level at which we have data
     const scale = Math.pow( 2, quadkey.length - tile[ 2 ] );
@@ -40396,8 +40380,16 @@ float getHeight( in vec2 p ) {
   tile /= ( uSceneScale * zoomScale );
   tile *= vec2( 1.0, -1.0 );
 
+  // Unsnapped uv will be used below for secondary lookup
   vec2 indirectionUv = tile / indirectionSize;
-  vec4 indirection = texture2D( indirectionTexture, indirectionUv );
+
+  // Snap as on Windows/ANGLE Nearest filtering is not respected
+  const vec2 halfTexel = vec2( 0.5 );
+  vec2 snapped = ( floor( tile - halfTexel ) + halfTexel );
+  snapped += step( halfTexel, tile - snapped );
+  vec2 indirectionUvRounded = snapped / indirectionSize;
+
+  vec4 indirection = texture2D( indirectionTexture, indirectionUvRounded );
 
   // Update index from indirection
   float index = indirection.r;
@@ -40417,7 +40409,7 @@ float getHeight( in vec2 p ) {
   vec2 scaledUv = indirectionUv * tileSize + tileOrigin;
 
   // Finally read out height, and unpack to single float
-  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;// [debug] * step( fract( 512.0 * scaledUv.x ), 0.5 ); // (256 steps, 512 none)
+  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;
 }
 
 
@@ -42059,8 +42051,16 @@ float getHeight( in vec2 p ) {
   tile /= ( uSceneScale * zoomScale );
   tile *= vec2( 1.0, -1.0 );
 
+  // Unsnapped uv will be used below for secondary lookup
   vec2 indirectionUv = tile / indirectionSize;
-  vec4 indirection = texture2D( indirectionTexture, indirectionUv );
+
+  // Snap as on Windows/ANGLE Nearest filtering is not respected
+  const vec2 halfTexel = vec2( 0.5 );
+  vec2 snapped = ( floor( tile - halfTexel ) + halfTexel );
+  snapped += step( halfTexel, tile - snapped );
+  vec2 indirectionUvRounded = snapped / indirectionSize;
+
+  vec4 indirection = texture2D( indirectionTexture, indirectionUvRounded );
 
   // Update index from indirection
   float index = indirection.r;
@@ -42080,7 +42080,7 @@ float getHeight( in vec2 p ) {
   vec2 scaledUv = indirectionUv * tileSize + tileOrigin;
 
   // Finally read out height, and unpack to single float
-  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;// [debug] * step( fract( 512.0 * scaledUv.x ), 0.5 ); // (256 steps, 512 none)
+  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;
 }
 
 
@@ -42330,8 +42330,16 @@ float getHeight( in vec2 p ) {
   tile /= ( uSceneScale * zoomScale );
   tile *= vec2( 1.0, -1.0 );
 
+  // Unsnapped uv will be used below for secondary lookup
   vec2 indirectionUv = tile / indirectionSize;
-  vec4 indirection = texture2D( indirectionTexture, indirectionUv );
+
+  // Snap as on Windows/ANGLE Nearest filtering is not respected
+  const vec2 halfTexel = vec2( 0.5 );
+  vec2 snapped = ( floor( tile - halfTexel ) + halfTexel );
+  snapped += step( halfTexel, tile - snapped );
+  vec2 indirectionUvRounded = snapped / indirectionSize;
+
+  vec4 indirection = texture2D( indirectionTexture, indirectionUvRounded );
 
   // Update index from indirection
   float index = indirection.r;
@@ -42351,7 +42359,7 @@ float getHeight( in vec2 p ) {
   vec2 scaledUv = indirectionUv * tileSize + tileOrigin;
 
   // Finally read out height, and unpack to single float
-  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;// [debug] * step( fract( 512.0 * scaledUv.x ), 0.5 ); // (256 steps, 512 none)
+  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;
 }
 
 
@@ -42910,8 +42918,16 @@ float getHeight( in vec2 p ) {
   tile /= ( uSceneScale * zoomScale );
   tile *= vec2( 1.0, -1.0 );
 
+  // Unsnapped uv will be used below for secondary lookup
   vec2 indirectionUv = tile / indirectionSize;
-  vec4 indirection = texture2D( indirectionTexture, indirectionUv );
+
+  // Snap as on Windows/ANGLE Nearest filtering is not respected
+  const vec2 halfTexel = vec2( 0.5 );
+  vec2 snapped = ( floor( tile - halfTexel ) + halfTexel );
+  snapped += step( halfTexel, tile - snapped );
+  vec2 indirectionUvRounded = snapped / indirectionSize;
+
+  vec4 indirection = texture2D( indirectionTexture, indirectionUvRounded );
 
   // Update index from indirection
   float index = indirection.r;
@@ -42931,7 +42947,7 @@ float getHeight( in vec2 p ) {
   vec2 scaledUv = indirectionUv * tileSize + tileOrigin;
 
   // Finally read out height, and unpack to single float
-  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;// [debug] * step( fract( 512.0 * scaledUv.x ), 0.5 ); // (256 steps, 512 none)
+  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;
 }
 
 
@@ -43226,8 +43242,16 @@ float getHeight( in vec2 p ) {
   tile /= ( uSceneScale * zoomScale );
   tile *= vec2( 1.0, -1.0 );
 
+  // Unsnapped uv will be used below for secondary lookup
   vec2 indirectionUv = tile / indirectionSize;
-  vec4 indirection = texture2D( indirectionTexture, indirectionUv );
+
+  // Snap as on Windows/ANGLE Nearest filtering is not respected
+  const vec2 halfTexel = vec2( 0.5 );
+  vec2 snapped = ( floor( tile - halfTexel ) + halfTexel );
+  snapped += step( halfTexel, tile - snapped );
+  vec2 indirectionUvRounded = snapped / indirectionSize;
+
+  vec4 indirection = texture2D( indirectionTexture, indirectionUvRounded );
 
   // Update index from indirection
   float index = indirection.r;
@@ -43247,7 +43271,7 @@ float getHeight( in vec2 p ) {
   vec2 scaledUv = indirectionUv * tileSize + tileOrigin;
 
   // Finally read out height, and unpack to single float
-  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;// [debug] * step( fract( 512.0 * scaledUv.x ), 0.5 ); // (256 steps, 512 none)
+  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;
 }
 
 
@@ -43668,8 +43692,16 @@ float getHeight( in vec2 p ) {
   tile /= ( uSceneScale * zoomScale );
   tile *= vec2( 1.0, -1.0 );
 
+  // Unsnapped uv will be used below for secondary lookup
   vec2 indirectionUv = tile / indirectionSize;
-  vec4 indirection = texture2D( indirectionTexture, indirectionUv );
+
+  // Snap as on Windows/ANGLE Nearest filtering is not respected
+  const vec2 halfTexel = vec2( 0.5 );
+  vec2 snapped = ( floor( tile - halfTexel ) + halfTexel );
+  snapped += step( halfTexel, tile - snapped );
+  vec2 indirectionUvRounded = snapped / indirectionSize;
+
+  vec4 indirection = texture2D( indirectionTexture, indirectionUvRounded );
 
   // Update index from indirection
   float index = indirection.r;
@@ -43689,7 +43721,7 @@ float getHeight( in vec2 p ) {
   vec2 scaledUv = indirectionUv * tileSize + tileOrigin;
 
   // Finally read out height, and unpack to single float
-  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;// [debug] * step( fract( 512.0 * scaledUv.x ), 0.5 ); // (256 steps, 512 none)
+  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;
 }
 
 
@@ -43995,8 +44027,16 @@ float getHeight( in vec2 p ) {
   tile /= ( uSceneScale * zoomScale );
   tile *= vec2( 1.0, -1.0 );
 
+  // Unsnapped uv will be used below for secondary lookup
   vec2 indirectionUv = tile / indirectionSize;
-  vec4 indirection = texture2D( indirectionTexture, indirectionUv );
+
+  // Snap as on Windows/ANGLE Nearest filtering is not respected
+  const vec2 halfTexel = vec2( 0.5 );
+  vec2 snapped = ( floor( tile - halfTexel ) + halfTexel );
+  snapped += step( halfTexel, tile - snapped );
+  vec2 indirectionUvRounded = snapped / indirectionSize;
+
+  vec4 indirection = texture2D( indirectionTexture, indirectionUvRounded );
 
   // Update index from indirection
   float index = indirection.r;
@@ -44016,7 +44056,7 @@ float getHeight( in vec2 p ) {
   vec2 scaledUv = indirectionUv * tileSize + tileOrigin;
 
   // Finally read out height, and unpack to single float
-  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;// [debug] * step( fract( 512.0 * scaledUv.x ), 0.5 ); // (256 steps, 512 none)
+  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;
 }
 
 
@@ -48324,8 +48364,8 @@ var renderApp = function ( state ) {
 AppStore$1.listen( renderApp );
 
 ConfigActions.configureCamera( {
-  minDistance: 300,
-  minHeight: 150,
+  minDistance: 500,
+  minHeight: 250,
   zoomInDuration: 0.8,
   zoomOutDuration: 1
 } );
@@ -48339,8 +48379,8 @@ app.init();
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-/*global '1.0.2'*/
-console.log( 'Procedural v' + '1.0.2' );
+/*global '1.0.3'*/
+console.log( 'Procedural v' + '1.0.3' );
 
 // Re-export public API
 const Procedural$9 = {

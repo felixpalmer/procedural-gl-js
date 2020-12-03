@@ -43,8 +43,16 @@ float getHeight( in vec2 p ) {
   tile /= ( uSceneScale * zoomScale );
   tile *= vec2( 1.0, -1.0 );
 
+  // Unsnapped uv will be used below for secondary lookup
   vec2 indirectionUv = tile / indirectionSize;
-  vec4 indirection = texture2D( indirectionTexture, indirectionUv );
+
+  // Snap as on Windows/ANGLE Nearest filtering is not respected
+  const vec2 halfTexel = vec2( 0.5 );
+  vec2 snapped = ( floor( tile - halfTexel ) + halfTexel );
+  snapped += step( halfTexel, tile - snapped );
+  vec2 indirectionUvRounded = snapped / indirectionSize;
+
+  vec4 indirection = texture2D( indirectionTexture, indirectionUvRounded );
 
   // Update index from indirection
   float index = indirection.r;
@@ -64,5 +72,5 @@ float getHeight( in vec2 p ) {
   vec2 scaledUv = indirectionUv * tileSize + tileOrigin;
 
   // Finally read out height, and unpack to single float
-  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;// [debug] * step( fract( 512.0 * scaledUv.x ), 0.5 ); // (256 steps, 512 none)
+  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;
 }

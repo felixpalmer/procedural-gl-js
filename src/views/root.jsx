@@ -44,8 +44,8 @@ var renderApp = function ( state ) {
 AppStore.listen( renderApp );
 
 ConfigActions.configureCamera( {
-  minDistance: 300,
-  minHeight: 150,
+  minDistance: 500,
+  minHeight: 250,
   zoomInDuration: 0.8,
   zoomOutDuration: 1
 } );
