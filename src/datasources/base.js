@@ -66,7 +66,7 @@ class BaseDatasource {
         THREE.UVMapping,
         THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping,
         THREE.NearestFilter, THREE.NearestFilter,
-        renderer.capabilities.getMaxAnisotropy()
+        1 // anisotropy
       );
     }
   }
@@ -97,8 +97,7 @@ class BaseDatasource {
 
     // Actually fetch data
     let url = this.urlForTile( ...tilebelt.quadkeyToTile( quadkey ) );
-    ImageLoader.load( url )
-      .then( ( image ) => {
+    ImageLoader.load( url, ( image ) => {
       // Image loaded OK
         this.imgCache[ quadkey ] = image;
         insertIntoTextureArray( this.textureArray, newIndex, image );
@@ -249,7 +248,10 @@ class BaseDatasource {
 
     const q = tilebelt.tileToQuadkey( tile );
     const { quadkey } = this.findBestAvailableData( q );
-    if ( !quadkey ) { return null }
+
+    // If we have no data, return 0 so at least something is
+    // displayed
+    if ( !quadkey ) { return [128,0] }
 
     // Convert to zoom level at which we have data
     const scale = Math.pow( 2, quadkey.length - tile[ 2 ] );
