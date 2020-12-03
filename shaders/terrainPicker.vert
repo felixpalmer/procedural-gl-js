@@ -27,6 +27,7 @@ void main() {
   vec4 p = vec4( position.xy, 0.0, 1.0 );
   p.xy *= uOffset.z; // Scale
   p.xy += uOffset.xy; // Shift
+  p.xy += uGlobalOffset;
 
   // Extract the height (for skirting from the uv)
   vec2 skirt = 10.0 * floor( position.zw / 10.0 );
