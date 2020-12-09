@@ -25,7 +25,7 @@ import RenderStore from '/stores/render';
 import ApiUtils from '/utils/api';
 
 let x, y, z;
-const baseZ = 7;
+const baseZ = 5;
 const tileDelta = new THREE.Vector2();
 let shiftThreshold = Infinity;
 PlacesStore.listen( ( { currentPlace } ) => {

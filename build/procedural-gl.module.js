@@ -640,8 +640,8 @@ var template = {
     "inclination": 0.6376744186046512,
     "azimuth": 0.881,
     "sun": false,
-    "fogDropoff": 0.00002,
-    "fogIntensity": 1.2,
+    "fogDropoff": 0.000009,
+    "fogIntensity": 1.1,
     "exposureBias": 1.25,
     "whitePoint": 2.5,
     "ambientColor": "#2d3034",
@@ -36076,8 +36076,11 @@ var OrbitControls = function ( object ) {
   // Lock camera to 2D overhead mode
   this.lock2D = false;
 
-	// The four arrow keys
-	this.keys = { LEFT: 37, UP: 38, RIGHT: 39, BOTTOM: 40 };
+	// The four arrow keys and -/+ for zoom
+	this.keys = {
+    LEFT: 37, UP: 38, RIGHT: 39, BOTTOM: 40,
+    MINUS: 189, PLUS: 187
+  };
 
 	// Mouse buttons
 	this.mouseButtons = { LEFT: MOUSE.ROTATE, MIDDLE: MOUSE.DOLLY, RIGHT: MOUSE.PAN };
@@ -36609,13 +36612,27 @@ var OrbitControls = function ( object ) {
 
 	function handleMouseWheel( event ) {
 
-		if ( event.deltaY < 0 ) {
+    // deltaY isn't always reported in pixels, so do
+    // our best to normalize it somewhat. Unfortunately
+    // there is no exact way to do this, so rather try and
+    // aim for values that will match the user's expectation
+    // https://stackoverflow.com/questions/20110224/what-is-the-height-of-a-line-in-a-wheel-event-deltamode-dom-delta-line
+    var deltaY = event.deltaY;
+    if ( event.deltaMode === event.DOM_DELTA_LINE) { 
+      // Jump by a "line" (32px)
+      deltaY *= 32;
+    } else if ( event.deltaMode === event.DOM_DELTA_PAGE ) {
+      // Jump by a "page" (100px)
+      deltaY *= 100;
+    }
 
-			dollyIn( getZoomScale( event.deltaY ) );
+		if ( deltaY < 0 ) {
 
-		} else if ( event.deltaY > 0 ) {
+			dollyIn( getZoomScale( deltaY ) );
 
-			dollyOut( getZoomScale( event.deltaY ) );
+		} else if ( deltaY > 0 ) {
+
+			dollyOut( getZoomScale( deltaY ) );
 
 		}
 
@@ -36646,6 +36663,16 @@ var OrbitControls = function ( object ) {
 
 			case scope.keys.RIGHT:
 				pan( - scope.keyPanSpeed, 0 );
+				needsUpdate = true;
+				break;
+
+			case scope.keys.MINUS:
+        dollyOut( getZoomScale( 300 ) );
+				needsUpdate = true;
+				break;
+
+			case scope.keys.PLUS:
+        dollyIn( getZoomScale( 300 ) );
 				needsUpdate = true;
 				break;
 
@@ -47383,7 +47410,7 @@ ContainerStore$1.listen( updateSize );
  */
 
 let x, y, z;
-const baseZ = 7;
+const baseZ = 5;
 const tileDelta = new THREE.Vector2();
 let shiftThreshold = Infinity;
 PlacesStore$1.listen( ( { currentPlace } ) => {
@@ -48379,8 +48406,8 @@ app.init();
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-/*global '1.0.3'*/
-console.log( 'Procedural v' + '1.0.3' );
+/*global '1.0.4'*/
+console.log( 'Procedural v' + '1.0.4' );
 
 // Re-export public API
 const Procedural$9 = {
