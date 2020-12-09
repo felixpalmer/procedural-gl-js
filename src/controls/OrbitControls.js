@@ -124,8 +124,11 @@ var OrbitControls = function ( object ) {
   // Lock camera to 2D overhead mode
   this.lock2D = false;
 
-	// The four arrow keys
-	this.keys = { LEFT: 37, UP: 38, RIGHT: 39, BOTTOM: 40 };
+	// The four arrow keys and -/+ for zoom
+	this.keys = {
+    LEFT: 37, UP: 38, RIGHT: 39, BOTTOM: 40,
+    MINUS: 189, PLUS: 187
+  };
 
 	// Mouse buttons
 	this.mouseButtons = { LEFT: MOUSE.ROTATE, MIDDLE: MOUSE.DOLLY, RIGHT: MOUSE.PAN };
@@ -708,6 +711,16 @@ var OrbitControls = function ( object ) {
 
 			case scope.keys.RIGHT:
 				pan( - scope.keyPanSpeed, 0 );
+				needsUpdate = true;
+				break;
+
+			case scope.keys.MINUS:
+        dollyOut( getZoomScale( 300 ) );
+				needsUpdate = true;
+				break;
+
+			case scope.keys.PLUS:
+        dollyIn( getZoomScale( 300 ) );
 				needsUpdate = true;
 				break;
 
