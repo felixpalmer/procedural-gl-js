@@ -61,6 +61,12 @@ Examples
 
 - [New Zealand National Parks](https://github.com/felixpalmer/new-zealand-3d/)
 
+Blog posts / Guides
+===================
+
+- [Build New Zealand in an afternoon](https://www.pheelicks.com/posts/build-new-zealand-in-an-afternoon/)
+
+
 License
 =======
 
