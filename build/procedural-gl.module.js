@@ -38554,9 +38554,7 @@ class BaseDatasource {
     const q = tilebelt.tileToQuadkey( tile );
     const { quadkey } = this.findBestAvailableData( q );
 
-    // If we have no data, return 0 so at least something is
-    // displayed
-    if ( !quadkey ) { return [128,0] }
+    if ( !quadkey ) { return null }
 
     // Convert to zoom level at which we have data
     const scale = Math.pow( 2, quadkey.length - tile[ 2 ] );
@@ -38640,6 +38638,10 @@ function heightScale( p ) {
 }
 
 function dataToHeight( data ) {
+  if ( data[ 0 ] === 0 && data[ 1 ] === 0 ) {
+    // NODATA values return 0
+    return 0;
+  }
   return 256 * data[ 0 ] + data[ 1 ] - 32768;
 }
 
@@ -44957,11 +44959,10 @@ EngineStore.prototype.setCurrentPlace = function () {
       longitude: place.location[ 0 ],
       latitude: place.location[ 1 ],
       angle: 40, distance: 5000,
-      bearing: 0, animationDuration: 0
+      bearing: 0, animationDuration: 0.5
     };
     heightAt( loc, H => {
       loc.height = H;
-      loc.animationDuration = 0.5;
       UserActions.focusOnLocation( loc );
     } );
   }, 0 );
@@ -48406,8 +48407,8 @@ app.init();
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-/*global '1.0.4'*/
-console.log( 'Procedural v' + '1.0.4' );
+/*global '1.0.5'*/
+console.log( 'Procedural v' + '1.0.5' );
 
 // Re-export public API
 const Procedural$9 = {

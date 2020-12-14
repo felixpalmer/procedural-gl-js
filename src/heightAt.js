@@ -26,6 +26,10 @@ function heightScale( p ) {
 }
 
 function dataToHeight( data ) {
+  if ( data[ 0 ] === 0 && data[ 1 ] === 0 ) {
+    // NODATA values return 0
+    return 0;
+  }
   return 256 * data[ 0 ] + data[ 1 ] - 32768;
 }
 

@@ -249,9 +249,7 @@ class BaseDatasource {
     const q = tilebelt.tileToQuadkey( tile );
     const { quadkey } = this.findBestAvailableData( q );
 
-    // If we have no data, return 0 so at least something is
-    // displayed
-    if ( !quadkey ) { return [128,0] }
+    if ( !quadkey ) { return null }
 
     // Convert to zoom level at which we have data
     const scale = Math.pow( 2, quadkey.length - tile[ 2 ] );

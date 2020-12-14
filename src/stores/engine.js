@@ -44,11 +44,10 @@ EngineStore.prototype.setCurrentPlace = function () {
       longitude: place.location[ 0 ],
       latitude: place.location[ 1 ],
       angle: 40, distance: 5000,
-      bearing: 0, animationDuration: 0
+      bearing: 0, animationDuration: 0.5
     };
     heightAt( loc, H => {
       loc.height = H;
-      loc.animationDuration = 0.5;
       UserActions.focusOnLocation( loc );
     } );
   }, 0 );
