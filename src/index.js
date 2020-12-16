@@ -32,4 +32,10 @@ const Procedural = {
   ...LocationExport,
   ...UserInterfaceExport
 };
+
+// Proxy through setters as destructing won't pass these through
+Object.defineProperty( Procedural, 'onFeatureClicked', {
+  set: fn => FeaturesExport.onFeatureClicked = fn
+} );
+
 export default Procedural;
