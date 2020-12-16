@@ -43202,8 +43202,8 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	 * License, v. 2.0. If a copy of the MPL was not distributed with this
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
-	/*global '1.0.5'*/
-	console.log( 'Procedural v' + '1.0.5' );
+	/*global '1.0.6'*/
+	console.log( 'Procedural v' + '1.0.6' );
 
 	// Re-export public API
 	const Procedural$9 = {
@@ -43217,6 +43217,31 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	  ...Procedural$7,
 	  ...Procedural$8
 	};
+
+	// Proxy through setters as destructing won't pass these through
+	let listeners = [
+	  'onFeatureClicked',
+	  'onFeatureSelected',
+	  'onOverlayAdded'
+	];
+	for ( let l of listeners ) {
+	  Object.defineProperty( Procedural$9, l, {
+	    set: fn => Procedural$5[ l ] = fn
+	  } );
+	}
+
+	listeners = [
+	  'onBoundsFocused',
+	  'onLocationError',
+	  'onLocationFocused',
+	  'onLocationLoaded',
+	  'onUserInteraction'
+	];
+	for ( let l of listeners ) {
+	  Object.defineProperty( Procedural$9, l, {
+	    set: fn => Procedural$2[ l ] = fn
+	  } );
+	}
 
 	return Procedural$9;
 

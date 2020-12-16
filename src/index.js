@@ -32,4 +32,30 @@ const Procedural = {
   ...LocationExport,
   ...UserInterfaceExport
 };
+
+// Proxy through setters as destructing won't pass these through
+let listeners = [
+  'onFeatureClicked',
+  'onFeatureSelected',
+  'onOverlayAdded'
+];
+for ( let l of listeners ) {
+  Object.defineProperty( Procedural, l, {
+    set: fn => FeaturesExport[ l ] = fn
+  } );
+}
+
+listeners = [
+  'onBoundsFocused',
+  'onLocationError',
+  'onLocationFocused',
+  'onLocationLoaded',
+  'onUserInteraction'
+];
+for ( let l of listeners ) {
+  Object.defineProperty( Procedural, l, {
+    set: fn => CoreExport[ l ] = fn
+  } );
+}
+
 export default Procedural;
