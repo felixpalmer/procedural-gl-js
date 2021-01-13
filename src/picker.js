@@ -127,6 +127,9 @@ var picker = {
       // TODO would be nice if we could re-use the depthTexture
       // for this, but it doesn't seem to work...
       renderer.setRenderTarget( picker.renderTarget );
+
+      // Important to clear otherwise old pick targets remain
+      renderer.clear( true, true, true );
       renderer.render( picker.raycastScene, camera );
 
       oldAutoClearDepth = renderer.autoClearDepth;
