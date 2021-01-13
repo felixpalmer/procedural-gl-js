@@ -38876,7 +38876,7 @@ CameraStore.prototype.vantageForTarget = function ( target ) {
       -Math.sin( theta ), -Math.cos( theta ), 0 );
   } else {
     // otherwise figure out vantage point from normal
-    vantage = normalAt( target, 100 );
+    vantage = normalAt( target, 100 ).clone();
   }
 
   // Direction away from slope, at 30 degree angle
@@ -44235,6 +44235,9 @@ var picker = {
       // TODO would be nice if we could re-use the depthTexture
       // for this, but it doesn't seem to work...
       renderer.setRenderTarget( picker.renderTarget );
+
+      // Important to clear otherwise old pick targets remain
+      renderer.clear( true, true, true );
       renderer.render( picker.raycastScene, camera );
 
       oldAutoClearDepth = renderer.autoClearDepth;
@@ -48407,8 +48410,8 @@ app.init();
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-/*global '1.0.6'*/
-console.log( 'Procedural v' + '1.0.6' );
+/*global '1.0.7'*/
+console.log( 'Procedural v' + '1.0.7' );
 
 // Re-export public API
 const Procedural$9 = {

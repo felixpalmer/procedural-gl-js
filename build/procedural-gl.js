@@ -37027,7 +37027,7 @@ return texture2D(o,t);
 	      -Math.sin( theta ), -Math.cos( theta ), 0 );
 	  } else {
 	    // otherwise figure out vantage point from normal
-	    vantage = normalAt();
+	    vantage = normalAt().clone();
 	  }
 
 	  // Direction away from slope, at 30 degree angle
@@ -39117,6 +39117,9 @@ return texture2D(n,s);
 	      // TODO would be nice if we could re-use the depthTexture
 	      // for this, but it doesn't seem to work...
 	      renderer.setRenderTarget( picker.renderTarget );
+
+	      // Important to clear otherwise old pick targets remain
+	      renderer.clear( true, true, true );
 	      renderer.render( picker.raycastScene, camera );
 
 	      oldAutoClearDepth = renderer.autoClearDepth;
@@ -43202,8 +43205,8 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	 * License, v. 2.0. If a copy of the MPL was not distributed with this
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
-	/*global '1.0.6'*/
-	console.log( 'Procedural v' + '1.0.6' );
+	/*global '1.0.7'*/
+	console.log( 'Procedural v' + '1.0.7' );
 
 	// Re-export public API
 	const Procedural$9 = {
