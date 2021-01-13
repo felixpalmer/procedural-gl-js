@@ -166,7 +166,7 @@ CameraStore.prototype.vantageForTarget = function ( target ) {
       -Math.sin( theta ), -Math.cos( theta ), 0 );
   } else {
     // otherwise figure out vantage point from normal
-    vantage = normalAt( target, 100 );
+    vantage = normalAt( target, 100 ).clone();
   }
 
   // Direction away from slope, at 30 degree angle
