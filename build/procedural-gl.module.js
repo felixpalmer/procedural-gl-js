@@ -43195,8 +43195,8 @@ app.init();
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-/*global '1.0.7'*/
-console.log( 'Procedural v' + '1.0.7' );
+/*global '1.0.8'*/
+console.log( 'Procedural v' + '1.0.8' );
 
 // Re-export public API
 const Procedural$9 = {

@@ -43201,8 +43201,8 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	 * License, v. 2.0. If a copy of the MPL was not distributed with this
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
-	/*global '1.0.7'*/
-	console.log( 'Procedural v' + '1.0.7' );
+	/*global '1.0.8'*/
+	console.log( 'Procedural v' + '1.0.8' );
 
 	// Re-export public API
 	const Procedural$9 = {
