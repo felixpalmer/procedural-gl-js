@@ -171,7 +171,6 @@ Markers.prototype.onNewData = function ( state ) {
       attrs.atlas.push( atlas.x, atlas.y, atlas.z, atlas.w );
     } else if ( props.name !== undefined ||
                 props.icon !== undefined ) {
-      clipping = clippingForName( 'object' );
       text = '';
       if ( props.icon !== undefined ) {
         text += glyphForIcon( props.icon );
@@ -190,14 +189,13 @@ Markers.prototype.onNewData = function ( state ) {
       atlas = self.atlas.addText( text, props.fontSize, drawImmediate );
       attrs.atlas.push( atlas.x, atlas.y, atlas.z, atlas.w );
     } else {
-      clipping = clippingForName( 'object' );
       attrs.atlas.pushDefault();
     }
 
     if ( props.clipping ) {
       clipping = clippingForName( props.clipping || 'pixel' );
     } else {
-      clipping = clipping || defaultClipping;
+      clipping = defaultClipping;
     }
 
     attrs.clipping.push( clipping.x, clipping.y );
