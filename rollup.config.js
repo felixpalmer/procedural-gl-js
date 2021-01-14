@@ -20,13 +20,24 @@ const DEV = !!process.env.DEV;
 const SHADER_DIR = DEV ? 'shaders' : 'shaders/min';
 export default {
   input: 'src/index.js',
-  output: {
+  output: DEV ? {
+    // Dev build includes extra logging and un-minified shaders and THREE.js is
+    // imported externally for faster builds
     name: 'Procedural',
-    file: `build/procedural-gl${ DEV ? '.module' : '' }.js`,
-    // To allow three to be imported as module in DEV use 'esm'
-    format: DEV ? 'esm' : 'umd',
+    file: `build/procedural-gl.dev.js`,
+    format: 'esm',
     sourcemap: true
-  },
+  } : [
+    {
+      name: 'Procedural',
+      file: `build/procedural-gl.js`,
+      format: 'umd',
+    },
+    {
+      file: `build/procedural-gl.module.js`,
+      format: 'esm',
+    }
+  ],
   treeshake: !DEV,
 	plugins: [ 
     replace( {
