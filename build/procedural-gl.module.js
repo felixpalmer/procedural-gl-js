@@ -8,21 +8,12 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-function getCjsExportFromNamespace (n) {
-	return n && n['default'] || n;
-}
-
 function commonjsRequire () {
 	throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
 }
 
 var lodash_min = createCommonjsModule(function (module, exports) {
-/**
- * @license
- * Lodash (Custom Build) lodash.com/license | Underscore.js 1.8.3 underscorejs.org/LICENSE
- * Build: `lodash exports="umd" include="assign,clone,defaults,each,find,forEach,forOwn,isEqual,matchesProperty,memoize" -o lodash2.js`
- */
-;(function(){function t(t,r,n){switch(n.length){case 0:return t.call(r);case 1:return t.call(r,n[0]);case 2:return t.call(r,n[0],n[1]);case 3:return t.call(r,n[0],n[1],n[2])}return t.apply(r,n)}function r(t,r){for(var n=-1,e=null==t?0:t.length;++n<e&&r(t[n],n,t)!==false;);return t}function n(t,r){for(var n=-1,e=null==t?0:t.length,u=0,o=[];++n<e;){var i=t[n];r(i,n,t)&&(o[u++]=i);}return o}function e(t,r){for(var n=-1,e=null==t?0:t.length,u=Array(e);++n<e;)u[n]=r(t[n],n,t);return u}function u(t,r){for(var n=-1,e=r.length,u=t.length;++n<e;)t[u+n]=r[n];
+(function(){function t(t,r,n){switch(n.length){case 0:return t.call(r);case 1:return t.call(r,n[0]);case 2:return t.call(r,n[0],n[1]);case 3:return t.call(r,n[0],n[1],n[2])}return t.apply(r,n)}function r(t,r){for(var n=-1,e=null==t?0:t.length;++n<e&&r(t[n],n,t)!==false;);return t}function n(t,r){for(var n=-1,e=null==t?0:t.length,u=0,o=[];++n<e;){var i=t[n];r(i,n,t)&&(o[u++]=i);}return o}function e(t,r){for(var n=-1,e=null==t?0:t.length,u=Array(e);++n<e;)u[n]=r(t[n],n,t);return u}function u(t,r){for(var n=-1,e=r.length,u=t.length;++n<e;)t[u+n]=r[n];
 return t}function o(t,r){for(var n=-1,e=null==t?0:t.length;++n<e;)if(r(t[n],n,t))return true;return false}function i(t,r,n,e){for(var u=t.length,o=n+(e?1:-1);e?o--:++o<u;)if(r(t[o],o,t))return o;return -1}function c(t){return function(r){return null==r?Mr:r[t]}}function a(t,r){for(var n=-1,e=Array(t);++n<t;)e[n]=r(n);return e}function f(t){return function(r){return t(r)}}function s(t,r){return t.has(r)}function l(t,r){return null==t?Mr:t[r]}function h(t){var r=-1,n=Array(t.size);return t.forEach(function(t,e){
 n[++r]=[e,t];}),n}function p(t,r){return function(n){return t(r(n))}}function v(t){var r=-1,n=Array(t.size);return t.forEach(function(t){n[++r]=t;}),n}function y(){}function b(t){var r=-1,n=null==t?0:t.length;for(this.clear();++r<n;){var e=t[r];this.set(e[0],e[1]);}}function _(){this.__data__=Ie?Ie(null):{},this.size=0;}function g(t){var r=this.has(t)&&delete this.__data__[t];return this.size-=r?1:0,r}function d(t){var r=this.__data__;if(Ie){var n=r[t];return n===Nr?Mr:n}return ce.call(r,t)?r[t]:Mr}function j(t){
 var r=this.__data__;return Ie?r[t]!==Mr:ce.call(r,t)}function w(t,r){var n=this.__data__;return this.size+=this.has(t)?0:1,n[t]=Ie&&r===Mr?Nr:r,this}function O(t){var r=-1,n=null==t?0:t.length;for(this.clear();++r<n;){var e=t[r];this.set(e[0],e[1]);}}function m(){this.__data__=[],this.size=0;}function A(t){var r=this.__data__,n=W(r,t);return !(n<0)&&(n==r.length-1?r.pop():ge.call(r,n,1),--this.size,true)}function z(t){var r=this.__data__,n=W(r,t);return n<0?Mr:r[n][1]}function x(t){return W(this.__data__,t)>-1;
@@ -51,18 +42,18 @@ var e=arguments,u=r?r.apply(this,e):e[0],o=n.cache;if(o.has(u))return o.get(u);v
 }function _r(t){return null!=t&&typeof t=="object"}function gr(t){return typeof t=="symbol"||_r(t)&&Z(t)==bn}function dr(t){if(!t)return 0===t?t:0;if(t=wr(t),t===Jr||t===-Jr){return (t<0?-1:1)*Qr}return t===t?t:0}function jr(t){var r=dr(t),n=r%1;return r===r?n?r-n:r:0}function wr(t){if(typeof t=="number")return t;if(gr(t))return Xr;if(br(t)){var r=typeof t.valueOf=="function"?t.valueOf():t;t=br(r)?r+"":r;}if(typeof t!="string")return 0===t?t:+t;t=t.replace(Pn,"");var n=Bn.test(t);return n||Cn.test(t)?qn(t.slice(2),n?2:8):Un.test(t)?Xr:+t;
 }function Or(t){return null==t?"":bt(t)}function mr(t,r){return t&&Q(t,Ut(r,3))}function Ar(t,r,n){var e=null==t?Mr:X(t,r);return e===Mr?n:e}function zr(t,r){return null!=t&&Rt(t,r,tt)}function xr(t){return hr(t)?V(t):st(t)}function Sr(t){return hr(t)?V(t,true):lt(t)}function kr(t){return function(){return t}}function $r(t){return t}function Er(t){return ft(typeof t=="function"?t:K(t,Dr))}function Ir(t,r){return pt(t,K(r,Dr))}function Fr(t){return Jt(t)?c(or(t)):vt(t)}function Lr(){return []}function Pr(){
 return false}var Mr,Tr="4.17.5",Ur=200,Br="Expected a function",Nr="__lodash_hash_undefined__",Cr=500,Dr=1,Rr=2,Vr=4,qr=1,Wr=2,Gr=800,Hr=16,Jr=1/0,Kr=9007199254740991,Qr=1.7976931348623157e308,Xr=NaN,Yr="[object Arguments]",Zr="[object Array]",tn="[object AsyncFunction]",rn="[object Boolean]",nn="[object Date]",en="[object Error]",un="[object Function]",on="[object GeneratorFunction]",cn="[object Map]",an="[object Number]",fn="[object Null]",sn="[object Object]",ln="[object Promise]",hn="[object Proxy]",pn="[object RegExp]",vn="[object Set]",yn="[object String]",bn="[object Symbol]",_n="[object Undefined]",gn="[object WeakMap]",dn="[object ArrayBuffer]",jn="[object DataView]",wn="[object Float32Array]",On="[object Float64Array]",mn="[object Int8Array]",An="[object Int16Array]",zn="[object Int32Array]",xn="[object Uint8Array]",Sn="[object Uint8ClampedArray]",kn="[object Uint16Array]",$n="[object Uint32Array]",En=/\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,In=/^\w*$/,Fn=/[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g,Ln=/[\\^$.*+?()[\]{}|]/g,Pn=/^\s+|\s+$/g,Mn=/\\(\\)?/g,Tn=/\w*$/,Un=/^[-+]0x[0-9a-f]+$/i,Bn=/^0b[01]+$/i,Nn=/^\[object .+?Constructor\]$/,Cn=/^0o[0-7]+$/i,Dn=/^(?:0|[1-9]\d*)$/,Rn={};
-Rn[wn]=Rn[On]=Rn[mn]=Rn[An]=Rn[zn]=Rn[xn]=Rn[Sn]=Rn[kn]=Rn[$n]=true,Rn[Yr]=Rn[Zr]=Rn[dn]=Rn[rn]=Rn[jn]=Rn[nn]=Rn[en]=Rn[un]=Rn[cn]=Rn[an]=Rn[sn]=Rn[pn]=Rn[vn]=Rn[yn]=Rn[gn]=false;var Vn={};Vn[Yr]=Vn[Zr]=Vn[dn]=Vn[jn]=Vn[rn]=Vn[nn]=Vn[wn]=Vn[On]=Vn[mn]=Vn[An]=Vn[zn]=Vn[cn]=Vn[an]=Vn[sn]=Vn[pn]=Vn[vn]=Vn[yn]=Vn[bn]=Vn[xn]=Vn[Sn]=Vn[kn]=Vn[$n]=true,Vn[en]=Vn[un]=Vn[gn]=false;var qn=parseInt,Wn=typeof commonjsGlobal=="object"&&commonjsGlobal&&commonjsGlobal.Object===Object&&commonjsGlobal,Gn=typeof self=="object"&&self&&self.Object===Object&&self,Hn=Wn||Gn||Function("return this")(),Jn='object'=="object"&&exports&&!exports.nodeType&&exports,Kn=Jn&&'object'=="object"&&module&&!module.nodeType&&module,Qn=Kn&&Kn.exports===Jn,Xn=Qn&&Wn.process,Yn=function(){
+Rn[wn]=Rn[On]=Rn[mn]=Rn[An]=Rn[zn]=Rn[xn]=Rn[Sn]=Rn[kn]=Rn[$n]=true,Rn[Yr]=Rn[Zr]=Rn[dn]=Rn[rn]=Rn[jn]=Rn[nn]=Rn[en]=Rn[un]=Rn[cn]=Rn[an]=Rn[sn]=Rn[pn]=Rn[vn]=Rn[yn]=Rn[gn]=false;var Vn={};Vn[Yr]=Vn[Zr]=Vn[dn]=Vn[jn]=Vn[rn]=Vn[nn]=Vn[wn]=Vn[On]=Vn[mn]=Vn[An]=Vn[zn]=Vn[cn]=Vn[an]=Vn[sn]=Vn[pn]=Vn[vn]=Vn[yn]=Vn[bn]=Vn[xn]=Vn[Sn]=Vn[kn]=Vn[$n]=true,Vn[en]=Vn[un]=Vn[gn]=false;var qn=parseInt,Wn=typeof commonjsGlobal=="object"&&commonjsGlobal&&commonjsGlobal.Object===Object&&commonjsGlobal,Gn=typeof self=="object"&&self&&self.Object===Object&&self,Hn=Wn||Gn||Function("return this")(),Jn=exports&&!exports.nodeType&&exports,Kn=Jn&&'object'=="object"&&module&&!module.nodeType&&module,Qn=Kn&&Kn.exports===Jn,Xn=Qn&&Wn.process,Yn=function(){
 try{return Xn&&Xn.binding&&Xn.binding("util")}catch(t){}}(),Zn=Yn&&Yn.isMap,te=Yn&&Yn.isSet,re=Yn&&Yn.isTypedArray,ne=Array.prototype,ee=Function.prototype,ue=Object.prototype,oe=Hn["__core-js_shared__"],ie=ee.toString,ce=ue.hasOwnProperty,ae=function(){var t=/[^.]+$/.exec(oe&&oe.keys&&oe.keys.IE_PROTO||"");return t?"Symbol(src)_1."+t:""}(),fe=ue.toString,se=RegExp("^"+ie.call(ce).replace(Ln,"\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g,"$1.*?")+"$"),le=Qn?Hn.Buffer:Mr,he=Hn.Symbol,pe=Hn.Uint8Array,ve=le?le.allocUnsafe:Mr,ye=p(Object.getPrototypeOf,Object),be=Object.create,_e=ue.propertyIsEnumerable,ge=ne.splice,de=he?he.toStringTag:Mr,je=function(){
 try{var t=Ct(Object,"defineProperty");return t({},"",{}),t}catch(t){}}(),we=Object.getOwnPropertySymbols,Oe=le?le.isBuffer:Mr,me=p(Object.keys,Object),Ae=Math.max,ze=Date.now,xe=Ct(Hn,"DataView"),Se=Ct(Hn,"Map"),ke=Ct(Hn,"Promise"),$e=Ct(Hn,"Set"),Ee=Ct(Hn,"WeakMap"),Ie=Ct(Object,"create"),Fe=ir(xe),Le=ir(Se),Pe=ir(ke),Me=ir($e),Te=ir(Ee),Ue=he?he.prototype:Mr,Be=Ue?Ue.valueOf:Mr,Ne=Ue?Ue.toString:Mr,Ce=function(){function t(){}return function(r){if(!br(r))return {};if(be)return be(r);t.prototype=r;
 var n=new t;return t.prototype=Mr,n}}();b.prototype.clear=_,b.prototype.delete=g,b.prototype.get=d,b.prototype.has=j,b.prototype.set=w,O.prototype.clear=m,O.prototype.delete=A,O.prototype.get=z,O.prototype.has=x,O.prototype.set=S,k.prototype.clear=$,k.prototype.delete=E,k.prototype.get=I,k.prototype.has=F,k.prototype.set=L,P.prototype.add=P.prototype.push=M,P.prototype.has=T,U.prototype.clear=B,U.prototype.delete=N,U.prototype.get=C,U.prototype.has=D,U.prototype.set=R;var De=$t(Q),Re=Et(),Ve=je?function(t,r){
 return je(t,"toString",{configurable:true,enumerable:false,value:kr(r),writable:true})}:$r,qe=we?function(t){return null==t?[]:(t=Object(t),n(we(t),function(r){return _e.call(t,r)}))}:Lr,We=we?function(t){for(var r=[];t;)u(r,qe(t)),t=ye(t);return r}:Lr,Ge=Z;(xe&&Ge(new xe(new ArrayBuffer(1)))!=jn||Se&&Ge(new Se)!=cn||ke&&Ge(ke.resolve())!=ln||$e&&Ge(new $e)!=vn||Ee&&Ge(new Ee)!=gn)&&(Ge=function(t){var r=Z(t),n=r==sn?t.constructor:Mr,e=n?ir(n):"";if(e)switch(e){case Fe:return jn;case Le:return cn;case Pe:
 return ln;case Me:return vn;case Te:return gn}return r});var He=ur(Ve),Je=tr(function(t){var r=[];return 46===t.charCodeAt(0)&&r.push(""),t.replace(Fn,function(t,n,e,u){r.push(e?u.replace(Mn,"$1"):n||t);}),r}),Ke=It(cr);fr.Cache=k;var Qe=rt(function(){return arguments}())?rt:function(t){return _r(t)&&ce.call(t,"callee")&&!_e.call(t,"callee")},Xe=Array.isArray,Ye=Oe||Pr,Ze=Zn?f(Zn):ut,tu=te?f(te):ct,ru=re?f(re):at,nu=kt(function(t,r){if(Xt(r)||hr(r))return zt(r,xr(r),t),Mr;for(var n in r)ce.call(r,n)&&q(t,n,r[n]);
 }),eu=yt(function(t,r){t=Object(t);var n=-1,e=r.length,u=e>2?r[2]:Mr;for(u&&Ht(r[0],r[1],u)&&(e=1);++n<e;)for(var o=r[n],i=Sr(o),c=-1,a=i.length;++c<a;){var f=i[c],s=t[f];(s===Mr||lr(s,ue[f])&&!ce.call(t,f))&&(t[f]=o[f]);}return t});y.assign=nu,y.constant=kr,y.defaults=eu,y.iteratee=Er,y.keys=xr,y.keysIn=Sr,y.matchesProperty=Ir,y.memoize=fr,y.property=Fr,y.clone=sr,y.eq=lr,y.find=Ke,y.findIndex=cr,y.forEach=ar,y.forOwn=mr,y.get=Ar,y.hasIn=zr,y.identity=$r,y.isArguments=Qe,y.isArray=Xe,y.isArrayLike=hr,
-y.isBuffer=Ye,y.isEqual=pr,y.isFunction=vr,y.isLength=yr,y.isMap=Ze,y.isObject=br,y.isObjectLike=_r,y.isSet=tu,y.isSymbol=gr,y.isTypedArray=ru,y.stubArray=Lr,y.stubFalse=Pr,y.toFinite=dr,y.toInteger=jr,y.toNumber=wr,y.toString=Or,y.each=ar,y.VERSION=Tr,typeof undefined=="function"&&typeof undefined.amd=="object"&&undefined.amd?(Hn._=y, undefined(function(){return y})):Kn?((Kn.exports=y)._=y,Jn._=y):Hn._=y;}).call(commonjsGlobal);
+y.isBuffer=Ye,y.isEqual=pr,y.isFunction=vr,y.isLength=yr,y.isMap=Ze,y.isObject=br,y.isObjectLike=_r,y.isSet=tu,y.isSymbol=gr,y.isTypedArray=ru,y.stubArray=Lr,y.stubFalse=Pr,y.toFinite=dr,y.toInteger=jr,y.toNumber=wr,y.toString=Or,y.each=ar,y.VERSION=Tr,Kn?((Kn.exports=y)._=y,Jn._=y):Hn._=y;}).call(commonjsGlobal);
 });
 
 var alt_min = createCommonjsModule(function (module, exports) {
-!function(t){if("object"=='object'&&"undefined"!='object')module.exports=t();else if("function"==typeof undefined&&undefined.amd)undefined([],t);else {("undefined"!=typeof window?window:"undefined"!=typeof commonjsGlobal?commonjsGlobal:"undefined"!=typeof self?self:this).Alt=t();}}(function(){return function t(e,n,r){function i(s,a){if(!n[s]){if(!e[s]){var c="function"==typeof commonjsRequire&&commonjsRequire;if(!a&&c)return c(s,!0);if(o)return o(s,!0);var u=new Error("Cannot find module '"+s+"'");throw u.code="MODULE_NOT_FOUND",u}var l=n[s]={exports:{}};e[s][0].call(l.exports,function(t){var n=e[s][1][t];return i(n||t)},l,l.exports,t,e,n,r);}return n[s].exports}for(var o="function"==typeof commonjsRequire&&commonjsRequire,s=0;s<r.length;s++)i(r[s]);return i}({1:[function(t,e,n){"use strict";var r={},i=Object.create,o=Object.defineProperties,s=Object.defineProperty,a=function(t){var e=void 0===arguments[1]?{}:arguments[1];return {value:t,configurable:!!e.c,writable:!!e.w,enumerable:!!e.e}},c=void 0;try{var u=s({},"y",{get:function(){return 1}});c=1===u.y;}catch(t){c=!1;}var l={},f=function(t){t=String(t);for(var e="",n=0;l[t+e];)e=n+=1;l[t+e]=1;var r="Symbol("+t+e+")";return c&&s(Object.prototype,r,{get:void 0,set:function(t){s(this,r,a(t,{c:!0,w:!0}));},configurable:!0,enumerable:!1}),r},h=i(null);function p(t){if(this instanceof p)throw new TypeError("Symbol is not a constructor");t=void 0===t?"":String(t);var e=f(t);return c?i(h,{__description__:a(t),__tag__:a(e)}):e}o(p,{for:a(function(t){var e=String(t);if(r[e])return r[e];var n=p(e);return r[e]=n,n}),keyFor:a(function(t){if(c&&(!(e=t)||"Symbol"!==e[p.toStringTag]))throw new TypeError(t+" is not a symbol");var e;for(var n in r)if(r[n]===t)return c?r[n].__description__:r[n].substr(7,r[n].length-8)})}),o(p,{hasInstance:a(p("hasInstance")),isConcatSpreadable:a(p("isConcatSpreadable")),iterator:a(p("iterator")),match:a(p("match")),replace:a(p("replace")),search:a(p("search")),species:a(p("species")),split:a(p("split")),toPrimitive:a(p("toPrimitive")),toStringTag:a(p("toStringTag")),unscopables:a(p("unscopables"))}),o(h,{constructor:a(p),toString:a(function(){return this.__tag__}),valueOf:a(function(){return "Symbol("+this.__description__+")"})}),c&&s(h,p.toStringTag,a("Symbol",{c:!0})),e.exports="function"==typeof Symbol?Symbol:p;},{}],2:[function(t,e,n){"use strict";function r(t,e,n){this.fn=t,this.context=e,this.once=n||!1;}function i(){}i.prototype._events=void 0,i.prototype.listeners=function(t){if(!this._events||!this._events[t])return [];if(this._events[t].fn)return [this._events[t].fn];for(var e=0,n=this._events[t].length,r=new Array(n);e<n;e++)r[e]=this._events[t][e].fn;return r},i.prototype.emit=function(t,e,n,r,i,o){if(!this._events||!this._events[t])return !1;var s,a,c=this._events[t],u=arguments.length;if("function"==typeof c.fn){switch(c.once&&this.removeListener(t,c.fn,!0),u){case 1:return c.fn.call(c.context),!0;case 2:return c.fn.call(c.context,e),!0;case 3:return c.fn.call(c.context,e,n),!0;case 4:return c.fn.call(c.context,e,n,r),!0;case 5:return c.fn.call(c.context,e,n,r,i),!0;case 6:return c.fn.call(c.context,e,n,r,i,o),!0}for(a=1,s=new Array(u-1);a<u;a++)s[a-1]=arguments[a];c.fn.apply(c.context,s);}else {var l,f=c.length;for(a=0;a<f;a++)switch(c[a].once&&this.removeListener(t,c[a].fn,!0),u){case 1:c[a].fn.call(c[a].context);break;case 2:c[a].fn.call(c[a].context,e);break;case 3:c[a].fn.call(c[a].context,e,n);break;default:if(!s)for(l=1,s=new Array(u-1);l<u;l++)s[l-1]=arguments[l];c[a].fn.apply(c[a].context,s);}}return !0},i.prototype.on=function(t,e,n){var i=new r(e,n||this);return this._events||(this._events={}),this._events[t]?this._events[t].fn?this._events[t]=[this._events[t],i]:this._events[t].push(i):this._events[t]=i,this},i.prototype.once=function(t,e,n){var i=new r(e,n||this,!0);return this._events||(this._events={}),this._events[t]?this._events[t].fn?this._events[t]=[this._events[t],i]:this._events[t].push(i):this._events[t]=i,this},i.prototype.removeListener=function(t,e,n){if(!this._events||!this._events[t])return this;var r=this._events[t],i=[];if(e&&(r.fn&&(r.fn!==e||n&&!r.once)&&i.push(r),!r.fn))for(var o=0,s=r.length;o<s;o++)(r[o].fn!==e||n&&!r[o].once)&&i.push(r[o]);return i.length?this._events[t]=1===i.length?i[0]:i:delete this._events[t],this},i.prototype.removeAllListeners=function(t){return this._events?(t?delete this._events[t]:this._events={},this):this},i.prototype.off=i.prototype.removeListener,i.prototype.addListener=i.prototype.on,i.prototype.setMaxListeners=function(){return this},i.EventEmitter=i,i.EventEmitter2=i,i.EventEmitter3=i,e.exports=i;},{}],3:[function(t,e,n){e.exports.Dispatcher=t("./lib/Dispatcher");},{"./lib/Dispatcher":4}],4:[function(t,e,n){"use strict";var r=t("./invariant"),i=1;function o(){this.$Dispatcher_callbacks={},this.$Dispatcher_isPending={},this.$Dispatcher_isHandled={},this.$Dispatcher_isDispatching=!1,this.$Dispatcher_pendingPayload=null;}o.prototype.register=function(t){var e="ID_"+i++;return this.$Dispatcher_callbacks[e]=t,e},o.prototype.unregister=function(t){r(this.$Dispatcher_callbacks[t],"Dispatcher.unregister(...): `%s` does not map to a registered callback.",t),delete this.$Dispatcher_callbacks[t];},o.prototype.waitFor=function(t){r(this.$Dispatcher_isDispatching,"Dispatcher.waitFor(...): Must be invoked while dispatching.");for(var e=0;e<t.length;e++){var n=t[e];this.$Dispatcher_isPending[n]?r(this.$Dispatcher_isHandled[n],"Dispatcher.waitFor(...): Circular dependency detected while waiting for `%s`.",n):(r(this.$Dispatcher_callbacks[n],"Dispatcher.waitFor(...): `%s` does not map to a registered callback.",n),this.$Dispatcher_invokeCallback(n));}},o.prototype.dispatch=function(t){r(!this.$Dispatcher_isDispatching,"Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch."),this.$Dispatcher_startDispatching(t);try{for(var e in this.$Dispatcher_callbacks)this.$Dispatcher_isPending[e]||this.$Dispatcher_invokeCallback(e);}finally{this.$Dispatcher_stopDispatching();}},o.prototype.isDispatching=function(){return this.$Dispatcher_isDispatching},o.prototype.$Dispatcher_invokeCallback=function(t){this.$Dispatcher_isPending[t]=!0,this.$Dispatcher_callbacks[t](this.$Dispatcher_pendingPayload),this.$Dispatcher_isHandled[t]=!0;},o.prototype.$Dispatcher_startDispatching=function(t){for(var e in this.$Dispatcher_callbacks)this.$Dispatcher_isPending[e]=!1,this.$Dispatcher_isHandled[e]=!1;this.$Dispatcher_pendingPayload=t,this.$Dispatcher_isDispatching=!0;},o.prototype.$Dispatcher_stopDispatching=function(){this.$Dispatcher_pendingPayload=null,this.$Dispatcher_isDispatching=!1;},e.exports=o;},{"./invariant":5}],5:[function(t,e,n){"use strict";e.exports=function(t,e,n,r,i,o,s,a){if(!t){var c;if(void 0===e)c=new Error("Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.");else {var u=[n,r,i,o,s,a],l=0;c=new Error("Invariant Violation: "+e.replace(/%s/g,function(){return u[l++]}));}throw c.framesToPop=1,c}};},{}],6:[function(t,e,n){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r);}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();function i(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n]);return e.default=t,e}n.default=function(t,e,n,r,i){var o=u.uid(t[c.ACTIONS_REGISTRY],e+"."+n);t[c.ACTIONS_REGISTRY][o]=1;var s=a.default.for("alt/"+o),f={namespace:e,name:n,id:o,symbol:s},h=new l(t,s,r,i,f),p=h[c.ACTION_HANDLER];p.defer=function(){for(var t=arguments.length,e=Array(t),n=0;n<t;n++)e[n]=arguments[n];setTimeout(function(){h[c.ACTION_HANDLER].apply(null,e);});},p[c.ACTION_KEY]=s,p.data=f;var d=t.actions[e],v=u.uid(d,n);return d[v]=p,p};var o,s=t("es-symbol"),a=(o=s)&&o.__esModule?o:{default:o},c=i(t("../symbols/symbols")),u=i(t("../utils/AltUtils")),l=function(){function t(e,n,r,i,o){!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this[c.ACTION_UID]=n,this[c.ACTION_HANDLER]=r.bind(this),this.actions=i,this.actionDetails=o,this.alt=e;}return r(t,[{key:"dispatch",value:function(t){this.alt.dispatch(this[c.ACTION_UID],t,this.actionDetails);}}]),t}();e.exports=n.default;},{"../symbols/symbols":10,"../utils/AltUtils":11,"es-symbol":1}],7:[function(t,e,n){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r);}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();function i(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n]);return e.default=t,e}function o(t){return t&&t.__esModule?t:{default:t}}var s=o(t("eventemitter3")),a=o(t("es-symbol")),c=i(t("../symbols/symbols")),u=i(t("../../utils/functions")),l=(0,a.default)(),f=function(){function t(e,n,r,i){var o=this;!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this[l]=new s.default,this[c.LIFECYCLE]=n[c.LIFECYCLE],this[c.STATE_CONTAINER]=r||n,this._storeName=n._storeName,this.boundListeners=n[c.ALL_LISTENERS],this.StoreModel=i,u.assign(this,n[c.PUBLIC_METHODS]),this.dispatchToken=e.dispatcher.register(function(t){if(o[c.LIFECYCLE].emit("beforeEach",t,o[c.STATE_CONTAINER]),n[c.LISTENERS][t.action]){var e=!1;try{e=n[c.LISTENERS][t.action](t.data);}catch(e){if(!n[c.HANDLING_ERRORS])throw e;o[c.LIFECYCLE].emit("error",e,t,o[c.STATE_CONTAINER]);}!1!==e&&o.emitChange();}o[c.LIFECYCLE].emit("afterEach",t,o[c.STATE_CONTAINER]);}),this[c.LIFECYCLE].emit("init");}return r(t,[{key:"getEventEmitter",value:function(){return this[l]}},{key:"emitChange",value:function(){this[l].emit("change",this[c.STATE_CONTAINER]);}},{key:"listen",value:function(t){var e=this;return this[l].on("change",t),function(){return e.unlisten(t)}}},{key:"unlisten",value:function(t){this[c.LIFECYCLE].emit("unlisten"),this[l].removeListener("change",t);}},{key:"getState",value:function(){return this.StoreModel.config.getState.call(this,this[c.STATE_CONTAINER])}}]),t}();n.default=f,e.exports=n.default;},{"../../utils/functions":13,"../symbols/symbols":10,"es-symbol":1,eventemitter3:2}],8:[function(t,e,n){"use strict";function r(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n]);return e.default=t,e}Object.defineProperty(n,"__esModule",{value:!0});var i,o=t("es-symbol"),s=(i=o)&&i.__esModule?i:{default:i},a=r(t("../symbols/symbols")),c=r(t("../../utils/functions")),u={waitFor:function(){for(var t=arguments.length,e=Array(t),n=0;n<t;n++)e[n]=arguments[n];if(!e.length)throw new ReferenceError("Dispatch tokens not provided");var r=e;1===e.length&&(r=Array.isArray(e[0])?e[0]:e);var i=r.map(function(t){return t.dispatchToken||t});this.dispatcher.waitFor(i);},exportAsync:function(t){this.registerAsync(t);},registerAsync:function(t){var e=this,n=0,r=c.isFunction(t)?t(this.alt):t,i=Object.keys(r).reduce(function(t,i){var o=r[i],s=c.isFunction(o)?o(e):o;return ["success","error","loading"].forEach(function(t){if(s[t]&&!s[t][a.ACTION_KEY])throw new Error(t+" handler must be an action function")}),t[i]=function(){for(var t=arguments.length,r=Array(t),i=0;i<t;i++)r[i]=arguments[i];var o=e.getInstance().getState(),a=s.local&&s.local.apply(s,[o].concat(r)),c=s.shouldFetch?s.shouldFetch.apply(s,[o].concat(r)):!a,u=s.interceptResponse||function(t){return t};c?(n+=1,s.loading&&s.loading(u(null,s.loading)),s.remote.apply(s,[o].concat(r)).then(function(t){n-=1,s.success(u(t,s.success));}).catch(function(t){n-=1,s.error(u(t,s.error));})):e.emitChange();},t},{});this.exportPublicMethods(i),this.exportPublicMethods({isLoading:function(){return n>0}});},exportPublicMethods:function(t){var e=this;c.eachObject(function(t,n){if(!c.isFunction(n))throw new TypeError("exportPublicMethods expects a function");e[a.PUBLIC_METHODS][t]=n;},[t]);},emitChange:function(){this.getInstance().emitChange();},on:function(t,e){"error"===t&&(this[a.HANDLING_ERRORS]=!0),this[a.LIFECYCLE].on(t,e.bind(this));},bindAction:function(t,e){if(!t)throw new ReferenceError("Invalid action reference passed in");if(!c.isFunction(e))throw new TypeError("bindAction expects a function");if(e.length>1)throw new TypeError("Action handler in store "+this._storeName+" for "+(t[a.ACTION_KEY]||t).toString()+" was defined with two parameters. Only a single parameter is passed through the dispatcher, did you mean to pass in an Object instead?");var n=t[a.ACTION_KEY]?t[a.ACTION_KEY]:t;this[a.LISTENERS][n]=e.bind(this),this[a.ALL_LISTENERS].push(s.default.keyFor(n));},bindActions:function(t){var e=this;c.eachObject(function(t,n){var r=t.replace(/./,function(t){return "on"+t[0].toUpperCase()}),i=null;if(e[t]&&e[r])throw new ReferenceError("You have multiple action handlers bound to an action: "+t+" and "+r);e[t]?i=e[t]:e[r]&&(i=e[r]),i&&e.bindAction(n,i);},[t]);},bindListeners:function(t){var e=this;c.eachObject(function(t,n){var r=e[t];if(!r)throw new ReferenceError(t+" defined but does not exist in "+e._storeName);Array.isArray(n)?n.forEach(function(t){e.bindAction(t,r);}):e.bindAction(n,r);},[t]);}};n.default=u,e.exports=n.default;},{"../../utils/functions":13,"../symbols/symbols":10,"es-symbol":1}],9:[function(t,e,n){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r=Function.prototype.bind,i=function(t,e,n){for(var r=!0;r;){var i=t,o=e,s=n;u=c=void 0,r=!1;var a=Object.getOwnPropertyDescriptor(i,o);if(void 0!==a){if("value"in a)return a.value;var c=a.get;if(void 0===c)return;return c.call(s)}var u=Object.getPrototypeOf(i);if(null===u)return;t=u,e=o,n=s,r=!0;}};function o(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n]);return e.default=t,e}function s(t){return t&&t.__esModule?t:{default:t}}n.createStoreConfig=function(t,e){e.config=l.assign({getState:function(t){return l.assign({},t)},setState:l.assign},t,e.config);},n.transformStore=function(t,e){return t.reduce(function(t,e){return e(t)},e)},n.createStoreFromObject=function(t,e,n){var r=void 0,i=d({},t,n,l.assign({getInstance:function(){return r},setState:function(t){p(this,r,t);}},e));i.bindListeners&&h.default.bindListeners.call(i,i.bindListeners);i.lifecycle&&l.eachObject(function(t,e){h.default.on.call(i,t,e);},[i.lifecycle]);return r=l.assign(new f.default(t,i,i.state,e),i.publicMethods,{displayName:n})},n.createStoreFromClass=function(t,e,n){for(var o=arguments.length,s=Array(o>3?o-3:0),a=3;a<o;a++)s[a-3]=arguments[a];var c=void 0,h=e.config,v=function(t){function e(){for(var t=arguments.length,n=Array(t),r=0;r<t;r++)n[r]=arguments[r];!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,e),i(Object.getPrototypeOf(e.prototype),"constructor",this).apply(this,n);}return function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(t.__proto__=e);}(e,t),e}(e);d(v.prototype,t,n,{getInstance:function(){return c},setState:function(t){p(this,c,t);}});var y=new(r.apply(v,[null].concat(s)));h.bindListeners&&y.bindListeners(h.bindListeners);h.datasource&&y.exportAsync(h.datasource);return c=l.assign(new f.default(t,y,y[t.config.stateKey]||y[h.stateKey]||null,e),u.getInternalMethods(e),h.publicMethods,{displayName:n})};var a=s(t("eventemitter3")),c=o(t("../symbols/symbols")),u=o(t("../utils/AltUtils")),l=o(t("../../utils/functions")),f=s(t("./AltStore")),h=s(t("./StoreMixin"));function p(t,e,n){if(n){var r=e.StoreModel.config,i=l.isFunction(n)?n(e[c.STATE_CONTAINER]):n;e[c.STATE_CONTAINER]=r.setState.call(t,e[c.STATE_CONTAINER],i),t.alt.dispatcher.isDispatching()||t.emitChange();}}function d(t,e,n,r){return t[c.ALL_LISTENERS]=[],t[c.LIFECYCLE]=new a.default,t[c.LISTENERS]={},t[c.PUBLIC_METHODS]={},l.assign(t,h.default,{_storeName:n,alt:e,dispatcher:e.dispatcher},r)}},{"../../utils/functions":13,"../symbols/symbols":10,"../utils/AltUtils":11,"./AltStore":7,"./StoreMixin":8,eventemitter3:2}],10:[function(t,e,n){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r,i=t("es-symbol"),o=(r=i)&&r.__esModule?r:{default:r},s=(0,o.default)();n.ACTION_HANDLER=s;var a=(0,o.default)();n.ACTION_KEY=a;var c=(0,o.default)();n.ACTIONS_REGISTRY=c;var u=(0,o.default)();n.ACTION_UID=u;var l=(0,o.default)();n.ALL_LISTENERS=l;var f=(0,o.default)();n.HANDLING_ERRORS=f;var h=(0,o.default)();n.INIT_SNAPSHOT=h;var p=(0,o.default)();n.LAST_SNAPSHOT=p;var d=(0,o.default)();n.LIFECYCLE=d;var v=(0,o.default)();n.LISTENERS=v;var y=(0,o.default)();n.PUBLIC_METHODS=y;var _=(0,o.default)();n.STATE_CONTAINER=_;},{"es-symbol":1}],11:[function(t,e,n){"use strict";function r(){}Object.defineProperty(n,"__esModule",{value:!0}),n.getInternalMethods=function(t,e){var n=e?o:i,r=e?t.prototype:t;return Object.getOwnPropertyNames(r).reduce(function(t,e){return -1!==n.indexOf(e)?t:(t[e]=r[e],t)},{})},n.warn=function(t){"undefined"!=typeof console&&console.warn(new ReferenceError(t));},n.uid=function(t,e){var n=0,r=e;for(;Object.hasOwnProperty.call(t,r);)r=e+String(++n);return r},n.formatAsConstant=function(t){return t.replace(/[a-z]([A-Z])/g,function(t){return t[0]+"_"+t[1].toLowerCase()}).toUpperCase()},n.dispatchIdentity=function(t){for(var e=arguments.length,n=Array(e>1?e-1:0),r=1;r<e;r++)n[r-1]=arguments[r];this.dispatch(n.length?[t].concat(n):t);};var i=Object.getOwnPropertyNames(r),o=Object.getOwnPropertyNames(r.prototype);},{}],12:[function(t,e,n){"use strict";function r(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n]);return e.default=t,e}Object.defineProperty(n,"__esModule",{value:!0}),n.setAppState=function(t,e,n){var r=t.deserialize(e);o.eachObject(function(e,s){var a,c,u=t.stores[e];u&&(a=u.StoreModel.config,c=u[i.STATE_CONTAINER],a.onDeserialize&&(r[e]=a.onDeserialize(s)||s),o.eachObject(function(t){return delete c[t]},[c]),o.assign(c,r[e]),n(u));},[r]);},n.snapshot=function(t){var e=void 0===arguments[1]?[]:arguments[1];return (e.length?e:Object.keys(t.stores)).reduce(function(e,n){var r=n.displayName||n,o=t.stores[r],s=o.StoreModel.config;o[i.LIFECYCLE].emit("snapshot");var a=s.onSerialize&&s.onSerialize(o[i.STATE_CONTAINER]);return e[r]=a||o.getState(),e},{})},n.saveInitialSnapshot=function(t,e){var n=t.deserialize(t.serialize(t.stores[e][i.STATE_CONTAINER]));t[i.INIT_SNAPSHOT][e]=n,t[i.LAST_SNAPSHOT][e]=n;},n.filterSnapshots=function(t,e,n){return n.reduce(function(t,n){var r=n.displayName||n;if(!e[r])throw new ReferenceError(r+" is not a valid store");return t[r]=e[r],t},{})};var i=r(t("../symbols/symbols")),o=r(t("../../utils/functions"));},{"../../utils/functions":13,"../symbols/symbols":10}],13:[function(t,e,n){"use strict";Object.defineProperty(n,"__esModule",{value:!0}),n.eachObject=r,n.assign=function(t){for(var e=arguments.length,n=Array(e>1?e-1:0),i=1;i<e;i++)n[i-1]=arguments[i];return r(function(e,n){return t[e]=n},n),t};function r(t,e){e.forEach(function(e){Object.keys(Object(e)).forEach(function(n){t(n,e[n]);});});}n.isFunction=function(t){return "function"==typeof t};},{}],14:[function(t,e,n){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r=Function.prototype.bind,i=function(t,e,n){for(var r=!0;r;){var i=t,o=e,s=n;u=c=void 0,r=!1;var a=Object.getOwnPropertyDescriptor(i,o);if(void 0!==a){if("value"in a)return a.value;var c=a.get;if(void 0===c)return;return c.call(s)}var u=Object.getPrototypeOf(i);if(null===u)return;t=u,e=o,n=s,r=!0;}},o=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r);}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();function s(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n]);return e.default=t,e}function a(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}var c,u=t("flux"),l=s(t("./utils/StateFunctions")),f=s(t("./symbols/symbols")),h=s(t("../utils/functions")),p=s(t("./store")),d=s(t("./utils/AltUtils")),v=t("./actions"),y=(c=v)&&c.__esModule?c:{default:c},_=function(){function t(){var e=void 0===arguments[0]?{}:arguments[0];a(this,t),this.config=e,this.serialize=e.serialize||JSON.stringify,this.deserialize=e.deserialize||JSON.parse,this.dispatcher=e.dispatcher||new u.Dispatcher,this.actions={global:{}},this.stores={},this.storeTransforms=e.storeTransforms||[],this[f.ACTIONS_REGISTRY]={},this[f.INIT_SNAPSHOT]={},this[f.LAST_SNAPSHOT]={};}return o(t,[{key:"dispatch",value:function(t,e,n){this.dispatcher.dispatch({action:t,data:e,details:n});}},{key:"createUnsavedStore",value:function(t){for(var e=arguments.length,n=Array(e>1?e-1:0),r=1;r<e;r++)n[r-1]=arguments[r];var i=t.displayName||"";p.createStoreConfig(this.config,t);var o=p.transformStore(this.storeTransforms,t);return h.isFunction(o)?p.createStoreFromClass.apply(p,[this,o,i].concat(n)):p.createStoreFromObject(this,o,i)}},{key:"createStore",value:function(t,e){for(var n=arguments.length,r=Array(n>2?n-2:0),i=2;i<n;i++)r[i-2]=arguments[i];var o=e||t.displayName||t.name||"";p.createStoreConfig(this.config,t);var s=p.transformStore(this.storeTransforms,t);!this.stores[o]&&o||(this.stores[o]?d.warn("A store named "+o+" already exists, double check your store names or pass in your own custom identifier for each store"):d.warn("Store name was not specified"),o=d.uid(this.stores,o));var a=h.isFunction(s)?p.createStoreFromClass.apply(p,[this,s,o].concat(r)):p.createStoreFromObject(this,s,o);return this.stores[o]=a,l.saveInitialSnapshot(this,o),a}},{key:"generateActions",value:function(){for(var t=arguments.length,e=Array(t),n=0;n<t;n++)e[n]=arguments[n];return this.createActions(e.reduce(function(t,e){return t[e]=d.dispatchIdentity,t},{name:"global"}))}},{key:"createAction",value:function(t,e,n){return (0,y.default)(this,"global",t,e,n)}},{key:"createActions",value:function(t){for(var e=arguments.length,n=Array(e>2?e-2:0),s=2;s<e;s++)n[s-2]=arguments[s];var c=this,u=void 0===arguments[1]?{}:arguments[1],l={},p=d.uid(this[f.ACTIONS_REGISTRY],t.displayName||t.name||"Unknown");return h.isFunction(t)?function(){h.assign(l,d.getInternalMethods(t,!0));var e=function(e){function n(){for(var t=arguments.length,e=Array(t),r=0;r<t;r++)e[r]=arguments[r];a(this,n),i(Object.getPrototypeOf(n.prototype),"constructor",this).apply(this,e);}return function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(t.__proto__=e);}(n,t),o(n,[{key:"generateActions",value:function(){for(var t=arguments.length,e=Array(t),n=0;n<t;n++)e[n]=arguments[n];e.forEach(function(t){l[t]=d.dispatchIdentity;});}}]),n}();h.assign(l,new(r.apply(e,[null].concat(n))));}():h.assign(l,t),this.actions[p]=this.actions[p]||{},h.eachObject(function(t,e){if(h.isFunction(e)){u[t]=(0,y.default)(c,p,t,e,u);var n=d.formatAsConstant(t);u[n]=u[t][f.ACTION_KEY];}},[l]),u}},{key:"takeSnapshot",value:function(){for(var t=arguments.length,e=Array(t),n=0;n<t;n++)e[n]=arguments[n];var r=l.snapshot(this,e);return h.assign(this[f.LAST_SNAPSHOT],r),this.serialize(r)}},{key:"rollback",value:function(){l.setAppState(this,this.serialize(this[f.LAST_SNAPSHOT]),function(t){t[f.LIFECYCLE].emit("rollback"),t.emitChange();});}},{key:"recycle",value:function(){for(var t=arguments.length,e=Array(t),n=0;n<t;n++)e[n]=arguments[n];var r=e.length?l.filterSnapshots(this,this[f.INIT_SNAPSHOT],e):this[f.INIT_SNAPSHOT];l.setAppState(this,this.serialize(r),function(t){t[f.LIFECYCLE].emit("init"),t.emitChange();});}},{key:"flush",value:function(){var t=this.serialize(l.snapshot(this));return this.recycle(),t}},{key:"bootstrap",value:function(t){l.setAppState(this,t,function(t){t[f.LIFECYCLE].emit("bootstrap"),t.emitChange();});}},{key:"prepare",value:function(t,e){var n={};if(!t.displayName)throw new ReferenceError("Store provided does not have a name");return n[t.displayName]=e,this.serialize(n)}},{key:"addActions",value:function(t,e){for(var n=arguments.length,r=Array(n>2?n-2:0),i=2;i<n;i++)r[i-2]=arguments[i];this.actions[t]=Array.isArray(e)?this.generateActions.apply(this,e):this.createActions.apply(this,[e].concat(r));}},{key:"addStore",value:function(t,e){for(var n=arguments.length,r=Array(n>2?n-2:0),i=2;i<n;i++)r[i-2]=arguments[i];this.createStore.apply(this,[e,t].concat(r));}},{key:"getActions",value:function(t){return this.actions[t]}},{key:"getStore",value:function(t){return this.stores[t]}}]),t}();n.default=_,e.exports=n.default;},{"../utils/functions":13,"./actions":6,"./store":9,"./symbols/symbols":10,"./utils/AltUtils":11,"./utils/StateFunctions":12,flux:3}]},{},[14])(14)});
+!function(t){module.exports=t();}(function(){return function t(e,n,r){function i(s,a){if(!n[s]){if(!e[s]){var c="function"==typeof commonjsRequire&&commonjsRequire;if(!a&&c)return c(s,!0);if(o)return o(s,!0);var u=new Error("Cannot find module '"+s+"'");throw u.code="MODULE_NOT_FOUND",u}var l=n[s]={exports:{}};e[s][0].call(l.exports,function(t){var n=e[s][1][t];return i(n||t)},l,l.exports,t,e,n,r);}return n[s].exports}for(var o="function"==typeof commonjsRequire&&commonjsRequire,s=0;s<r.length;s++)i(r[s]);return i}({1:[function(t,e,n){var r={},i=Object.create,o=Object.defineProperties,s=Object.defineProperty,a=function(t){var e=void 0===arguments[1]?{}:arguments[1];return {value:t,configurable:!!e.c,writable:!!e.w,enumerable:!!e.e}},c=void 0;try{var u=s({},"y",{get:function(){return 1}});c=1===u.y;}catch(t){c=!1;}var l={},f=function(t){t=String(t);for(var e="",n=0;l[t+e];)e=n+=1;l[t+e]=1;var r="Symbol("+t+e+")";return c&&s(Object.prototype,r,{get:void 0,set:function(t){s(this,r,a(t,{c:!0,w:!0}));},configurable:!0,enumerable:!1}),r},h=i(null);function p(t){if(this instanceof p)throw new TypeError("Symbol is not a constructor");t=void 0===t?"":String(t);var e=f(t);return c?i(h,{__description__:a(t),__tag__:a(e)}):e}o(p,{for:a(function(t){var e=String(t);if(r[e])return r[e];var n=p(e);return r[e]=n,n}),keyFor:a(function(t){if(c&&(!(e=t)||"Symbol"!==e[p.toStringTag]))throw new TypeError(t+" is not a symbol");var e;for(var n in r)if(r[n]===t)return c?r[n].__description__:r[n].substr(7,r[n].length-8)})}),o(p,{hasInstance:a(p("hasInstance")),isConcatSpreadable:a(p("isConcatSpreadable")),iterator:a(p("iterator")),match:a(p("match")),replace:a(p("replace")),search:a(p("search")),species:a(p("species")),split:a(p("split")),toPrimitive:a(p("toPrimitive")),toStringTag:a(p("toStringTag")),unscopables:a(p("unscopables"))}),o(h,{constructor:a(p),toString:a(function(){return this.__tag__}),valueOf:a(function(){return "Symbol("+this.__description__+")"})}),c&&s(h,p.toStringTag,a("Symbol",{c:!0})),e.exports="function"==typeof Symbol?Symbol:p;},{}],2:[function(t,e,n){function r(t,e,n){this.fn=t,this.context=e,this.once=n||!1;}function i(){}i.prototype._events=void 0,i.prototype.listeners=function(t){if(!this._events||!this._events[t])return [];if(this._events[t].fn)return [this._events[t].fn];for(var e=0,n=this._events[t].length,r=new Array(n);e<n;e++)r[e]=this._events[t][e].fn;return r},i.prototype.emit=function(t,e,n,r,i,o){if(!this._events||!this._events[t])return !1;var s,a,c=this._events[t],u=arguments.length;if("function"==typeof c.fn){switch(c.once&&this.removeListener(t,c.fn,!0),u){case 1:return c.fn.call(c.context),!0;case 2:return c.fn.call(c.context,e),!0;case 3:return c.fn.call(c.context,e,n),!0;case 4:return c.fn.call(c.context,e,n,r),!0;case 5:return c.fn.call(c.context,e,n,r,i),!0;case 6:return c.fn.call(c.context,e,n,r,i,o),!0}for(a=1,s=new Array(u-1);a<u;a++)s[a-1]=arguments[a];c.fn.apply(c.context,s);}else {var l,f=c.length;for(a=0;a<f;a++)switch(c[a].once&&this.removeListener(t,c[a].fn,!0),u){case 1:c[a].fn.call(c[a].context);break;case 2:c[a].fn.call(c[a].context,e);break;case 3:c[a].fn.call(c[a].context,e,n);break;default:if(!s)for(l=1,s=new Array(u-1);l<u;l++)s[l-1]=arguments[l];c[a].fn.apply(c[a].context,s);}}return !0},i.prototype.on=function(t,e,n){var i=new r(e,n||this);return this._events||(this._events={}),this._events[t]?this._events[t].fn?this._events[t]=[this._events[t],i]:this._events[t].push(i):this._events[t]=i,this},i.prototype.once=function(t,e,n){var i=new r(e,n||this,!0);return this._events||(this._events={}),this._events[t]?this._events[t].fn?this._events[t]=[this._events[t],i]:this._events[t].push(i):this._events[t]=i,this},i.prototype.removeListener=function(t,e,n){if(!this._events||!this._events[t])return this;var r=this._events[t],i=[];if(e&&(r.fn&&(r.fn!==e||n&&!r.once)&&i.push(r),!r.fn))for(var o=0,s=r.length;o<s;o++)(r[o].fn!==e||n&&!r[o].once)&&i.push(r[o]);return i.length?this._events[t]=1===i.length?i[0]:i:delete this._events[t],this},i.prototype.removeAllListeners=function(t){return this._events?(t?delete this._events[t]:this._events={},this):this},i.prototype.off=i.prototype.removeListener,i.prototype.addListener=i.prototype.on,i.prototype.setMaxListeners=function(){return this},i.EventEmitter=i,i.EventEmitter2=i,i.EventEmitter3=i,e.exports=i;},{}],3:[function(t,e,n){e.exports.Dispatcher=t("./lib/Dispatcher");},{"./lib/Dispatcher":4}],4:[function(t,e,n){var r=t("./invariant"),i=1;function o(){this.$Dispatcher_callbacks={},this.$Dispatcher_isPending={},this.$Dispatcher_isHandled={},this.$Dispatcher_isDispatching=!1,this.$Dispatcher_pendingPayload=null;}o.prototype.register=function(t){var e="ID_"+i++;return this.$Dispatcher_callbacks[e]=t,e},o.prototype.unregister=function(t){r(this.$Dispatcher_callbacks[t],"Dispatcher.unregister(...): `%s` does not map to a registered callback.",t),delete this.$Dispatcher_callbacks[t];},o.prototype.waitFor=function(t){r(this.$Dispatcher_isDispatching,"Dispatcher.waitFor(...): Must be invoked while dispatching.");for(var e=0;e<t.length;e++){var n=t[e];this.$Dispatcher_isPending[n]?r(this.$Dispatcher_isHandled[n],"Dispatcher.waitFor(...): Circular dependency detected while waiting for `%s`.",n):(r(this.$Dispatcher_callbacks[n],"Dispatcher.waitFor(...): `%s` does not map to a registered callback.",n),this.$Dispatcher_invokeCallback(n));}},o.prototype.dispatch=function(t){r(!this.$Dispatcher_isDispatching,"Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch."),this.$Dispatcher_startDispatching(t);try{for(var e in this.$Dispatcher_callbacks)this.$Dispatcher_isPending[e]||this.$Dispatcher_invokeCallback(e);}finally{this.$Dispatcher_stopDispatching();}},o.prototype.isDispatching=function(){return this.$Dispatcher_isDispatching},o.prototype.$Dispatcher_invokeCallback=function(t){this.$Dispatcher_isPending[t]=!0,this.$Dispatcher_callbacks[t](this.$Dispatcher_pendingPayload),this.$Dispatcher_isHandled[t]=!0;},o.prototype.$Dispatcher_startDispatching=function(t){for(var e in this.$Dispatcher_callbacks)this.$Dispatcher_isPending[e]=!1,this.$Dispatcher_isHandled[e]=!1;this.$Dispatcher_pendingPayload=t,this.$Dispatcher_isDispatching=!0;},o.prototype.$Dispatcher_stopDispatching=function(){this.$Dispatcher_pendingPayload=null,this.$Dispatcher_isDispatching=!1;},e.exports=o;},{"./invariant":5}],5:[function(t,e,n){e.exports=function(t,e,n,r,i,o,s,a){if(!t){var c;if(void 0===e)c=new Error("Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.");else {var u=[n,r,i,o,s,a],l=0;c=new Error("Invariant Violation: "+e.replace(/%s/g,function(){return u[l++]}));}throw c.framesToPop=1,c}};},{}],6:[function(t,e,n){Object.defineProperty(n,"__esModule",{value:!0});var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r);}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();function i(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n]);return e.default=t,e}n.default=function(t,e,n,r,i){var o=u.uid(t[c.ACTIONS_REGISTRY],e+"."+n);t[c.ACTIONS_REGISTRY][o]=1;var s=a.default.for("alt/"+o),f={namespace:e,name:n,id:o,symbol:s},h=new l(t,s,r,i,f),p=h[c.ACTION_HANDLER];p.defer=function(){for(var t=arguments.length,e=Array(t),n=0;n<t;n++)e[n]=arguments[n];setTimeout(function(){h[c.ACTION_HANDLER].apply(null,e);});},p[c.ACTION_KEY]=s,p.data=f;var d=t.actions[e],v=u.uid(d,n);return d[v]=p,p};var o,s=t("es-symbol"),a=(o=s)&&o.__esModule?o:{default:o},c=i(t("../symbols/symbols")),u=i(t("../utils/AltUtils")),l=function(){function t(e,n,r,i,o){!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this[c.ACTION_UID]=n,this[c.ACTION_HANDLER]=r.bind(this),this.actions=i,this.actionDetails=o,this.alt=e;}return r(t,[{key:"dispatch",value:function(t){this.alt.dispatch(this[c.ACTION_UID],t,this.actionDetails);}}]),t}();e.exports=n.default;},{"../symbols/symbols":10,"../utils/AltUtils":11,"es-symbol":1}],7:[function(t,e,n){Object.defineProperty(n,"__esModule",{value:!0});var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r);}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();function i(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n]);return e.default=t,e}function o(t){return t&&t.__esModule?t:{default:t}}var s=o(t("eventemitter3")),a=o(t("es-symbol")),c=i(t("../symbols/symbols")),u=i(t("../../utils/functions")),l=(0, a.default)(),f=function(){function t(e,n,r,i){var o=this;!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t),this[l]=new s.default,this[c.LIFECYCLE]=n[c.LIFECYCLE],this[c.STATE_CONTAINER]=r||n,this._storeName=n._storeName,this.boundListeners=n[c.ALL_LISTENERS],this.StoreModel=i,u.assign(this,n[c.PUBLIC_METHODS]),this.dispatchToken=e.dispatcher.register(function(t){if(o[c.LIFECYCLE].emit("beforeEach",t,o[c.STATE_CONTAINER]),n[c.LISTENERS][t.action]){var e=!1;try{e=n[c.LISTENERS][t.action](t.data);}catch(e){if(!n[c.HANDLING_ERRORS])throw e;o[c.LIFECYCLE].emit("error",e,t,o[c.STATE_CONTAINER]);}!1!==e&&o.emitChange();}o[c.LIFECYCLE].emit("afterEach",t,o[c.STATE_CONTAINER]);}),this[c.LIFECYCLE].emit("init");}return r(t,[{key:"getEventEmitter",value:function(){return this[l]}},{key:"emitChange",value:function(){this[l].emit("change",this[c.STATE_CONTAINER]);}},{key:"listen",value:function(t){var e=this;return this[l].on("change",t),function(){return e.unlisten(t)}}},{key:"unlisten",value:function(t){this[c.LIFECYCLE].emit("unlisten"),this[l].removeListener("change",t);}},{key:"getState",value:function(){return this.StoreModel.config.getState.call(this,this[c.STATE_CONTAINER])}}]),t}();n.default=f,e.exports=n.default;},{"../../utils/functions":13,"../symbols/symbols":10,"es-symbol":1,eventemitter3:2}],8:[function(t,e,n){function r(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n]);return e.default=t,e}Object.defineProperty(n,"__esModule",{value:!0});var i,o=t("es-symbol"),s=(i=o)&&i.__esModule?i:{default:i},a=r(t("../symbols/symbols")),c=r(t("../../utils/functions")),u={waitFor:function(){for(var t=arguments.length,e=Array(t),n=0;n<t;n++)e[n]=arguments[n];if(!e.length)throw new ReferenceError("Dispatch tokens not provided");var r=e;1===e.length&&(r=Array.isArray(e[0])?e[0]:e);var i=r.map(function(t){return t.dispatchToken||t});this.dispatcher.waitFor(i);},exportAsync:function(t){this.registerAsync(t);},registerAsync:function(t){var e=this,n=0,r=c.isFunction(t)?t(this.alt):t,i=Object.keys(r).reduce(function(t,i){var o=r[i],s=c.isFunction(o)?o(e):o;return ["success","error","loading"].forEach(function(t){if(s[t]&&!s[t][a.ACTION_KEY])throw new Error(t+" handler must be an action function")}),t[i]=function(){for(var t=arguments.length,r=Array(t),i=0;i<t;i++)r[i]=arguments[i];var o=e.getInstance().getState(),a=s.local&&s.local.apply(s,[o].concat(r)),c=s.shouldFetch?s.shouldFetch.apply(s,[o].concat(r)):!a,u=s.interceptResponse||function(t){return t};c?(n+=1,s.loading&&s.loading(u(null,s.loading)),s.remote.apply(s,[o].concat(r)).then(function(t){n-=1,s.success(u(t,s.success));}).catch(function(t){n-=1,s.error(u(t,s.error));})):e.emitChange();},t},{});this.exportPublicMethods(i),this.exportPublicMethods({isLoading:function(){return n>0}});},exportPublicMethods:function(t){var e=this;c.eachObject(function(t,n){if(!c.isFunction(n))throw new TypeError("exportPublicMethods expects a function");e[a.PUBLIC_METHODS][t]=n;},[t]);},emitChange:function(){this.getInstance().emitChange();},on:function(t,e){"error"===t&&(this[a.HANDLING_ERRORS]=!0),this[a.LIFECYCLE].on(t,e.bind(this));},bindAction:function(t,e){if(!t)throw new ReferenceError("Invalid action reference passed in");if(!c.isFunction(e))throw new TypeError("bindAction expects a function");if(e.length>1)throw new TypeError("Action handler in store "+this._storeName+" for "+(t[a.ACTION_KEY]||t).toString()+" was defined with two parameters. Only a single parameter is passed through the dispatcher, did you mean to pass in an Object instead?");var n=t[a.ACTION_KEY]?t[a.ACTION_KEY]:t;this[a.LISTENERS][n]=e.bind(this),this[a.ALL_LISTENERS].push(s.default.keyFor(n));},bindActions:function(t){var e=this;c.eachObject(function(t,n){var r=t.replace(/./,function(t){return "on"+t[0].toUpperCase()}),i=null;if(e[t]&&e[r])throw new ReferenceError("You have multiple action handlers bound to an action: "+t+" and "+r);e[t]?i=e[t]:e[r]&&(i=e[r]),i&&e.bindAction(n,i);},[t]);},bindListeners:function(t){var e=this;c.eachObject(function(t,n){var r=e[t];if(!r)throw new ReferenceError(t+" defined but does not exist in "+e._storeName);Array.isArray(n)?n.forEach(function(t){e.bindAction(t,r);}):e.bindAction(n,r);},[t]);}};n.default=u,e.exports=n.default;},{"../../utils/functions":13,"../symbols/symbols":10,"es-symbol":1}],9:[function(t,e,n){Object.defineProperty(n,"__esModule",{value:!0});var r=Function.prototype.bind,i=function(t,e,n){for(var r=!0;r;){var i=t,o=e,s=n;u=c=void 0,r=!1;var a=Object.getOwnPropertyDescriptor(i,o);if(void 0!==a){if("value"in a)return a.value;var c=a.get;if(void 0===c)return;return c.call(s)}var u=Object.getPrototypeOf(i);if(null===u)return;t=u,e=o,n=s,r=!0;}};function o(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n]);return e.default=t,e}function s(t){return t&&t.__esModule?t:{default:t}}n.createStoreConfig=function(t,e){e.config=l.assign({getState:function(t){return l.assign({},t)},setState:l.assign},t,e.config);},n.transformStore=function(t,e){return t.reduce(function(t,e){return e(t)},e)},n.createStoreFromObject=function(t,e,n){var r=void 0,i=d({},t,n,l.assign({getInstance:function(){return r},setState:function(t){p(this,r,t);}},e));i.bindListeners&&h.default.bindListeners.call(i,i.bindListeners);i.lifecycle&&l.eachObject(function(t,e){h.default.on.call(i,t,e);},[i.lifecycle]);return r=l.assign(new f.default(t,i,i.state,e),i.publicMethods,{displayName:n})},n.createStoreFromClass=function(t,e,n){for(var o=arguments.length,s=Array(o>3?o-3:0),a=3;a<o;a++)s[a-3]=arguments[a];var c=void 0,h=e.config,v=function(t){function e(){for(var t=arguments.length,n=Array(t),r=0;r<t;r++)n[r]=arguments[r];!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,e),i(Object.getPrototypeOf(e.prototype),"constructor",this).apply(this,n);}return function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(t.__proto__=e);}(e,t),e}(e);d(v.prototype,t,n,{getInstance:function(){return c},setState:function(t){p(this,c,t);}});var y=new(r.apply(v,[null].concat(s)));h.bindListeners&&y.bindListeners(h.bindListeners);h.datasource&&y.exportAsync(h.datasource);return c=l.assign(new f.default(t,y,y[t.config.stateKey]||y[h.stateKey]||null,e),u.getInternalMethods(e),h.publicMethods,{displayName:n})};var a=s(t("eventemitter3")),c=o(t("../symbols/symbols")),u=o(t("../utils/AltUtils")),l=o(t("../../utils/functions")),f=s(t("./AltStore")),h=s(t("./StoreMixin"));function p(t,e,n){if(n){var r=e.StoreModel.config,i=l.isFunction(n)?n(e[c.STATE_CONTAINER]):n;e[c.STATE_CONTAINER]=r.setState.call(t,e[c.STATE_CONTAINER],i),t.alt.dispatcher.isDispatching()||t.emitChange();}}function d(t,e,n,r){return t[c.ALL_LISTENERS]=[],t[c.LIFECYCLE]=new a.default,t[c.LISTENERS]={},t[c.PUBLIC_METHODS]={},l.assign(t,h.default,{_storeName:n,alt:e,dispatcher:e.dispatcher},r)}},{"../../utils/functions":13,"../symbols/symbols":10,"../utils/AltUtils":11,"./AltStore":7,"./StoreMixin":8,eventemitter3:2}],10:[function(t,e,n){Object.defineProperty(n,"__esModule",{value:!0});var r,i=t("es-symbol"),o=(r=i)&&r.__esModule?r:{default:r},s=(0, o.default)();n.ACTION_HANDLER=s;var a=(0, o.default)();n.ACTION_KEY=a;var c=(0, o.default)();n.ACTIONS_REGISTRY=c;var u=(0, o.default)();n.ACTION_UID=u;var l=(0, o.default)();n.ALL_LISTENERS=l;var f=(0, o.default)();n.HANDLING_ERRORS=f;var h=(0, o.default)();n.INIT_SNAPSHOT=h;var p=(0, o.default)();n.LAST_SNAPSHOT=p;var d=(0, o.default)();n.LIFECYCLE=d;var v=(0, o.default)();n.LISTENERS=v;var y=(0, o.default)();n.PUBLIC_METHODS=y;var _=(0, o.default)();n.STATE_CONTAINER=_;},{"es-symbol":1}],11:[function(t,e,n){function r(){}Object.defineProperty(n,"__esModule",{value:!0}),n.getInternalMethods=function(t,e){var n=e?o:i,r=e?t.prototype:t;return Object.getOwnPropertyNames(r).reduce(function(t,e){return -1!==n.indexOf(e)?t:(t[e]=r[e],t)},{})},n.warn=function(t){"undefined"!=typeof console&&console.warn(new ReferenceError(t));},n.uid=function(t,e){var n=0,r=e;for(;Object.hasOwnProperty.call(t,r);)r=e+String(++n);return r},n.formatAsConstant=function(t){return t.replace(/[a-z]([A-Z])/g,function(t){return t[0]+"_"+t[1].toLowerCase()}).toUpperCase()},n.dispatchIdentity=function(t){for(var e=arguments.length,n=Array(e>1?e-1:0),r=1;r<e;r++)n[r-1]=arguments[r];this.dispatch(n.length?[t].concat(n):t);};var i=Object.getOwnPropertyNames(r),o=Object.getOwnPropertyNames(r.prototype);},{}],12:[function(t,e,n){function r(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n]);return e.default=t,e}Object.defineProperty(n,"__esModule",{value:!0}),n.setAppState=function(t,e,n){var r=t.deserialize(e);o.eachObject(function(e,s){var a,c,u=t.stores[e];u&&(a=u.StoreModel.config,c=u[i.STATE_CONTAINER],a.onDeserialize&&(r[e]=a.onDeserialize(s)||s),o.eachObject(function(t){return delete c[t]},[c]),o.assign(c,r[e]),n(u));},[r]);},n.snapshot=function(t){var e=void 0===arguments[1]?[]:arguments[1];return (e.length?e:Object.keys(t.stores)).reduce(function(e,n){var r=n.displayName||n,o=t.stores[r],s=o.StoreModel.config;o[i.LIFECYCLE].emit("snapshot");var a=s.onSerialize&&s.onSerialize(o[i.STATE_CONTAINER]);return e[r]=a||o.getState(),e},{})},n.saveInitialSnapshot=function(t,e){var n=t.deserialize(t.serialize(t.stores[e][i.STATE_CONTAINER]));t[i.INIT_SNAPSHOT][e]=n,t[i.LAST_SNAPSHOT][e]=n;},n.filterSnapshots=function(t,e,n){return n.reduce(function(t,n){var r=n.displayName||n;if(!e[r])throw new ReferenceError(r+" is not a valid store");return t[r]=e[r],t},{})};var i=r(t("../symbols/symbols")),o=r(t("../../utils/functions"));},{"../../utils/functions":13,"../symbols/symbols":10}],13:[function(t,e,n){Object.defineProperty(n,"__esModule",{value:!0}),n.eachObject=r,n.assign=function(t){for(var e=arguments.length,n=Array(e>1?e-1:0),i=1;i<e;i++)n[i-1]=arguments[i];return r(function(e,n){return t[e]=n},n),t};function r(t,e){e.forEach(function(e){Object.keys(Object(e)).forEach(function(n){t(n,e[n]);});});}n.isFunction=function(t){return "function"==typeof t};},{}],14:[function(t,e,n){Object.defineProperty(n,"__esModule",{value:!0});var r=Function.prototype.bind,i=function(t,e,n){for(var r=!0;r;){var i=t,o=e,s=n;u=c=void 0,r=!1;var a=Object.getOwnPropertyDescriptor(i,o);if(void 0!==a){if("value"in a)return a.value;var c=a.get;if(void 0===c)return;return c.call(s)}var u=Object.getPrototypeOf(i);if(null===u)return;t=u,e=o,n=s,r=!0;}},o=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r);}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}();function s(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n]);return e.default=t,e}function a(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}var c,u=t("flux"),l=s(t("./utils/StateFunctions")),f=s(t("./symbols/symbols")),h=s(t("../utils/functions")),p=s(t("./store")),d=s(t("./utils/AltUtils")),v=t("./actions"),y=(c=v)&&c.__esModule?c:{default:c},_=function(){function t(){var e=void 0===arguments[0]?{}:arguments[0];a(this,t),this.config=e,this.serialize=e.serialize||JSON.stringify,this.deserialize=e.deserialize||JSON.parse,this.dispatcher=e.dispatcher||new u.Dispatcher,this.actions={global:{}},this.stores={},this.storeTransforms=e.storeTransforms||[],this[f.ACTIONS_REGISTRY]={},this[f.INIT_SNAPSHOT]={},this[f.LAST_SNAPSHOT]={};}return o(t,[{key:"dispatch",value:function(t,e,n){this.dispatcher.dispatch({action:t,data:e,details:n});}},{key:"createUnsavedStore",value:function(t){for(var e=arguments.length,n=Array(e>1?e-1:0),r=1;r<e;r++)n[r-1]=arguments[r];var i=t.displayName||"";p.createStoreConfig(this.config,t);var o=p.transformStore(this.storeTransforms,t);return h.isFunction(o)?p.createStoreFromClass.apply(p,[this,o,i].concat(n)):p.createStoreFromObject(this,o,i)}},{key:"createStore",value:function(t,e){for(var n=arguments.length,r=Array(n>2?n-2:0),i=2;i<n;i++)r[i-2]=arguments[i];var o=e||t.displayName||t.name||"";p.createStoreConfig(this.config,t);var s=p.transformStore(this.storeTransforms,t);!this.stores[o]&&o||(this.stores[o]?d.warn("A store named "+o+" already exists, double check your store names or pass in your own custom identifier for each store"):d.warn("Store name was not specified"),o=d.uid(this.stores,o));var a=h.isFunction(s)?p.createStoreFromClass.apply(p,[this,s,o].concat(r)):p.createStoreFromObject(this,s,o);return this.stores[o]=a,l.saveInitialSnapshot(this,o),a}},{key:"generateActions",value:function(){for(var t=arguments.length,e=Array(t),n=0;n<t;n++)e[n]=arguments[n];return this.createActions(e.reduce(function(t,e){return t[e]=d.dispatchIdentity,t},{name:"global"}))}},{key:"createAction",value:function(t,e,n){return (0, y.default)(this,"global",t,e,n)}},{key:"createActions",value:function(t){for(var e=arguments.length,n=Array(e>2?e-2:0),s=2;s<e;s++)n[s-2]=arguments[s];var c=this,u=void 0===arguments[1]?{}:arguments[1],l={},p=d.uid(this[f.ACTIONS_REGISTRY],t.displayName||t.name||"Unknown");return h.isFunction(t)?function(){h.assign(l,d.getInternalMethods(t,!0));var e=function(e){function n(){for(var t=arguments.length,e=Array(t),r=0;r<t;r++)e[r]=arguments[r];a(this,n),i(Object.getPrototypeOf(n.prototype),"constructor",this).apply(this,e);}return function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(t.__proto__=e);}(n,t),o(n,[{key:"generateActions",value:function(){for(var t=arguments.length,e=Array(t),n=0;n<t;n++)e[n]=arguments[n];e.forEach(function(t){l[t]=d.dispatchIdentity;});}}]),n}();h.assign(l,new(r.apply(e,[null].concat(n))));}():h.assign(l,t),this.actions[p]=this.actions[p]||{},h.eachObject(function(t,e){if(h.isFunction(e)){u[t]=(0, y.default)(c,p,t,e,u);var n=d.formatAsConstant(t);u[n]=u[t][f.ACTION_KEY];}},[l]),u}},{key:"takeSnapshot",value:function(){for(var t=arguments.length,e=Array(t),n=0;n<t;n++)e[n]=arguments[n];var r=l.snapshot(this,e);return h.assign(this[f.LAST_SNAPSHOT],r),this.serialize(r)}},{key:"rollback",value:function(){l.setAppState(this,this.serialize(this[f.LAST_SNAPSHOT]),function(t){t[f.LIFECYCLE].emit("rollback"),t.emitChange();});}},{key:"recycle",value:function(){for(var t=arguments.length,e=Array(t),n=0;n<t;n++)e[n]=arguments[n];var r=e.length?l.filterSnapshots(this,this[f.INIT_SNAPSHOT],e):this[f.INIT_SNAPSHOT];l.setAppState(this,this.serialize(r),function(t){t[f.LIFECYCLE].emit("init"),t.emitChange();});}},{key:"flush",value:function(){var t=this.serialize(l.snapshot(this));return this.recycle(),t}},{key:"bootstrap",value:function(t){l.setAppState(this,t,function(t){t[f.LIFECYCLE].emit("bootstrap"),t.emitChange();});}},{key:"prepare",value:function(t,e){var n={};if(!t.displayName)throw new ReferenceError("Store provided does not have a name");return n[t.displayName]=e,this.serialize(n)}},{key:"addActions",value:function(t,e){for(var n=arguments.length,r=Array(n>2?n-2:0),i=2;i<n;i++)r[i-2]=arguments[i];this.actions[t]=Array.isArray(e)?this.generateActions.apply(this,e):this.createActions.apply(this,[e].concat(r));}},{key:"addStore",value:function(t,e){for(var n=arguments.length,r=Array(n>2?n-2:0),i=2;i<n;i++)r[i-2]=arguments[i];this.createStore.apply(this,[e,t].concat(r));}},{key:"getActions",value:function(t){return this.actions[t]}},{key:"getStore",value:function(t){return this.stores[t]}}]),t}();n.default=_,e.exports=n.default;},{"../utils/functions":13,"./actions":6,"./store":9,"./symbols/symbols":10,"./utils/AltUtils":11,"./utils/StateFunctions":12,flux:3}]},{},[14])(14)});
 });
 
 var Alt = unwrapExports(alt_min);
@@ -716,13 +707,14 @@ Procedural$3.displayLocation = function ( target ) {
   }, 0 );
 };
 
-var dat_gui_min = createCommonjsModule(function (module, exports) {
-!function(e,t){"object"=='object'&&"object"=='object'?module.exports=t():"function"==typeof undefined&&undefined.amd?undefined([],t):"object"=='object'?exports.dat=t():e.dat=t();}(commonjsGlobal,function(){return function(e){function t(o){if(n[o])return n[o].exports;var i=n[o]={exports:{},id:o,loaded:!1};return e[o].call(i.exports,i,i.exports,t),i.loaded=!0,i.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}t.__esModule=!0;var i=n(1),r=o(i);t.default=r.default,e.exports=t.default;},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}t.__esModule=!0;var i=n(2),r=o(i),a=n(6),l=o(a),s=n(3),u=o(s),d=n(7),c=o(d),f=n(8),_=o(f),p=n(10),h=o(p),m=n(11),b=o(m),g=n(12),v=o(g),y=n(13),w=o(y),x=n(14),E=o(x),C=n(15),A=o(C),S=n(16),k=o(S),O=n(9),T=o(O),R=n(17),L=o(R);t.default={color:{Color:r.default,math:l.default,interpret:u.default},controllers:{Controller:c.default,BooleanController:_.default,OptionController:h.default,StringController:b.default,NumberController:v.default,NumberControllerBox:w.default,NumberControllerSlider:E.default,FunctionController:A.default,ColorController:k.default},dom:{dom:T.default},gui:{GUI:L.default},GUI:L.default},e.exports=t.default;},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t,n){Object.defineProperty(e,t,{get:function(){return "RGB"===this.__state.space?this.__state[t]:(h.recalculateRGB(this,t,n),this.__state[t])},set:function(e){"RGB"!==this.__state.space&&(h.recalculateRGB(this,t,n),this.__state.space="RGB"),this.__state[t]=e;}});}function a(e,t){Object.defineProperty(e,t,{get:function(){return "HSV"===this.__state.space?this.__state[t]:(h.recalculateHSV(this),this.__state[t])},set:function(e){"HSV"!==this.__state.space&&(h.recalculateHSV(this),this.__state.space="HSV"),this.__state[t]=e;}});}t.__esModule=!0;var l=n(3),s=o(l),u=n(6),d=o(u),c=n(4),f=o(c),_=n(5),p=o(_),h=function(){function e(){if(i(this,e),this.__state=s.default.apply(this,arguments),this.__state===!1)throw new Error("Failed to interpret color arguments");this.__state.a=this.__state.a||1;}return e.prototype.toString=function(){return (0,f.default)(this)},e.prototype.toHexString=function(){return (0,f.default)(this,!0)},e.prototype.toOriginal=function(){return this.__state.conversion.write(this)},e}();h.recalculateRGB=function(e,t,n){if("HEX"===e.__state.space)e.__state[t]=d.default.component_from_hex(e.__state.hex,n);else {if("HSV"!==e.__state.space)throw new Error("Corrupted color state");p.default.extend(e.__state,d.default.hsv_to_rgb(e.__state.h,e.__state.s,e.__state.v));}},h.recalculateHSV=function(e){var t=d.default.rgb_to_hsv(e.r,e.g,e.b);p.default.extend(e.__state,{s:t.s,v:t.v}),p.default.isNaN(t.h)?p.default.isUndefined(e.__state.h)&&(e.__state.h=0):e.__state.h=t.h;},h.COMPONENTS=["r","g","b","h","s","v","hex","a"],r(h.prototype,"r",2),r(h.prototype,"g",1),r(h.prototype,"b",0),a(h.prototype,"h"),a(h.prototype,"s"),a(h.prototype,"v"),Object.defineProperty(h.prototype,"a",{get:function(){return this.__state.a},set:function(e){this.__state.a=e;}}),Object.defineProperty(h.prototype,"hex",{get:function(){return "HEX"!==!this.__state.space&&(this.__state.hex=d.default.rgb_to_hex(this.r,this.g,this.b)),this.__state.hex},set:function(e){this.__state.space="HEX",this.__state.hex=e;}}),t.default=h,e.exports=t.default;},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}t.__esModule=!0;var i=n(4),r=o(i),a=n(5),l=o(a),s=[{litmus:l.default.isString,conversions:{THREE_CHAR_HEX:{read:function(e){var t=e.match(/^#([A-F0-9])([A-F0-9])([A-F0-9])$/i);return null!==t&&{space:"HEX",hex:parseInt("0x"+t[1].toString()+t[1].toString()+t[2].toString()+t[2].toString()+t[3].toString()+t[3].toString(),0)}},write:r.default},SIX_CHAR_HEX:{read:function(e){var t=e.match(/^#([A-F0-9]{6})$/i);return null!==t&&{space:"HEX",hex:parseInt("0x"+t[1].toString(),0)}},write:r.default},CSS_RGB:{read:function(e){var t=e.match(/^rgb\(\s*(.+)\s*,\s*(.+)\s*,\s*(.+)\s*\)/);return null!==t&&{space:"RGB",r:parseFloat(t[1]),g:parseFloat(t[2]),b:parseFloat(t[3])}},write:r.default},CSS_RGBA:{read:function(e){var t=e.match(/^rgba\(\s*(.+)\s*,\s*(.+)\s*,\s*(.+)\s*,\s*(.+)\s*\)/);return null!==t&&{space:"RGB",r:parseFloat(t[1]),g:parseFloat(t[2]),b:parseFloat(t[3]),a:parseFloat(t[4])}},write:r.default}}},{litmus:l.default.isNumber,conversions:{HEX:{read:function(e){return {space:"HEX",hex:e,conversionName:"HEX"}},write:function(e){return e.hex}}}},{litmus:l.default.isArray,conversions:{RGB_ARRAY:{read:function(e){return 3===e.length&&{space:"RGB",r:e[0],g:e[1],b:e[2]}},write:function(e){return [e.r,e.g,e.b]}},RGBA_ARRAY:{read:function(e){return 4===e.length&&{space:"RGB",r:e[0],g:e[1],b:e[2],a:e[3]}},write:function(e){return [e.r,e.g,e.b,e.a]}}}},{litmus:l.default.isObject,conversions:{RGBA_OBJ:{read:function(e){return !!(l.default.isNumber(e.r)&&l.default.isNumber(e.g)&&l.default.isNumber(e.b)&&l.default.isNumber(e.a))&&{space:"RGB",r:e.r,g:e.g,b:e.b,a:e.a}},write:function(e){return {r:e.r,g:e.g,b:e.b,a:e.a}}},RGB_OBJ:{read:function(e){return !!(l.default.isNumber(e.r)&&l.default.isNumber(e.g)&&l.default.isNumber(e.b))&&{space:"RGB",r:e.r,g:e.g,b:e.b}},write:function(e){return {r:e.r,g:e.g,b:e.b}}},HSVA_OBJ:{read:function(e){return !!(l.default.isNumber(e.h)&&l.default.isNumber(e.s)&&l.default.isNumber(e.v)&&l.default.isNumber(e.a))&&{space:"HSV",h:e.h,s:e.s,v:e.v,a:e.a}},write:function(e){return {h:e.h,s:e.s,v:e.v,a:e.a}}},HSV_OBJ:{read:function(e){return !!(l.default.isNumber(e.h)&&l.default.isNumber(e.s)&&l.default.isNumber(e.v))&&{space:"HSV",h:e.h,s:e.s,v:e.v}},write:function(e){return {h:e.h,s:e.s,v:e.v}}}}}],u=void 0,d=void 0,c=function(){d=!1;var e=arguments.length>1?l.default.toArray(arguments):arguments[0];return l.default.each(s,function(t){if(t.litmus(e))return l.default.each(t.conversions,function(t,n){if(u=t.read(e),d===!1&&u!==!1)return d=u,u.conversionName=n,u.conversion=t,l.default.BREAK}),l.default.BREAK}),d};t.default=c,e.exports=t.default;},function(e,t){"use strict";t.__esModule=!0,t.default=function(e,t){var n=e.__state.conversionName.toString(),o=Math.round(e.r),i=Math.round(e.g),r=Math.round(e.b),a=e.a,l=Math.round(e.h),s=e.s.toFixed(1),u=e.v.toFixed(1);if(t||"THREE_CHAR_HEX"===n||"SIX_CHAR_HEX"===n){for(var d=e.hex.toString(16);d.length<6;)d="0"+d;return "#"+d}return "CSS_RGB"===n?"rgb("+o+","+i+","+r+")":"CSS_RGBA"===n?"rgba("+o+","+i+","+r+","+a+")":"HEX"===n?"0x"+e.hex.toString(16):"RGB_ARRAY"===n?"["+o+","+i+","+r+"]":"RGBA_ARRAY"===n?"["+o+","+i+","+r+","+a+"]":"RGB_OBJ"===n?"{r:"+o+",g:"+i+",b:"+r+"}":"RGBA_OBJ"===n?"{r:"+o+",g:"+i+",b:"+r+",a:"+a+"}":"HSV_OBJ"===n?"{h:"+l+",s:"+s+",v:"+u+"}":"HSVA_OBJ"===n?"{h:"+l+",s:"+s+",v:"+u+",a:"+a+"}":"unknown format"},e.exports=t.default;},function(e,t){"use strict";t.__esModule=!0;var n=Array.prototype.forEach,o=Array.prototype.slice,i={BREAK:{},extend:function(e){return this.each(o.call(arguments,1),function(t){var n=this.isObject(t)?Object.keys(t):[];n.forEach(function(n){this.isUndefined(t[n])||(e[n]=t[n]);}.bind(this));},this),e},defaults:function(e){return this.each(o.call(arguments,1),function(t){var n=this.isObject(t)?Object.keys(t):[];n.forEach(function(n){this.isUndefined(e[n])&&(e[n]=t[n]);}.bind(this));},this),e},compose:function(){var e=o.call(arguments);return function(){for(var t=o.call(arguments),n=e.length-1;n>=0;n--)t=[e[n].apply(this,t)];return t[0]}},each:function(e,t,o){if(e)if(n&&e.forEach&&e.forEach===n)e.forEach(t,o);else if(e.length===e.length+0){var i=void 0,r=void 0;for(i=0,r=e.length;i<r;i++)if(i in e&&t.call(o,e[i],i)===this.BREAK)return}else for(var a in e)if(t.call(o,e[a],a)===this.BREAK)return},defer:function(e){setTimeout(e,0);},debounce:function(e,t,n){var o=void 0;return function(){function i(){o=null,n||e.apply(r,a);}var r=this,a=arguments,l=n||!o;clearTimeout(o),o=setTimeout(i,t),l&&e.apply(r,a);}},toArray:function(e){return e.toArray?e.toArray():o.call(e)},isUndefined:function(e){return void 0===e},isNull:function(e){return null===e},isNaN:function(e){function t(t){return e.apply(this,arguments)}return t.toString=function(){return e.toString()},t}(function(e){return isNaN(e)}),isArray:Array.isArray||function(e){return e.constructor===Array},isObject:function(e){return e===Object(e)},isNumber:function(e){return e===e+0},isString:function(e){return e===e+""},isBoolean:function(e){return e===!1||e===!0},isFunction:function(e){return "[object Function]"===Object.prototype.toString.call(e)}};t.default=i,e.exports=t.default;},function(e,t){"use strict";t.__esModule=!0;var n=void 0,o={hsv_to_rgb:function(e,t,n){var o=Math.floor(e/60)%6,i=e/60-Math.floor(e/60),r=n*(1-t),a=n*(1-i*t),l=n*(1-(1-i)*t),s=[[n,l,r],[a,n,r],[r,n,l],[r,a,n],[l,r,n],[n,r,a]][o];return {r:255*s[0],g:255*s[1],b:255*s[2]}},rgb_to_hsv:function(e,t,n){var o=Math.min(e,t,n),i=Math.max(e,t,n),r=i-o,a=void 0,l=void 0;return 0===i?{h:NaN,s:0,v:0}:(l=r/i,a=e===i?(t-n)/r:t===i?2+(n-e)/r:4+(e-t)/r,a/=6,a<0&&(a+=1),{h:360*a,s:l,v:i/255})},rgb_to_hex:function(e,t,n){var o=this.hex_with_component(0,2,e);return o=this.hex_with_component(o,1,t),o=this.hex_with_component(o,0,n)},component_from_hex:function(e,t){return e>>8*t&255},hex_with_component:function(e,t,o){return o<<(n=8*t)|e&~(255<<n)}};t.default=o,e.exports=t.default;},function(e,t){"use strict";function n(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}t.__esModule=!0;var o=function(){function e(t,o){n(this,e),this.initialValue=t[o],this.domElement=document.createElement("div"),this.object=t,this.property=o,this.__onChange=void 0,this.__onFinishChange=void 0;}return e.prototype.onChange=function(e){return this.__onChange=e,this},e.prototype.onFinishChange=function(e){return this.__onFinishChange=e,this},e.prototype.setValue=function(e){return this.object[this.property]=e,this.__onChange&&this.__onChange.call(this,e),this.updateDisplay(),this},e.prototype.getValue=function(){return this.object[this.property]},e.prototype.updateDisplay=function(){return this},e.prototype.isModified=function(){return this.initialValue!==this.getValue()},e}();t.default=o,e.exports=t.default;},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !t||"object"!=typeof t&&"function"!=typeof t?e:t}function a(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t);}t.__esModule=!0;var l=n(7),s=o(l),u=n(9),d=o(u),c=function(e){function t(n,o){function a(){s.setValue(!s.__prev);}i(this,t);var l=r(this,e.call(this,n,o)),s=l;return l.__prev=l.getValue(),l.__checkbox=document.createElement("input"),l.__checkbox.setAttribute("type","checkbox"),d.default.bind(l.__checkbox,"change",a,!1),l.domElement.appendChild(l.__checkbox),l.updateDisplay(),l}return a(t,e),t.prototype.setValue=function(t){var n=e.prototype.setValue.call(this,t);return this.__onFinishChange&&this.__onFinishChange.call(this,this.getValue()),this.__prev=this.getValue(),n},t.prototype.updateDisplay=function(){return this.getValue()===!0?(this.__checkbox.setAttribute("checked","checked"),this.__checkbox.checked=!0,this.__prev=!0):(this.__checkbox.checked=!1,this.__prev=!1),e.prototype.updateDisplay.call(this)},t}(s.default);t.default=c,e.exports=t.default;},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}function i(e){if("0"===e||a.default.isUndefined(e))return 0;var t=e.match(u);return a.default.isNull(t)?0:parseFloat(t[1])}t.__esModule=!0;var r=n(5),a=o(r),l={HTMLEvents:["change"],MouseEvents:["click","mousemove","mousedown","mouseup","mouseover"],KeyboardEvents:["keydown"]},s={};a.default.each(l,function(e,t){a.default.each(e,function(e){s[e]=t;});});var u=/(\d+(\.\d+)?)px/,d={makeSelectable:function(e,t){void 0!==e&&void 0!==e.style&&(e.onselectstart=t?function(){return !1}:function(){},e.style.MozUserSelect=t?"auto":"none",e.style.KhtmlUserSelect=t?"auto":"none",e.unselectable=t?"on":"off");},makeFullscreen:function(e,t,n){var o=n,i=t;a.default.isUndefined(i)&&(i=!0),a.default.isUndefined(o)&&(o=!0),e.style.position="absolute",i&&(e.style.left=0,e.style.right=0),o&&(e.style.top=0,e.style.bottom=0);},fakeEvent:function(e,t,n,o){var i=n||{},r=s[t];if(!r)throw new Error("Event type "+t+" not supported.");var l=document.createEvent(r);switch(r){case"MouseEvents":var u=i.x||i.clientX||0,d=i.y||i.clientY||0;l.initMouseEvent(t,i.bubbles||!1,i.cancelable||!0,window,i.clickCount||1,0,0,u,d,!1,!1,!1,!1,0,null);break;case"KeyboardEvents":var c=l.initKeyboardEvent||l.initKeyEvent;a.default.defaults(i,{cancelable:!0,ctrlKey:!1,altKey:!1,shiftKey:!1,metaKey:!1,keyCode:void 0,charCode:void 0}),c(t,i.bubbles||!1,i.cancelable,window,i.ctrlKey,i.altKey,i.shiftKey,i.metaKey,i.keyCode,i.charCode);break;default:l.initEvent(t,i.bubbles||!1,i.cancelable||!0);}a.default.defaults(l,o),e.dispatchEvent(l);},bind:function(e,t,n,o){var i=o||!1;return e.addEventListener?e.addEventListener(t,n,i):e.attachEvent&&e.attachEvent("on"+t,n),d},unbind:function(e,t,n,o){var i=o||!1;return e.removeEventListener?e.removeEventListener(t,n,i):e.detachEvent&&e.detachEvent("on"+t,n),d},addClass:function(e,t){if(void 0===e.className)e.className=t;else if(e.className!==t){var n=e.className.split(/ +/);n.indexOf(t)===-1&&(n.push(t),e.className=n.join(" ").replace(/^\s+/,"").replace(/\s+$/,""));}return d},removeClass:function(e,t){if(t)if(e.className===t)e.removeAttribute("class");else {var n=e.className.split(/ +/),o=n.indexOf(t);o!==-1&&(n.splice(o,1),e.className=n.join(" "));}else e.className=void 0;return d},hasClass:function(e,t){return new RegExp("(?:^|\\s+)"+t+"(?:\\s+|$)").test(e.className)||!1},getWidth:function(e){var t=getComputedStyle(e);return i(t["border-left-width"])+i(t["border-right-width"])+i(t["padding-left"])+i(t["padding-right"])+i(t.width)},getHeight:function(e){var t=getComputedStyle(e);return i(t["border-top-width"])+i(t["border-bottom-width"])+i(t["padding-top"])+i(t["padding-bottom"])+i(t.height)},getOffset:function(e){var t=e,n={left:0,top:0};if(t.offsetParent)do n.left+=t.offsetLeft,n.top+=t.offsetTop,t=t.offsetParent;while(t);return n},isActive:function(e){return e===document.activeElement&&(e.type||e.href)}};t.default=d,e.exports=t.default;},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !t||"object"!=typeof t&&"function"!=typeof t?e:t}function a(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t);}t.__esModule=!0;var l=n(7),s=o(l),u=n(9),d=o(u),c=n(5),f=o(c),_=function(e){function t(n,o,a){i(this,t);var l=r(this,e.call(this,n,o)),s=a,u=l;if(l.__select=document.createElement("select"),f.default.isArray(s)){var c={};f.default.each(s,function(e){c[e]=e;}),s=c;}return f.default.each(s,function(e,t){var n=document.createElement("option");n.innerHTML=t,n.setAttribute("value",e),u.__select.appendChild(n);}),l.updateDisplay(),d.default.bind(l.__select,"change",function(){var e=this.options[this.selectedIndex].value;u.setValue(e);}),l.domElement.appendChild(l.__select),l}return a(t,e),t.prototype.setValue=function(t){var n=e.prototype.setValue.call(this,t);return this.__onFinishChange&&this.__onFinishChange.call(this,this.getValue()),n},t.prototype.updateDisplay=function(){return d.default.isActive(this.__select)?this:(this.__select.value=this.getValue(),e.prototype.updateDisplay.call(this))},t}(s.default);t.default=_,e.exports=t.default;},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !t||"object"!=typeof t&&"function"!=typeof t?e:t}function a(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t);}t.__esModule=!0;var l=n(7),s=o(l),u=n(9),d=o(u),c=function(e){function t(n,o){function a(){u.setValue(u.__input.value);}function l(){u.__onFinishChange&&u.__onFinishChange.call(u,u.getValue());}i(this,t);var s=r(this,e.call(this,n,o)),u=s;return s.__input=document.createElement("input"),s.__input.setAttribute("type","text"),d.default.bind(s.__input,"keyup",a),d.default.bind(s.__input,"change",a),d.default.bind(s.__input,"blur",l),d.default.bind(s.__input,"keydown",function(e){13===e.keyCode&&this.blur();}),s.updateDisplay(),s.domElement.appendChild(s.__input),s}return a(t,e),t.prototype.updateDisplay=function(){return d.default.isActive(this.__input)||(this.__input.value=this.getValue()),e.prototype.updateDisplay.call(this)},t}(s.default);t.default=c,e.exports=t.default;},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !t||"object"!=typeof t&&"function"!=typeof t?e:t}function a(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t);}function l(e){var t=e.toString();return t.indexOf(".")>-1?t.length-t.indexOf(".")-1:0}t.__esModule=!0;var s=n(7),u=o(s),d=n(5),c=o(d),f=function(e){function t(n,o,a){i(this,t);var s=r(this,e.call(this,n,o)),u=a||{};return s.__min=u.min,s.__max=u.max,s.__step=u.step,c.default.isUndefined(s.__step)?0===s.initialValue?s.__impliedStep=1:s.__impliedStep=Math.pow(10,Math.floor(Math.log(Math.abs(s.initialValue))/Math.LN10))/10:s.__impliedStep=s.__step,s.__precision=l(s.__impliedStep),s}return a(t,e),t.prototype.setValue=function(t){var n=t;return void 0!==this.__min&&n<this.__min?n=this.__min:void 0!==this.__max&&n>this.__max&&(n=this.__max),void 0!==this.__step&&n%this.__step!==0&&(n=Math.round(n/this.__step)*this.__step),e.prototype.setValue.call(this,n)},t.prototype.min=function(e){return this.__min=e,this},t.prototype.max=function(e){return this.__max=e,this},t.prototype.step=function(e){return this.__step=e,this.__impliedStep=e,this.__precision=l(e),this},t}(u.default);t.default=f,e.exports=t.default;},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !t||"object"!=typeof t&&"function"!=typeof t?e:t}function a(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t);}function l(e,t){var n=Math.pow(10,t);return Math.round(e*n)/n}t.__esModule=!0;var s=n(12),u=o(s),d=n(9),c=o(d),f=n(5),_=o(f),p=function(e){function t(n,o,a){function l(){var e=parseFloat(m.__input.value);_.default.isNaN(e)||m.setValue(e);}function s(){m.__onFinishChange&&m.__onFinishChange.call(m,m.getValue());}function u(){s();}function d(e){var t=b-e.clientY;m.setValue(m.getValue()+t*m.__impliedStep),b=e.clientY;}function f(){c.default.unbind(window,"mousemove",d),c.default.unbind(window,"mouseup",f),s();}function p(e){c.default.bind(window,"mousemove",d),c.default.bind(window,"mouseup",f),b=e.clientY;}i(this,t);var h=r(this,e.call(this,n,o,a));h.__truncationSuspended=!1;var m=h,b=void 0;return h.__input=document.createElement("input"),h.__input.setAttribute("type","text"),c.default.bind(h.__input,"change",l),c.default.bind(h.__input,"blur",u),c.default.bind(h.__input,"mousedown",p),c.default.bind(h.__input,"keydown",function(e){13===e.keyCode&&(m.__truncationSuspended=!0,this.blur(),m.__truncationSuspended=!1,s());}),h.updateDisplay(),h.domElement.appendChild(h.__input),h}return a(t,e),t.prototype.updateDisplay=function(){return this.__input.value=this.__truncationSuspended?this.getValue():l(this.getValue(),this.__precision),e.prototype.updateDisplay.call(this)},t}(u.default);t.default=p,e.exports=t.default;},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !t||"object"!=typeof t&&"function"!=typeof t?e:t}function a(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t);}function l(e,t,n,o,i){return o+(i-o)*((e-t)/(n-t))}t.__esModule=!0;var s=n(12),u=o(s),d=n(9),c=o(d),f=function(e){function t(n,o,a,s,u){function d(e){document.activeElement.blur(),c.default.bind(window,"mousemove",f),c.default.bind(window,"mouseup",_),f(e);}function f(e){e.preventDefault();var t=h.__background.getBoundingClientRect();return h.setValue(l(e.clientX,t.left,t.right,h.__min,h.__max)),!1}function _(){c.default.unbind(window,"mousemove",f),c.default.unbind(window,"mouseup",_),h.__onFinishChange&&h.__onFinishChange.call(h,h.getValue());}i(this,t);var p=r(this,e.call(this,n,o,{min:a,max:s,step:u})),h=p;return p.__background=document.createElement("div"),p.__foreground=document.createElement("div"),c.default.bind(p.__background,"mousedown",d),c.default.addClass(p.__background,"slider"),c.default.addClass(p.__foreground,"slider-fg"),p.updateDisplay(),p.__background.appendChild(p.__foreground),p.domElement.appendChild(p.__background),p}return a(t,e),t.prototype.updateDisplay=function(){var t=(this.getValue()-this.__min)/(this.__max-this.__min);return this.__foreground.style.width=100*t+"%",e.prototype.updateDisplay.call(this)},t}(u.default);t.default=f,e.exports=t.default;},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !t||"object"!=typeof t&&"function"!=typeof t?e:t}function a(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t);}t.__esModule=!0;var l=n(7),s=o(l),u=n(9),d=o(u),c=function(e){function t(n,o,a){i(this,t);var l=r(this,e.call(this,n,o)),s=l;return l.__button=document.createElement("div"),l.__button.innerHTML=void 0===a?"Fire":a,d.default.bind(l.__button,"click",function(e){return e.preventDefault(),s.fire(),!1}),d.default.addClass(l.__button,"button"),l.domElement.appendChild(l.__button),l}return a(t,e),t.prototype.fire=function(){this.__onChange&&this.__onChange.call(this),this.getValue().call(this.object),this.__onFinishChange&&this.__onFinishChange.call(this,this.getValue());},t}(s.default);t.default=c,e.exports=t.default;},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !t||"object"!=typeof t&&"function"!=typeof t?e:t}function a(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t);}function l(e,t,n,o){e.style.background="",g.default.each(y,function(i){e.style.cssText+="background: "+i+"linear-gradient("+t+", "+n+" 0%, "+o+" 100%); ";});}function s(e){e.style.background="",e.style.cssText+="background: -moz-linear-gradient(top,  #ff0000 0%, #ff00ff 17%, #0000ff 34%, #00ffff 50%, #00ff00 67%, #ffff00 84%, #ff0000 100%);",e.style.cssText+="background: -webkit-linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);",e.style.cssText+="background: -o-linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);",e.style.cssText+="background: -ms-linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);",e.style.cssText+="background: linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);";}t.__esModule=!0;var u=n(7),d=o(u),c=n(9),f=o(c),_=n(2),p=o(_),h=n(3),m=o(h),b=n(5),g=o(b),v=function(e){function t(n,o){function a(e){h(e),f.default.bind(window,"mousemove",h),f.default.bind(window,"mouseup",u);}function u(){f.default.unbind(window,"mousemove",h),f.default.unbind(window,"mouseup",u),_();}function d(){var e=(0,m.default)(this.value);e!==!1?(y.__color.__state=e,y.setValue(y.__color.toOriginal())):this.value=y.__color.toString();}function c(){f.default.unbind(window,"mousemove",b),f.default.unbind(window,"mouseup",c),_();}function _(){y.__onFinishChange&&y.__onFinishChange.call(y,y.__color.toOriginal());}function h(e){e.preventDefault();var t=y.__saturation_field.getBoundingClientRect(),n=(e.clientX-t.left)/(t.right-t.left),o=1-(e.clientY-t.top)/(t.bottom-t.top);return o>1?o=1:o<0&&(o=0),n>1?n=1:n<0&&(n=0),y.__color.v=o,y.__color.s=n,y.setValue(y.__color.toOriginal()),!1}function b(e){e.preventDefault();var t=y.__hue_field.getBoundingClientRect(),n=1-(e.clientY-t.top)/(t.bottom-t.top);return n>1?n=1:n<0&&(n=0),y.__color.h=360*n,y.setValue(y.__color.toOriginal()),!1}i(this,t);var v=r(this,e.call(this,n,o));v.__color=new p.default(v.getValue()),v.__temp=new p.default(0);var y=v;v.domElement=document.createElement("div"),f.default.makeSelectable(v.domElement,!1),v.__selector=document.createElement("div"),v.__selector.className="selector",v.__saturation_field=document.createElement("div"),v.__saturation_field.className="saturation-field",v.__field_knob=document.createElement("div"),v.__field_knob.className="field-knob",v.__field_knob_border="2px solid ",v.__hue_knob=document.createElement("div"),v.__hue_knob.className="hue-knob",v.__hue_field=document.createElement("div"),v.__hue_field.className="hue-field",v.__input=document.createElement("input"),v.__input.type="text",v.__input_textShadow="0 1px 1px ",f.default.bind(v.__input,"keydown",function(e){13===e.keyCode&&d.call(this);}),f.default.bind(v.__input,"blur",d),f.default.bind(v.__selector,"mousedown",function(){f.default.addClass(this,"drag").bind(window,"mouseup",function(){f.default.removeClass(y.__selector,"drag");});});var w=document.createElement("div");return g.default.extend(v.__selector.style,{width:"122px",height:"102px",padding:"3px",backgroundColor:"#222",boxShadow:"0px 1px 3px rgba(0,0,0,0.3)"}),g.default.extend(v.__field_knob.style,{position:"absolute",width:"12px",height:"12px",border:v.__field_knob_border+(v.__color.v<.5?"#fff":"#000"),boxShadow:"0px 1px 3px rgba(0,0,0,0.5)",borderRadius:"12px",zIndex:1}),g.default.extend(v.__hue_knob.style,{position:"absolute",width:"15px",height:"2px",borderRight:"4px solid #fff",zIndex:1}),g.default.extend(v.__saturation_field.style,{width:"100px",height:"100px",border:"1px solid #555",marginRight:"3px",display:"inline-block",cursor:"pointer"}),g.default.extend(w.style,{width:"100%",height:"100%",background:"none"}),l(w,"top","rgba(0,0,0,0)","#000"),g.default.extend(v.__hue_field.style,{width:"15px",height:"100px",border:"1px solid #555",cursor:"ns-resize",position:"absolute",top:"3px",right:"3px"}),s(v.__hue_field),g.default.extend(v.__input.style,{outline:"none",textAlign:"center",color:"#fff",border:0,fontWeight:"bold",textShadow:v.__input_textShadow+"rgba(0,0,0,0.7)"}),f.default.bind(v.__saturation_field,"mousedown",a),f.default.bind(v.__field_knob,"mousedown",a),f.default.bind(v.__hue_field,"mousedown",function(e){b(e),f.default.bind(window,"mousemove",b),f.default.bind(window,"mouseup",c);}),v.__saturation_field.appendChild(w),v.__selector.appendChild(v.__field_knob),v.__selector.appendChild(v.__saturation_field),v.__selector.appendChild(v.__hue_field),v.__hue_field.appendChild(v.__hue_knob),v.domElement.appendChild(v.__input),v.domElement.appendChild(v.__selector),v.updateDisplay(),v}return a(t,e),t.prototype.updateDisplay=function(){var e=(0,m.default)(this.getValue());if(e!==!1){var t=!1;g.default.each(p.default.COMPONENTS,function(n){if(!g.default.isUndefined(e[n])&&!g.default.isUndefined(this.__color.__state[n])&&e[n]!==this.__color.__state[n])return t=!0,{}},this),t&&g.default.extend(this.__color.__state,e);}g.default.extend(this.__temp.__state,this.__color.__state),this.__temp.a=1;var n=this.__color.v<.5||this.__color.s>.5?255:0,o=255-n;g.default.extend(this.__field_knob.style,{marginLeft:100*this.__color.s-7+"px",marginTop:100*(1-this.__color.v)-7+"px",backgroundColor:this.__temp.toHexString(),border:this.__field_knob_border+"rgb("+n+","+n+","+n+")"}),this.__hue_knob.style.marginTop=100*(1-this.__color.h/360)+"px",this.__temp.s=1,this.__temp.v=1,l(this.__saturation_field,"left","#fff",this.__temp.toHexString()),this.__input.value=this.__color.toString(),g.default.extend(this.__input.style,{backgroundColor:this.__color.toHexString(),color:"rgb("+n+","+n+","+n+")",textShadow:this.__input_textShadow+"rgba("+o+","+o+","+o+",.7)"});},t}(d.default),y=["-moz-","-o-","-webkit-","-ms-",""];t.default=v,e.exports=t.default;},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}function i(e,t,n){var o=document.createElement("li");return t&&o.appendChild(t),n?e.__ul.insertBefore(o,n):e.__ul.appendChild(o),e.onResize(),o}function r(e,t){var n=e.__preset_select[e.__preset_select.selectedIndex];t?n.innerHTML=n.value+"*":n.innerHTML=n.value;}function a(e,t,n){if(n.__li=t,n.__gui=e,U.default.extend(n,{options:function(t){if(arguments.length>1){var o=n.__li.nextElementSibling;return n.remove(),s(e,n.object,n.property,{before:o,factoryArgs:[U.default.toArray(arguments)]})}if(U.default.isArray(t)||U.default.isObject(t)){var i=n.__li.nextElementSibling;return n.remove(),s(e,n.object,n.property,{before:i,factoryArgs:[t]})}},name:function(e){return n.__li.firstElementChild.firstElementChild.innerHTML=e,n},listen:function(){return n.__gui.listen(n),n},remove:function(){return n.__gui.remove(n),n}}),n instanceof N.default){var o=new B.default(n.object,n.property,{
-min:n.__min,max:n.__max,step:n.__step});U.default.each(["updateDisplay","onChange","onFinishChange","step"],function(e){var t=n[e],i=o[e];n[e]=o[e]=function(){var e=Array.prototype.slice.call(arguments);return i.apply(o,e),t.apply(n,e)};}),z.default.addClass(t,"has-slider"),n.domElement.insertBefore(o.domElement,n.domElement.firstElementChild);}else if(n instanceof B.default){var i=function(t){if(U.default.isNumber(n.__min)&&U.default.isNumber(n.__max)){var o=n.__li.firstElementChild.firstElementChild.innerHTML,i=n.__gui.__listening.indexOf(n)>-1;n.remove();var r=s(e,n.object,n.property,{before:n.__li.nextElementSibling,factoryArgs:[n.__min,n.__max,n.__step]});return r.name(o),i&&r.listen(),r}return t};n.min=U.default.compose(i,n.min),n.max=U.default.compose(i,n.max);}else n instanceof O.default?(z.default.bind(t,"click",function(){z.default.fakeEvent(n.__checkbox,"click");}),z.default.bind(n.__checkbox,"click",function(e){e.stopPropagation();})):n instanceof R.default?(z.default.bind(t,"click",function(){z.default.fakeEvent(n.__button,"click");}),z.default.bind(t,"mouseover",function(){z.default.addClass(n.__button,"hover");}),z.default.bind(t,"mouseout",function(){z.default.removeClass(n.__button,"hover");})):n instanceof j.default&&(z.default.addClass(t,"color"),n.updateDisplay=U.default.compose(function(e){return t.style.borderLeftColor=n.__color.toString(),e},n.updateDisplay),n.updateDisplay());n.setValue=U.default.compose(function(t){return e.getRoot().__preset_select&&n.isModified()&&r(e.getRoot(),!0),t},n.setValue);}function l(e,t){var n=e.getRoot(),o=n.__rememberedObjects.indexOf(t.object);if(o!==-1){var i=n.__rememberedObjectIndecesToControllers[o];if(void 0===i&&(i={},n.__rememberedObjectIndecesToControllers[o]=i),i[t.property]=t,n.load&&n.load.remembered){var r=n.load.remembered,a=void 0;if(r[e.preset])a=r[e.preset];else {if(!r[Q])return;a=r[Q];}if(a[o]&&void 0!==a[o][t.property]){var l=a[o][t.property];t.initialValue=l,t.setValue(l);}}}}function s(e,t,n,o){if(void 0===t[n])throw new Error('Object "'+t+'" has no property "'+n+'"');var r=void 0;if(o.color)r=new j.default(t,n);else {var s=[t,n].concat(o.factoryArgs);r=C.default.apply(e,s);}o.before instanceof S.default&&(o.before=o.before.__li),l(e,r),z.default.addClass(r.domElement,"c");var u=document.createElement("span");z.default.addClass(u,"property-name"),u.innerHTML=r.property;var d=document.createElement("div");d.appendChild(u),d.appendChild(r.domElement);var c=i(e,d,o.before);return z.default.addClass(c,oe.CLASS_CONTROLLER_ROW),r instanceof j.default?z.default.addClass(c,"color"):z.default.addClass(c,g(r.getValue())),a(e,c,r),e.__controllers.push(r),r}function u(e,t){return document.location.href+"."+t}function d(e,t,n){var o=document.createElement("option");o.innerHTML=t,o.value=t,e.__preset_select.appendChild(o),n&&(e.__preset_select.selectedIndex=e.__preset_select.length-1);}function c(e,t){t.style.display=e.useLocalStorage?"block":"none";}function f(e){var t=e.__save_row=document.createElement("li");z.default.addClass(e.domElement,"has-save"),e.__ul.insertBefore(t,e.__ul.firstChild),z.default.addClass(t,"save-row");var n=document.createElement("span");n.innerHTML="&nbsp;",z.default.addClass(n,"button gears");var o=document.createElement("span");o.innerHTML="Save",z.default.addClass(o,"button"),z.default.addClass(o,"save");var i=document.createElement("span");i.innerHTML="New",z.default.addClass(i,"button"),z.default.addClass(i,"save-as");var r=document.createElement("span");r.innerHTML="Revert",z.default.addClass(r,"button"),z.default.addClass(r,"revert");var a=e.__preset_select=document.createElement("select");if(e.load&&e.load.remembered?U.default.each(e.load.remembered,function(t,n){d(e,n,n===e.preset);}):d(e,Q,!1),z.default.bind(a,"change",function(){for(var t=0;t<e.__preset_select.length;t++)e.__preset_select[t].innerHTML=e.__preset_select[t].value;e.preset=this.value;}),t.appendChild(a),t.appendChild(n),t.appendChild(o),t.appendChild(i),t.appendChild(r),q){var l=document.getElementById("dg-local-explain"),s=document.getElementById("dg-local-storage"),f=document.getElementById("dg-save-locally");f.style.display="block","true"===localStorage.getItem(u(e,"isLocal"))&&s.setAttribute("checked","checked"),c(e,l),z.default.bind(s,"change",function(){e.useLocalStorage=!e.useLocalStorage,c(e,l);});}var _=document.getElementById("dg-new-constructor");z.default.bind(_,"keydown",function(e){!e.metaKey||67!==e.which&&67!==e.keyCode||Z.hide();}),z.default.bind(n,"click",function(){_.innerHTML=JSON.stringify(e.getSaveObject(),void 0,2),Z.show(),_.focus(),_.select();}),z.default.bind(o,"click",function(){e.save();}),z.default.bind(i,"click",function(){var t=prompt("Enter a new preset name.");t&&e.saveAs(t);}),z.default.bind(r,"click",function(){e.revert();});}function _(e){function t(t){return t.preventDefault(),e.width+=i-t.clientX,e.onResize(),i=t.clientX,!1}function n(){z.default.removeClass(e.__closeButton,oe.CLASS_DRAG),z.default.unbind(window,"mousemove",t),z.default.unbind(window,"mouseup",n);}function o(o){return o.preventDefault(),i=o.clientX,z.default.addClass(e.__closeButton,oe.CLASS_DRAG),z.default.bind(window,"mousemove",t),z.default.bind(window,"mouseup",n),!1}var i=void 0;e.__resize_handle=document.createElement("div"),U.default.extend(e.__resize_handle.style,{width:"6px",marginLeft:"-3px",height:"200px",cursor:"ew-resize",position:"absolute"}),z.default.bind(e.__resize_handle,"mousedown",o),z.default.bind(e.__closeButton,"mousedown",o),e.domElement.insertBefore(e.__resize_handle,e.domElement.firstElementChild);}function p(e,t){e.domElement.style.width=t+"px",e.__save_row&&e.autoPlace&&(e.__save_row.style.width=t+"px"),e.__closeButton&&(e.__closeButton.style.width=t+"px");}function h(e,t){var n={};return U.default.each(e.__rememberedObjects,function(o,i){var r={},a=e.__rememberedObjectIndecesToControllers[i];U.default.each(a,function(e,n){r[n]=t?e.initialValue:e.getValue();}),n[i]=r;}),n}function m(e){for(var t=0;t<e.__preset_select.length;t++)e.__preset_select[t].value===e.preset&&(e.__preset_select.selectedIndex=t);}function b(e){0!==e.length&&D.default.call(window,function(){b(e);}),U.default.each(e,function(e){e.updateDisplay();});}t.__esModule=!0;var g="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},v=n(18),y=o(v),w=n(19),x=o(w),E=n(20),C=o(E),A=n(7),S=o(A),k=n(8),O=o(k),T=n(15),R=o(T),L=n(13),B=o(L),M=n(14),N=o(M),H=n(16),j=o(H),P=n(21),D=o(P),V=n(22),F=o(V),I=n(9),z=o(I),G=n(5),U=o(G),X=n(23),K=o(X);y.default.inject(K.default);var Y="dg",J=72,W=20,Q="Default",q=function(){try{return "localStorage"in window&&null!==window.localStorage}catch(e){return !1}}(),Z=void 0,$=!0,ee=void 0,te=!1,ne=[],oe=function e(t){function n(){var e=o.getRoot();e.width+=1,U.default.defer(function(){e.width-=1;});}var o=this,r=t||{};this.domElement=document.createElement("div"),this.__ul=document.createElement("ul"),this.domElement.appendChild(this.__ul),z.default.addClass(this.domElement,Y),this.__folders={},this.__controllers=[],this.__rememberedObjects=[],this.__rememberedObjectIndecesToControllers=[],this.__listening=[],r=U.default.defaults(r,{closeOnTop:!1,autoPlace:!0,width:e.DEFAULT_WIDTH}),r=U.default.defaults(r,{resizable:r.autoPlace,hideable:r.autoPlace}),U.default.isUndefined(r.load)?r.load={preset:Q}:r.preset&&(r.load.preset=r.preset),U.default.isUndefined(r.parent)&&r.hideable&&ne.push(this),r.resizable=U.default.isUndefined(r.parent)&&r.resizable,r.autoPlace&&U.default.isUndefined(r.scrollable)&&(r.scrollable=!0);var a=q&&"true"===localStorage.getItem(u(this,"isLocal")),l=void 0;if(Object.defineProperties(this,{parent:{get:function(){return r.parent}},scrollable:{get:function(){return r.scrollable}},autoPlace:{get:function(){return r.autoPlace}},closeOnTop:{get:function(){return r.closeOnTop}},preset:{get:function(){return o.parent?o.getRoot().preset:r.load.preset},set:function(e){o.parent?o.getRoot().preset=e:r.load.preset=e,m(this),o.revert();}},width:{get:function(){return r.width},set:function(e){r.width=e,p(o,e);}},name:{get:function(){return r.name},set:function(e){r.name=e,titleRowName&&(titleRowName.innerHTML=r.name);}},closed:{get:function(){return r.closed},set:function(t){r.closed=t,r.closed?z.default.addClass(o.__ul,e.CLASS_CLOSED):z.default.removeClass(o.__ul,e.CLASS_CLOSED),this.onResize(),o.__closeButton&&(o.__closeButton.innerHTML=t?e.TEXT_OPEN:e.TEXT_CLOSED);}},load:{get:function(){return r.load}},useLocalStorage:{get:function(){return a},set:function(e){q&&(a=e,e?z.default.bind(window,"unload",l):z.default.unbind(window,"unload",l),localStorage.setItem(u(o,"isLocal"),e));}}}),U.default.isUndefined(r.parent)){if(r.closed=!1,z.default.addClass(this.domElement,e.CLASS_MAIN),z.default.makeSelectable(this.domElement,!1),q&&a){o.useLocalStorage=!0;var s=localStorage.getItem(u(this,"gui"));s&&(r.load=JSON.parse(s));}this.__closeButton=document.createElement("div"),this.__closeButton.innerHTML=e.TEXT_CLOSED,z.default.addClass(this.__closeButton,e.CLASS_CLOSE_BUTTON),r.closeOnTop?(z.default.addClass(this.__closeButton,e.CLASS_CLOSE_TOP),this.domElement.insertBefore(this.__closeButton,this.domElement.childNodes[0])):(z.default.addClass(this.__closeButton,e.CLASS_CLOSE_BOTTOM),this.domElement.appendChild(this.__closeButton)),z.default.bind(this.__closeButton,"click",function(){o.closed=!o.closed;});}else {void 0===r.closed&&(r.closed=!0);var d=document.createTextNode(r.name);z.default.addClass(d,"controller-name");var c=i(o,d),f=function(e){return e.preventDefault(),o.closed=!o.closed,!1};z.default.addClass(this.__ul,e.CLASS_CLOSED),z.default.addClass(c,"title"),z.default.bind(c,"click",f),r.closed||(this.closed=!1);}r.autoPlace&&(U.default.isUndefined(r.parent)&&($&&(ee=document.createElement("div"),z.default.addClass(ee,Y),z.default.addClass(ee,e.CLASS_AUTO_PLACE_CONTAINER),document.body.appendChild(ee),$=!1),ee.appendChild(this.domElement),z.default.addClass(this.domElement,e.CLASS_AUTO_PLACE)),this.parent||p(o,r.width)),this.__resizeHandler=function(){o.onResizeDebounced();},z.default.bind(window,"resize",this.__resizeHandler),z.default.bind(this.__ul,"webkitTransitionEnd",this.__resizeHandler),z.default.bind(this.__ul,"transitionend",this.__resizeHandler),z.default.bind(this.__ul,"oTransitionEnd",this.__resizeHandler),this.onResize(),r.resizable&&_(this),l=function(){q&&"true"===localStorage.getItem(u(o,"isLocal"))&&localStorage.setItem(u(o,"gui"),JSON.stringify(o.getSaveObject()));},this.saveToLocalStorageIfPossible=l,r.parent||n();};oe.toggleHide=function(){te=!te,U.default.each(ne,function(e){e.domElement.style.display=te?"none":"";});},oe.CLASS_AUTO_PLACE="a",oe.CLASS_AUTO_PLACE_CONTAINER="ac",oe.CLASS_MAIN="main",oe.CLASS_CONTROLLER_ROW="cr",oe.CLASS_TOO_TALL="taller-than-window",oe.CLASS_CLOSED="closed",oe.CLASS_CLOSE_BUTTON="close-button",oe.CLASS_CLOSE_TOP="close-top",oe.CLASS_CLOSE_BOTTOM="close-bottom",oe.CLASS_DRAG="drag",oe.DEFAULT_WIDTH=245,oe.TEXT_CLOSED="Close Controls",oe.TEXT_OPEN="Open Controls",oe._keydownHandler=function(e){"text"===document.activeElement.type||e.which!==J&&e.keyCode!==J||oe.toggleHide();},z.default.bind(window,"keydown",oe._keydownHandler,!1),U.default.extend(oe.prototype,{add:function(e,t){return s(this,e,t,{factoryArgs:Array.prototype.slice.call(arguments,2)})},addColor:function(e,t){return s(this,e,t,{color:!0})},remove:function(e){this.__ul.removeChild(e.__li),this.__controllers.splice(this.__controllers.indexOf(e),1);var t=this;U.default.defer(function(){t.onResize();});},destroy:function(){this.autoPlace&&ee.removeChild(this.domElement),z.default.unbind(window,"keydown",oe._keydownHandler,!1),z.default.unbind(window,"resize",this.__resizeHandler),this.saveToLocalStorageIfPossible&&z.default.unbind(window,"unload",this.saveToLocalStorageIfPossible);},addFolder:function(e){if(void 0!==this.__folders[e])throw new Error('You already have a folder in this GUI by the name "'+e+'"');var t={name:e,parent:this};t.autoPlace=this.autoPlace,this.load&&this.load.folders&&this.load.folders[e]&&(t.closed=this.load.folders[e].closed,t.load=this.load.folders[e]);var n=new oe(t);this.__folders[e]=n;var o=i(this,n.domElement);return z.default.addClass(o,"folder"),n},open:function(){this.closed=!1;},close:function(){this.closed=!0;},onResize:function(){var e=this.getRoot();if(e.scrollable){var t=z.default.getOffset(e.__ul).top,n=0;U.default.each(e.__ul.childNodes,function(t){e.autoPlace&&t===e.__save_row||(n+=z.default.getHeight(t));}),window.innerHeight-t-W<n?(z.default.addClass(e.domElement,oe.CLASS_TOO_TALL),e.__ul.style.height=window.innerHeight-t-W+"px"):(z.default.removeClass(e.domElement,oe.CLASS_TOO_TALL),e.__ul.style.height="auto");}e.__resize_handle&&U.default.defer(function(){e.__resize_handle.style.height=e.__ul.offsetHeight+"px";}),e.__closeButton&&(e.__closeButton.style.width=e.width+"px");},onResizeDebounced:U.default.debounce(function(){this.onResize();},50),remember:function(){if(U.default.isUndefined(Z)&&(Z=new F.default,Z.domElement.innerHTML=x.default),this.parent)throw new Error("You can only call remember on a top level GUI.");var e=this;U.default.each(Array.prototype.slice.call(arguments),function(t){0===e.__rememberedObjects.length&&f(e),e.__rememberedObjects.indexOf(t)===-1&&e.__rememberedObjects.push(t);}),this.autoPlace&&p(this,this.width);},getRoot:function(){for(var e=this;e.parent;)e=e.parent;return e},getSaveObject:function(){var e=this.load;return e.closed=this.closed,this.__rememberedObjects.length>0&&(e.preset=this.preset,e.remembered||(e.remembered={}),e.remembered[this.preset]=h(this)),e.folders={},U.default.each(this.__folders,function(t,n){e.folders[n]=t.getSaveObject();}),e},save:function(){this.load.remembered||(this.load.remembered={}),this.load.remembered[this.preset]=h(this),r(this,!1),this.saveToLocalStorageIfPossible();},saveAs:function(e){this.load.remembered||(this.load.remembered={},this.load.remembered[Q]=h(this,!0)),this.load.remembered[e]=h(this),this.preset=e,d(this,e,!0),this.saveToLocalStorageIfPossible();},revert:function(e){U.default.each(this.__controllers,function(t){this.getRoot().load.remembered?l(e||this.getRoot(),t):t.setValue(t.initialValue),t.__onFinishChange&&t.__onFinishChange.call(t,t.getValue());},this),U.default.each(this.__folders,function(e){e.revert(e);}),e||r(this.getRoot(),!1);},listen:function(e){var t=0===this.__listening.length;this.__listening.push(e),t&&b(this.__listening);},updateDisplay:function(){U.default.each(this.__controllers,function(e){e.updateDisplay();}),U.default.each(this.__folders,function(e){e.updateDisplay();});}}),t.default=oe,e.exports=t.default;},function(e,t){"use strict";e.exports={load:function(e,t){var n=t||document,o=n.createElement("link");o.type="text/css",o.rel="stylesheet",o.href=e,n.getElementsByTagName("head")[0].appendChild(o);},inject:function(e,t){var n=t||document,o=document.createElement("style");o.type="text/css",o.innerHTML=e;var i=n.getElementsByTagName("head")[0];try{i.appendChild(o);}catch(e){}}};},function(e,t){e.exports="<div id=dg-save class=\"dg dialogue\"> Here's the new load parameter for your <code>GUI</code>'s constructor: <textarea id=dg-new-constructor></textarea> <div id=dg-save-locally> <input id=dg-local-storage type=checkbox /> Automatically save values to <code>localStorage</code> on exit. <div id=dg-local-explain>The values saved to <code>localStorage</code> will override those passed to <code>dat.GUI</code>'s constructor. This makes it easier to work incrementally, but <code>localStorage</code> is fragile, and your friends may not see the same values you do. </div> </div> </div>";},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}t.__esModule=!0;var i=n(10),r=o(i),a=n(13),l=o(a),s=n(14),u=o(s),d=n(11),c=o(d),f=n(15),_=o(f),p=n(8),h=o(p),m=n(5),b=o(m),g=function(e,t){var n=e[t];return b.default.isArray(arguments[2])||b.default.isObject(arguments[2])?new r.default(e,t,arguments[2]):b.default.isNumber(n)?b.default.isNumber(arguments[2])&&b.default.isNumber(arguments[3])?b.default.isNumber(arguments[4])?new u.default(e,t,arguments[2],arguments[3],arguments[4]):new u.default(e,t,arguments[2],arguments[3]):b.default.isNumber(arguments[4])?new l.default(e,t,{min:arguments[2],max:arguments[3],step:arguments[4]}):new l.default(e,t,{min:arguments[2],max:arguments[3]}):b.default.isString(n)?new c.default(e,t):b.default.isFunction(n)?new _.default(e,t,""):b.default.isBoolean(n)?new h.default(e,t):null};t.default=g,e.exports=t.default;},function(e,t){"use strict";function n(e){setTimeout(e,1e3/60);}t.__esModule=!0,t.default=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||n,e.exports=t.default;},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}t.__esModule=!0;var r=n(9),a=o(r),l=n(5),s=o(l),u=function(){function e(){i(this,e),this.backgroundElement=document.createElement("div"),s.default.extend(this.backgroundElement.style,{backgroundColor:"rgba(0,0,0,0.8)",top:0,left:0,display:"none",zIndex:"1000",opacity:0,WebkitTransition:"opacity 0.2s linear",transition:"opacity 0.2s linear"}),a.default.makeFullscreen(this.backgroundElement),this.backgroundElement.style.position="fixed",this.domElement=document.createElement("div"),s.default.extend(this.domElement.style,{position:"fixed",display:"none",zIndex:"1001",opacity:0,WebkitTransition:"-webkit-transform 0.2s ease-out, opacity 0.2s linear",transition:"transform 0.2s ease-out, opacity 0.2s linear"}),document.body.appendChild(this.backgroundElement),document.body.appendChild(this.domElement);var t=this;a.default.bind(this.backgroundElement,"click",function(){t.hide();});}return e.prototype.show=function(){var e=this;this.backgroundElement.style.display="block",this.domElement.style.display="block",this.domElement.style.opacity=0,this.domElement.style.webkitTransform="scale(1.1)",this.layout(),s.default.defer(function(){e.backgroundElement.style.opacity=1,e.domElement.style.opacity=1,e.domElement.style.webkitTransform="scale(1)";});},e.prototype.hide=function e(){var t=this,e=function e(){t.domElement.style.display="none",t.backgroundElement.style.display="none",a.default.unbind(t.domElement,"webkitTransitionEnd",e),a.default.unbind(t.domElement,"transitionend",e),a.default.unbind(t.domElement,"oTransitionEnd",e);};a.default.bind(this.domElement,"webkitTransitionEnd",e),a.default.bind(this.domElement,"transitionend",e),a.default.bind(this.domElement,"oTransitionEnd",e),this.backgroundElement.style.opacity=0,this.domElement.style.opacity=0,this.domElement.style.webkitTransform="scale(1.1)";},e.prototype.layout=function(){this.domElement.style.left=window.innerWidth/2-a.default.getWidth(this.domElement)/2+"px",this.domElement.style.top=window.innerHeight/2-a.default.getHeight(this.domElement)/2+"px";},e}();t.default=u,e.exports=t.default;},function(e,t,n){t=e.exports=n(24)(),t.push([e.id,".dg ul{list-style:none;margin:0;padding:0;width:100%;clear:both}.dg.ac{position:fixed;top:0;left:0;right:0;height:0;z-index:0}.dg:not(.ac) .main{overflow:hidden}.dg.main{transition:opacity .1s linear}.dg.main.taller-than-window{overflow-y:auto}.dg.main.taller-than-window .close-button{opacity:1;margin-top:-1px;border-top:1px solid #2c2c2c}.dg.main ul.closed .close-button{opacity:1!important}.dg.main .close-button.drag,.dg.main:hover .close-button{opacity:1}.dg.main .close-button{transition:opacity .1s linear;border:0;line-height:19px;height:20px;cursor:pointer;text-align:center;background-color:#000}.dg.main .close-button.close-top{position:relative}.dg.main .close-button.close-bottom{position:absolute}.dg.main .close-button:hover{background-color:#111}.dg.a{float:right;margin-right:15px;overflow-y:visible}.dg.a.has-save>ul.close-top{margin-top:0}.dg.a.has-save>ul.close-bottom{margin-top:27px}.dg.a.has-save>ul.closed{margin-top:0}.dg.a .save-row{top:0;z-index:1002}.dg.a .save-row.close-top{position:relative}.dg.a .save-row.close-bottom{position:fixed}.dg li{transition:height .1s ease-out;transition:overflow .1s linear}.dg li:not(.folder){cursor:auto;height:27px;line-height:27px;padding:0 4px 0 5px}.dg li.folder{padding:0;border-left:4px solid transparent}.dg li.title{margin-left:-4px}.dg .closed li:not(.title),.dg .closed ul li,.dg .closed ul li>*{height:0;overflow:hidden;border:0}.dg .cr{clear:both;padding-left:3px;height:27px;overflow:hidden}.dg .property-name{cursor:default;float:left;clear:left;width:40%;overflow:hidden;text-overflow:ellipsis}.dg .c{float:left;width:60%;position:relative}.dg .c input[type=text]{border:0;margin-top:4px;padding:3px;width:100%;float:right}.dg .has-slider input[type=text]{width:30%;margin-left:0}.dg .slider{float:left;width:66%;margin-left:-5px;margin-right:0;height:19px;margin-top:4px}.dg .slider-fg{height:100%}.dg .c input[type=checkbox]{margin-top:7px}.dg .c select{margin-top:5px}.dg .cr.boolean,.dg .cr.boolean *,.dg .cr.function,.dg .cr.function *,.dg .cr.function .property-name{cursor:pointer}.dg .cr.color{overflow:visible}.dg .selector{display:none;position:absolute;margin-left:-9px;margin-top:23px;z-index:10}.dg .c:hover .selector,.dg .selector.drag{display:block}.dg li.save-row{padding:0}.dg li.save-row .button{display:inline-block;padding:0 6px}.dg.dialogue{background-color:#222;width:460px;padding:15px;font-size:13px;line-height:15px}#dg-new-constructor{padding:10px;color:#222;font-family:Monaco,monospace;font-size:10px;border:0;resize:none;box-shadow:inset 1px 1px 1px #888;word-wrap:break-word;margin:12px 0;display:block;width:440px;overflow-y:scroll;height:100px;position:relative}#dg-local-explain{display:none;font-size:11px;line-height:17px;border-radius:3px;background-color:#333;padding:8px;margin-top:10px}#dg-local-explain code{font-size:10px}#dat-gui-save-locally{display:none}.dg{color:#eee;font:11px Lucida Grande,sans-serif;text-shadow:0 -1px 0 #111}.dg.main::-webkit-scrollbar{width:5px;background:#1a1a1a}.dg.main::-webkit-scrollbar-corner{height:0;display:none}.dg.main::-webkit-scrollbar-thumb{border-radius:5px;background:#676767}.dg li:not(.folder){background:#1a1a1a;border-bottom:1px solid #2c2c2c}.dg li.save-row{line-height:25px;background:#dad5cb;border:0}.dg li.save-row select{margin-left:5px;width:108px}.dg li.save-row .button{margin-left:5px;margin-top:1px;border-radius:2px;font-size:9px;line-height:7px;padding:4px 4px 5px;background:#c5bdad;color:#fff;text-shadow:0 1px 0 #b0a58f;box-shadow:0 -1px 0 #b0a58f;cursor:pointer}.dg li.save-row .button.gears{background:#c5bdad url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAANCAYAAAB/9ZQ7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQJJREFUeNpiYKAU/P//PwGIC/ApCABiBSAW+I8AClAcgKxQ4T9hoMAEUrxx2QSGN6+egDX+/vWT4e7N82AMYoPAx/evwWoYoSYbACX2s7KxCxzcsezDh3evFoDEBYTEEqycggWAzA9AuUSQQgeYPa9fPv6/YWm/Acx5IPb7ty/fw+QZblw67vDs8R0YHyQhgObx+yAJkBqmG5dPPDh1aPOGR/eugW0G4vlIoTIfyFcA+QekhhHJhPdQxbiAIguMBTQZrPD7108M6roWYDFQiIAAv6Aow/1bFwXgis+f2LUAynwoIaNcz8XNx3Dl7MEJUDGQpx9gtQ8YCueB+D26OECAAQDadt7e46D42QAAAABJRU5ErkJggg==) 2px 1px no-repeat;height:7px;width:8px}.dg li.save-row .button:hover{background-color:#bab19e;box-shadow:0 -1px 0 #b0a58f}.dg li.folder{border-bottom:0}.dg li.title{padding-left:16px;background:#000 url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlI+hKgFxoCgAOw==) 6px 10px no-repeat;cursor:pointer;border-bottom:1px solid hsla(0,0%,100%,.2)}.dg .closed li.title{background-image:url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlGIWqMCbWAEAOw==)}.dg .cr.boolean{border-left:3px solid #806787}.dg .cr.color{border-left:3px solid}.dg .cr.function{border-left:3px solid #e61d5f}.dg .cr.number{border-left:3px solid #2fa1d6}.dg .cr.number input[type=text]{color:#2fa1d6}.dg .cr.string{border-left:3px solid #1ed36f}.dg .cr.string input[type=text]{color:#1ed36f}.dg .cr.boolean:hover,.dg .cr.function:hover{background:#111}.dg .c input[type=text]{background:#303030;outline:none}.dg .c input[type=text]:hover{background:#3c3c3c}.dg .c input[type=text]:focus{background:#494949;color:#fff}.dg .c .slider{background:#303030;cursor:ew-resize}.dg .c .slider-fg{background:#2fa1d6;max-width:100%}.dg .c .slider:hover{background:#3c3c3c}.dg .c .slider:hover .slider-fg{background:#44abda}",""]);},function(e,t){e.exports=function(){var e=[];return e.toString=function(){for(var e=[],t=0;t<this.length;t++){var n=this[t];n[2]?e.push("@media "+n[2]+"{"+n[1]+"}"):e.push(n[1]);}return e.join("")},e.i=function(t,n){"string"==typeof t&&(t=[[null,t,""]]);for(var o={},i=0;i<this.length;i++){var r=this[i][0];"number"==typeof r&&(o[r]=!0);}for(i=0;i<t.length;i++){var a=t[i];"number"==typeof a[0]&&o[a[0]]||(n&&!a[2]?a[2]=n:n&&(a[2]="("+a[2]+") and ("+n+")"),e.push(a));}},e};}])});
-});
-
-var dat = unwrapExports(dat_gui_min);
-var dat_gui_min_1 = dat_gui_min.dat;
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+var gui = null;
 
 /**
  * Copyright 2020 (c) Felix Palmer
@@ -731,48 +723,49 @@ var dat_gui_min_1 = dat_gui_min.dat;
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-var v, vl, item, action, actionName, defaultValue;
-var extractKey = function ( actionName ) {
-  if ( actionName.slice( 0, 3 ) !== 'set' ) {
-    throw new Error( 'Action must be called setX' );
-  }
 
-  return actionName.charAt( 3 ).toLowerCase() +
-           actionName.slice( 4 );
+const Procedural$4 = {};
+
+/**
+ * @exports Procedural
+ * @name Environment
+ * @description Environments describe how the scene is rendered,
+ * for example the color of the lighting, or the position of the
+ * sun.
+ *
+ * To interactively adjust the values of the environment
+ * you can use the editor, launched using:
+ * [Procedural.environmentEditor]{@link module:Environment.environmentEditor}
+ */
+
+/**
+ * @name setEnvironment
+ * @memberof module:Environment
+ * @function
+ * @param {Object} environment
+ * @description Update the engine's environment to the environment
+ * configuration passed.
+ * @example
+ * var environment = {
+ *   title: 'custom',
+ *   parameters: {
+ *     inclination: 0.6,
+ *     fogDropoff: 0.0002
+ *   }
+ * };
+ * Procedural.setEnvironment( environment )
+ */
+Procedural$4.setEnvironment = function ( environment ) {
+  setTimeout( function () { UserActions.setEnvironment( environment ); }, 0 );
 };
 
-function SetterStore ( config ) {
-  // Extract listeners and method names
-  function SetterStore() {
-    var listeners = {};
-
-    // Set defaults
-    for ( v = 0, vl = config.length; v < vl; v++ ) {
-      item = config[ v ];
-      action = item[ 0 ];
-      defaultValue = item[ 1 ];
-      actionName = action.data.name;
-      this[ extractKey( actionName ) ] = defaultValue;
-
-      // Configure binding between action and function
-      listeners[ actionName ] = action;
-    }
-
-    this.bindListeners( listeners );
-  }
-
-  // Define handler functions to set values
-  for ( v = 0, vl = config.length; v < vl; v++ ) {
-    item = config[ v ];
-    action = item[ 0 ];
-    actionName = action.data.name;
-    SetterStore.prototype[ actionName ] = function ( key ) {
-      return function ( value ) { this[ key ] = value; };
-    }( extractKey( actionName ) );
-  }
-
-  return SetterStore;
-}
+/**
+ * @name environmentEditor
+ * @memberof module:Environment
+ * @function
+ * @description Launches the environment editor
+ */
+Procedural$4.environmentEditor = function () { gui.initEnv(); };
 
 /**
  * Copyright 2020 (c) Felix Palmer
@@ -781,11 +774,152 @@ function SetterStore ( config ) {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-var EnvironmentStore = SetterStore( [
-  [ UserActions.setEnvironment, {} ]
-] );
-EnvironmentStore.displayName = 'EnvironmentStore';
-var EnvironmentStore$1 = alt.createStore( EnvironmentStore );
+var queue = [];
+var processNext = function () { queue.shift()(); };
+
+var enqueue = function ( fn ) {
+  if ( typeof fn !== 'function' ) {
+    console.error( 'Tried to enqueue non-function' );
+    return;
+  }
+
+  queue.push( fn );
+  setTimeout( processNext, 0 );
+};
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+let log;
+{
+  log = () => {}; // Disable logging
+}
+
+var log$1 = log;
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+var FeatureUtils = {
+  // TODO perhaps better to inline these, as we're parsing a lot of data???
+  isLineString: function ( feature ) {
+    return feature.geometry.type === 'LineString';
+  },
+  isPolygon: function ( feature ) {
+    return feature.geometry.type === 'Polygon';
+  },
+  isMultiPolygon: function ( feature ) {
+    return feature.geometry.type === 'MultiPolygon';
+  },
+  isPoint: function ( feature ) {
+    return feature.geometry.type === 'Point';
+  },
+  tagValue: function ( feature, tag ) {
+    if ( !feature.properties.tags ) { return null }
+
+    return feature.properties.tags[ tag ];
+  },
+  hasTag: function ( feature, tag ) {
+    return !!FeatureUtils.tagValue( feature, tag );
+  },
+  isPiste: function ( feature ) {
+    return FeatureUtils.isLineString( feature ) && FeatureUtils.hasTag( feature, 'piste:type' );
+  },
+  isAerial: function ( feature ) {
+    return FeatureUtils.isLineString( feature ) && FeatureUtils.hasTag( feature, 'aerialway' );
+  },
+  isHighway: function ( feature ) {
+    return FeatureUtils.isLineString( feature ) && FeatureUtils.hasTag( feature, 'highway' );
+  },
+  isTrack: function ( feature ) {
+    if ( !FeatureUtils.isLineString( feature ) ) { return false }
+
+    var highway = FeatureUtils.tagValue( feature, 'highway' );
+    return ( highway === 'track' ||
+               highway === 'footway' ||
+               highway === 'path' ||
+               highway === 'cycleway' ||
+               highway === 'bridleway' );
+  },
+  isRiver: function ( feature ) {
+    return FeatureUtils.isLineString( feature ) && FeatureUtils.hasTag( feature, 'waterway' );
+  },
+  isBuilding: function ( feature ) {
+    return FeatureUtils.isPolygon( feature ) && FeatureUtils.hasTag( feature, 'building' );
+  },
+  isForest: function ( feature ) {
+    return ( FeatureUtils.isPolygon( feature ) || FeatureUtils.isMultiPolygon( feature ) ) &&
+        !FeatureUtils.isBuilding( feature );
+  },
+  color: function ( feature ) {
+    var difficulty = !!feature.properties.tags && feature.properties.tags[ 'piste:difficulty' ];
+    if ( difficulty ) {
+      if ( difficulty === 'advanced' || difficulty === 'expert' || difficulty === 'freeride' ) { return '#030512' }
+
+      if ( difficulty === 'intermediate' ) { return '#ef2415' }
+
+      if ( difficulty === 'easy' ) { return '#1976d2' }
+
+      if ( difficulty === 'novice' ) { return '#4caf50' }
+
+      log$1( 'Unknown piste difficulty', difficulty );
+      return '#17afef';
+    }
+
+    if ( FeatureUtils.isAerial( feature ) ) { return '#0c0c0c' }
+
+    if ( FeatureUtils.isTrack( feature ) ) { return 'rgba(46, 42, 22, 0.5)' }
+
+    if ( FeatureUtils.isHighway( feature ) ) { return '#222120' }
+
+    if ( feature.properties.color ) { return feature.properties.color }
+
+    if ( FeatureUtils.isRiver( feature ) ) {
+      // Hack this in to allow memoize to work
+      return feature.properties.tags.waterway === 'stream' ? 5 : 100;
+    }
+
+    log$1( 'Unknown feature color', feature );
+  },
+  thickness: function ( feature ) {
+    if ( feature.properties.thickness ) { return feature.properties.thickness }
+
+    if ( FeatureUtils.isPiste( feature ) ) { return 2.7 }
+
+    if ( FeatureUtils.isAerial( feature ) ) { return 3.0 }
+
+    if ( FeatureUtils.isTrack( feature ) ) { return 3 }
+
+    if ( FeatureUtils.isHighway( feature ) ) {
+      var highway = FeatureUtils.tagValue( feature, 'highway' );
+      if ( highway === 'motorway' ) { return 13 }
+
+      if ( highway === 'trunk' ) { return 11 }
+
+      if ( highway === 'primary' ) { return 10 }
+
+      if ( highway === 'secondary' ) { return 8 }
+
+      return 5;
+    }
+
+    if ( FeatureUtils.isRiver( feature ) ) {
+      if ( feature.properties.tags.width ) { return feature.properties.tags.width }
+
+      return feature.properties.tags.waterway === 'stream' ? 2 : 3.7;
+    }
+
+    return 2.5;
+  }
+};
 
 // Polyfills
 
@@ -6685,16 +6819,6 @@ Object3D.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 
 		if ( this.matrixAutoUpdate === false ) object.matrixAutoUpdate = false;
 
-		// object specific properties
-
-		if ( false ) {
-
-			object.type = 'InstancedMesh';
-			object.count = this.count;
-			object.instanceMatrix = this.instanceMatrix.toJSON();
-
-		}
-
 		//
 
 		function serialize( library, element ) {
@@ -7663,15 +7787,6 @@ Object.assign( Sphere.prototype, {
 	}
 
 } );
-
-var _vector$2 = new Vector3();
-var _segCenter = new Vector3();
-var _segDir = new Vector3();
-var _diff = new Vector3();
-
-var _edge1 = new Vector3();
-var _edge2 = new Vector3();
-var _normal = new Vector3();
 
 function Ray() {}
 
@@ -9102,17 +9217,6 @@ Material.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 		if ( this.emissiveMap && this.emissiveMap.isTexture ) data.emissiveMap = this.emissiveMap.toJSON( meta ).uuid;
 		if ( this.specularMap && this.specularMap.isTexture ) data.specularMap = this.specularMap.toJSON( meta ).uuid;
 
-		if ( false && false.isTexture ) {
-
-			data.envMap = false.toJSON( meta ).uuid;
-			data.reflectivity = this.reflectivity; // Scale behind envMap
-			data.refractionRatio = this.refractionRatio;
-
-			if ( this.combine !== undefined ) data.combine = this.combine;
-			if ( this.envMapIntensity !== undefined ) data.envMapIntensity = this.envMapIntensity;
-
-		}
-
 		if ( this.gradientMap && this.gradientMap.isTexture ) {
 
 			data.gradientMap = this.gradientMap.toJSON( meta ).uuid;
@@ -9164,8 +9268,6 @@ Material.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 		if ( this.wireframeLinewidth > 1 ) data.wireframeLinewidth = this.wireframeLinewidth;
 		if ( this.wireframeLinecap !== 'round' ) data.wireframeLinecap = this.wireframeLinecap;
 		if ( this.wireframeLinejoin !== 'round' ) data.wireframeLinejoin = this.wireframeLinejoin;
-
-		if ( false === true ) data.morphTargets = true;
 		if ( this.morphNormals === true ) data.morphNormals = true;
 		if ( this.skinning === true ) data.skinning = true;
 
@@ -10065,35 +10167,7 @@ BufferGeometry.prototype = Object.assign( Object.create( EventDispatcher.prototy
 
 		var geometry = object.geometry;
 
-		if ( false || false ) {
-
-			var positions = new Float32BufferAttribute( geometry.vertices.length * 3, 3 );
-			var colors = new Float32BufferAttribute( geometry.colors.length * 3, 3 );
-
-			this.setAttribute( 'position', positions.copyVector3sArray( geometry.vertices ) );
-			this.setAttribute( 'color', colors.copyColorsArray( geometry.colors ) );
-
-			if ( geometry.lineDistances && geometry.lineDistances.length === geometry.vertices.length ) {
-
-				var lineDistances = new Float32BufferAttribute( geometry.lineDistances.length, 1 );
-
-				this.setAttribute( 'lineDistance', lineDistances.copyArray( geometry.lineDistances ) );
-
-			}
-
-			if ( geometry.boundingSphere !== null ) {
-
-				this.boundingSphere = geometry.boundingSphere.clone();
-
-			}
-
-			if ( geometry.boundingBox !== null ) {
-
-				this.boundingBox = geometry.boundingBox.clone();
-
-			}
-
-		} else if ( object.isMesh ) {
+		if ( object.isMesh ) {
 
 			if ( geometry && geometry.isGeometry ) {
 
@@ -11055,14 +11129,6 @@ var _vA = new Vector3();
 var _vB = new Vector3();
 var _vC = new Vector3();
 
-var _tempA = new Vector3();
-var _tempB = new Vector3();
-var _tempC = new Vector3();
-
-var _morphA = new Vector3();
-var _morphB = new Vector3();
-var _morphC = new Vector3();
-
 var _uvA = new Vector2();
 var _uvB = new Vector2();
 var _uvC = new Vector2();
@@ -11416,45 +11482,6 @@ function checkBufferGeometryIntersection( object, material, raycaster, ray, posi
 	_vC.fromBufferAttribute( position, c );
 
 	var morphInfluences = object.morphTargetInfluences;
-
-	if ( false && morphPosition && morphInfluences ) {
-
-		_morphA.set( 0, 0, 0 );
-		_morphB.set( 0, 0, 0 );
-		_morphC.set( 0, 0, 0 );
-
-		for ( var i = 0, il = morphPosition.length; i < il; i ++ ) {
-
-			var influence = morphInfluences[ i ];
-			var morphAttribute = morphPosition[ i ];
-
-			if ( influence === 0 ) continue;
-
-			_tempA.fromBufferAttribute( morphAttribute, a );
-			_tempB.fromBufferAttribute( morphAttribute, b );
-			_tempC.fromBufferAttribute( morphAttribute, c );
-
-			if ( morphTargetsRelative ) {
-
-				_morphA.addScaledVector( _tempA, influence );
-				_morphB.addScaledVector( _tempB, influence );
-				_morphC.addScaledVector( _tempC, influence );
-
-			} else {
-
-				_morphA.addScaledVector( _tempA.sub( _vA ), influence );
-				_morphB.addScaledVector( _tempB.sub( _vB ), influence );
-				_morphC.addScaledVector( _tempC.sub( _vC ), influence );
-
-			}
-
-		}
-
-		_vA.add( _morphA );
-		_vB.add( _morphB );
-		_vC.add( _morphC );
-
-	}
 
 	var intersection = checkIntersection( object, material, raycaster, ray, _vA, _vB, _vC, _intersectionPoint );
 
@@ -15205,7 +15232,7 @@ function WebGLBackground( renderer, state, objects, premultipliedAlpha ) {
 
 		}
 
-		if ( background && ( false || false || background.mapping === CubeUVReflectionMapping ) ) {
+		if ( background && (  background.mapping === CubeUVReflectionMapping ) ) {
 
 			if ( boxMesh === undefined ) {
 
@@ -15247,10 +15274,10 @@ function WebGLBackground( renderer, state, objects, premultipliedAlpha ) {
 
 			}
 
-			var texture = false ? background.texture : background;
+			var texture =  background;
 
 			false.value = texture;
-			boxMesh.material.uniforms.flipEnvMap.value = false ? - 1 : 1;
+			boxMesh.material.uniforms.flipEnvMap.value =  1;
 
 			if ( currentBackground !== background ||
 				currentBackgroundVersion !== texture.version ||
@@ -16172,8 +16199,6 @@ function WebGLMorphtargets( gl ) {
 			influencesList[ geometry.id ] = influences;
 
 		}
-
-		var morphTargets = false && geometry.morphAttributes.position;
 		var morphNormals = material.morphNormals && geometry.morphAttributes.normal;
 
 		// Remove current morphAttributes
@@ -16183,8 +16208,6 @@ function WebGLMorphtargets( gl ) {
 			var influence = influences[ i ];
 
 			if ( influence[ 1 ] !== 0 ) {
-
-				if ( morphTargets ) geometry.deleteAttribute( 'morphTarget' + i );
 				if ( morphNormals ) geometry.deleteAttribute( 'morphNormal' + i );
 
 			}
@@ -16218,8 +16241,6 @@ function WebGLMorphtargets( gl ) {
 				var value = influence[ 1 ];
 
 				if ( value ) {
-
-					if ( morphTargets ) geometry.setAttribute( 'morphTarget' + i, morphTargets[ index ] );
 					if ( morphNormals ) geometry.setAttribute( 'morphNormal' + i, morphNormals[ index ] );
 
 					morphInfluences[ i ] = value;
@@ -16280,12 +16301,6 @@ function WebGLObjects( gl, geometries, attributes, info ) {
 			geometries.update( buffergeometry );
 
 			updateMap.set( buffergeometry, frame );
-
-		}
-
-		if ( false ) {
-
-			attributes.update( object.instanceMatrix, 34962 );
 
 		}
 
@@ -17251,33 +17266,6 @@ function addLineNumbers( string ) {
 
 }
 
-function getEncodingComponents( encoding ) {
-
-	switch ( encoding ) {
-
-		case LinearEncoding:
-			return [ 'Linear', '( value )' ];
-		case sRGBEncoding:
-			return [ 'sRGB', '( value )' ];
-		case RGBEEncoding:
-			return [ 'RGBE', '( value )' ];
-		case RGBM7Encoding:
-			return [ 'RGBM', '( value, 7.0 )' ];
-		case RGBM16Encoding:
-			return [ 'RGBM', '( value, 16.0 )' ];
-		case RGBDEncoding:
-			return [ 'RGBD', '( value, 256.0 )' ];
-		case GammaEncoding:
-			return [ 'Gamma', '( value, float( GAMMA_FACTOR ) )' ];
-		case LogLuvEncoding:
-			return [ 'LogLuv', '( value )' ];
-		default:
-			throw new Error( 'unsupported encoding: ' + encoding );
-
-	}
-
-}
-
 function getShaderErrors( gl, shader, type ) {
 
 	var status = gl.getShaderParameter( shader, 35713 );
@@ -17291,55 +17279,6 @@ function getShaderErrors( gl, shader, type ) {
 	var source = gl.getShaderSource( shader );
 
 	return 'THREE.WebGLShader: gl.getShaderInfoLog() ' + type + '\n' + log + addLineNumbers( source );
-
-}
-
-function getTexelDecodingFunction( functionName, encoding ) {
-
-	var components = getEncodingComponents( encoding );
-	return 'vec4 ' + functionName + '( vec4 value ) { return ' + components[ 0 ] + 'ToLinear' + components[ 1 ] + '; }';
-
-}
-
-function getTexelEncodingFunction( functionName, encoding ) {
-
-	var components = getEncodingComponents( encoding );
-	return 'vec4 ' + functionName + '( vec4 value ) { return LinearTo' + components[ 0 ] + components[ 1 ] + '; }';
-
-}
-
-function getToneMappingFunction( functionName, toneMapping ) {
-
-	var toneMappingName;
-
-	switch ( toneMapping ) {
-
-		case LinearToneMapping:
-			toneMappingName = 'Linear';
-			break;
-
-		case ReinhardToneMapping:
-			toneMappingName = 'Reinhard';
-			break;
-
-		case Uncharted2ToneMapping:
-			toneMappingName = 'Uncharted2';
-			break;
-
-		case CineonToneMapping:
-			toneMappingName = 'OptimizedCineon';
-			break;
-
-		case ACESFilmicToneMapping:
-			toneMappingName = 'ACESFilmic';
-			break;
-
-		default:
-			throw new Error( 'unsupported toneMapping: ' + toneMapping );
-
-	}
-
-	return 'vec3 ' + functionName + '( vec3 color ) { return ' + toneMappingName + 'ToneMapping( color ); }';
 
 }
 
@@ -17473,136 +17412,6 @@ function loopReplacer( match, start, end, snippet ) {
 
 }
 
-//
-
-function generatePrecision( parameters ) {
-
-	var precisionstring = "precision " + parameters.precision + " float;\nprecision " + parameters.precision + " int;";
-
-	if ( parameters.precision === "highp" ) {
-
-		precisionstring += "\n#define HIGH_PRECISION";
-
-	} else if ( parameters.precision === "mediump" ) {
-
-		precisionstring += "\n#define MEDIUM_PRECISION";
-
-	} else if ( parameters.precision === "lowp" ) {
-
-		precisionstring += "\n#define LOW_PRECISION";
-
-	}
-
-	return precisionstring;
-
-}
-
-function generateShadowMapTypeDefine( parameters ) {
-
-	var shadowMapTypeDefine = 'SHADOWMAP_TYPE_BASIC';
-
-	if ( false === PCFShadowMap ) {
-
-		shadowMapTypeDefine = 'SHADOWMAP_TYPE_PCF';
-
-	} else if ( false === PCFSoftShadowMap ) {
-
-		shadowMapTypeDefine = 'SHADOWMAP_TYPE_PCF_SOFT';
-
-	} else if ( false === VSMShadowMap ) {
-
-		shadowMapTypeDefine = 'SHADOWMAP_TYPE_VSM';
-
-	}
-
-	return shadowMapTypeDefine;
-
-}
-
-function generateEnvMapTypeDefine( parameters ) {
-
-	var envMapTypeDefine = 'ENVMAP_TYPE_CUBE';
-
-	if ( false ) {
-
-		switch ( parameters.envMapMode ) {
-
-			case CubeReflectionMapping:
-			case CubeRefractionMapping:
-				envMapTypeDefine = 'ENVMAP_TYPE_CUBE';
-				break;
-
-			case CubeUVReflectionMapping:
-			case CubeUVRefractionMapping:
-				envMapTypeDefine = 'ENVMAP_TYPE_CUBE_UV';
-				break;
-
-			case EquirectangularReflectionMapping:
-			case EquirectangularRefractionMapping:
-				envMapTypeDefine = 'ENVMAP_TYPE_EQUIREC';
-				break;
-
-			case SphericalReflectionMapping:
-				envMapTypeDefine = 'ENVMAP_TYPE_SPHERE';
-				break;
-
-		}
-
-	}
-
-	return envMapTypeDefine;
-
-}
-
-function generateEnvMapModeDefine( parameters ) {
-
-	var envMapModeDefine = 'ENVMAP_MODE_REFLECTION';
-
-	if ( false ) {
-
-		switch ( parameters.envMapMode ) {
-
-			case CubeRefractionMapping:
-			case EquirectangularRefractionMapping:
-				envMapModeDefine = 'ENVMAP_MODE_REFRACTION';
-				break;
-
-		}
-
-	}
-
-	return envMapModeDefine;
-
-}
-
-function generateEnvMapBlendingDefine( parameters ) {
-
-	var envMapBlendingDefine = 'ENVMAP_BLENDING_NONE';
-
-	if ( false ) {
-
-		switch ( parameters.combine ) {
-
-			case MultiplyOperation:
-				envMapBlendingDefine = 'ENVMAP_BLENDING_MULTIPLY';
-				break;
-
-			case MixOperation:
-				envMapBlendingDefine = 'ENVMAP_BLENDING_MIX';
-				break;
-
-			case AddOperation:
-				envMapBlendingDefine = 'ENVMAP_BLENDING_ADD';
-				break;
-
-		}
-
-	}
-
-	return envMapBlendingDefine;
-
-}
-
 function WebGLProgram( renderer, cacheKey, parameters ) {
 
 	var gl = renderer.getContext();
@@ -17611,10 +17420,6 @@ function WebGLProgram( renderer, cacheKey, parameters ) {
 
 	var vertexShader = parameters.vertexShader;
 	var fragmentShader = parameters.fragmentShader;
-	var shadowMapTypeDefine = generateShadowMapTypeDefine( parameters );
-	var envMapTypeDefine = generateEnvMapTypeDefine( parameters );
-	var envMapModeDefine = generateEnvMapModeDefine( parameters );
-	var envMapBlendingDefine = generateEnvMapBlendingDefine( parameters );
 
 
 	var gammaFactorDefine = ( renderer.gammaFactor > 0 ) ? renderer.gammaFactor : 1.0;
@@ -17627,7 +17432,7 @@ function WebGLProgram( renderer, cacheKey, parameters ) {
 
 	var prefixVertex, prefixFragment;
 
-	if ( true ) {
+	{
 
 		prefixVertex = [
 
@@ -17654,219 +17459,6 @@ function WebGLProgram( renderer, cacheKey, parameters ) {
 
 		}
 
-	} else {
-
-		prefixVertex = [
-
-			generatePrecision( parameters ),
-
-			'#define SHADER_NAME ' + parameters.shaderName,
-
-			customDefines,
-
-			parameters.instancing ? '#define USE_INSTANCING' : '',
-			parameters.supportsVertexTextures ? '#define VERTEX_TEXTURES' : '',
-
-			'#define GAMMA_FACTOR ' + gammaFactorDefine,
-
-			'#define MAX_BONES ' + parameters.maxBones,
-			( parameters.useFog && parameters.fog ) ? '#define USE_FOG' : '',
-			( parameters.useFog && parameters.fogExp2 ) ? '#define FOG_EXP2' : '',
-
-			parameters.map ? '#define USE_MAP' : '',
-			false ? '#define USE_ENVMAP' : '',
-			false ? '#define ' + envMapModeDefine : '',
-			parameters.lightMap ? '#define USE_LIGHTMAP' : '',
-			parameters.aoMap ? '#define USE_AOMAP' : '',
-			parameters.emissiveMap ? '#define USE_EMISSIVEMAP' : '',
-			parameters.bumpMap ? '#define USE_BUMPMAP' : '',
-			parameters.normalMap ? '#define USE_NORMALMAP' : '',
-			( parameters.normalMap && parameters.objectSpaceNormalMap ) ? '#define OBJECTSPACE_NORMALMAP' : '',
-			( parameters.normalMap && parameters.tangentSpaceNormalMap ) ? '#define TANGENTSPACE_NORMALMAP' : '',
-
-			parameters.clearcoatNormalMap ? '#define USE_CLEARCOAT_NORMALMAP' : '',
-			parameters.displacementMap && parameters.supportsVertexTextures ? '#define USE_DISPLACEMENTMAP' : '',
-			parameters.specularMap ? '#define USE_SPECULARMAP' : '',
-			parameters.roughnessMap ? '#define USE_ROUGHNESSMAP' : '',
-			parameters.metalnessMap ? '#define USE_METALNESSMAP' : '',
-			parameters.alphaMap ? '#define USE_ALPHAMAP' : '',
-
-			parameters.vertexTangents ? '#define USE_TANGENT' : '',
-			parameters.vertexColors ? '#define USE_COLOR' : '',
-			parameters.vertexUvs ? '#define USE_UV' : '',
-			parameters.uvsVertexOnly ? '#define UVS_VERTEX_ONLY' : '',
-
-			parameters.flatShading ? '#define FLAT_SHADED' : '',
-
-			parameters.skinning ? '#define USE_SKINNING' : '',
-			parameters.useVertexTexture ? '#define BONE_TEXTURE' : '',
-
-			false ? '#define USE_MORPHTARGETS' : '',
-			parameters.morphNormals && parameters.flatShading === false ? '#define USE_MORPHNORMALS' : '',
-			parameters.doubleSided ? '#define DOUBLE_SIDED' : '',
-			parameters.flipSided ? '#define FLIP_SIDED' : '',
-
-			parameters.shadowMapEnabled ? '#define USE_SHADOWMAP' : '',
-			parameters.shadowMapEnabled ? '#define ' + shadowMapTypeDefine : '',
-
-			parameters.sizeAttenuation ? '#define USE_SIZEATTENUATION' : '',
-
-			parameters.logarithmicDepthBuffer ? '#define USE_LOGDEPTHBUF' : '',
-			( parameters.logarithmicDepthBuffer && parameters.rendererExtensionFragDepth ) ? '#define USE_LOGDEPTHBUF_EXT' : '',
-
-			'uniform mat4 modelMatrix;',
-			'uniform mat4 modelViewMatrix;',
-			'uniform mat4 projectionMatrix;',
-			'uniform mat4 viewMatrix;',
-			'uniform mat3 normalMatrix;',
-			'uniform vec3 cameraPosition;',
-			'uniform bool isOrthographic;',
-
-			'#ifdef USE_INSTANCING',
-
-			' attribute mat4 instanceMatrix;',
-
-			'#endif',
-
-			'attribute vec3 position;',
-			'attribute vec3 normal;',
-			'attribute vec2 uv;',
-
-			'#ifdef USE_TANGENT',
-
-			'	attribute vec4 tangent;',
-
-			'#endif',
-
-			'#ifdef USE_COLOR',
-
-			'	attribute vec3 color;',
-
-			'#endif',
-
-			'#ifdef USE_MORPHTARGETS',
-
-			'	attribute vec3 morphTarget0;',
-			'	attribute vec3 morphTarget1;',
-			'	attribute vec3 morphTarget2;',
-			'	attribute vec3 morphTarget3;',
-
-			'	#ifdef USE_MORPHNORMALS',
-
-			'		attribute vec3 morphNormal0;',
-			'		attribute vec3 morphNormal1;',
-			'		attribute vec3 morphNormal2;',
-			'		attribute vec3 morphNormal3;',
-
-			'	#else',
-
-			'		attribute vec3 morphTarget4;',
-			'		attribute vec3 morphTarget5;',
-			'		attribute vec3 morphTarget6;',
-			'		attribute vec3 morphTarget7;',
-
-			'	#endif',
-
-			'#endif',
-
-			'#ifdef USE_SKINNING',
-
-			'	attribute vec4 skinIndex;',
-			'	attribute vec4 skinWeight;',
-
-			'#endif',
-
-			'\n'
-
-		].filter( filterEmptyLine ).join( '\n' );
-
-		prefixFragment = [
-
-			customExtensions,
-
-			generatePrecision( parameters ),
-
-			'#define SHADER_NAME ' + parameters.shaderName,
-
-			customDefines,
-
-			parameters.alphaTest ? '#define ALPHATEST ' + parameters.alphaTest + ( parameters.alphaTest % 1 ? '' : '.0' ) : '', // add '.0' if integer
-
-			'#define GAMMA_FACTOR ' + gammaFactorDefine,
-
-			( parameters.useFog && parameters.fog ) ? '#define USE_FOG' : '',
-			( parameters.useFog && parameters.fogExp2 ) ? '#define FOG_EXP2' : '',
-
-			parameters.map ? '#define USE_MAP' : '',
-			parameters.matcap ? '#define USE_MATCAP' : '',
-			false ? '#define USE_ENVMAP' : '',
-			false ? '#define ' + envMapTypeDefine : '',
-			false ? '#define ' + envMapModeDefine : '',
-			false ? '#define ' + envMapBlendingDefine : '',
-			parameters.lightMap ? '#define USE_LIGHTMAP' : '',
-			parameters.aoMap ? '#define USE_AOMAP' : '',
-			parameters.emissiveMap ? '#define USE_EMISSIVEMAP' : '',
-			parameters.bumpMap ? '#define USE_BUMPMAP' : '',
-			parameters.normalMap ? '#define USE_NORMALMAP' : '',
-			( parameters.normalMap && parameters.objectSpaceNormalMap ) ? '#define OBJECTSPACE_NORMALMAP' : '',
-			( parameters.normalMap && parameters.tangentSpaceNormalMap ) ? '#define TANGENTSPACE_NORMALMAP' : '',
-			parameters.clearcoatNormalMap ? '#define USE_CLEARCOAT_NORMALMAP' : '',
-			parameters.specularMap ? '#define USE_SPECULARMAP' : '',
-			parameters.roughnessMap ? '#define USE_ROUGHNESSMAP' : '',
-			parameters.metalnessMap ? '#define USE_METALNESSMAP' : '',
-			parameters.alphaMap ? '#define USE_ALPHAMAP' : '',
-
-			parameters.sheen ? '#define USE_SHEEN' : '',
-
-			parameters.vertexTangents ? '#define USE_TANGENT' : '',
-			parameters.vertexColors ? '#define USE_COLOR' : '',
-			parameters.vertexUvs ? '#define USE_UV' : '',
-			parameters.uvsVertexOnly ? '#define UVS_VERTEX_ONLY' : '',
-
-			parameters.gradientMap ? '#define USE_GRADIENTMAP' : '',
-
-			parameters.flatShading ? '#define FLAT_SHADED' : '',
-
-			parameters.doubleSided ? '#define DOUBLE_SIDED' : '',
-			parameters.flipSided ? '#define FLIP_SIDED' : '',
-
-			parameters.shadowMapEnabled ? '#define USE_SHADOWMAP' : '',
-			parameters.shadowMapEnabled ? '#define ' + shadowMapTypeDefine : '',
-
-			parameters.premultipliedAlpha ? '#define PREMULTIPLIED_ALPHA' : '',
-
-			parameters.physicallyCorrectLights ? '#define PHYSICALLY_CORRECT_LIGHTS' : '',
-
-			parameters.logarithmicDepthBuffer ? '#define USE_LOGDEPTHBUF' : '',
-			( parameters.logarithmicDepthBuffer && parameters.rendererExtensionFragDepth ) ? '#define USE_LOGDEPTHBUF_EXT' : '',
-
-			( ( parameters.extensionShaderTextureLOD || false ) && parameters.rendererExtensionShaderTextureLod ) ? '#define TEXTURE_LOD_EXT' : '',
-
-			'uniform mat4 viewMatrix;',
-			'uniform vec3 cameraPosition;',
-			'uniform bool isOrthographic;',
-
-			( parameters.toneMapping !== NoToneMapping ) ? '#define TONE_MAPPING' : '',
-			( parameters.toneMapping !== NoToneMapping ) ? ShaderChunk[ 'tonemapping_pars_fragment' ] : '', // this code is required here because it is used by the toneMapping() function defined below
-			( parameters.toneMapping !== NoToneMapping ) ? getToneMappingFunction( 'toneMapping', parameters.toneMapping ) : '',
-
-			parameters.dithering ? '#define DITHERING' : '',
-
-			( parameters.outputEncoding || parameters.mapEncoding || parameters.matcapEncoding || parameters.envMapEncoding || parameters.emissiveMapEncoding || parameters.lightMapEncoding ) ?
-				ShaderChunk[ 'encodings_pars_fragment' ] : '', // this code is required here because it is used by the various encoding/decoding function defined below
-			parameters.mapEncoding ? getTexelDecodingFunction( 'mapTexelToLinear', parameters.mapEncoding ) : '',
-			parameters.matcapEncoding ? getTexelDecodingFunction( 'matcapTexelToLinear', parameters.matcapEncoding ) : '',
-			parameters.envMapEncoding ? getTexelDecodingFunction( 'envMapTexelToLinear', parameters.envMapEncoding ) : '',
-			parameters.emissiveMapEncoding ? getTexelDecodingFunction( 'emissiveMapTexelToLinear', parameters.emissiveMapEncoding ) : '',
-			parameters.lightMapEncoding ? getTexelDecodingFunction( 'lightMapTexelToLinear', parameters.lightMapEncoding ) : '',
-			parameters.outputEncoding ? getTexelEncodingFunction( 'linearToOutputTexel', parameters.outputEncoding ) : '',
-
-			parameters.depthPacking ? '#define DEPTH_PACKING ' + parameters.depthPacking : '',
-
-			'\n'
-
-		].filter( filterEmptyLine ).join( '\n' );
-
 	}
 
 	vertexShader = resolveIncludes( vertexShader );
@@ -17886,7 +17478,7 @@ function WebGLProgram( renderer, cacheKey, parameters ) {
 
 		var versionRegex = /^\s*#version\s+300\s+es\s*\n/;
 
-		if ( true &&
+		if ( 
 			vertexShader.match( versionRegex ) !== null &&
 			fragmentShader.match( versionRegex ) !== null ) {
 
@@ -17942,11 +17534,6 @@ function WebGLProgram( renderer, cacheKey, parameters ) {
 	if ( parameters.index0AttributeName !== undefined ) {
 
 		gl.bindAttribLocation( program, 0, parameters.index0AttributeName );
-
-	} else if ( false === true ) {
-
-		// programs with morphTargets displace position out of attribute 0
-		gl.bindAttribLocation( program, 0, 'position' );
 
 	}
 
@@ -18105,22 +17692,6 @@ function WebGLPrograms( renderer, extensions, capabilities ) {
 		SpriteMaterial: 'sprite'
 	};
 
-	var parameterNames = [
-		"precision", "isWebGL2", "supportsVertexTextures", "outputEncoding", "instancing",
-		"map", "mapEncoding", "matcap", "matcapEncoding", "envMap", "envMapMode", "envMapEncoding", "envMapCubeUV",
-		"lightMap", "lightMapEncoding", "aoMap", "emissiveMap", "emissiveMapEncoding", "bumpMap", "normalMap", "objectSpaceNormalMap", "tangentSpaceNormalMap", "clearcoatNormalMap", "displacementMap", "specularMap",
-		"roughnessMap", "metalnessMap", "gradientMap",
-		"alphaMap", "combine", "vertexColors", "vertexTangents", "vertexUvs", "uvsVertexOnly", "fog", "useFog", "fogExp2",
-		"flatShading", "sizeAttenuation", "logarithmicDepthBuffer", "skinning",
-		"maxBones", "useVertexTexture", "morphTargets", "morphNormals",
-		"maxMorphTargets", "maxMorphNormals", "premultipliedAlpha",
-		"numDirLights", "numPointLights", "numSpotLights", "numHemiLights", "numRectAreaLights",
-		"numDirLightShadows", "numPointLightShadows", "numSpotLightShadows",
-		"shadowMapEnabled", "shadowMapType", "toneMapping", 'physicallyCorrectLights',
-		"alphaTest", "doubleSided", "flipSided", "numClippingPlanes", "numClipIntersection", "depthPacking", "dithering",
-		"sheen"
-	];
-
 	function getShaderObject( material, shaderID ) {
 
 		var shaderobject;
@@ -18151,8 +17722,6 @@ function WebGLPrograms( renderer, extensions, capabilities ) {
 
 	}
 
-	function allocateBones() {}
-
 	function getTextureEncodingFromMap( map ) {
 
 		var encoding;
@@ -18179,16 +17748,16 @@ function WebGLPrograms( renderer, extensions, capabilities ) {
 	this.getParameters = function ( material, lights, shadows, scene, nClipPlanes, nClipIntersection, object ) {
 
 		var fog = scene.fog;
-		var environment = false ? scene.environment : null;
+		var environment =  null;
 
-		var envMap = false || environment;
+		var envMap =  environment;
 
 		var shaderID = shaderIDs[ material.type ];
 
 		// heuristics to create shader parameters according to lights in the scene
 		// (not to blow over maxLights budget)
 
-		var maxBones = false ? allocateBones( object ) : 0;
+		var maxBones =  0;
 
 		if ( material.precision !== null ) {
 
@@ -18233,9 +17802,9 @@ function WebGLPrograms( renderer, extensions, capabilities ) {
 			matcap: !! material.matcap,
 			matcapEncoding: getTextureEncodingFromMap( material.matcap ),
 			envMap: !! envMap,
-			envMapMode: envMap && envMap.mapping,
+			envMapMode: envMap ,
 			envMapEncoding: getTextureEncodingFromMap( envMap ),
-			envMapCubeUV: ( !! envMap ) && ( ( envMap.mapping === CubeUVReflectionMapping ) || ( envMap.mapping === CubeUVRefractionMapping ) ),
+			envMapCubeUV: ( !! envMap ) ,
 			lightMap: !! material.lightMap,
 			lightMapEncoding: getTextureEncodingFromMap( material.lightMap ),
 			aoMap: !! material.aoMap,
@@ -18352,19 +17921,6 @@ function WebGLPrograms( renderer, extensions, capabilities ) {
 				array.push( parameters.defines[ name ] );
 
 			}
-
-		}
-
-		if ( true === undefined ) {
-
-			for ( var i = 0; i < parameterNames.length; i ++ ) {
-
-				array.push( parameters[ parameterNames[ i ] ] );
-
-			}
-
-			array.push( renderer.outputEncoding );
-			array.push( renderer.gammaFactor );
 
 		}
 
@@ -18705,143 +18261,6 @@ function WebGLRenderLists() {
 
 }
 
-/**
- * @author mrdoob / http://mrdoob.com/
- */
-
-function UniformsCache() {
-
-	var lights = {};
-
-	return {
-
-		get: function ( light ) {
-
-			if ( lights[ light.id ] !== undefined ) {
-
-				return lights[ light.id ];
-
-			}
-
-			var uniforms;
-
-			switch ( light.type ) {
-
-				case 'DirectionalLight':
-					uniforms = {
-						direction: new Vector3(),
-						color: new Color()
-					};
-					break;
-
-				case 'SpotLight':
-					uniforms = {
-						position: new Vector3(),
-						direction: new Vector3(),
-						color: new Color(),
-						distance: 0,
-						coneCos: 0,
-						penumbraCos: 0,
-						decay: 0
-					};
-					break;
-
-				case 'PointLight':
-					uniforms = {
-						position: new Vector3(),
-						color: new Color(),
-						distance: 0,
-						decay: 0
-					};
-					break;
-
-				case 'HemisphereLight':
-					uniforms = {
-						direction: new Vector3(),
-						skyColor: new Color(),
-						groundColor: new Color()
-					};
-					break;
-
-				case 'RectAreaLight':
-					uniforms = {
-						color: new Color(),
-						position: new Vector3(),
-						halfWidth: new Vector3(),
-						halfHeight: new Vector3()
-					};
-					break;
-
-			}
-
-			lights[ light.id ] = uniforms;
-
-			return uniforms;
-
-		}
-
-	};
-
-}
-
-function ShadowUniformsCache() {
-
-	var lights = {};
-
-	return {
-
-		get: function ( light ) {
-
-			if ( lights[ light.id ] !== undefined ) {
-
-				return lights[ light.id ];
-
-			}
-
-			var uniforms;
-
-			switch ( light.type ) {
-
-				case 'DirectionalLight':
-					uniforms = {
-						shadowBias: 0,
-						shadowRadius: 1,
-						shadowMapSize: new Vector2()
-					};
-					break;
-
-				case 'SpotLight':
-					uniforms = {
-						shadowBias: 0,
-						shadowRadius: 1,
-						shadowMapSize: new Vector2()
-					};
-					break;
-
-				case 'PointLight':
-					uniforms = {
-						shadowBias: 0,
-						shadowRadius: 1,
-						shadowMapSize: new Vector2(),
-						shadowCameraNear: 1,
-						shadowCameraFar: 1000
-					};
-					break;
-
-				// TODO (abelnation): set RectAreaLight shadow uniforms
-
-			}
-
-			lights[ light.id ] = uniforms;
-
-			return uniforms;
-
-		}
-
-	};
-
-}
-
 
 
 var nextVersion = 0;
@@ -18853,10 +18272,6 @@ function shadowCastingLightsFirst( lightA, lightB ) {
 }
 
 function WebGLLights() {
-
-	var cache = new UniformsCache();
-
-	var shadowCache = ShadowUniformsCache();
 
 	var state = {
 
@@ -18894,8 +18309,6 @@ function WebGLLights() {
 	};
 
 	for ( var i = 0; i < 9; i ++ ) state.probe.push( new Vector3() );
-
-	var vector3 = new Vector3();
 	var matrix4 = new Matrix4();
 	var matrix42 = new Matrix4();
 
@@ -18928,177 +18341,6 @@ function WebGLLights() {
 			var distance = light.distance;
 
 			var shadowMap = ( light.shadow && light.shadow.map ) ? light.shadow.map.texture : null;
-
-			if ( false ) {
-
-				r += color.r * intensity;
-				g += color.g * intensity;
-				b += color.b * intensity;
-
-			} else if ( false ) {
-
-				for ( var j = 0; j < 9; j ++ ) {
-
-					state.probe[ j ].addScaledVector( light.sh.coefficients[ j ], intensity );
-
-				}
-
-			} else if ( false ) {
-
-				var uniforms = cache.get( light );
-
-				uniforms.color.copy( light.color ).multiplyScalar( light.intensity );
-				uniforms.direction.setFromMatrixPosition( light.matrixWorld );
-				vector3.setFromMatrixPosition( light.target.matrixWorld );
-				uniforms.direction.sub( vector3 );
-				uniforms.direction.transformDirection( viewMatrix );
-
-				if ( light.castShadow ) {
-
-					var shadow = light.shadow;
-
-					var shadowUniforms = shadowCache.get( light );
-
-					shadowUniforms.shadowBias = shadow.bias;
-					shadowUniforms.shadowRadius = shadow.radius;
-					shadowUniforms.shadowMapSize = shadow.mapSize;
-
-					state.directionalShadow[ directionalLength ] = shadowUniforms;
-					state.directionalShadowMap[ directionalLength ] = shadowMap;
-					state.directionalShadowMatrix[ directionalLength ] = light.shadow.matrix;
-
-					numDirectionalShadows ++;
-
-				}
-
-				state.directional[ directionalLength ] = uniforms;
-
-				directionalLength ++;
-
-			} else if ( false ) {
-
-				var uniforms = cache.get( light );
-
-				uniforms.position.setFromMatrixPosition( light.matrixWorld );
-				uniforms.position.applyMatrix4( viewMatrix );
-
-				uniforms.color.copy( color ).multiplyScalar( intensity );
-				uniforms.distance = distance;
-
-				uniforms.direction.setFromMatrixPosition( light.matrixWorld );
-				vector3.setFromMatrixPosition( light.target.matrixWorld );
-				uniforms.direction.sub( vector3 );
-				uniforms.direction.transformDirection( viewMatrix );
-
-				uniforms.coneCos = Math.cos( light.angle );
-				uniforms.penumbraCos = Math.cos( light.angle * ( 1 - light.penumbra ) );
-				uniforms.decay = light.decay;
-
-				if ( light.castShadow ) {
-
-					var shadow = light.shadow;
-
-					var shadowUniforms = shadowCache.get( light );
-
-					shadowUniforms.shadowBias = shadow.bias;
-					shadowUniforms.shadowRadius = shadow.radius;
-					shadowUniforms.shadowMapSize = shadow.mapSize;
-
-					state.spotShadow[ spotLength ] = shadowUniforms;
-					state.spotShadowMap[ spotLength ] = shadowMap;
-					state.spotShadowMatrix[ spotLength ] = light.shadow.matrix;
-
-					numSpotShadows ++;
-
-				}
-
-				state.spot[ spotLength ] = uniforms;
-
-				spotLength ++;
-
-			} else if ( false ) {
-
-				var uniforms = cache.get( light );
-
-				// (a) intensity is the total visible light emitted
-				//uniforms.color.copy( color ).multiplyScalar( intensity / ( light.width * light.height * Math.PI ) );
-
-				// (b) intensity is the brightness of the light
-				uniforms.color.copy( color ).multiplyScalar( intensity );
-
-				uniforms.position.setFromMatrixPosition( light.matrixWorld );
-				uniforms.position.applyMatrix4( viewMatrix );
-
-				// extract local rotation of light to derive width/height half vectors
-				matrix42.identity();
-				matrix4.copy( light.matrixWorld );
-				matrix4.premultiply( viewMatrix );
-				matrix42.extractRotation( matrix4 );
-
-				uniforms.halfWidth.set( light.width * 0.5, 0.0, 0.0 );
-				uniforms.halfHeight.set( 0.0, light.height * 0.5, 0.0 );
-
-				uniforms.halfWidth.applyMatrix4( matrix42 );
-				uniforms.halfHeight.applyMatrix4( matrix42 );
-
-				// TODO (abelnation): RectAreaLight distance?
-				// uniforms.distance = distance;
-
-				state.rectArea[ rectAreaLength ] = uniforms;
-
-				rectAreaLength ++;
-
-			} else if ( false ) {
-
-				var uniforms = cache.get( light );
-
-				uniforms.position.setFromMatrixPosition( light.matrixWorld );
-				uniforms.position.applyMatrix4( viewMatrix );
-
-				uniforms.color.copy( light.color ).multiplyScalar( light.intensity );
-				uniforms.distance = light.distance;
-				uniforms.decay = light.decay;
-
-				if ( light.castShadow ) {
-
-					var shadow = light.shadow;
-
-					var shadowUniforms = shadowCache.get( light );
-
-					shadowUniforms.shadowBias = shadow.bias;
-					shadowUniforms.shadowRadius = shadow.radius;
-					shadowUniforms.shadowMapSize = shadow.mapSize;
-					shadowUniforms.shadowCameraNear = shadow.camera.near;
-					shadowUniforms.shadowCameraFar = shadow.camera.far;
-
-					state.pointShadow[ pointLength ] = shadowUniforms;
-					state.pointShadowMap[ pointLength ] = shadowMap;
-					state.pointShadowMatrix[ pointLength ] = light.shadow.matrix;
-
-					numPointShadows ++;
-
-				}
-
-				state.point[ pointLength ] = uniforms;
-
-				pointLength ++;
-
-			} else if ( false ) {
-
-				var uniforms = cache.get( light );
-
-				uniforms.direction.setFromMatrixPosition( light.matrixWorld );
-				uniforms.direction.transformDirection( viewMatrix );
-				uniforms.direction.normalize();
-
-				uniforms.skyColor.copy( light.color ).multiplyScalar( intensity );
-				uniforms.groundColor.copy( light.groundColor ).multiplyScalar( intensity );
-
-				state.hemi[ hemiLength ] = uniforms;
-
-				hemiLength ++;
-
-			}
 
 		}
 
@@ -19349,10 +18591,6 @@ MeshDepthMaterial.prototype.copy = function ( source ) {
 };
 
 function MeshDistanceMaterial() {}
-
-var vsm_frag = "";
-
-var vsm_vert = "";
 
 function WebGLShadowMap() {
     this.render = function() {};
@@ -20389,8 +19627,6 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 	var maxCubemapSize = capabilities.maxCubemapSize;
 	var maxTextureSize = capabilities.maxTextureSize;
 	var maxSamples = capabilities.maxSamples;
-
-	var _videoTextures = new WeakMap();
 	var _canvas;
 
 	// cordova iOS (as of 5.0) still uses UIWebView, which provides OffscreenCanvas,
@@ -20591,12 +19827,6 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 
 		deallocateTexture( texture );
 
-		if ( false ) {
-
-			_videoTextures.delete( texture );
-
-		}
-
 		info.memory.textures --;
 
 	}
@@ -20646,16 +19876,7 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 
 		}
 
-		if ( false ) {
-
-			for ( var i = 0; i < 6; i ++ ) {
-
-				_gl.deleteFramebuffer( renderTargetProperties.__webglFramebuffer[ i ] );
-				if ( renderTargetProperties.__webglDepthbuffer ) _gl.deleteRenderbuffer( renderTargetProperties.__webglDepthbuffer[ i ] );
-
-			}
-
-		} else {
+		{
 
 			_gl.deleteFramebuffer( renderTargetProperties.__webglFramebuffer );
 			if ( renderTargetProperties.__webglDepthbuffer ) _gl.deleteRenderbuffer( renderTargetProperties.__webglDepthbuffer );
@@ -20698,8 +19919,6 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 	function setTexture2D( texture, slot ) {
 
 		var textureProperties = properties.get( texture );
-
-		if ( false ) updateVideoTexture( texture );
 
 		if ( texture.version > 0 && textureProperties.__version !== texture.version ) {
 
@@ -21171,29 +20390,13 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 
 		var renderTargetProperties = properties.get( renderTarget );
 
-		var isCube = ( false === true );
-
 		if ( renderTarget.depthTexture ) {
-
-			if ( isCube ) throw new Error( 'target.depthTexture not supported in Cube render targets' );
 
 			setupDepthTexture( renderTargetProperties.__webglFramebuffer, renderTarget );
 
 		} else {
 
-			if ( isCube ) {
-
-				renderTargetProperties.__webglDepthbuffer = [];
-
-				for ( var i = 0; i < 6; i ++ ) {
-
-					_gl.bindFramebuffer( 36160, renderTargetProperties.__webglFramebuffer[ i ] );
-					renderTargetProperties.__webglDepthbuffer[ i ] = _gl.createRenderbuffer();
-					setupRenderBufferStorage( renderTargetProperties.__webglDepthbuffer[ i ], renderTarget );
-
-				}
-
-			} else {
+			{
 
 				_gl.bindFramebuffer( 36160, renderTargetProperties.__webglFramebuffer );
 				renderTargetProperties.__webglDepthbuffer = _gl.createRenderbuffer();
@@ -21218,24 +20421,12 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 		textureProperties.__webglTexture = _gl.createTexture();
 
 		info.memory.textures ++;
-
-		var isCube = ( false === true );
 		var isMultisample = ( renderTarget.isWebGLMultisampleRenderTarget === true );
 		var supportsMips = isPowerOfTwo( renderTarget ) || isWebGL2;
 
 		// Setup framebuffer
 
-		if ( isCube ) {
-
-			renderTargetProperties.__webglFramebuffer = [];
-
-			for ( var i = 0; i < 6; i ++ ) {
-
-				renderTargetProperties.__webglFramebuffer[ i ] = _gl.createFramebuffer();
-
-			}
-
-		} else {
+		{
 
 			renderTargetProperties.__webglFramebuffer = _gl.createFramebuffer();
 
@@ -21280,26 +20471,7 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 
 		// Setup color buffer
 
-		if ( isCube ) {
-
-			state.bindTexture( 34067, textureProperties.__webglTexture );
-			setTextureParameters( 34067, renderTarget.texture, supportsMips );
-
-			for ( var i = 0; i < 6; i ++ ) {
-
-				setupFrameBufferTexture( renderTargetProperties.__webglFramebuffer[ i ], renderTarget, 36064, 34069 + i );
-
-			}
-
-			if ( textureNeedsGenerateMipmaps( renderTarget.texture, supportsMips ) ) {
-
-				generateMipmap( 34067, renderTarget.texture, renderTarget.width, renderTarget.height );
-
-			}
-
-			state.bindTexture( 34067, null );
-
-		} else {
+		{
 
 			state.bindTexture( 3553, textureProperties.__webglTexture );
 			setTextureParameters( 3553, renderTarget.texture, supportsMips );
@@ -21332,7 +20504,7 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 
 		if ( textureNeedsGenerateMipmaps( texture, supportsMips ) ) {
 
-			var target = false ? 34067 : 3553;
+			var target =  3553;
 			var webglTexture = properties.get( texture ).__webglTexture;
 
 			state.bindTexture( target, webglTexture );
@@ -21380,21 +20552,6 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 
 	}
 
-	function updateVideoTexture( texture ) {
-
-		var frame = info.render.frame;
-
-		// Check the last frame we updated the VideoTexture
-
-		if ( _videoTextures.get( texture ) !== frame ) {
-
-			_videoTextures.set( texture, frame );
-			texture.update();
-
-		}
-
-	}
-
 	// backwards compatibility
 
 	var warnedTexture2D = false;
@@ -21437,19 +20594,7 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 		// currently relying on the fact that WebGLCubeRenderTarget.texture is a Texture and NOT a CubeTexture
 		// TODO: unify these code paths
 		if ( ( texture && false ) ||
-			( Array.isArray( texture.image ) && texture.image.length === 6 ) ) {
-
-			// CompressedTexture can have Array in image :/
-
-			// this function alone should take care of cube textures
-			setTextureCube( texture, slot );
-
-		} else {
-
-			// assumed: texture property of THREE.WebGLCubeRenderTarget
-			setTextureCubeDynamic( texture, slot );
-
-		}
+			( Array.isArray( texture.image ) && texture.image.length === 6 ) ) ;
 
 	}
 
@@ -22378,7 +21523,7 @@ function WebGLRenderer( parameters ) {
 
 		}
 
-		if ( false || material.morphNormals ) {
+		if (  material.morphNormals ) {
 
 			morphtargets.update( object, geometry, material, program );
 
@@ -22470,43 +21615,13 @@ function WebGLRenderer( parameters ) {
 
 			}
 
-		} else if ( false ) {
-
-			var lineWidth = material.linewidth;
-
-			if ( lineWidth === undefined ) lineWidth = 1; // Not using Line*Material
-
-			state.setLineWidth( lineWidth * getTargetPixelRatio() );
-
-			if ( object.isLineSegments ) {
-
-				renderer.setMode( 1 );
-
-			} else if ( false ) {
-
-				renderer.setMode( 2 );
-
-			} else {
-
-				renderer.setMode( 3 );
-
-			}
-
-		} else if ( false ) {
-
-			renderer.setMode( 0 );
-
 		} else if ( object.isSprite ) {
 
 			renderer.setMode( 4 );
 
 		}
 
-		if ( false ) {
-
-			renderer.renderInstances( geometry, drawStart, drawCount, object.count );
-
-		} else if ( geometry.isInstancedBufferGeometry ) {
+		if ( geometry.isInstancedBufferGeometry ) {
 
 			renderer.renderInstances( geometry, drawStart, drawCount, geometry.maxInstancedCount );
 
@@ -22520,7 +21635,7 @@ function WebGLRenderer( parameters ) {
 
 	function setupVertexAttributes( object, geometry, material, program ) {
 
-		if ( capabilities.isWebGL2 === false && ( false || geometry.isInstancedBufferGeometry ) ) {
+		if ( capabilities.isWebGL2 === false && (  geometry.isInstancedBufferGeometry ) ) {
 
 			if ( extensions.get( 'ANGLE_instanced_arrays' ) === null ) return;
 
@@ -22673,18 +21788,6 @@ function WebGLRenderer( parameters ) {
 		currentRenderState.init();
 
 		scene.traverse( function ( object ) {
-
-			if ( false ) {
-
-				currentRenderState.pushLight( object );
-
-				if ( object.castShadow ) {
-
-					currentRenderState.pushShadow( object );
-
-				}
-
-			}
 
 		} );
 
@@ -22923,16 +22026,6 @@ function WebGLRenderer( parameters ) {
 
 				if ( object.autoUpdate === true ) object.update( camera );
 
-			} else if ( false ) {
-
-				currentRenderState.pushLight( object );
-
-				if ( object.castShadow ) {
-
-					currentRenderState.pushShadow( object );
-
-				}
-
 			} else if ( object.isSprite ) {
 
 				if ( ! object.frustumCulled || _frustum.intersectsSprite( object ) ) {
@@ -22967,19 +22060,6 @@ function WebGLRenderer( parameters ) {
 				currentRenderList.push( object, null, object.material, groupOrder, _vector3.z, null );
 
 			} else if ( object.isMesh || false || false ) {
-
-				if ( false ) {
-
-					// update skeleton only once in a frame
-
-					if ( object.skeleton.frame !== info.render.frame ) {
-
-						object.skeleton.update();
-						object.skeleton.frame = info.render.frame;
-
-					}
-
-				}
 
 				if ( ! object.frustumCulled || _frustum.intersectsObject( object ) ) {
 
@@ -23157,7 +22237,7 @@ function WebGLRenderer( parameters ) {
 
 			materialProperties.program = program;
 			materialProperties.uniforms = parameters.uniforms;
-			materialProperties.environment = false ? scene.environment : null;
+			materialProperties.environment =  null;
 			materialProperties.outputEncoding = _this.outputEncoding;
 			material.program = program;
 
@@ -23167,15 +22247,7 @@ function WebGLRenderer( parameters ) {
 
 		if ( false ) {
 
-			material.numSupportedMorphTargets = 0;
-
-			for ( var i = 0; i < _this.maxMorphTargets; i ++ ) {
-
-				if ( programAttributes[ 'morphTarget' + i ] >= 0 ) {
-
-					material.numSupportedMorphTargets ++;
-
-				}
+			for ( var i; i < _this.maxMorphTargets; i ++ ) {
 
 			}
 
@@ -23199,8 +22271,7 @@ function WebGLRenderer( parameters ) {
 
 		var uniforms = materialProperties.uniforms;
 
-		if ( ! true &&
-			! true ||
+		if ( 
 			material.clipping === true ) {
 
 			materialProperties.numClippingPlanes = _clipping.numPlanes;
@@ -23254,7 +22325,7 @@ function WebGLRenderer( parameters ) {
 		textures.resetTextureUnits();
 
 		var fog = scene.fog;
-		var environment = false ? scene.environment : null;
+		var environment =  null;
 
 		var materialProperties = properties.get( material );
 		var lights = currentRenderState.state.lights;
@@ -23366,11 +22437,7 @@ function WebGLRenderer( parameters ) {
 			// load material specific uniforms
 			// (shader material also gets them for the sake of genericity)
 
-			if ( true ||
-				false ||
-				false ||
-				false ||
-				false ) {
+			{
 
 				var uCamPos = p_uniforms.map.cameraPosition;
 
@@ -23383,9 +22450,7 @@ function WebGLRenderer( parameters ) {
 
 			}
 
-			if ( false ||
-				false ||
-				false ||
+			if ( 
 				material.isMeshBasicMaterial ||
 				false ||
 				true ) {
@@ -23394,9 +22459,7 @@ function WebGLRenderer( parameters ) {
 
 			}
 
-			if ( false ||
-				false ||
-				false ||
+			if ( 
 				material.isMeshBasicMaterial ||
 				false ||
 				true ||
@@ -23502,35 +22565,6 @@ function WebGLRenderer( parameters ) {
 
 				refreshUniformsCommon( m_uniforms, material );
 
-			} else if ( false ) {
-
-				refreshUniformsCommon( m_uniforms, material );
-				refreshUniformsLambert( m_uniforms, material );
-
-			} else if ( false ) {
-
-				refreshUniformsCommon( m_uniforms, material );
-				refreshUniformsToon( m_uniforms, material );
-
-			} else if ( false ) {
-
-				refreshUniformsCommon( m_uniforms, material );
-				refreshUniformsPhong( m_uniforms, material );
-
-			} else if ( false ) {
-
-				refreshUniformsCommon( m_uniforms, material, environment );
-
-				if ( material.isMeshPhysicalMaterial ) {
-
-					refreshUniformsPhysical( m_uniforms, material, environment );
-
-				} else {
-
-					refreshUniformsStandard( m_uniforms, material, environment );
-
-				}
-
 			} else if ( material.isMeshMatcapMaterial ) {
 
 				refreshUniformsCommon( m_uniforms, material );
@@ -23540,11 +22574,6 @@ function WebGLRenderer( parameters ) {
 
 				refreshUniformsCommon( m_uniforms, material );
 				refreshUniformsDepth( m_uniforms, material );
-
-			} else if ( false ) {
-
-				refreshUniformsCommon( m_uniforms, material );
-				refreshUniformsDistance( m_uniforms, material );
 
 			} else if ( material.isMeshNormalMaterial ) {
 
@@ -23584,7 +22613,7 @@ function WebGLRenderer( parameters ) {
 
 			WebGLUniforms.upload( _gl, materialProperties.uniformsList, m_uniforms, textures );
 
-			if ( true ) {
+			{
 
 				material.uniformsNeedUpdate = false; // #15581
 
@@ -23592,7 +22621,7 @@ function WebGLRenderer( parameters ) {
 
 		}
 
-		if ( true && material.uniformsNeedUpdate === true ) {
+		if (  material.uniformsNeedUpdate === true ) {
 
 			WebGLUniforms.upload( _gl, materialProperties.uniformsList, m_uniforms, textures );
 			material.uniformsNeedUpdate = false;
@@ -23651,13 +22680,13 @@ function WebGLRenderer( parameters ) {
 
 		}
 
-		var envMap = false || environment;
+		var envMap =  environment;
 
 		if ( envMap ) {
 
 			false.value = envMap;
 
-			uniforms.flipEnvMap.value = false ? - 1 : 1;
+			uniforms.flipEnvMap.value =  1;
 
 			uniforms.reflectivity.value = material.reflectivity;
 			uniforms.refractionRatio.value = material.refractionRatio;
@@ -23913,179 +22942,6 @@ function WebGLRenderer( parameters ) {
 
 	}
 
-	function refreshUniformsLambert( uniforms, material ) {
-
-		if ( material.emissiveMap ) {
-
-			uniforms.emissiveMap.value = material.emissiveMap;
-
-		}
-
-	}
-
-	function refreshUniformsPhong( uniforms, material ) {
-
-		uniforms.specular.value.copy( material.specular );
-		uniforms.shininess.value = Math.max( material.shininess, 1e-4 ); // to prevent pow( 0.0, 0.0 )
-
-		if ( material.emissiveMap ) {
-
-			uniforms.emissiveMap.value = material.emissiveMap;
-
-		}
-
-		if ( material.bumpMap ) {
-
-			uniforms.bumpMap.value = material.bumpMap;
-			uniforms.bumpScale.value = material.bumpScale;
-			if ( material.side === BackSide ) uniforms.bumpScale.value *= - 1;
-
-		}
-
-		if ( material.normalMap ) {
-
-			uniforms.normalMap.value = material.normalMap;
-			uniforms.normalScale.value.copy( material.normalScale );
-			if ( material.side === BackSide ) uniforms.normalScale.value.negate();
-
-		}
-
-		if ( material.displacementMap ) {
-
-			uniforms.displacementMap.value = material.displacementMap;
-			uniforms.displacementScale.value = material.displacementScale;
-			uniforms.displacementBias.value = material.displacementBias;
-
-		}
-
-	}
-
-	function refreshUniformsToon( uniforms, material ) {
-
-		uniforms.specular.value.copy( material.specular );
-		uniforms.shininess.value = Math.max( material.shininess, 1e-4 ); // to prevent pow( 0.0, 0.0 )
-
-		if ( material.gradientMap ) {
-
-			uniforms.gradientMap.value = material.gradientMap;
-
-		}
-
-		if ( material.emissiveMap ) {
-
-			uniforms.emissiveMap.value = material.emissiveMap;
-
-		}
-
-		if ( material.bumpMap ) {
-
-			uniforms.bumpMap.value = material.bumpMap;
-			uniforms.bumpScale.value = material.bumpScale;
-			if ( material.side === BackSide ) uniforms.bumpScale.value *= - 1;
-
-		}
-
-		if ( material.normalMap ) {
-
-			uniforms.normalMap.value = material.normalMap;
-			uniforms.normalScale.value.copy( material.normalScale );
-			if ( material.side === BackSide ) uniforms.normalScale.value.negate();
-
-		}
-
-		if ( material.displacementMap ) {
-
-			uniforms.displacementMap.value = material.displacementMap;
-			uniforms.displacementScale.value = material.displacementScale;
-			uniforms.displacementBias.value = material.displacementBias;
-
-		}
-
-	}
-
-	function refreshUniformsStandard( uniforms, material, environment ) {
-
-		uniforms.roughness.value = material.roughness;
-		uniforms.metalness.value = material.metalness;
-
-		if ( material.roughnessMap ) {
-
-			uniforms.roughnessMap.value = material.roughnessMap;
-
-		}
-
-		if ( material.metalnessMap ) {
-
-			uniforms.metalnessMap.value = material.metalnessMap;
-
-		}
-
-		if ( material.emissiveMap ) {
-
-			uniforms.emissiveMap.value = material.emissiveMap;
-
-		}
-
-		if ( material.bumpMap ) {
-
-			uniforms.bumpMap.value = material.bumpMap;
-			uniforms.bumpScale.value = material.bumpScale;
-			if ( material.side === BackSide ) uniforms.bumpScale.value *= - 1;
-
-		}
-
-		if ( material.normalMap ) {
-
-			uniforms.normalMap.value = material.normalMap;
-			uniforms.normalScale.value.copy( material.normalScale );
-			if ( material.side === BackSide ) uniforms.normalScale.value.negate();
-
-		}
-
-		if ( material.displacementMap ) {
-
-			uniforms.displacementMap.value = material.displacementMap;
-			uniforms.displacementScale.value = material.displacementScale;
-			uniforms.displacementBias.value = material.displacementBias;
-
-		}
-
-		if ( false || environment ) {
-
-			//uniforms.envMap.value = material.envMap; // part of uniforms common
-			uniforms.envMapIntensity.value = material.envMapIntensity;
-
-		}
-
-	}
-
-	function refreshUniformsPhysical( uniforms, material, environment ) {
-
-		refreshUniformsStandard( uniforms, material, environment );
-
-		uniforms.reflectivity.value = material.reflectivity; // also part of uniforms common
-
-		uniforms.clearcoat.value = material.clearcoat;
-		uniforms.clearcoatRoughness.value = material.clearcoatRoughness;
-		if ( material.sheen ) uniforms.sheen.value.copy( material.sheen );
-
-		if ( material.clearcoatNormalMap ) {
-
-			uniforms.clearcoatNormalScale.value.copy( material.clearcoatNormalScale );
-			uniforms.clearcoatNormalMap.value = material.clearcoatNormalMap;
-
-			if ( material.side === BackSide ) {
-
-				uniforms.clearcoatNormalScale.value.negate();
-
-			}
-
-		}
-
-		uniforms.transparency.value = material.transparency;
-
-	}
-
 	function refreshUniformsMatcap( uniforms, material ) {
 
 		if ( material.matcap ) {
@@ -24129,22 +22985,6 @@ function WebGLRenderer( parameters ) {
 			uniforms.displacementBias.value = material.displacementBias;
 
 		}
-
-	}
-
-	function refreshUniformsDistance( uniforms, material ) {
-
-		if ( material.displacementMap ) {
-
-			uniforms.displacementMap.value = material.displacementMap;
-			uniforms.displacementScale.value = material.displacementScale;
-			uniforms.displacementBias.value = material.displacementBias;
-
-		}
-
-		uniforms.referencePosition.value.copy( material.referencePosition );
-		uniforms.nearDistance.value = material.nearDistance;
-		uniforms.farDistance.value = material.farDistance;
 
 	}
 
@@ -24196,9 +23036,8 @@ function WebGLRenderer( parameters ) {
 
 	function materialNeedsLights( material ) {
 
-		return false || false || false ||
-			false || material.isShadowMaterial ||
-			( true && material.lights === true );
+		return  material.isShadowMaterial ||
+			(  material.lights === true );
 
 	}
 
@@ -24242,18 +23081,12 @@ function WebGLRenderer( parameters ) {
 		}
 
 		var framebuffer = _framebuffer;
-		var isCube = false;
 
 		if ( renderTarget ) {
 
 			var __webglFramebuffer = properties.get( renderTarget ).__webglFramebuffer;
 
-			if ( false ) {
-
-				framebuffer = __webglFramebuffer[ activeCubeFace || 0 ];
-				isCube = true;
-
-			} else if ( renderTarget.isWebGLMultisampleRenderTarget ) {
+			if ( renderTarget.isWebGLMultisampleRenderTarget ) {
 
 				framebuffer = properties.get( renderTarget ).__webglMultisampledFramebuffer;
 
@@ -24286,13 +23119,6 @@ function WebGLRenderer( parameters ) {
 		state.scissor( _currentScissor );
 		state.setScissorTest( _currentScissorTest );
 
-		if ( isCube ) {
-
-			var textureProperties = properties.get( renderTarget.texture );
-			_gl.framebufferTexture2D( 36160, 36064, 34069 + ( activeCubeFace || 0 ), textureProperties.__webglTexture, activeMipmapLevel || 0 );
-
-		}
-
 	};
 
 	this.readRenderTargetPixels = function ( renderTarget, x, y, width, height, buffer, activeCubeFaceIndex ) {
@@ -24305,12 +23131,6 @@ function WebGLRenderer( parameters ) {
 		}
 
 		var framebuffer = properties.get( renderTarget ).__webglFramebuffer;
-
-		if ( false && activeCubeFaceIndex !== undefined ) {
-
-			framebuffer = framebuffer[ activeCubeFaceIndex ];
-
-		}
 
 		if ( framebuffer ) {
 
@@ -24689,58 +23509,9 @@ Object.assign( InterleavedBufferAttribute.prototype, {
 } );
 
 function SpriteMaterial() {}
-
-/**
- * @author mikael emtinger / http://gomo.se/
- * @author alteredq / http://alteredqualia.com/
- */
-
-var _geometry;
-
-var _intersectPoint = new Vector3();
-var _worldScale = new Vector3();
-var _mvPosition = new Vector3();
-
-var _alignedPosition = new Vector2();
-var _rotatedPosition = new Vector2();
 var _viewWorldMatrix = new Matrix4();
 
-var _vA$1 = new Vector3();
-var _vB$1 = new Vector3();
-var _vC$1 = new Vector3();
-
-var _uvA$1 = new Vector2();
-var _uvB$1 = new Vector2();
-var _uvC$1 = new Vector2();
-
 function Sprite() {}
-
-function transformVertex( vertexPosition, mvPosition, center, scale, sin, cos ) {
-
-	// compute position in camera space
-	_alignedPosition.subVectors( vertexPosition, center ).addScalar( 0.5 ).multiply( scale );
-
-	// to check if rotation is not zero
-	if ( sin !== undefined ) {
-
-		_rotatedPosition.x = ( cos * _alignedPosition.x ) - ( sin * _alignedPosition.y );
-		_rotatedPosition.y = ( sin * _alignedPosition.x ) + ( cos * _alignedPosition.y );
-
-	} else {
-
-		_rotatedPosition.copy( _alignedPosition );
-
-	}
-
-
-	vertexPosition.copy( mvPosition );
-	vertexPosition.x += _rotatedPosition.x;
-	vertexPosition.y += _rotatedPosition.y;
-
-	// transform to world space
-	vertexPosition.applyMatrix4( _viewWorldMatrix );
-
-}
 
 /**
  * @author mikael emtinger / http://gomo.se/
@@ -24957,31 +23728,13 @@ function Bone() {}
 var _instanceLocalMatrix = new Matrix4();
 var _instanceWorldMatrix = new Matrix4();
 
-var _instanceIntersects = [];
-
 var _mesh = new Mesh();
 
 function InstancedMesh() {}
 function LineBasicMaterial() {}
-
-/**
- * @author mrdoob / http://mrdoob.com/
- */
-
-var _start = new Vector3();
-var _end = "";
 var _inverseMatrix$1 = new Matrix4();
-var _ray$1 = new Ray();
-var _sphere$2 = new Sphere();
 
 function Line() {}
-
-/**
- * @author mrdoob / http://mrdoob.com/
- */
-
-var _start$1 = new Vector3();
-var _end$1 = new Vector3();
 
 function LineSegments() {}
 function LineLoop() {}
@@ -24992,41 +23745,8 @@ function PointsMaterial() {}
  */
 
 var _inverseMatrix$2 = new Matrix4();
-var _ray$2 = new Ray();
-var _sphere$3 = new Sphere();
-var _position$1 = new Vector3();
 
 function Points() {}
-
-function testPoint( point, index, localThresholdSq, matrixWorld, raycaster, intersects, object ) {
-
-	var rayPointDistanceSq = _ray$2.distanceSqToPoint( point );
-
-	if ( rayPointDistanceSq < localThresholdSq ) {
-
-		var intersectPoint = new Vector3();
-
-		_ray$2.closestPointToPoint( point, intersectPoint );
-		intersectPoint.applyMatrix4( matrixWorld );
-
-		var distance = raycaster.ray.origin.distanceTo( intersectPoint );
-
-		if ( distance < raycaster.near || distance > raycaster.far ) return;
-
-		intersects.push( {
-
-			distance: distance,
-			distanceToRay: Math.sqrt( rayPointDistanceSq ),
-			point: intersectPoint,
-			index: index,
-			face: null,
-			object: object
-
-		} );
-
-	}
-
-}
 
 function VideoTexture() {}
 
@@ -25115,723 +23835,6 @@ function TorusGeometry() {}
 function TorusBufferGeometry() {}
 
 /**
- * @author Mugen87 / https://github.com/Mugen87
- * Port from https://github.com/mapbox/earcut (v2.1.5)
- */
-
-var Earcut = {
-
-	triangulate: ""
-
-};
-
-// create a circular doubly linked list from polygon points in the specified winding order
-function linkedList( data, start, end, dim, clockwise ) {
-
-	var i, last;
-
-	if ( clockwise === ( signedArea( data, start, end, dim ) > 0 ) ) {
-
-		for ( i = start; i < end; i += dim ) last = insertNode( i, data[ i ], data[ i + 1 ], last );
-
-	} else {
-
-		for ( i = end - dim; i >= start; i -= dim ) last = insertNode( i, data[ i ], data[ i + 1 ], last );
-
-	}
-
-	if ( last && equals( last, last.next ) ) {
-
-		removeNode( last );
-		last = last.next;
-
-	}
-
-	return last;
-
-}
-
-// eliminate colinear or duplicate points
-function filterPoints( start, end ) {
-
-	if ( ! start ) return start;
-	if ( ! end ) end = start;
-
-	var p = start,
-		again;
-	do {
-
-		again = false;
-
-		if ( ! p.steiner && ( equals( p, p.next ) || area( p.prev, p, p.next ) === 0 ) ) {
-
-			removeNode( p );
-			p = end = p.prev;
-			if ( p === p.next ) break;
-			again = true;
-
-		} else {
-
-			p = p.next;
-
-		}
-
-	} while ( again || p !== end );
-
-	return end;
-
-}
-
-// main ear slicing loop which triangulates a polygon (given as a linked list)
-function earcutLinked( ear, triangles, dim, minX, minY, invSize, pass ) {
-
-	if ( ! ear ) return;
-
-	// interlink polygon nodes in z-order
-	if ( ! pass && invSize ) indexCurve( ear, minX, minY, invSize );
-
-	var stop = ear,
-		prev, next;
-
-	// iterate through ears, slicing them one by one
-	while ( ear.prev !== ear.next ) {
-
-		prev = ear.prev;
-		next = ear.next;
-
-		if ( invSize ? isEarHashed( ear, minX, minY, invSize ) : isEar( ear ) ) {
-
-			// cut off the triangle
-			triangles.push( prev.i / dim );
-			triangles.push( ear.i / dim );
-			triangles.push( next.i / dim );
-
-			removeNode( ear );
-
-			// skipping the next vertex leads to less sliver triangles
-			ear = next.next;
-			stop = next.next;
-
-			continue;
-
-		}
-
-		ear = next;
-
-		// if we looped through the whole remaining polygon and can't find any more ears
-		if ( ear === stop ) {
-
-			// try filtering points and slicing again
-			if ( ! pass ) {
-
-				earcutLinked( filterPoints( ear ), triangles, dim, minX, minY, invSize, 1 );
-
-				// if this didn't work, try curing all small self-intersections locally
-
-			} else if ( pass === 1 ) {
-
-				ear = cureLocalIntersections( ear, triangles, dim );
-				earcutLinked( ear, triangles, dim, minX, minY, invSize, 2 );
-
-				// as a last resort, try splitting the remaining polygon into two
-
-			} else if ( pass === 2 ) {
-
-				splitEarcut( ear, triangles, dim, minX, minY, invSize );
-
-			}
-
-			break;
-
-		}
-
-	}
-
-}
-
-// check whether a polygon node forms a valid ear with adjacent nodes
-function isEar( ear ) {
-
-	var a = ear.prev,
-		b = ear,
-		c = ear.next;
-
-	if ( area( a, b, c ) >= 0 ) return false; // reflex, can't be an ear
-
-	// now make sure we don't have other points inside the potential ear
-	var p = ear.next.next;
-
-	while ( p !== ear.prev ) {
-
-		if ( pointInTriangle( a.x, a.y, b.x, b.y, c.x, c.y, p.x, p.y ) &&
-			area( p.prev, p, p.next ) >= 0 ) return false;
-		p = p.next;
-
-	}
-
-	return true;
-
-}
-
-function isEarHashed( ear, minX, minY, invSize ) {
-
-	var a = ear.prev,
-		b = ear,
-		c = ear.next;
-
-	if ( area( a, b, c ) >= 0 ) return false; // reflex, can't be an ear
-
-	// triangle bbox; min & max are calculated like this for speed
-	var minTX = a.x < b.x ? ( a.x < c.x ? a.x : c.x ) : ( b.x < c.x ? b.x : c.x ),
-		minTY = a.y < b.y ? ( a.y < c.y ? a.y : c.y ) : ( b.y < c.y ? b.y : c.y ),
-		maxTX = a.x > b.x ? ( a.x > c.x ? a.x : c.x ) : ( b.x > c.x ? b.x : c.x ),
-		maxTY = a.y > b.y ? ( a.y > c.y ? a.y : c.y ) : ( b.y > c.y ? b.y : c.y );
-
-	// z-order range for the current triangle bbox;
-	var minZ = zOrder( minTX, minTY, minX, minY, invSize ),
-		maxZ = zOrder( maxTX, maxTY, minX, minY, invSize );
-
-	var p = ear.prevZ,
-		n = ear.nextZ;
-
-	// look for points inside the triangle in both directions
-	while ( p && p.z >= minZ && n && n.z <= maxZ ) {
-
-		if ( p !== ear.prev && p !== ear.next &&
-			pointInTriangle( a.x, a.y, b.x, b.y, c.x, c.y, p.x, p.y ) &&
-			area( p.prev, p, p.next ) >= 0 ) return false;
-		p = p.prevZ;
-
-		if ( n !== ear.prev && n !== ear.next &&
-			pointInTriangle( a.x, a.y, b.x, b.y, c.x, c.y, n.x, n.y ) &&
-			area( n.prev, n, n.next ) >= 0 ) return false;
-		n = n.nextZ;
-
-	}
-
-	// look for remaining points in decreasing z-order
-	while ( p && p.z >= minZ ) {
-
-		if ( p !== ear.prev && p !== ear.next &&
-			pointInTriangle( a.x, a.y, b.x, b.y, c.x, c.y, p.x, p.y ) &&
-			area( p.prev, p, p.next ) >= 0 ) return false;
-		p = p.prevZ;
-
-	}
-
-	// look for remaining points in increasing z-order
-	while ( n && n.z <= maxZ ) {
-
-		if ( n !== ear.prev && n !== ear.next &&
-			pointInTriangle( a.x, a.y, b.x, b.y, c.x, c.y, n.x, n.y ) &&
-			area( n.prev, n, n.next ) >= 0 ) return false;
-		n = n.nextZ;
-
-	}
-
-	return true;
-
-}
-
-// go through all polygon nodes and cure small local self-intersections
-function cureLocalIntersections( start, triangles, dim ) {
-
-	var p = start;
-	do {
-
-		var a = p.prev,
-			b = p.next.next;
-
-		if ( ! equals( a, b ) && intersects( a, p, p.next, b ) && locallyInside( a, b ) && locallyInside( b, a ) ) {
-
-			triangles.push( a.i / dim );
-			triangles.push( p.i / dim );
-			triangles.push( b.i / dim );
-
-			// remove two nodes involved
-			removeNode( p );
-			removeNode( p.next );
-
-			p = start = b;
-
-		}
-
-		p = p.next;
-
-	} while ( p !== start );
-
-	return p;
-
-}
-
-// try splitting polygon into two and triangulate them independently
-function splitEarcut( start, triangles, dim, minX, minY, invSize ) {
-
-	// look for a valid diagonal that divides the polygon into two
-	var a = start;
-	do {
-
-		var b = a.next.next;
-		while ( b !== a.prev ) {
-
-			if ( a.i !== b.i && isValidDiagonal( a, b ) ) {
-
-				// split the polygon in two by the diagonal
-				var c = splitPolygon( a, b );
-
-				// filter colinear points around the cuts
-				a = filterPoints( a, a.next );
-				c = filterPoints( c, c.next );
-
-				// run earcut on each half
-				earcutLinked( a, triangles, dim, minX, minY, invSize );
-				earcutLinked( c, triangles, dim, minX, minY, invSize );
-				return;
-
-			}
-
-			b = b.next;
-
-		}
-
-		a = a.next;
-
-	} while ( a !== start );
-
-}
-
-// link every hole into the outer loop, producing a single-ring polygon without holes
-function eliminateHoles( data, holeIndices, outerNode, dim ) {
-
-	var queue = [],
-		i, len, start, end, list;
-
-	for ( i = 0, len = holeIndices.length; i < len; i ++ ) {
-
-		start = holeIndices[ i ] * dim;
-		end = i < len - 1 ? holeIndices[ i + 1 ] * dim : data.length;
-		list = linkedList( data, start, end, dim, false );
-		if ( list === list.next ) list.steiner = true;
-		queue.push( getLeftmost( list ) );
-
-	}
-
-	queue.sort( compareX );
-
-	// process holes from left to right
-	for ( i = 0; i < queue.length; i ++ ) {
-
-		eliminateHole( queue[ i ], outerNode );
-		outerNode = filterPoints( outerNode, outerNode.next );
-
-	}
-
-	return outerNode;
-
-}
-
-function compareX( a, b ) {
-
-	return a.x - b.x;
-
-}
-
-// find a bridge between vertices that connects hole with an outer ring and and link it
-function eliminateHole( hole, outerNode ) {
-
-	outerNode = findHoleBridge( hole, outerNode );
-	if ( outerNode ) {
-
-		var b = splitPolygon( outerNode, hole );
-		filterPoints( b, b.next );
-
-	}
-
-}
-
-// David Eberly's algorithm for finding a bridge between hole and outer polygon
-function findHoleBridge( hole, outerNode ) {
-
-	var p = outerNode,
-		hx = hole.x,
-		hy = hole.y,
-		qx = - Infinity,
-		m;
-
-	// find a segment intersected by a ray from the hole's leftmost point to the left;
-	// segment's endpoint with lesser x will be potential connection point
-	do {
-
-		if ( hy <= p.y && hy >= p.next.y && p.next.y !== p.y ) {
-
-			var x = p.x + ( hy - p.y ) * ( p.next.x - p.x ) / ( p.next.y - p.y );
-			if ( x <= hx && x > qx ) {
-
-				qx = x;
-				if ( x === hx ) {
-
-					if ( hy === p.y ) return p;
-					if ( hy === p.next.y ) return p.next;
-
-				}
-
-				m = p.x < p.next.x ? p : p.next;
-
-			}
-
-		}
-
-		p = p.next;
-
-	} while ( p !== outerNode );
-
-	if ( ! m ) return null;
-
-	if ( hx === qx ) return m.prev; // hole touches outer segment; pick lower endpoint
-
-	// look for points inside the triangle of hole point, segment intersection and endpoint;
-	// if there are no points found, we have a valid connection;
-	// otherwise choose the point of the minimum angle with the ray as connection point
-
-	var stop = m,
-		mx = m.x,
-		my = m.y,
-		tanMin = Infinity,
-		tan;
-
-	p = m.next;
-
-	while ( p !== stop ) {
-
-		if ( hx >= p.x && p.x >= mx && hx !== p.x &&
-				pointInTriangle( hy < my ? hx : qx, hy, mx, my, hy < my ? qx : hx, hy, p.x, p.y ) ) {
-
-			tan = Math.abs( hy - p.y ) / ( hx - p.x ); // tangential
-
-			if ( ( tan < tanMin || ( tan === tanMin && p.x > m.x ) ) && locallyInside( p, hole ) ) {
-
-				m = p;
-				tanMin = tan;
-
-			}
-
-		}
-
-		p = p.next;
-
-	}
-
-	return m;
-
-}
-
-// interlink polygon nodes in z-order
-function indexCurve( start, minX, minY, invSize ) {
-
-	var p = start;
-	do {
-
-		if ( p.z === null ) p.z = zOrder( p.x, p.y, minX, minY, invSize );
-		p.prevZ = p.prev;
-		p.nextZ = p.next;
-		p = p.next;
-
-	} while ( p !== start );
-
-	p.prevZ.nextZ = null;
-	p.prevZ = null;
-
-	sortLinked( p );
-
-}
-
-// Simon Tatham's linked list merge sort algorithm
-// http://www.chiark.greenend.org.uk/~sgtatham/algorithms/listsort.html
-function sortLinked( list ) {
-
-	var i, p, q, e, tail, numMerges, pSize, qSize,
-		inSize = 1;
-
-	do {
-
-		p = list;
-		list = null;
-		tail = null;
-		numMerges = 0;
-
-		while ( p ) {
-
-			numMerges ++;
-			q = p;
-			pSize = 0;
-			for ( i = 0; i < inSize; i ++ ) {
-
-				pSize ++;
-				q = q.nextZ;
-				if ( ! q ) break;
-
-			}
-
-			qSize = inSize;
-
-			while ( pSize > 0 || ( qSize > 0 && q ) ) {
-
-				if ( pSize !== 0 && ( qSize === 0 || ! q || p.z <= q.z ) ) {
-
-					e = p;
-					p = p.nextZ;
-					pSize --;
-
-				} else {
-
-					e = q;
-					q = q.nextZ;
-					qSize --;
-
-				}
-
-				if ( tail ) tail.nextZ = e;
-				else list = e;
-
-				e.prevZ = tail;
-				tail = e;
-
-			}
-
-			p = q;
-
-		}
-
-		tail.nextZ = null;
-		inSize *= 2;
-
-	} while ( numMerges > 1 );
-
-	return list;
-
-}
-
-// z-order of a point given coords and inverse of the longer side of data bbox
-function zOrder( x, y, minX, minY, invSize ) {
-
-	// coords are transformed into non-negative 15-bit integer range
-	x = 32767 * ( x - minX ) * invSize;
-	y = 32767 * ( y - minY ) * invSize;
-
-	x = ( x | ( x << 8 ) ) & 0x00FF00FF;
-	x = ( x | ( x << 4 ) ) & 0x0F0F0F0F;
-	x = ( x | ( x << 2 ) ) & 0x33333333;
-	x = ( x | ( x << 1 ) ) & 0x55555555;
-
-	y = ( y | ( y << 8 ) ) & 0x00FF00FF;
-	y = ( y | ( y << 4 ) ) & 0x0F0F0F0F;
-	y = ( y | ( y << 2 ) ) & 0x33333333;
-	y = ( y | ( y << 1 ) ) & 0x55555555;
-
-	return x | ( y << 1 );
-
-}
-
-// find the leftmost node of a polygon ring
-function getLeftmost( start ) {
-
-	var p = start,
-		leftmost = start;
-	do {
-
-		if ( p.x < leftmost.x || ( p.x === leftmost.x && p.y < leftmost.y ) ) leftmost = p;
-		p = p.next;
-
-	} while ( p !== start );
-
-	return leftmost;
-
-}
-
-// check if a point lies within a convex triangle
-function pointInTriangle( ax, ay, bx, by, cx, cy, px, py ) {
-
-	return ( cx - px ) * ( ay - py ) - ( ax - px ) * ( cy - py ) >= 0 &&
-		   ( ax - px ) * ( by - py ) - ( bx - px ) * ( ay - py ) >= 0 &&
-		   ( bx - px ) * ( cy - py ) - ( cx - px ) * ( by - py ) >= 0;
-
-}
-
-// check if a diagonal between two polygon nodes is valid (lies in polygon interior)
-function isValidDiagonal( a, b ) {
-
-	return a.next.i !== b.i && a.prev.i !== b.i && ! intersectsPolygon( a, b ) &&
-		   locallyInside( a, b ) && locallyInside( b, a ) && middleInside( a, b );
-
-}
-
-// signed area of a triangle
-function area( p, q, r ) {
-
-	return ( q.y - p.y ) * ( r.x - q.x ) - ( q.x - p.x ) * ( r.y - q.y );
-
-}
-
-// check if two points are equal
-function equals( p1, p2 ) {
-
-	return p1.x === p2.x && p1.y === p2.y;
-
-}
-
-// check if two segments intersect
-function intersects( p1, q1, p2, q2 ) {
-
-	if ( ( equals( p1, p2 ) && equals( q1, q2 ) ) ||
-		( equals( p1, q2 ) && equals( p2, q1 ) ) ) return true;
-	return area( p1, q1, p2 ) > 0 !== area( p1, q1, q2 ) > 0 &&
-		   area( p2, q2, p1 ) > 0 !== area( p2, q2, q1 ) > 0;
-
-}
-
-// check if a polygon diagonal intersects any polygon segments
-function intersectsPolygon( a, b ) {
-
-	var p = a;
-	do {
-
-		if ( p.i !== a.i && p.next.i !== a.i && p.i !== b.i && p.next.i !== b.i &&
-				intersects( p, p.next, a, b ) ) return true;
-		p = p.next;
-
-	} while ( p !== a );
-
-	return false;
-
-}
-
-// check if a polygon diagonal is locally inside the polygon
-function locallyInside( a, b ) {
-
-	return area( a.prev, a, a.next ) < 0 ?
-		area( a, b, a.next ) >= 0 && area( a, a.prev, b ) >= 0 :
-		area( a, b, a.prev ) < 0 || area( a, a.next, b ) < 0;
-
-}
-
-// check if the middle point of a polygon diagonal is inside the polygon
-function middleInside( a, b ) {
-
-	var p = a,
-		inside = false,
-		px = ( a.x + b.x ) / 2,
-		py = ( a.y + b.y ) / 2;
-	do {
-
-		if ( ( ( p.y > py ) !== ( p.next.y > py ) ) && p.next.y !== p.y &&
-				( px < ( p.next.x - p.x ) * ( py - p.y ) / ( p.next.y - p.y ) + p.x ) )
-			inside = ! inside;
-		p = p.next;
-
-	} while ( p !== a );
-
-	return inside;
-
-}
-
-// link two polygon vertices with a bridge; if the vertices belong to the same ring, it splits polygon into two;
-// if one belongs to the outer ring and another to a hole, it merges it into a single ring
-function splitPolygon( a, b ) {
-
-	var a2 = new Node( a.i, a.x, a.y ),
-		b2 = new Node( b.i, b.x, b.y ),
-		an = a.next,
-		bp = b.prev;
-
-	a.next = b;
-	b.prev = a;
-
-	a2.next = an;
-	an.prev = a2;
-
-	b2.next = a2;
-	a2.prev = b2;
-
-	bp.next = b2;
-	b2.prev = bp;
-
-	return b2;
-
-}
-
-// create a node and optionally link it with previous one (in a circular doubly linked list)
-function insertNode( i, x, y, last ) {
-
-	var p = new Node( i, x, y );
-
-	if ( ! last ) {
-
-		p.prev = p;
-		p.next = p;
-
-	} else {
-
-		p.next = last.next;
-		p.prev = last;
-		last.next.prev = p;
-		last.next = p;
-
-	}
-
-	return p;
-
-}
-
-function removeNode( p ) {
-
-	p.next.prev = p.prev;
-	p.prev.next = p.next;
-
-	if ( p.prevZ ) p.prevZ.nextZ = p.nextZ;
-	if ( p.nextZ ) p.nextZ.prevZ = p.prevZ;
-
-}
-
-function Node( i, x, y ) {
-
-	// vertex index in coordinates array
-	this.i = i;
-
-	// vertex coordinates
-	this.x = x;
-	this.y = y;
-
-	// previous and next vertex nodes in a polygon ring
-	this.prev = null;
-	this.next = null;
-
-	// z-order curve value
-	this.z = null;
-
-	// previous and next nodes in z-order
-	this.prevZ = null;
-	this.nextZ = null;
-
-	// indicates whether this is a steiner point
-	this.steiner = false;
-
-}
-
-function signedArea( data, start, end, dim ) {
-
-	var sum = 0;
-	for ( var i = start, j = end - dim; i < end; i += dim ) {
-
-		sum += ( data[ j ] - data[ i ] ) * ( data[ i + 1 ] + data[ j + 1 ] );
-		j = i;
-
-	}
-
-	return sum;
-
-}
-
-/**
  * @author zz85 / http://www.lab4games.net/zz85/blog
  */
 
@@ -25864,120 +23867,8 @@ var ShapeUtils = {
 
 };
 
-function removeDupEndPts( points ) {
-
-	var l = points.length;
-
-	if ( l > 2 && points[ l - 1 ].equals( points[ 0 ] ) ) {
-
-		points.pop();
-
-	}
-
-}
-
-function addContour( vertices, contour ) {
-
-	for ( var i = 0; i < contour.length; i ++ ) {
-
-		vertices.push( contour[ i ].x );
-		vertices.push( contour[ i ].y );
-
-	}
-
-}
-
 function ExtrudeGeometry() {}
 function ExtrudeBufferGeometry() {}
-
-//
-
-var WorldUVGenerator = {
-
-	generateTopUV: function ( geometry, vertices, indexA, indexB, indexC ) {
-
-		var a_x = vertices[ indexA * 3 ];
-		var a_y = vertices[ indexA * 3 + 1 ];
-		var b_x = vertices[ indexB * 3 ];
-		var b_y = vertices[ indexB * 3 + 1 ];
-		var c_x = vertices[ indexC * 3 ];
-		var c_y = vertices[ indexC * 3 + 1 ];
-
-		return [
-			new Vector2( a_x, a_y ),
-			new Vector2( b_x, b_y ),
-			new Vector2( c_x, c_y )
-		];
-
-	},
-
-	generateSideWallUV: function ( geometry, vertices, indexA, indexB, indexC, indexD ) {
-
-		var a_x = vertices[ indexA * 3 ];
-		var a_y = vertices[ indexA * 3 + 1 ];
-		var a_z = vertices[ indexA * 3 + 2 ];
-		var b_x = vertices[ indexB * 3 ];
-		var b_y = vertices[ indexB * 3 + 1 ];
-		var b_z = vertices[ indexB * 3 + 2 ];
-		var c_x = vertices[ indexC * 3 ];
-		var c_y = vertices[ indexC * 3 + 1 ];
-		var c_z = vertices[ indexC * 3 + 2 ];
-		var d_x = vertices[ indexD * 3 ];
-		var d_y = vertices[ indexD * 3 + 1 ];
-		var d_z = vertices[ indexD * 3 + 2 ];
-
-		if ( Math.abs( a_y - b_y ) < 0.01 ) {
-
-			return [
-				new Vector2( a_x, 1 - a_z ),
-				new Vector2( b_x, 1 - b_z ),
-				new Vector2( c_x, 1 - c_z ),
-				new Vector2( d_x, 1 - d_z )
-			];
-
-		} else {
-
-			return [
-				new Vector2( a_y, 1 - a_z ),
-				new Vector2( b_y, 1 - b_z ),
-				new Vector2( c_y, 1 - c_z ),
-				new Vector2( d_y, 1 - d_z )
-			];
-
-		}
-
-	}
-};
-
-function toJSON( shapes, options, data ) {
-
-	//
-
-	data.shapes = [];
-
-	if ( Array.isArray( shapes ) ) {
-
-		for ( var i = 0, l = shapes.length; i < l; i ++ ) {
-
-			var shape = shapes[ i ];
-
-			data.shapes.push( shape.uuid );
-
-		}
-
-	} else {
-
-		data.shapes.push( shapes.uuid );
-
-	}
-
-	//
-
-	if ( options.extrudePath !== undefined ) data.options.extrudePath = options.extrudePath.toJSON();
-
-	return data;
-
-}
 
 function TextGeometry() {}
 function TextBufferGeometry() {}
@@ -26117,32 +24008,6 @@ function LatheBufferGeometry() {}
 function ShapeGeometry() {}
 function ShapeBufferGeometry() {}
 
-//
-
-function toJSON$1( shapes, data ) {
-
-	data.shapes = [];
-
-	if ( Array.isArray( shapes ) ) {
-
-		for ( var i = 0, l = shapes.length; i < l; i ++ ) {
-
-			var shape = shapes[ i ];
-
-			data.shapes.push( shape.uuid );
-
-		}
-
-	} else {
-
-		data.shapes.push( shapes.uuid );
-
-	}
-
-	return data;
-
-}
-
 function EdgesGeometry() {}
 function CylinderGeometry() {}
 function CylinderBufferGeometry() {}
@@ -26150,54 +24015,6 @@ function ConeGeometry() {}
 function ConeBufferGeometry() {}
 function CircleGeometry() {}
 function CircleBufferGeometry() {}
-
-
-
-var Geometries = /*#__PURE__*/Object.freeze({
-	__proto__: null,
-	WireframeGeometry: WireframeGeometry,
-	ParametricGeometry: ParametricGeometry,
-	ParametricBufferGeometry: ParametricBufferGeometry,
-	TetrahedronGeometry: TetrahedronGeometry,
-	TetrahedronBufferGeometry: TetrahedronBufferGeometry,
-	OctahedronGeometry: OctahedronGeometry,
-	OctahedronBufferGeometry: OctahedronBufferGeometry,
-	IcosahedronGeometry: IcosahedronGeometry,
-	IcosahedronBufferGeometry: IcosahedronBufferGeometry,
-	DodecahedronGeometry: DodecahedronGeometry,
-	DodecahedronBufferGeometry: DodecahedronBufferGeometry,
-	PolyhedronGeometry: PolyhedronGeometry,
-	PolyhedronBufferGeometry: PolyhedronBufferGeometry,
-	TubeGeometry: TubeGeometry,
-	TubeBufferGeometry: TubeBufferGeometry,
-	TorusKnotGeometry: TorusKnotGeometry,
-	TorusKnotBufferGeometry: TorusKnotBufferGeometry,
-	TorusGeometry: TorusGeometry,
-	TorusBufferGeometry: TorusBufferGeometry,
-	TextGeometry: TextGeometry,
-	TextBufferGeometry: TextBufferGeometry,
-	SphereGeometry: SphereGeometry,
-	SphereBufferGeometry: SphereBufferGeometry,
-	RingGeometry: RingGeometry,
-	RingBufferGeometry: RingBufferGeometry,
-	PlaneGeometry: PlaneGeometry,
-	PlaneBufferGeometry: PlaneBufferGeometry,
-	LatheGeometry: LatheGeometry,
-	LatheBufferGeometry: LatheBufferGeometry,
-	ShapeGeometry: ShapeGeometry,
-	ShapeBufferGeometry: ShapeBufferGeometry,
-	ExtrudeGeometry: ExtrudeGeometry,
-	ExtrudeBufferGeometry: ExtrudeBufferGeometry,
-	EdgesGeometry: EdgesGeometry,
-	ConeGeometry: ConeGeometry,
-	ConeBufferGeometry: ConeBufferGeometry,
-	CylinderGeometry: CylinderGeometry,
-	CylinderBufferGeometry: CylinderBufferGeometry,
-	CircleGeometry: CircleGeometry,
-	CircleBufferGeometry: CircleBufferGeometry,
-	BoxGeometry: BoxGeometry,
-	BoxBufferGeometry: BoxBufferGeometry
-});
 
 function ShadowMaterial() {}
 
@@ -26329,30 +24146,6 @@ MeshMatcapMaterial.prototype.copy = function ( source ) {
 };
 
 function LineDashedMaterial() {}
-
-
-
-var Materials = /*#__PURE__*/Object.freeze({
-	__proto__: null,
-	ShadowMaterial: ShadowMaterial,
-	SpriteMaterial: SpriteMaterial,
-	RawShaderMaterial: RawShaderMaterial,
-	ShaderMaterial: ShaderMaterial,
-	PointsMaterial: PointsMaterial,
-	MeshPhysicalMaterial: MeshPhysicalMaterial,
-	MeshStandardMaterial: MeshStandardMaterial,
-	MeshPhongMaterial: MeshPhongMaterial,
-	MeshToonMaterial: MeshToonMaterial,
-	MeshNormalMaterial: MeshNormalMaterial,
-	MeshLambertMaterial: MeshLambertMaterial,
-	MeshDepthMaterial: MeshDepthMaterial,
-	MeshDistanceMaterial: MeshDistanceMaterial,
-	MeshBasicMaterial: MeshBasicMaterial,
-	MeshMatcapMaterial: MeshMatcapMaterial,
-	LineDashedMaterial: LineDashedMaterial,
-	LineBasicMaterial: LineBasicMaterial,
-	Material: Material
-});
 
 /**
  * @author tschw
@@ -27066,10 +24859,6 @@ DiscreteInterpolant.prototype = Object.assign( Object.create( Interpolant.protot
 
 function KeyframeTrack() {}
 
-// Static methods
-
-;
-
 function BooleanKeyframeTrack() {}
 function ColorKeyframeTrack() {}
 function NumberKeyframeTrack() {}
@@ -27078,83 +24867,6 @@ function QuaternionKeyframeTrack() {}
 function StringKeyframeTrack() {}
 function VectorKeyframeTrack() {}
 function AnimationClip() {}
-
-function getTrackTypeForValueTypeName( typeName ) {
-
-	switch ( typeName.toLowerCase() ) {
-
-		case 'scalar':
-		case 'double':
-		case 'float':
-		case 'number':
-		case 'integer':
-
-			return NumberKeyframeTrack;
-
-		case 'vector':
-		case 'vector2':
-		case 'vector3':
-		case 'vector4':
-
-			return VectorKeyframeTrack;
-
-		case 'color':
-
-			return ColorKeyframeTrack;
-
-		case 'quaternion':
-
-			return QuaternionKeyframeTrack;
-
-		case 'bool':
-		case 'boolean':
-
-			return BooleanKeyframeTrack;
-
-		case 'string':
-
-			return StringKeyframeTrack;
-
-	}
-
-	throw new Error( 'THREE.KeyframeTrack: Unsupported typeName: ' + typeName );
-
-}
-
-function parseKeyframeTrack( json ) {
-
-	if ( json.type === undefined ) {
-
-		throw new Error( 'THREE.KeyframeTrack: track type undefined, can not parse' );
-
-	}
-
-	var trackType = getTrackTypeForValueTypeName( json.type );
-
-	if ( json.times === undefined ) {
-
-		var times = [], values = [];
-
-		AnimationUtils.flattenJSON( json.keys, times, values, 'value' );
-
-		json.times = times;
-		json.values = values;
-
-	}
-
-	// derived classes can define a static parse method
-	if ( trackType.parse !== undefined ) {
-
-		return trackType.parse( json );
-
-	} else {
-
-		// by default, we assume a constructor compatible with the base
-		return new trackType( json.name, json.times, json.values, json.interpolation );
-
-	}
-
-}
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -30032,7 +27744,6 @@ function HemisphereLight() {}
 function LightShadow() {}
 function SpotLightShadow() {}
 function SpotLight() {}
-function PointLightShadow() {}
 function PointLight() {}
 
 /**
@@ -30336,46 +28047,7 @@ InstancedBufferAttribute.prototype = Object.assign( Object.create( BufferAttribu
 
 function BufferGeometryLoader() {}
 
-var TYPED_ARRAYS = {
-	Int8Array: Int8Array,
-	Uint8Array: Uint8Array,
-	// Workaround for IE11 pre KB2929437. See #11440
-	Uint8ClampedArray: typeof Uint8ClampedArray !== 'undefined' ? Uint8ClampedArray : Uint8Array,
-	Int16Array: Int16Array,
-	Uint16Array: Uint16Array,
-	Int32Array: Int32Array,
-	Uint32Array: Uint32Array,
-	Float32Array: Float32Array,
-	Float64Array: Float64Array
-};
-
 function ObjectLoader() {}
-
-var TEXTURE_MAPPING = {
-	UVMapping: UVMapping,
-	CubeReflectionMapping: CubeReflectionMapping,
-	CubeRefractionMapping: CubeRefractionMapping,
-	EquirectangularReflectionMapping: EquirectangularReflectionMapping,
-	EquirectangularRefractionMapping: EquirectangularRefractionMapping,
-	SphericalReflectionMapping: SphericalReflectionMapping,
-	CubeUVReflectionMapping: CubeUVReflectionMapping,
-	CubeUVRefractionMapping: CubeUVRefractionMapping
-};
-
-var TEXTURE_WRAPPING = {
-	RepeatWrapping: RepeatWrapping,
-	ClampToEdgeWrapping: ClampToEdgeWrapping,
-	MirroredRepeatWrapping: MirroredRepeatWrapping
-};
-
-var TEXTURE_FILTER = {
-	NearestFilter: NearestFilter,
-	NearestMipmapNearestFilter: NearestMipmapNearestFilter,
-	NearestMipmapLinearFilter: NearestMipmapLinearFilter,
-	LinearFilter: LinearFilter,
-	LinearMipmapNearestFilter: LinearMipmapNearestFilter,
-	LinearMipmapLinearFilter: LinearMipmapLinearFilter
-};
 
 /**
  * @author thespite / http://clicktorelease.com/
@@ -30952,10 +28624,6 @@ var AudioContext = {
 function AudioLoader() {}
 
 function SphericalHarmonics3() {}
-
-;
-
-;
 
 function LightProbe() {}
 
@@ -32488,7 +30156,7 @@ Object.assign( PropertyBinding.prototype, { // prototype, continued
 
 				} else {
 
-					if ( ! false ) {
+					{
 
 						console.error( 'THREE.PropertyBinding: Can not bind to morphTargetInfluences because node does not have a geometry.morphTargets.', this );
 						return;
@@ -32496,13 +30164,6 @@ Object.assign( PropertyBinding.prototype, { // prototype, continued
 					}
 
 					for ( var i = 0; i < false.length; i ++ ) {
-
-						if ( false[ i ].name === propertyIndex ) {
-
-							propertyIndex = i;
-							break;
-
-						}
 
 					}
 
@@ -32564,7 +30225,6 @@ Object.assign( PropertyBinding.prototype, {
 } );
 
 function AnimationObjectGroup() {}
-function AnimationAction() {}
 function AnimationMixer() {}
 
 /**
@@ -32621,34 +30281,6 @@ InstancedInterleavedBuffer.prototype = Object.assign( Object.create( Interleaved
 } );
 
 function Raycaster() {}
-
-function ascSort( a, b ) {
-
-	return a.distance - b.distance;
-
-}
-
-function intersectObject( object, raycaster, intersects, recursive ) {
-
-	if ( object.layers.test( raycaster.layers ) ) {
-
-		object.raycast( raycaster, intersects );
-
-	}
-
-	if ( recursive === true ) {
-
-		var children = object.children;
-
-		for ( var i = 0, l = children.length; i < l; i ++ ) {
-
-			intersectObject( children[ i ], raycaster, intersects, true );
-
-		}
-
-	}
-
-}
 
 /**
  * @author bhouston / http://clara.io
@@ -32738,20 +30370,7 @@ Object.assign( Spherical.prototype, {
 
 function Cylindrical() {}
 
-/**
- * @author bhouston / http://clara.io
- */
-
-var _vector$7 = new Vector2();
-
 function Box2() {}
-
-/**
- * @author bhouston / http://clara.io
- */
-
-var _startP = new Vector3();
-var _startEnd = new Vector3();
 
 function Line3() {}
 
@@ -32773,39 +30392,11 @@ ImmediateRenderObject.prototype.constructor = ImmediateRenderObject;
 
 ImmediateRenderObject.prototype.isImmediateRenderObject = true;
 
-/**
- * @author alteredq / http://alteredqualia.com/
- * @author mrdoob / http://mrdoob.com/
- * @author WestLangley / http://github.com/WestLangley
- */
-
-var _vector$8 = new Vector3();
-
 function SpotLightHelper() {}
-
-/**
- * @author Sean Griffin / http://twitter.com/sgrif
- * @author Michael Guerrero / http://realitymeltdown.com
- * @author mrdoob / http://mrdoob.com/
- * @author ikerr / http://verold.com
- * @author Mugen87 / https://github.com/Mugen87
- */
-
-var _vector$9 = new Vector3();
 var _boneMatrix = new Matrix4();
 var _matrixWorldInv = new Matrix4();
-
-function getBoneList() {}
 function SkeletonHelper() {}
 function PointLightHelper() {}
-
-/**
- * @author alteredq / http://alteredqualia.com/
- * @author mrdoob / http://mrdoob.com/
- * @author Mugen87 / https://github.com/Mugen87
- */
-
-var _vector$a = new Vector3();
 var _color1 = new Color();
 var _color2 = new Color();
 
@@ -32813,166 +30404,21 @@ function HemisphereLightHelper() {}
 function GridHelper() {}
 function PolarGridHelper() {}
 
-/**
- * @author alteredq / http://alteredqualia.com/
- * @author mrdoob / http://mrdoob.com/
- * @author WestLangley / http://github.com/WestLangley
- */
-
-var _v1$5 = new Vector3();
-var _v2$3 = new Vector3();
-var _v3$1 = new Vector3();
-
 function DirectionalLightHelper() {}
-
-/**
- * @author alteredq / http://alteredqualia.com/
- * @author Mugen87 / https://github.com/Mugen87
- *
- *	- shows frustum, line of sight and up of the camera
- *	- suitable for fast updates
- * 	- based on frustum visualization in lightgl.js shadowmap example
- *		http://evanw.github.com/lightgl.js/tests/shadowmap.html
- */
-
-var _vector$b = new Vector3();
 var _camera = new Camera();
 
 function CameraHelper() {}
-
-function setPoint( point, pointMap, geometry, camera, x, y, z ) {
-
-	_vector$b.set( x, y, z ).unproject( camera );
-
-	var points = pointMap[ point ];
-
-	if ( points !== undefined ) {
-
-		var position = geometry.getAttribute( 'position' );
-
-		for ( var i = 0, l = points.length; i < l; i ++ ) {
-
-			position.setXYZ( points[ i ], _vector$b.x, _vector$b.y, _vector$b.z );
-
-		}
-
-	}
-
-}
-
-/**
- * @author mrdoob / http://mrdoob.com/
- * @author Mugen87 / http://github.com/Mugen87
- */
-
-var _box$3 = new Box3();
 
 function BoxHelper() {}
 function Box3Helper() {}
 function PlaneHelper() {}
 
-/**
- * @author WestLangley / http://github.com/WestLangley
- * @author zz85 / http://github.com/zz85
- * @author bhouston / http://clara.io
- *
- * Creates an arrow for visualizing directions
- *
- * Parameters:
- *  dir - Vector3
- *  origin - Vector3
- *  length - Number
- *  color - color in hex value
- *  headLength - Number
- *  headWidth - Number
- */
-
-var _axis = new Vector3();
-var _lineGeometry, _coneGeometry;
-
 function ArrowHelper() {}
 function AxesHelper() {}
 
-/**
- * @author Emmett Lalish / elalish
- *
- * This class generates a Prefiltered, Mipmapped Radiance Environment Map
- * (PMREM) from a cubeMap environment texture. This allows different levels of
- * blur to be quickly accessed based on material roughness. It is packed into a
- * special CubeUV format that allows us to perform custom interpolation so that
- * we can support nonlinear formats such as RGBE. Unlike a traditional mipmap
- * chain, it only goes down to the LOD_MIN level (above), and then creates extra
- * even more filtered 'mips' at the same LOD_MIN resolution, associated with
- * higher roughness levels. In this way we maintain resolution to smoothly
- * interpolate diffuse lighting while limiting sampling computation.
- */
-
-var LOD_MIN = 4;
-var LOD_MAX = 8;
-var SIZE_MAX = Math.pow( 2, LOD_MAX );
-// The standard deviations (radians) associated with the extra mips. These are
-// chosen to approximate a Trowbridge-Reitz distribution function times the
-// geometric shadowing function. These sigma values squared must match the
-// variance #defines in cube_uv_reflection_fragment.glsl.js.
-var EXTRA_LOD_SIGMA = [ 0.125, 0.215, 0.35, 0.446, 0.526, 0.582 ];
-var TOTAL_LODS = LOD_MAX - LOD_MIN + 1 + EXTRA_LOD_SIGMA.length;
-// The maximum length of the blur for loop. Smaller sigmas will use fewer
-// samples and exit early, but not recompile the shader.
-var MAX_SAMPLES = 20;
-var ENCODINGS = {
-	[ LinearEncoding ]: 0,
-	[ sRGBEncoding ]: 1,
-	[ RGBEEncoding ]: 2,
-	[ RGBM7Encoding ]: 3,
-	[ RGBM16Encoding ]: 4,
-	[ RGBDEncoding ]: 5,
-	[ GammaEncoding ]: 6
-};
-
 var _flatCamera = new OrthographicCamera();
-var _blurMaterial = _getBlurShader( MAX_SAMPLES );
-var _equirectShader = null;
-var _cubemapShader = null;
-
-var _pingPongRenderTarget = null;
-var _renderer = null;
-
-var _oldTarget = null;
-
-// Golden Ratio
-var PHI = ( 1 + Math.sqrt( 5 ) ) / 2;
-var INV_PHI = 1 / PHI;
-// Vertices of a dodecahedron (except the opposites, which represent the
-// same axis), used as axis directions evenly spread on a sphere.
-var _axisDirections = [
-	new Vector3( 1, 1, 1 ),
-	new Vector3( - 1, 1, 1 ),
-	new Vector3( 1, 1, - 1 ),
-	new Vector3( - 1, 1, - 1 ),
-	new Vector3( 0, PHI, INV_PHI ),
-	new Vector3( 0, PHI, - INV_PHI ),
-	new Vector3( INV_PHI, 0, PHI ),
-	new Vector3( - INV_PHI, 0, PHI ),
-	new Vector3( PHI, INV_PHI, 0 ),
-	new Vector3( - PHI, INV_PHI, 0 ) ];
 
 function PMREMGenerator() {}
-function _createPlanes() {}
-function _allocateTargets() {}
-function _cleanup() {}
-function _sceneToCubeUV() {}
-function _textureToCubeUV() {}
-function _compileMaterial() {}
-function _createRenderTarget() {}
-function _setViewport() {}
-function _applyPMREM() {}
-function _blur() {}
-function _halfBlur() {}
-function _getBlurShader() {}
-function _getEquirectShader() {}
-function _getCubemapShader() {}
-function _getCommonVertexShader() {}
-function _getEncodings() {}
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -33179,10 +30625,6 @@ Loader.Handlers = {
 
 function XHRLoader() {}
 function BinaryTextureLoader() {}
-
-//
-
-;
 
 Object.assign( Box3.prototype, {
 
@@ -34049,10 +31491,6 @@ Object.assign( InterleavedBuffer.prototype, {
 
 	}
 } );
-
-//
-
-;
 
 //
 
@@ -35334,6 +32772,820 @@ Matrix4.prototype.getInverse = function ( m, throwOnDegenerate ) {
 
 };
 
+var d2r = Math.PI / 180,
+    r2d = 180 / Math.PI;
+
+/**
+ * Get the bbox of a tile
+ *
+ * @name tileToBBOX
+ * @param {Array<number>} tile
+ * @returns {Array<number>} bbox
+ * @example
+ * var bbox = tileToBBOX([5, 10, 10])
+ * //=bbox
+ */
+function tileToBBOX(tile) {
+    var e = tile2lon(tile[0] + 1, tile[2]);
+    var w = tile2lon(tile[0], tile[2]);
+    var s = tile2lat(tile[1] + 1, tile[2]);
+    var n = tile2lat(tile[1], tile[2]);
+    return [w, s, e, n];
+}
+
+/**
+ * Get a geojson representation of a tile
+ *
+ * @name tileToGeoJSON
+ * @param {Array<number>} tile
+ * @returns {Feature<Polygon>}
+ * @example
+ * var poly = tileToGeoJSON([5, 10, 10])
+ * //=poly
+ */
+function tileToGeoJSON(tile) {
+    var bbox = tileToBBOX(tile);
+    var poly = {
+        type: 'Polygon',
+        coordinates: [[
+            [bbox[0], bbox[1]],
+            [bbox[0], bbox[3]],
+            [bbox[2], bbox[3]],
+            [bbox[2], bbox[1]],
+            [bbox[0], bbox[1]]
+        ]]
+    };
+    return poly;
+}
+
+function tile2lon(x, z) {
+    return x / Math.pow(2, z) * 360 - 180;
+}
+
+function tile2lat(y, z) {
+    var n = Math.PI - 2 * Math.PI * y / Math.pow(2, z);
+    return r2d * Math.atan(0.5 * (Math.exp(n) - Math.exp(-n)));
+}
+
+/**
+ * Get the tile for a point at a specified zoom level
+ *
+ * @name pointToTile
+ * @param {number} lon
+ * @param {number} lat
+ * @param {number} z
+ * @returns {Array<number>} tile
+ * @example
+ * var tile = pointToTile(1, 1, 20)
+ * //=tile
+ */
+function pointToTile(lon, lat, z) {
+    var tile = pointToTileFraction(lon, lat, z);
+    tile[0] = Math.floor(tile[0]);
+    tile[1] = Math.floor(tile[1]);
+    return tile;
+}
+
+/**
+ * Get the 4 tiles one zoom level higher
+ *
+ * @name getChildren
+ * @param {Array<number>} tile
+ * @returns {Array<Array<number>>} tiles
+ * @example
+ * var tiles = getChildren([5, 10, 10])
+ * //=tiles
+ */
+function getChildren(tile) {
+    return [
+        [tile[0] * 2, tile[1] * 2, tile[2] + 1],
+        [tile[0] * 2 + 1, tile[1] * 2, tile[2 ] + 1],
+        [tile[0] * 2 + 1, tile[1] * 2 + 1, tile[2] + 1],
+        [tile[0] * 2, tile[1] * 2 + 1, tile[2] + 1]
+    ];
+}
+
+/**
+ * Get the tile one zoom level lower
+ *
+ * @name getParent
+ * @param {Array<number>} tile
+ * @returns {Array<number>} tile
+ * @example
+ * var tile = getParent([5, 10, 10])
+ * //=tile
+ */
+function getParent(tile) {
+    // top left
+    if (tile[0] % 2 === 0 && tile[1] % 2 === 0) {
+        return [tile[0] / 2, tile[1] / 2, tile[2] - 1];
+    }
+    // bottom left
+    if ((tile[0] % 2 === 0) && (!tile[1] % 2 === 0)) {
+        return [tile[0] / 2, (tile[1] - 1) / 2, tile[2] - 1];
+    }
+    // top right
+    if ((!tile[0] % 2 === 0) && (tile[1] % 2 === 0)) {
+        return [(tile[0] - 1) / 2, (tile[1]) / 2, tile[2] - 1];
+    }
+    // bottom right
+    return [(tile[0] - 1) / 2, (tile[1] - 1) / 2, tile[2] - 1];
+}
+
+function getSiblings(tile) {
+    return getChildren(getParent(tile));
+}
+
+/**
+ * Get the 3 sibling tiles for a tile
+ *
+ * @name getSiblings
+ * @param {Array<number>} tile
+ * @returns {Array<Array<number>>} tiles
+ * @example
+ * var tiles = getSiblings([5, 10, 10])
+ * //=tiles
+ */
+function hasSiblings(tile, tiles) {
+    var siblings = getSiblings(tile);
+    for (var i = 0; i < siblings.length; i++) {
+        if (!hasTile(tiles, siblings[i])) return false;
+    }
+    return true;
+}
+
+/**
+ * Check to see if an array of tiles contains a particular tile
+ *
+ * @name hasTile
+ * @param {Array<Array<number>>} tiles
+ * @param {Array<number>} tile
+ * @returns {boolean}
+ * @example
+ * var tiles = [
+ *     [0, 0, 5],
+ *     [0, 1, 5],
+ *     [1, 1, 5],
+ *     [1, 0, 5]
+ * ]
+ * hasTile(tiles, [0, 0, 5])
+ * //=boolean
+ */
+function hasTile(tiles, tile) {
+    for (var i = 0; i < tiles.length; i++) {
+        if (tilesEqual(tiles[i], tile)) return true;
+    }
+    return false;
+}
+
+/**
+ * Check to see if two tiles are the same
+ *
+ * @name tilesEqual
+ * @param {Array<number>} tile1
+ * @param {Array<number>} tile2
+ * @returns {boolean}
+ * @example
+ * tilesEqual([0, 1, 5], [0, 0, 5])
+ * //=boolean
+ */
+function tilesEqual(tile1, tile2) {
+    return (
+        tile1[0] === tile2[0] &&
+        tile1[1] === tile2[1] &&
+        tile1[2] === tile2[2]
+    );
+}
+
+/**
+ * Get the quadkey for a tile
+ *
+ * @name tileToQuadkey
+ * @param {Array<number>} tile
+ * @returns {string} quadkey
+ * @example
+ * var quadkey = tileToQuadkey([0, 1, 5])
+ * //=quadkey
+ */
+function tileToQuadkey(tile) {
+    var index = '';
+    for (var z = tile[2]; z > 0; z--) {
+        var b = 0;
+        var mask = 1 << (z - 1);
+        if ((tile[0] & mask) !== 0) b++;
+        if ((tile[1] & mask) !== 0) b += 2;
+        index += b.toString();
+    }
+    return index;
+}
+
+/**
+ * Get the tile for a quadkey
+ *
+ * @name quadkeyToTile
+ * @param {string} quadkey
+ * @returns {Array<number>} tile
+ * @example
+ * var tile = quadkeyToTile('00001033')
+ * //=tile
+ */
+function quadkeyToTile(quadkey) {
+    var x = 0;
+    var y = 0;
+    var z = quadkey.length;
+
+    for (var i = z; i > 0; i--) {
+        var mask = 1 << (i - 1);
+        var q = +quadkey[z - i];
+        if (q === 1) x |= mask;
+        if (q === 2) y |= mask;
+        if (q === 3) {
+            x |= mask;
+            y |= mask;
+        }
+    }
+    return [x, y, z];
+}
+
+/**
+ * Get the smallest tile to cover a bbox
+ *
+ * @name bboxToTile
+ * @param {Array<number>} bbox
+ * @returns {Array<number>} tile
+ * @example
+ * var tile = bboxToTile([ -178, 84, -177, 85 ])
+ * //=tile
+ */
+function bboxToTile(bboxCoords) {
+    var min = pointToTile(bboxCoords[0], bboxCoords[1], 32);
+    var max = pointToTile(bboxCoords[2], bboxCoords[3], 32);
+    var bbox = [min[0], min[1], max[0], max[1]];
+
+    var z = getBboxZoom(bbox);
+    if (z === 0) return [0, 0, 0];
+    var x = bbox[0] >>> (32 - z);
+    var y = bbox[1] >>> (32 - z);
+    return [x, y, z];
+}
+
+function getBboxZoom(bbox) {
+    var MAX_ZOOM = 28;
+    for (var z = 0; z < MAX_ZOOM; z++) {
+        var mask = 1 << (32 - (z + 1));
+        if (((bbox[0] & mask) !== (bbox[2] & mask)) ||
+            ((bbox[1] & mask) !== (bbox[3] & mask))) {
+            return z;
+        }
+    }
+
+    return MAX_ZOOM;
+}
+
+/**
+ * Get the precise fractional tile location for a point at a zoom level
+ *
+ * @name pointToTileFraction
+ * @param {number} lon
+ * @param {number} lat
+ * @param {number} z
+ * @returns {Array<number>} tile fraction
+ * var tile = pointToTileFraction(30.5, 50.5, 15)
+ * //=tile
+ */
+function pointToTileFraction(lon, lat, z) {
+    var sin = Math.sin(lat * d2r),
+        z2 = Math.pow(2, z),
+        x = z2 * (lon / 360 + 0.5),
+        y = z2 * (0.5 - 0.25 * Math.log((1 + sin) / (1 - sin)) / Math.PI);
+    return [x, y, z];
+}
+
+var tilebelt = {
+    tileToGeoJSON: tileToGeoJSON,
+    tileToBBOX: tileToBBOX,
+    getChildren: getChildren,
+    getParent: getParent,
+    getSiblings: getSiblings,
+    hasTile: hasTile,
+    hasSiblings: hasSiblings,
+    tilesEqual: tilesEqual,
+    tileToQuadkey: tileToQuadkey,
+    quadkeyToTile: quadkeyToTile,
+    pointToTile: pointToTile,
+    bboxToTile: bboxToTile,
+    pointToTileFraction: pointToTileFraction
+};
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+// A collection of utility functions for converting between coordinate
+// systems
+var geoproject = {
+  center: new THREE.Vector2( 0, 0 ), // Coordinate map is centered on (projected coordinates)
+  center3035: new THREE.Vector2( 0, 0 ), // Coordinate map is centered on (projected coordinates)
+  projector: null,
+
+  calculateGlobalOffset: function ( lon, lat ) {
+    // TODO define `baseZ` in one place!!!
+    const baseZ = 7;
+    const [ x, y, z ] = tilebelt.pointToTileFraction( lon, lat, baseZ );
+    const scale = Math.pow( 2, 15 - z ) *
+      geoproject.calculateSceneScale( lon, lat );
+    return new THREE.Vector2( -x, y ).multiplyScalar( scale );
+  },
+
+  // Calculate scale factor at zoom level 15
+  // This will let us scale the terrain to match features in scene
+  calculateSceneScale: function ( lon, lat ) {
+    var tile15 = tilebelt.pointToTile( lon, lat, 15 );
+    var bbox15 = tilebelt.tileToBBOX( tile15 );
+    var size = geoproject.project( [ bbox15[ 2 ], bbox15[ 3 ] ] )
+      .sub( geoproject.project( [ bbox15[ 0 ], bbox15[ 1 ] ] ) );
+    return size.x;
+  },
+
+  project: function ( lonlatH, absolute ) {
+    if ( typeof lonlatH[ 0 ] !== 'number' ) {
+      // Assume we have an array, iterate over it
+      return lonlatH.map( function ( x ) {
+        return geoproject.project( x, absolute );
+      } );
+    }
+
+    var projected = geoproject.projector.forward( lonlatH );
+    if ( !absolute ) {
+      // Hot function, so in-line vector math
+      projected[ 0 ] -= geoproject.center.x;
+      projected[ 1 ] -= geoproject.center.y;
+    }
+
+    return new THREE.Vector3( projected[ 0 ], projected[ 1 ], lonlatH[ 2 ] ); // Pass through the height
+  },
+  unproject: function ( v, absolute ) {
+    if ( Array.isArray( v ) ) {
+      return v.map( function ( x ) {
+        return geoproject.unproject( x, absolute );
+      } );
+    }
+
+    var projected = [ v.x, v.y ];
+    if ( !absolute ) {
+      projected[ 0 ] += geoproject.center.x;
+      projected[ 1 ] += geoproject.center.y;
+    }
+
+    var unprojected = geoproject.projector.inverse( projected );
+    return [ unprojected[ 0 ], unprojected[ 1 ], v.z ]; // Pass through the height
+  },
+  unproject3035: function ( v, absolute ) {
+    if ( Array.isArray( v[ 0 ] ) ) {
+      return v.map( function ( x ) {
+        return geoproject.unproject3035( x, absolute );
+      } );
+    }
+
+    var projected = [ v[ 0 ], v[ 1 ] ];
+    if ( !absolute ) {
+      projected[ 0 ] += geoproject.center3035.x;
+      projected[ 1 ] += geoproject.center3035.y;
+    }
+
+    var unprojected = geoproject.projector3035.inverse( projected );
+    return [ unprojected[ 0 ], unprojected[ 1 ], v.z ]; // Pass through the height
+  },
+  vectorize: function ( lonlatH ) {
+    if ( typeof lonlatH[ 0 ] !== 'number' ) {
+      // Assume we have an array, iterate over it
+      var result = new Array( lonlatH.length );
+      for ( var i = 0, il = lonlatH.length; i < il; i++ ) {
+        result[ i ] = geoproject.vectorize( lonlatH[ i ] );
+      }
+
+      return result;
+    }
+
+    return new THREE.Vector3( lonlatH[ 0 ], lonlatH[ 1 ], lonlatH[ 2 ] );
+  },
+  // Convert a JSON feature representation into arrays of THREE.Vectors
+  vectorizeFeature: function ( feature ) {
+    if ( feature.projected ) {
+      return geoproject.vectorize( feature.geometry.coordinates );
+    } else {
+      return geoproject.project( feature.geometry.coordinates );
+    }
+  }
+};
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+let track;
+
+{
+  // Mock out in production build
+  track = {
+    event: () => {},
+    timing: () => {},
+    onload: null,
+    now: () => 0
+  };
+}
+
+var track$1 = track;
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+// Have other stores depend on this to get subsets of
+// OSM data
+function OSMAdapter() {
+  this.bindListeners( {
+    clearFeatures: UserActions.setCurrentPlace,
+    setFeatures: GeodataActions.setFeatures
+  } );
+
+  this.clearFeatures();
+}
+
+OSMAdapter.prototype.clearFeatures = function () {
+  this.buildings = [];
+  this.forests = [];
+  this.highways = [];
+  this.lifts = [];
+  this.peaks = [];
+  this.places = [];
+  this.pistes = [];
+  this.lakes = [];
+  this.rivers = [];
+  this.unknown = [];
+  return false;
+};
+
+// Return collection to place feature into
+OSMAdapter.prototype.classify = function ( feature ) {
+  if ( FeatureUtils.isLineString( feature ) ) {
+    // Give top priority to pistes, so we don't classify as roads
+    if ( FeatureUtils.hasTag( feature, 'piste:type' ) ) { return this.pistes }
+
+    if ( FeatureUtils.hasTag( feature, 'highway' ) ) { return this.highways }
+
+    if ( FeatureUtils.hasTag( feature, 'waterway' ) ) { return this.rivers }
+
+    if ( FeatureUtils.hasTag( feature, 'aerialway' ) ) {
+      return this.lifts;
+    }
+
+    // Assume this is a piste (or generic trail)
+    // TODO, create another type?
+    //if ( FeatureUtils.hasTag( feature, 'piste:type' ) ) {
+    return this.pistes;
+    //}
+  } else if ( FeatureUtils.isPolygon( feature ) ) {
+    if ( FeatureUtils.hasTag( feature, 'building' ) ) { return this.buildings }
+
+    var natural = FeatureUtils.tagValue( feature, 'natural' );
+    if ( natural === 'water' ) { return this.lakes }
+
+    // For now, treat river areas as lakes, as we don't have flow
+    // working yet
+    var waterway = FeatureUtils.tagValue( feature, 'waterway' );
+    if ( waterway === 'riverbank' ) { return this.lakes }
+
+    return this.forests;
+  } else if ( FeatureUtils.isMultiPolygon( feature ) ) {
+    return this.forests;
+  } else if ( FeatureUtils.isPoint( feature ) ) {
+    var tags = feature.properties.tags;
+    if ( tags.natural === 'peak' && tags.name ) {
+      return this.peaks;
+    } else if ( tags.place ) {
+      return this.places;
+    } else {
+      return this.unknown;
+    }
+  }
+
+  return this.unknown;
+};
+
+
+// Convert OSM data into something matching our API
+// TODO should eventually deprecate and generate the
+// data better, this is all pretty messy
+OSMAdapter.prototype.normalize = function ( feature ) {
+  if ( feature.properties.tags === undefined ) { return }
+
+  var props = feature.properties;
+  var tags = props.tags;
+  delete props.tags;
+
+  // Promote name to real property
+  if ( tags.name ) { props.name = tags.name; }
+
+  // Figure out type and add icon
+  if ( tags.natural === 'peak' ) {
+    props.icon = 'caret-up';
+    props.fadeDistance = 10000;
+    if ( tags.ele && props.name ) {
+      props.name += ' - ' + tags.ele + 'm';
+    }
+  } else if ( tags.place ) {
+    props.icon = 'dot-circle-o';
+    props.fadeDistance = 15000;
+  }
+
+  // TODO mark builtin features
+  // TODO extract to default
+  props.collapseDistance = 0.5 * props.fadeDistance;
+  props.priority = -10;
+  props.borderRadius = 20;
+  props.background = 'rgba(0, 0, 0, 0.6)';
+  props.color = '#fff';
+  props.clipping = 'object';
+  props.anchor = 'left';
+
+  props.padding = 2;
+};
+
+OSMAdapter.prototype.setFeatures = function ( data ) {
+  // Is data already projected?
+  var projected = !!data.crs;
+
+  // Classify features, for now without duplication
+  var feature, collection;
+  var startTime = track$1.now();
+  while ( data.features.length > 0 ) {
+    feature = data.features.pop();
+    // Remove 3035 projection
+    if ( projected ) {
+      feature.geometry.coordinates =
+        geoproject.unproject3035( feature.geometry.coordinates );
+    }
+
+    if ( feature.projected === undefined ) {
+      feature.projected = false;
+    }
+
+    collection = this.classify( feature );
+    collection.push( feature );
+  }
+
+  this.peaks.forEach( this.normalize.bind( this ) );
+  this.places.forEach( this.normalize.bind( this ) );
+  var time = track$1.now() - startTime;
+  track$1.timing( 'geodata', 'classify', 'osm', time );
+};
+
+OSMAdapter.displayName = 'OSMAdapter';
+
+var OSMAdapter$1 = alt.createStore( OSMAdapter );
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+var DEFAULT = '____default____';
+// Have other stores depend on this to get subsets of
+// overlay data
+function OverlayAdapter() {
+  this.bindListeners( {
+    addBuiltinOverlay: GeodataActions.addBuiltinOverlay,
+    addOverlay: GeodataActions.addOverlay,
+    updateOverlay: GeodataActions.updateOverlay,
+    featureCreated: RenderActions.featureCreated,
+    removeOverlay: GeodataActions.removeOverlay,
+    setFeatures: GeodataActions.setFeatures
+  } );
+
+  // Hash to keep track of overlays added
+  this.overlays = {};
+
+  // Hash to keep track of when overlays are displayed
+  this.overlayTracker = {};
+
+  // Builtin overlays are not specified by the user,
+  // but rather extracted from the OSM data
+  this.builtinOverlays = [];
+  this.supportedBuiltinOverlays = [ 'lifts', 'peaks', 'pistes', 'places' ];
+
+  // Overlays which which don't want to generate new data
+  // for, just mark whether to show them
+  this.referenceOnlyBuiltinOverlays = [ 'lifts', 'pistes' ];
+
+  // Collections to sort elements into
+  this.lines = [];
+  this.markers = [];
+}
+
+// Return collection to place feature into
+OverlayAdapter.prototype.classify = function ( feature ) {
+  if ( FeatureUtils.isLineString( feature ) ) {
+    return this.lines;
+  } else if ( FeatureUtils.isPoint( feature ) ) {
+    return this.markers;
+  }
+
+  return null;
+};
+
+OverlayAdapter.prototype.removeFeature = function ( feature ) {
+  var collection = this.classify( feature );
+  if ( collection === null ) { return }
+
+  var index = collection.indexOf( feature );
+  if ( index !== -1 ) { collection.splice( index, 1 ); }
+};
+
+OverlayAdapter.prototype.addOverlay = function ( data ) {
+  var builtin = this.builtinOverlays.indexOf( data.name ) !== -1;
+  this.removeOverlay( data.name );
+
+  // removeOverlay clears out the overlay from the builtinOverlays
+  // list, which we do not want, so add it back
+  // TODO doesn't work as we modify order of array!!!!
+  if ( builtin ) { this.builtinOverlays.unshift( data.name ); }
+
+  if ( data.name === undefined ) { data.name = DEFAULT; }
+
+  // Cache away overlay so we can later remove it
+  this.overlays[ data.name ] = data;
+
+  // Make a copy of the array, to avoid modifying original
+  var features = data.features.concat();
+
+  // Classify features, for now without duplication
+  var feature;
+  var startTime = track$1.now();
+
+  while ( features.length > 0 ) {
+    feature = features.pop();
+
+    // Copy across default properties
+    if ( data.defaults && data.defaults.properties ) {
+      lodash_min.defaults( feature.properties, data.defaults.properties );
+    }
+
+    if ( feature.projected === undefined ) {
+      feature.projected = false;
+    }
+
+    var collection = this.classify( feature );
+    if ( collection ) {
+      collection.push( feature );
+      feature.overlayName = data.name;
+      this.featureClassified( feature );
+    }
+  }
+
+  var time = track$1.now() - startTime;
+  track$1.timing( 'geodata', 'classify', 'overlay', time );
+};
+
+OverlayAdapter.prototype.updateOverlay = function ( data ) {
+  var exists = this.overlays[ data.name ] !== undefined;
+  if ( !exists ) {
+    console.error( name + ' overlay has not been added, so cannot be updated' );
+    return false;
+  }
+
+  var newFeatures = data.features, oldFeatures = this.overlays[ data.name ].features;
+  var newL = newFeatures.length, oldL = oldFeatures.length;
+  if ( newL !== oldL ) {
+    console.error( 'Tried to call updateOverlay on overlay ' + data.name + ', but number of features does not match. Original: ' + oldL + ', new: ' + newL );
+    return false;
+  }
+
+  // Is data already projected?
+  // Note we do not support multiple different projections
+  // or projections with different centers
+  var projected = !!data.crs;
+
+  var oldFeature, newFeature;
+  for ( var n = 0; n < newL; n++ ) {
+    var oldFeature = oldFeatures[ n ];
+    var newFeature = newFeatures[ n ];
+    // TODO should we check ids match?
+    oldFeature.projected = newFeature.projected === undefined ? projected : newFeature.projected;
+    oldFeature.geometry.coordinates = newFeature.geometry.coordinates;
+  }
+};
+
+OverlayAdapter.prototype.addBuiltinOverlay = function ( overlay ) {
+  // Support single and array parameters
+  if ( !Array.isArray( overlay ) ) {
+    overlay = [ overlay ];
+  }
+
+  for ( var n = 0, nl = overlay.length; n < nl; n++ ) {
+    var name = overlay[ n ];
+    var index = this.supportedBuiltinOverlays.indexOf( name );
+    if ( index === -1 ) {
+      console.error( name + ' is not a supported built-in overlay' );
+      return false;
+    }
+
+    // Just mark that we want to use this overlay and rely
+    // on updateBuiltinOverlays to populate data
+    index = this.builtinOverlays.indexOf( name );
+    if ( index === -1 ) { this.builtinOverlays.push( name ); }
+  }
+
+  return this.updateBuiltinOverlays();
+};
+
+OverlayAdapter.prototype.updateBuiltinOverlays = function () {
+  this.waitFor( OSMAdapter$1 );
+  var osm = OSMAdapter$1.getState();
+  for ( var o = 0, ol = this.builtinOverlays.length; o < ol; o++ ) {
+    var name = this.builtinOverlays[ o ];
+    if ( this.referenceOnlyBuiltinOverlays.indexOf( name ) !== -1 ) {
+      continue;
+    }
+
+    this.addOverlay( {
+      name: name,
+      type: 'FeatureCollection',
+      features: osm[ name ]
+    } );
+  }
+};
+
+OverlayAdapter.prototype.setFeatures = function () {
+  return this.updateBuiltinOverlays();
+};
+
+OverlayAdapter.prototype.removeOverlay = function ( toRemove ) {
+  if ( toRemove === undefined ) { toRemove = [ DEFAULT ]; }
+
+  if ( !Array.isArray( toRemove ) ) { toRemove = [ toRemove ]; }
+
+  for ( var n = 0, nl = toRemove.length; n < nl; n++ ) {
+    var name = toRemove[ n ];
+    var index = this.builtinOverlays.indexOf( name );
+    if ( index !== -1 ) {
+      this.builtinOverlays.splice( index, 1 );
+    }
+
+    if ( this.overlays[ name ] === undefined ) { continue }
+
+    var overlay = this.overlays[ name ];
+    for ( var f = 0, fl = overlay.features.length; f < fl; f++ ) {
+      this.removeFeature( overlay.features[ f ] );
+    }
+
+    delete this.overlays[ name ];
+  }
+};
+
+OverlayAdapter.prototype.featureClassified = function ( feature ) {
+  if ( this.overlayTracker[ feature.overlayName ] === undefined ) {
+    this.overlayTracker[ feature.overlayName ] = 1;
+  } else {
+    this.overlayTracker[ feature.overlayName ] += 1;
+  }
+};
+
+OverlayAdapter.prototype.featureCreated = function ( feature ) {
+  if ( this.overlayTracker[ feature.overlayName ] === undefined ) {
+    return false;
+  } else {
+    this.overlayTracker[ feature.overlayName ] -= 1;
+  }
+
+  if ( this.overlayTracker[ feature.overlayName ] === 0 ) {
+    var overlayName = feature.overlayName;
+    delete this.overlayTracker[ feature.overlayName ];
+    enqueue( function () {
+      RenderActions.overlayDisplayed( overlayName );
+    } );
+  }
+
+  delete feature.overlayName;
+};
+
+OverlayAdapter.displayName = 'OverlayAdapter';
+
+var OverlayAdapter$1 = alt.createStore( OverlayAdapter );
+
 /**
  * Copyright 2020 (c) Felix Palmer
  *
@@ -35454,8 +33706,6 @@ RenderStore.prototype.scheduleRenderAnimated = function () {
   return this.scheduleRender( { animating: true } );
 };
 
-console.warn( 'Need to fix controls&render loop' );
-
 // To avoid renders piling up emit changes syncronized by AnimationStore
 RenderStore.prototype.tick = function () {
   if ( this.needsRender ) {
@@ -35531,102 +33781,6 @@ var createProgram = function ( vertShader, fragShader ) {
 var utils = {
   createProgram: createProgram
 };
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-let log;
-if ( true ) {
-  log = function () {
-    if ( arguments.length ) {
-      console.log.apply( console, arguments );
-    }
-  };
-} else {
-  log = () => {}; // Disable logging
-}
-
-var log$1 = log;
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-let timeSource = performance || Date;
-let track;
-
-if ( true ) {
-  track = {
-    raw: function () {
-      // Parse out object for display
-      // At the moment we do not collect analytics, but keeping
-      // format in case we want to change in future
-      var tag = arguments[ 1 ].toUpperCase();
-      var args = [ tag ];
-      var obj = arguments[ 2 ];
-      var labels = [
-        'eventCategory', 'eventAction', 'eventLabel', 'eventValue',
-        'timingCategory', 'timingVar', 'timingLabel', 'timingValue'
-      ];
-      labels.forEach( function ( label ) {
-        if ( obj[ label ] !== undefined ) {
-          if ( label === 'timingValue' ) {
-            args.push( obj[ label ].toFixed( 0 ) + 'ms' );
-          } else {
-            args.push( obj[ label ] );
-          }
-        }
-      } );
-      log$1.apply( window, args );
-    },
-    event: function ( category, action, label, value ) {
-      var obj = {};
-      if ( category ) { obj.eventCategory = category; }
-
-      if ( action ) { obj.eventAction = action; }
-
-      if ( label ) { obj.eventLabel = label; }
-
-      if ( value ) { obj.eventValue = value; }
-
-      track.raw( 'send', 'event', obj );
-    },
-    timing: function ( category, variable, label, value ) {
-      var obj = {};
-      if ( category ) { obj.timingCategory = category; }
-
-      if ( variable ) { obj.timingVar = variable; }
-
-      if ( label ) { obj.timingLabel = label; }
-
-      if ( value ) { obj.timingValue = Math.round( value ); }
-
-      track.raw( 'send', 'timing', obj );
-    },
-    onload: null,
-    now: function () { return timeSource.now() }
-  };
-  setTimeout( function () {
-    if ( track.onload ) { track.onload(); }
-  } );
-} else {
-  // Mock out in production build
-  track = {
-    event: () => {},
-    timing: () => {},
-    onload: null,
-    now: () => 0
-  };
-}
-
-var track$1 = track;
 
 /**
  * Copyright 2020 (c) Felix Palmer
@@ -35970,6 +34124,1100 @@ ContainerStore$1.listen( function ( state ) {
   camera.aspect = state.aspect;
   camera.fov = state.fov / Math.max( camera.aspect, 1.0 );
   camera.updateProjectionMatrix();
+} );
+
+var proj4 = createCommonjsModule(function (module, exports) {
+!function(t,e){module.exports=e();}(commonjsGlobal,function(){function t(t,e){if(t[e])return t[e];for(var a,r=Object.keys(t),s=e.toLowerCase().replace(ct,""),i=-1;++i<r.length;)if(a=r[i],a.toLowerCase().replace(ct,"")===s)return t[a]}function e(t){if("string"!=typeof t)throw new Error("not a string");this.text=t.trim(),this.level=0,this.place=0,this.root=null,this.stack=[],this.currentObject=null,this.state=ft;}function a(t){return new e(t).output()}function r(t,e,a){Array.isArray(e)&&(a.unshift(e),e=null);var r=e?{}:t,i=a.reduce(function(t,e){return s(e,t),t},r);e&&(t[e]=i);}function s(t,e){if(Array.isArray(t)){var a=t.shift();if("PARAMETER"===a&&(a=t.shift()),1===t.length)return Array.isArray(t[0])?(e[a]={},void s(t[0],e[a])):void(e[a]=t[0]);if(t.length)if("TOWGS84"!==a){if("AXIS"===a)return a in e||(e[a]=[]),void e[a].push(t);Array.isArray(a)||(e[a]={});var i;switch(a){case"UNIT":case"PRIMEM":case"VERT_DATUM":return e[a]={name:t[0].toLowerCase(),convert:t[1]},void(3===t.length&&s(t[2],e[a]));case"SPHEROID":case"ELLIPSOID":return e[a]={name:t[0],a:t[1],rf:t[2]},void(4===t.length&&s(t[3],e[a]));case"PROJECTEDCRS":case"PROJCRS":case"GEOGCS":case"GEOCCS":case"PROJCS":case"LOCAL_CS":case"GEODCRS":case"GEODETICCRS":case"GEODETICDATUM":case"EDATUM":case"ENGINEERINGDATUM":case"VERT_CS":case"VERTCRS":case"VERTICALCRS":case"COMPD_CS":case"COMPOUNDCRS":case"ENGINEERINGCRS":case"ENGCRS":case"FITTED_CS":case"LOCAL_DATUM":case"DATUM":return t[0]=["name",t[0]],void r(e,a,t);default:for(i=-1;++i<t.length;)if(!Array.isArray(t[i]))return s(t,e[a]);return r(e,a,t)}}else e[a]=t;else e[a]=!0;}else e[t]=!0;}function i(t,e){var a=e[0],r=e[1];!(a in t)&&r in t&&(t[a]=t[r],3===e.length&&(t[a]=e[2](t[a])));}function n(t){return t*vt}function o(t){function e(e){return e*(t.to_meter||1)}if("GEOGCS"===t.type?t.projName="longlat":"LOCAL_CS"===t.type?(t.projName="identity",t.local=!0):"object"==typeof t.PROJECTION?t.projName=Object.keys(t.PROJECTION)[0]:t.projName=t.PROJECTION,t.AXIS){for(var a="",r=0,s=t.AXIS.length;r<s;++r){var o=t.AXIS[r][0].toLowerCase();-1!==o.indexOf("north")?a+="n":-1!==o.indexOf("south")?a+="s":-1!==o.indexOf("east")?a+="e":-1!==o.indexOf("west")&&(a+="w");}2===a.length&&(a+="u"),3===a.length&&(t.axis=a);}t.UNIT&&(t.units=t.UNIT.name.toLowerCase(),"metre"===t.units&&(t.units="meter"),t.UNIT.convert&&("GEOGCS"===t.type?t.DATUM&&t.DATUM.SPHEROID&&(t.to_meter=t.UNIT.convert*t.DATUM.SPHEROID.a):t.to_meter=t.UNIT.convert));var h=t.GEOGCS;"GEOGCS"===t.type&&(h=t),h&&(h.DATUM?t.datumCode=h.DATUM.name.toLowerCase():t.datumCode=h.name.toLowerCase(),"d_"===t.datumCode.slice(0,2)&&(t.datumCode=t.datumCode.slice(2)),"new_zealand_geodetic_datum_1949"!==t.datumCode&&"new_zealand_1949"!==t.datumCode||(t.datumCode="nzgd49"),"wgs_1984"!==t.datumCode&&"world_geodetic_system_1984"!==t.datumCode||("Mercator_Auxiliary_Sphere"===t.PROJECTION&&(t.sphere=!0),t.datumCode="wgs84"),"_ferro"===t.datumCode.slice(-6)&&(t.datumCode=t.datumCode.slice(0,-6)),"_jakarta"===t.datumCode.slice(-8)&&(t.datumCode=t.datumCode.slice(0,-8)),~t.datumCode.indexOf("belge")&&(t.datumCode="rnb72"),h.DATUM&&h.DATUM.SPHEROID&&(t.ellps=h.DATUM.SPHEROID.name.replace("_19","").replace(/[Cc]larke\_18/,"clrk"),"international"===t.ellps.toLowerCase().slice(0,13)&&(t.ellps="intl"),t.a=h.DATUM.SPHEROID.a,t.rf=parseFloat(h.DATUM.SPHEROID.rf,10)),h.DATUM&&h.DATUM.TOWGS84&&(t.datum_params=h.DATUM.TOWGS84),~t.datumCode.indexOf("osgb_1936")&&(t.datumCode="osgb36"),~t.datumCode.indexOf("osni_1952")&&(t.datumCode="osni52"),(~t.datumCode.indexOf("tm65")||~t.datumCode.indexOf("geodetic_datum_of_1965"))&&(t.datumCode="ire65"),"ch1903+"===t.datumCode&&(t.datumCode="ch1903"),~t.datumCode.indexOf("israel")&&(t.datumCode="isr93")),t.b&&!isFinite(t.b)&&(t.b=t.a);[["standard_parallel_1","Standard_Parallel_1"],["standard_parallel_2","Standard_Parallel_2"],["false_easting","False_Easting"],["false_northing","False_Northing"],["central_meridian","Central_Meridian"],["latitude_of_origin","Latitude_Of_Origin"],["latitude_of_origin","Central_Parallel"],["scale_factor","Scale_Factor"],["k0","scale_factor"],["latitude_of_center","Latitude_Of_Center"],["latitude_of_center","Latitude_of_center"],["lat0","latitude_of_center",n],["longitude_of_center","Longitude_Of_Center"],["longitude_of_center","Longitude_of_center"],["longc","longitude_of_center",n],["x0","false_easting",e],["y0","false_northing",e],["long0","central_meridian",n],["lat0","latitude_of_origin",n],["lat0","standard_parallel_1",n],["lat1","standard_parallel_1",n],["lat2","standard_parallel_2",n],["azimuth","Azimuth"],["alpha","azimuth",n],["srsCode","name"]].forEach(function(e){return i(t,e)}),t.long0||!t.longc||"Albers_Conic_Equal_Area"!==t.projName&&"Lambert_Azimuthal_Equal_Area"!==t.projName||(t.long0=t.longc),t.lat_ts||!t.lat1||"Stereographic_South_Pole"!==t.projName&&"Polar Stereographic (variant B)"!==t.projName||(t.lat0=n(t.lat1>0?90:-90),t.lat_ts=t.lat1);}function h(t){var e=this;if(2===arguments.length){var a=arguments[1];"string"==typeof a?"+"===a.charAt(0)?h[t]=mt(arguments[1]):h[t]=bt(arguments[1]):h[t]=a;}else if(1===arguments.length){if(Array.isArray(t))return t.map(function(t){Array.isArray(t)?h.apply(e,t):h(t);});if("string"==typeof t){if(t in h)return h[t]}else "EPSG"in t?h["EPSG:"+t.EPSG]=t:"ESRI"in t?h["ESRI:"+t.ESRI]=t:"IAU2000"in t?h["IAU2000:"+t.IAU2000]=t:console.log(t);return}}function u(t){return "string"==typeof t}function l(t){return t in h}function d(t){return St.some(function(e){return t.indexOf(e)>-1})}function c(e){var a=t(e,"authority");if(a){var r=t(a,"epsg");return r&&Nt.indexOf(r)>-1}}function m(e){var a=t(e,"extension");if(a)return t(a,"proj4")}function f(t){return "+"===t[0]}function p(t){if(!u(t))return t;if(l(t))return h[t];if(d(t)){var e=bt(t);if(c(e))return h["EPSG:3857"];var a=m(e);return a?mt(a):e}return f(t)?mt(t):void 0}function _(t){return t}function M(t,e){var a=It.length;return t.names?(It[a]=t,t.names.forEach(function(t){Gt[t.toLowerCase()]=a;}),this):(console.log(e),!0)}function y(t,e,a,r){var s=t*t,i=e*e,n=(s-i)/s,o=0;return r?(s=(t*=1-n*(at+n*(rt+n*st)))*t,n=0):o=Math.sqrt(n),{es:n,e:o,ep2:(s-i)/i}}function g(e,a,r,s,i){if(!e){var n=t(Lt,s);n||(n=zt),e=n.a,a=n.b,r=n.rf;}return r&&!a&&(a=(1-1/r)*e),(0===r||Math.abs(e-a)<it)&&(i=!0,a=e),{a:e,b:a,rf:r,sphere:i}}function v(t,e,a,r,s,i){var n={};return n.datum_type=void 0===t||"none"===t?$:Y,e&&(n.datum_params=e.map(parseFloat),0===n.datum_params[0]&&0===n.datum_params[1]&&0===n.datum_params[2]||(n.datum_type=Z),n.datum_params.length>3&&(0===n.datum_params[3]&&0===n.datum_params[4]&&0===n.datum_params[5]&&0===n.datum_params[6]||(n.datum_type=K,n.datum_params[3]*=tt,n.datum_params[4]*=tt,n.datum_params[5]*=tt,n.datum_params[6]=n.datum_params[6]/1e6+1))),n.a=a,n.b=r,n.es=s,n.ep2=i,n}function Projection(e,a){if(!(this instanceof Projection))return new Projection(e);a=a||function(t){if(t)throw t};var r=p(e);if("object"==typeof r){var s=Projection.projections.get(r.projName);if(s){if(r.datumCode&&"none"!==r.datumCode){var i=t(Rt,r.datumCode);i&&(r.datum_params=i.towgs84?i.towgs84.split(","):null,r.ellps=i.ellipse,r.datumName=i.datumName?i.datumName:r.datumCode);}r.k0=r.k0||1,r.axis=r.axis||"enu",r.ellps=r.ellps||"wgs84";var n=g(r.a,r.b,r.rf,r.ellps,r.sphere),o=y(n.a,n.b,n.rf,r.R_A),h=r.datum||v(r.datumCode,r.datum_params,n.a,n.b,o.es,o.ep2);Et(this,r),Et(this,s),this.a=n.a,this.b=n.b,this.rf=n.rf,this.sphere=n.sphere,this.es=o.es,this.e=o.e,this.ep2=o.ep2,this.datum=h,this.init(),a(null,this);}else a(e);}else a(e);}function b(t,e){return t.datum_type===e.datum_type&&(!(t.a!==e.a||Math.abs(t.es-e.es)>5e-11)&&(t.datum_type===Z?t.datum_params[0]===e.datum_params[0]&&t.datum_params[1]===e.datum_params[1]&&t.datum_params[2]===e.datum_params[2]:t.datum_type!==K||t.datum_params[0]===e.datum_params[0]&&t.datum_params[1]===e.datum_params[1]&&t.datum_params[2]===e.datum_params[2]&&t.datum_params[3]===e.datum_params[3]&&t.datum_params[4]===e.datum_params[4]&&t.datum_params[5]===e.datum_params[5]&&t.datum_params[6]===e.datum_params[6]))}function S(t,e,a){var r,s,i,n,o=t.x,h=t.y,u=t.z?t.z:0;if(h<-et&&h>-1.001*et)h=-et;else if(h>et&&h<1.001*et)h=et;else {if(h<-et)return {x:-1/0,y:-1/0,z:t.z};if(h>et)return {x:1/0,y:1/0,z:t.z}}return o>Math.PI&&(o-=2*Math.PI),s=Math.sin(h),n=Math.cos(h),i=s*s,r=a/Math.sqrt(1-e*i),{x:(r+u)*n*Math.cos(o),y:(r+u)*n*Math.sin(o),z:(r*(1-e)+u)*s}}function N(t,e,a,r){var s,i,n,o,h,u,l,d,c,m,f,p,_,M,y,g,v=t.x,b=t.y,S=t.z?t.z:0;if(s=Math.sqrt(v*v+b*b),i=Math.sqrt(v*v+b*b+S*S),s/a<1e-12){if(M=0,i/a<1e-12)return y=et,g=-r,{x:t.x,y:t.y,z:t.z}}else M=Math.atan2(b,v);n=S/i,d=(o=s/i)*(1-e)*(h=1/Math.sqrt(1-e*(2-e)*o*o)),c=n*h,_=0;do{_++,u=e*(l=a/Math.sqrt(1-e*c*c))/(l+(g=s*d+S*c-l*(1-e*c*c))),p=(f=n*(h=1/Math.sqrt(1-u*(2-u)*o*o)))*d-(m=o*(1-u)*h)*c,d=m,c=f;}while(p*p>1e-24&&_<30);return y=Math.atan(f/Math.abs(m)),{x:M,y:y,z:g}}function E(t,e,a){if(e===Z)return {x:t.x+a[0],y:t.y+a[1],z:t.z+a[2]};if(e===K){var r=a[0],s=a[1],i=a[2],n=a[3],o=a[4],h=a[5],u=a[6];return {x:u*(t.x-h*t.y+o*t.z)+r,y:u*(h*t.x+t.y-n*t.z)+s,z:u*(-o*t.x+n*t.y+t.z)+i}}}function w(t,e,a){if(e===Z)return {x:t.x-a[0],y:t.y-a[1],z:t.z-a[2]};if(e===K){var r=a[0],s=a[1],i=a[2],n=a[3],o=a[4],h=a[5],u=a[6],l=(t.x-r)/u,d=(t.y-s)/u,c=(t.z-i)/u;return {x:l+h*d-o*c,y:-h*l+d+n*c,z:o*l-n*d+c}}}function C(t){return t===Z||t===K}function x(t){if("function"==typeof Number.isFinite){if(Number.isFinite(t))return;throw new TypeError("coordinates must be finite numbers")}if("number"!=typeof t||t!==t||!isFinite(t))throw new TypeError("coordinates must be finite numbers")}function O(t,e){return (t.datum.datum_type===Z||t.datum.datum_type===K)&&"WGS84"!==e.datumCode||(e.datum.datum_type===Z||e.datum.datum_type===K)&&"WGS84"!==t.datumCode}function A(t,e,a){var r;return Array.isArray(a)&&(a=qt(a)),Ut(a),t.datum&&e.datum&&O(t,e)&&(a=A(t,r=new Projection("WGS84"),a),t=r),"enu"!==t.axis&&(a=Dt(t,!1,a)),"longlat"===t.projName?a={x:a.x*nt,y:a.y*nt,z:a.z||0}:(t.to_meter&&(a={x:a.x*t.to_meter,y:a.y*t.to_meter,z:a.z||0}),a=t.inverse(a)),t.from_greenwich&&(a.x+=t.from_greenwich),a=Tt(t.datum,e.datum,a),e.from_greenwich&&(a={x:a.x-e.from_greenwich,y:a.y,z:a.z||0}),"longlat"===e.projName?a={x:a.x*ot,y:a.y*ot,z:a.z||0}:(a=e.forward(a),e.to_meter&&(a={x:a.x/e.to_meter,y:a.y/e.to_meter,z:a.z||0})),"enu"!==e.axis?Dt(e,!0,a):a}function P(t,e,a){var r,s,i;return Array.isArray(a)?(r=A(t,e,a)||{x:NaN,y:NaN},a.length>2?void 0!==t.name&&"geocent"===t.name||void 0!==e.name&&"geocent"===e.name?"number"==typeof r.z?[r.x,r.y,r.z].concat(a.splice(3)):[r.x,r.y,a[2]].concat(a.splice(3)):[r.x,r.y].concat(a.splice(2)):[r.x,r.y]):(s=A(t,e,a),2===(i=Object.keys(a)).length?s:(i.forEach(function(r){if(void 0!==t.name&&"geocent"===t.name||void 0!==e.name&&"geocent"===e.name){if("x"===r||"y"===r||"z"===r)return}else if("x"===r||"y"===r)return;s[r]=a[r];}),s))}function G(t){return t instanceof Projection?t:t.oProj?t.oProj:Projection(t)}function I(t,e,a){t=G(t);var r,s=!1;return void 0===e?(e=t,t=jt,s=!0):(void 0!==e.x||Array.isArray(e))&&(a=e,e=t,t=jt,s=!0),e=G(e),a?P(t,e,a):(r={forward:function(a){return P(t,e,a)},inverse:function(a){return P(e,t,a)}},s&&(r.oProj=e),r)}function k(t,e){return e=e||5,U(T({lat:t[1],lon:t[0]}),e)}function L(t){var e=D(Q(t.toUpperCase()));return e.lat&&e.lon?[e.lon,e.lat]:[(e.left+e.right)/2,(e.top+e.bottom)/2]}function z(t){return t*(Math.PI/180)}function R(t){return t/Math.PI*180}function T(t){var e,a,r,s,i,n,o,h=t.lat,u=t.lon,l=6378137,d=z(h),c=z(u);o=Math.floor((u+180)/6)+1,180===u&&(o=60),h>=56&&h<64&&u>=3&&u<12&&(o=32),h>=72&&h<84&&(u>=0&&u<9?o=31:u>=9&&u<21?o=33:u>=21&&u<33?o=35:u>=33&&u<42&&(o=37)),n=z(6*(o-1)-180+3),e=l/Math.sqrt(1-.00669438*Math.sin(d)*Math.sin(d)),a=Math.tan(d)*Math.tan(d),r=.006739496752268451*Math.cos(d)*Math.cos(d);var m=.9996*e*((s=Math.cos(d)*(c-n))+(1-a+r)*s*s*s/6+(5-18*a+a*a+72*r-.39089081163157013)*s*s*s*s*s/120)+5e5,f=.9996*((i=l*(.9983242984503243*d-.002514607064228144*Math.sin(2*d)+2639046602129982e-21*Math.sin(4*d)-3.418046101696858e-9*Math.sin(6*d)))+e*Math.tan(d)*(s*s/2+(5-a+9*r+4*r*r)*s*s*s*s/24+(61-58*a+a*a+600*r-2.2240339282485886)*s*s*s*s*s*s/720));return h<0&&(f+=1e7),{northing:Math.round(f),easting:Math.round(m),zoneNumber:o,zoneLetter:q(h)}}function D(t){var e=t.northing,a=t.easting,r=t.zoneLetter,s=t.zoneNumber;if(s<0||s>60)return null;var i,n,o,h,u,l,d,c,m=6378137,f=(1-Math.sqrt(.99330562))/(1+Math.sqrt(.99330562)),p=a-5e5,_=e;r<"N"&&(_-=1e7),l=6*(s-1)-180+3,c=(d=_/.9996/6367449.145945056)+(3*f/2-27*f*f*f/32)*Math.sin(2*d)+(21*f*f/16-55*f*f*f*f/32)*Math.sin(4*d)+151*f*f*f/96*Math.sin(6*d),i=m/Math.sqrt(1-.00669438*Math.sin(c)*Math.sin(c)),n=Math.tan(c)*Math.tan(c),o=.006739496752268451*Math.cos(c)*Math.cos(c),h=.99330562*m/Math.pow(1-.00669438*Math.sin(c)*Math.sin(c),1.5),u=p/(.9996*i);var M=c-i*Math.tan(c)/h*(u*u/2-(5+3*n+10*o-4*o*o-.06065547077041606)*u*u*u*u/24+(61+90*n+298*o+45*n*n-1.6983531815716497-3*o*o)*u*u*u*u*u*u/720);M=R(M);var y=(u-(1+2*n+o)*u*u*u/6+(5-2*o+28*n-3*o*o+.05391597401814761+24*n*n)*u*u*u*u*u/120)/Math.cos(c);y=l+R(y);var g;if(t.accuracy){var v=D({northing:t.northing+t.accuracy,easting:t.easting+t.accuracy,zoneLetter:t.zoneLetter,zoneNumber:t.zoneNumber});g={top:v.lat,right:v.lon,bottom:M,left:y};}else g={lat:M,lon:y};return g}function q(t){var e="Z";return 84>=t&&t>=72?e="X":72>t&&t>=64?e="W":64>t&&t>=56?e="V":56>t&&t>=48?e="U":48>t&&t>=40?e="T":40>t&&t>=32?e="S":32>t&&t>=24?e="R":24>t&&t>=16?e="Q":16>t&&t>=8?e="P":8>t&&t>=0?e="N":0>t&&t>=-8?e="M":-8>t&&t>=-16?e="L":-16>t&&t>=-24?e="K":-24>t&&t>=-32?e="J":-32>t&&t>=-40?e="H":-40>t&&t>=-48?e="G":-48>t&&t>=-56?e="F":-56>t&&t>=-64?e="E":-64>t&&t>=-72?e="D":-72>t&&t>=-80&&(e="C"),e}function U(t,e){var a="00000"+t.easting,r="00000"+t.northing;return t.zoneNumber+t.zoneLetter+j(t.easting,t.northing,t.zoneNumber)+a.substr(a.length-5,e)+r.substr(r.length-5,e)}function j(t,e,a){var r=F(a);return W(Math.floor(t/1e5),Math.floor(e/1e5)%20,r)}function F(t){var e=t%Ft;return 0===e&&(e=Ft),e}function W(t,e,a){var r=a-1,s=Wt.charCodeAt(r),i=Qt.charCodeAt(r),n=s+t-1,o=i+e,h=!1;return n>Xt&&(n=n-Xt+Bt-1,h=!0),(n===Jt||s<Jt&&n>Jt||(n>Jt||s<Jt)&&h)&&n++,(n===Ht||s<Ht&&n>Ht||(n>Ht||s<Ht)&&h)&&++n===Jt&&n++,n>Xt&&(n=n-Xt+Bt-1),o>Vt?(o=o-Vt+Bt-1,h=!0):h=!1,(o===Jt||i<Jt&&o>Jt||(o>Jt||i<Jt)&&h)&&o++,(o===Ht||i<Ht&&o>Ht||(o>Ht||i<Ht)&&h)&&++o===Jt&&o++,o>Vt&&(o=o-Vt+Bt-1),String.fromCharCode(n)+String.fromCharCode(o)}function Q(t){if(t&&0===t.length)throw "MGRSPoint coverting from nothing";for(var e,a=t.length,r=null,s="",i=0;!/[A-Z]/.test(e=t.charAt(i));){if(i>=2)throw "MGRSPoint bad conversion from: "+t;s+=e,i++;}var n=parseInt(s,10);if(0===i||i+3>a)throw "MGRSPoint bad conversion from: "+t;var o=t.charAt(i++);if(o<="A"||"B"===o||"Y"===o||o>="Z"||"I"===o||"O"===o)throw "MGRSPoint zone letter "+o+" not handled: "+t;r=t.substring(i,i+=2);for(var h=F(n),u=B(r.charAt(0),h),l=J(r.charAt(1),h);l<H(o);)l+=2e6;var d=a-i;if(d%2!=0)throw "MGRSPoint has to have an even number \nof digits after the zone letter and two 100km letters - front \nhalf for easting meters, second half for \nnorthing meters"+t;var c,m,f,p,_,M=d/2,y=0,g=0;return M>0&&(c=1e5/Math.pow(10,M),m=t.substring(i,i+M),y=parseFloat(m)*c,f=t.substring(i+M),g=parseFloat(f)*c),p=y+u,_=g+l,{easting:p,northing:_,zoneLetter:o,zoneNumber:n,accuracy:c}}function B(t,e){for(var a=Wt.charCodeAt(e-1),r=1e5,s=!1;a!==t.charCodeAt(0);){if(++a===Jt&&a++,a===Ht&&a++,a>Xt){if(s)throw "Bad character: "+t;a=Bt,s=!0;}r+=1e5;}return r}function J(t,e){if(t>"V")throw "MGRSPoint given invalid Northing "+t;for(var a=Qt.charCodeAt(e-1),r=0,s=!1;a!==t.charCodeAt(0);){if(++a===Jt&&a++,a===Ht&&a++,a>Vt){if(s)throw "Bad character: "+t;a=Bt,s=!0;}r+=1e5;}return r}function H(t){var e;switch(t){case"C":e=11e5;break;case"D":e=2e6;break;case"E":e=28e5;break;case"F":e=37e5;break;case"G":e=46e5;break;case"H":e=55e5;break;case"J":e=64e5;break;case"K":e=73e5;break;case"L":e=82e5;break;case"M":e=91e5;break;case"N":e=0;break;case"P":e=8e5;break;case"Q":e=17e5;break;case"R":e=26e5;break;case"S":e=35e5;break;case"T":e=44e5;break;case"U":e=53e5;break;case"V":e=62e5;break;case"W":e=7e6;break;case"X":e=79e5;break;default:e=-1;}if(e>=0)return e;throw "Invalid zone letter: "+t}function Point(t,e,a){if(!(this instanceof Point))return new Point(t,e,a);if(Array.isArray(t))this.x=t[0],this.y=t[1],this.z=t[2]||0;else if("object"==typeof t)this.x=t.x,this.y=t.y,this.z=t.z||0;else if("string"==typeof t&&void 0===e){var r=t.split(",");this.x=parseFloat(r[0],10),this.y=parseFloat(r[1],10),this.z=parseFloat(r[2],10)||0;}else this.x=t,this.y=e,this.z=a||0;console.warn("proj4.Point will be removed in version 3, use proj4.toPoint");}function V(t){var e,a=[];return a[0]=t*Yt,e=t*t,a[0]+=e*$t,a[1]=e*ee,e*=t,a[0]+=e*te,a[1]+=e*ae,a[2]=e*re,a}function X(t,e){var a=t+t;return t+e[0]*Math.sin(a)+e[1]*Math.sin(a+a)+e[2]*Math.sin(a+a+a)}var Z=1,K=2,Y=4,$=5,tt=484813681109536e-20,et=Math.PI/2,at=.16666666666666666,rt=.04722222222222222,st=.022156084656084655,it=1e-10,nt=.017453292519943295,ot=57.29577951308232,ht=Math.PI/4,ut=2*Math.PI,lt={};lt.greenwich=0,lt.lisbon=-9.131906111111,lt.paris=2.337229166667,lt.bogota=-74.080916666667,lt.madrid=-3.687938888889,lt.rome=12.452333333333,lt.bern=7.439583333333,lt.jakarta=106.807719444444,lt.ferro=-17.666666666667,lt.brussels=4.367975,lt.stockholm=18.058277777778,lt.athens=23.7163375,lt.oslo=10.722916666667;var dt={ft:{to_meter:.3048},"us-ft":{to_meter:1200/3937}},ct=/[\s_\-\/\(\)]/g,mt=function(e){var a,r,s,i={},n=e.split("+").map(function(t){return t.trim()}).filter(function(t){return t}).reduce(function(t,e){var a=e.split("=");return a.push(!0),t[a[0].toLowerCase()]=a[1],t},{}),o={proj:"projName",datum:"datumCode",rf:function(t){i.rf=parseFloat(t);},lat_0:function(t){i.lat0=t*nt;},lat_1:function(t){i.lat1=t*nt;},lat_2:function(t){i.lat2=t*nt;},lat_ts:function(t){i.lat_ts=t*nt;},lon_0:function(t){i.long0=t*nt;},lon_1:function(t){i.long1=t*nt;},lon_2:function(t){i.long2=t*nt;},alpha:function(t){i.alpha=parseFloat(t)*nt;},lonc:function(t){i.longc=t*nt;},x_0:function(t){i.x0=parseFloat(t);},y_0:function(t){i.y0=parseFloat(t);},k_0:function(t){i.k0=parseFloat(t);},k:function(t){i.k0=parseFloat(t);},a:function(t){i.a=parseFloat(t);},b:function(t){i.b=parseFloat(t);},r_a:function(){i.R_A=!0;},zone:function(t){i.zone=parseInt(t,10);},south:function(){i.utmSouth=!0;},towgs84:function(t){i.datum_params=t.split(",").map(function(t){return parseFloat(t)});},to_meter:function(t){i.to_meter=parseFloat(t);},units:function(e){i.units=e;var a=t(dt,e);a&&(i.to_meter=a.to_meter);},from_greenwich:function(t){i.from_greenwich=t*nt;},pm:function(e){var a=t(lt,e);i.from_greenwich=(a||parseFloat(e))*nt;},nadgrids:function(t){"@null"===t?i.datumCode="none":i.nadgrids=t;},axis:function(t){3===t.length&&-1!=="ewnsud".indexOf(t.substr(0,1))&&-1!=="ewnsud".indexOf(t.substr(1,1))&&-1!=="ewnsud".indexOf(t.substr(2,1))&&(i.axis=t);}};for(a in n)r=n[a],a in o?"function"==typeof(s=o[a])?s(r):i[s]=r:i[a]=r;return "string"==typeof i.datumCode&&"WGS84"!==i.datumCode&&(i.datumCode=i.datumCode.toLowerCase()),i},ft=1,pt=/\s/,_t=/[A-Za-z]/,Mt=/[A-Za-z84]/,yt=/[,\]]/,gt=/[\d\.E\-\+]/;e.prototype.readCharicter=function(){var t=this.text[this.place++];if(4!==this.state)for(;pt.test(t);){if(this.place>=this.text.length)return;t=this.text[this.place++];}switch(this.state){case ft:return this.neutral(t);case 2:return this.keyword(t);case 4:return this.quoted(t);case 5:return this.afterquote(t);case 3:return this.number(t);case-1:return}},e.prototype.afterquote=function(t){if('"'===t)return this.word+='"',void(this.state=4);if(yt.test(t))return this.word=this.word.trim(),void this.afterItem(t);throw new Error("havn't handled \""+t+'" in afterquote yet, index '+this.place)},e.prototype.afterItem=function(t){return ","===t?(null!==this.word&&this.currentObject.push(this.word),this.word=null,void(this.state=ft)):"]"===t?(this.level--,null!==this.word&&(this.currentObject.push(this.word),this.word=null),this.state=ft,this.currentObject=this.stack.pop(),void(this.currentObject||(this.state=-1))):void 0},e.prototype.number=function(t){if(!gt.test(t)){if(yt.test(t))return this.word=parseFloat(this.word),void this.afterItem(t);throw new Error("havn't handled \""+t+'" in number yet, index '+this.place)}this.word+=t;},e.prototype.quoted=function(t){'"'!==t?this.word+=t:this.state=5;},e.prototype.keyword=function(t){if(Mt.test(t))this.word+=t;else {if("["===t){var e=[];return e.push(this.word),this.level++,null===this.root?this.root=e:this.currentObject.push(e),this.stack.push(this.currentObject),this.currentObject=e,void(this.state=ft)}if(!yt.test(t))throw new Error("havn't handled \""+t+'" in keyword yet, index '+this.place);this.afterItem(t);}},e.prototype.neutral=function(t){if(_t.test(t))return this.word=t,void(this.state=2);if('"'===t)return this.word="",void(this.state=4);if(gt.test(t))return this.word=t,void(this.state=3);{if(!yt.test(t))throw new Error("havn't handled \""+t+'" in neutral yet, index '+this.place);this.afterItem(t);}},e.prototype.output=function(){for(;this.place<this.text.length;)this.readCharicter();if(-1===this.state)return this.root;throw new Error('unable to parse string "'+this.text+'". State is '+this.state)};var vt=.017453292519943295,bt=function(t){var e=a(t),r=e.shift(),i=e.shift();e.unshift(["name",i]),e.unshift(["type",r]);var n={};return s(e,n),o(n),n};!function(t){t("EPSG:4326","+title=WGS 84 (long/lat) +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees"),t("EPSG:4269","+title=NAD83 (long/lat) +proj=longlat +a=6378137.0 +b=6356752.31414036 +ellps=GRS80 +datum=NAD83 +units=degrees"),t("EPSG:3857","+title=WGS 84 / Pseudo-Mercator +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs"),t.WGS84=t["EPSG:4326"],t["EPSG:3785"]=t["EPSG:3857"],t.GOOGLE=t["EPSG:3857"],t["EPSG:900913"]=t["EPSG:3857"],t["EPSG:102113"]=t["EPSG:3857"];}(h);var St=["PROJECTEDCRS","PROJCRS","GEOGCS","GEOCCS","PROJCS","LOCAL_CS","GEODCRS","GEODETICCRS","GEODETICDATUM","ENGCRS","ENGINEERINGCRS"],Nt=["3857","900913","3785","102113"],Et=function(t,e){t=t||{};var a,r;if(!e)return t;for(r in e)void 0!==(a=e[r])&&(t[r]=a);return t},wt=function(t,e,a){var r=t*e;return a/Math.sqrt(1-r*r)},Ct=function(t){return t<0?-1:1},xt=function(t){return Math.abs(t)<=3.14159265359?t:t-Ct(t)*ut},Ot=function(t,e,a){var r=t*a,s=.5*t;return r=Math.pow((1-r)/(1+r),s),Math.tan(.5*(et-e))/r},At=function(t,e){for(var a,r,s=.5*t,i=et-2*Math.atan(e),n=0;n<=15;n++)if(a=t*Math.sin(i),r=et-2*Math.atan(e*Math.pow((1-a)/(1+a),s))-i,i+=r,Math.abs(r)<=1e-10)return i;return -9999},Pt=[{init:function(){var t=this.b/this.a;this.es=1-t*t,"x0"in this||(this.x0=0),"y0"in this||(this.y0=0),this.e=Math.sqrt(this.es),this.lat_ts?this.sphere?this.k0=Math.cos(this.lat_ts):this.k0=wt(this.e,Math.sin(this.lat_ts),Math.cos(this.lat_ts)):this.k0||(this.k?this.k0=this.k:this.k0=1);},forward:function(t){var e=t.x,a=t.y;if(a*ot>90&&a*ot<-90&&e*ot>180&&e*ot<-180)return null;var r,s;if(Math.abs(Math.abs(a)-et)<=it)return null;if(this.sphere)r=this.x0+this.a*this.k0*xt(e-this.long0),s=this.y0+this.a*this.k0*Math.log(Math.tan(ht+.5*a));else {var i=Math.sin(a),n=Ot(this.e,a,i);r=this.x0+this.a*this.k0*xt(e-this.long0),s=this.y0-this.a*this.k0*Math.log(n);}return t.x=r,t.y=s,t},inverse:function(t){var e,a,r=t.x-this.x0,s=t.y-this.y0;if(this.sphere)a=et-2*Math.atan(Math.exp(-s/(this.a*this.k0)));else {var i=Math.exp(-s/(this.a*this.k0));if(-9999===(a=At(this.e,i)))return null}return e=xt(this.long0+r/(this.a*this.k0)),t.x=e,t.y=a,t},names:["Mercator","Popular Visualisation Pseudo Mercator","Mercator_1SP","Mercator_Auxiliary_Sphere","merc"]},{init:function(){},forward:_,inverse:_,names:["longlat","identity"]}],Gt={},It=[],kt={start:function(){Pt.forEach(M);},add:M,get:function(t){if(!t)return !1;var e=t.toLowerCase();return void 0!==Gt[e]&&It[Gt[e]]?It[Gt[e]]:void 0}},Lt={};Lt.MERIT={a:6378137,rf:298.257,ellipseName:"MERIT 1983"},Lt.SGS85={a:6378136,rf:298.257,ellipseName:"Soviet Geodetic System 85"},Lt.GRS80={a:6378137,rf:298.257222101,ellipseName:"GRS 1980(IUGG, 1980)"},Lt.IAU76={a:6378140,rf:298.257,ellipseName:"IAU 1976"},Lt.airy={a:6377563.396,b:6356256.91,ellipseName:"Airy 1830"},Lt.APL4={a:6378137,rf:298.25,ellipseName:"Appl. Physics. 1965"},Lt.NWL9D={a:6378145,rf:298.25,ellipseName:"Naval Weapons Lab., 1965"},Lt.mod_airy={a:6377340.189,b:6356034.446,ellipseName:"Modified Airy"},Lt.andrae={a:6377104.43,rf:300,ellipseName:"Andrae 1876 (Den., Iclnd.)"},Lt.aust_SA={a:6378160,rf:298.25,ellipseName:"Australian Natl & S. Amer. 1969"},Lt.GRS67={a:6378160,rf:298.247167427,ellipseName:"GRS 67(IUGG 1967)"},Lt.bessel={a:6377397.155,rf:299.1528128,ellipseName:"Bessel 1841"},Lt.bess_nam={a:6377483.865,rf:299.1528128,ellipseName:"Bessel 1841 (Namibia)"},Lt.clrk66={a:6378206.4,b:6356583.8,ellipseName:"Clarke 1866"},Lt.clrk80={a:6378249.145,rf:293.4663,ellipseName:"Clarke 1880 mod."},Lt.clrk58={a:6378293.645208759,rf:294.2606763692654,ellipseName:"Clarke 1858"},Lt.CPM={a:6375738.7,rf:334.29,ellipseName:"Comm. des Poids et Mesures 1799"},Lt.delmbr={a:6376428,rf:311.5,ellipseName:"Delambre 1810 (Belgium)"},Lt.engelis={a:6378136.05,rf:298.2566,ellipseName:"Engelis 1985"},Lt.evrst30={a:6377276.345,rf:300.8017,ellipseName:"Everest 1830"},Lt.evrst48={a:6377304.063,rf:300.8017,ellipseName:"Everest 1948"},Lt.evrst56={a:6377301.243,rf:300.8017,ellipseName:"Everest 1956"},Lt.evrst69={a:6377295.664,rf:300.8017,ellipseName:"Everest 1969"},Lt.evrstSS={a:6377298.556,rf:300.8017,ellipseName:"Everest (Sabah & Sarawak)"},Lt.fschr60={a:6378166,rf:298.3,ellipseName:"Fischer (Mercury Datum) 1960"},Lt.fschr60m={a:6378155,rf:298.3,ellipseName:"Fischer 1960"},Lt.fschr68={a:6378150,rf:298.3,ellipseName:"Fischer 1968"},Lt.helmert={a:6378200,rf:298.3,ellipseName:"Helmert 1906"},Lt.hough={a:6378270,rf:297,ellipseName:"Hough"},Lt.intl={a:6378388,rf:297,ellipseName:"International 1909 (Hayford)"},Lt.kaula={a:6378163,rf:298.24,ellipseName:"Kaula 1961"},Lt.lerch={a:6378139,rf:298.257,ellipseName:"Lerch 1979"},Lt.mprts={a:6397300,rf:191,ellipseName:"Maupertius 1738"},Lt.new_intl={a:6378157.5,b:6356772.2,ellipseName:"New International 1967"},Lt.plessis={a:6376523,rf:6355863,ellipseName:"Plessis 1817 (France)"},Lt.krass={a:6378245,rf:298.3,ellipseName:"Krassovsky, 1942"},Lt.SEasia={a:6378155,b:6356773.3205,ellipseName:"Southeast Asia"},Lt.walbeck={a:6376896,b:6355834.8467,ellipseName:"Walbeck"},Lt.WGS60={a:6378165,rf:298.3,ellipseName:"WGS 60"},Lt.WGS66={a:6378145,rf:298.25,ellipseName:"WGS 66"},Lt.WGS7={a:6378135,rf:298.26,ellipseName:"WGS 72"};var zt=Lt.WGS84={a:6378137,rf:298.257223563,ellipseName:"WGS 84"};Lt.sphere={a:6370997,b:6370997,ellipseName:"Normal Sphere (r=6370997)"};var Rt={};Rt.wgs84={towgs84:"0,0,0",ellipse:"WGS84",datumName:"WGS84"},Rt.ch1903={towgs84:"674.374,15.056,405.346",ellipse:"bessel",datumName:"swiss"},Rt.ggrs87={towgs84:"-199.87,74.79,246.62",ellipse:"GRS80",datumName:"Greek_Geodetic_Reference_System_1987"},Rt.nad83={towgs84:"0,0,0",ellipse:"GRS80",datumName:"North_American_Datum_1983"},Rt.nad27={nadgrids:"@conus,@alaska,@ntv2_0.gsb,@ntv1_can.dat",ellipse:"clrk66",datumName:"North_American_Datum_1927"},Rt.potsdam={towgs84:"606.0,23.0,413.0",ellipse:"bessel",datumName:"Potsdam Rauenberg 1950 DHDN"},Rt.carthage={towgs84:"-263.0,6.0,431.0",ellipse:"clark80",datumName:"Carthage 1934 Tunisia"},Rt.hermannskogel={towgs84:"653.0,-212.0,449.0",ellipse:"bessel",datumName:"Hermannskogel"},Rt.osni52={towgs84:"482.530,-130.596,564.557,-1.042,-0.214,-0.631,8.15",ellipse:"airy",datumName:"Irish National"},Rt.ire65={towgs84:"482.530,-130.596,564.557,-1.042,-0.214,-0.631,8.15",ellipse:"mod_airy",datumName:"Ireland 1965"},Rt.rassadiran={towgs84:"-133.63,-157.5,-158.62",ellipse:"intl",datumName:"Rassadiran"},Rt.nzgd49={towgs84:"59.47,-5.04,187.44,0.47,-0.1,1.024,-4.5993",ellipse:"intl",datumName:"New Zealand Geodetic Datum 1949"},Rt.osgb36={towgs84:"446.448,-125.157,542.060,0.1502,0.2470,0.8421,-20.4894",ellipse:"airy",datumName:"Airy 1830"},Rt.s_jtsk={towgs84:"589,76,480",ellipse:"bessel",datumName:"S-JTSK (Ferro)"},Rt.beduaram={towgs84:"-106,-87,188",ellipse:"clrk80",datumName:"Beduaram"},Rt.gunung_segara={towgs84:"-403,684,41",ellipse:"bessel",datumName:"Gunung Segara Jakarta"},Rt.rnb72={towgs84:"106.869,-52.2978,103.724,-0.33657,0.456955,-1.84218,1",ellipse:"intl",datumName:"Reseau National Belge 1972"},Projection.projections=kt,Projection.projections.start();var Tt=function(t,e,a){return b(t,e)?a:t.datum_type===$||e.datum_type===$?a:t.es!==e.es||t.a!==e.a||C(t.datum_type)||C(e.datum_type)?(a=S(a,t.es,t.a),C(t.datum_type)&&(a=E(a,t.datum_type,t.datum_params)),C(e.datum_type)&&(a=w(a,e.datum_type,e.datum_params)),N(a,e.es,e.a,e.b)):a},Dt=function(t,e,a){var r,s,i,n=a.x,o=a.y,h=a.z||0,u={};for(i=0;i<3;i++)if(!e||2!==i||void 0!==a.z)switch(0===i?(r=n,s=-1!=="ew".indexOf(t.axis[i])?"x":"y"):1===i?(r=o,s=-1!=="ns".indexOf(t.axis[i])?"y":"x"):(r=h,s="z"),t.axis[i]){case"e":case"w":case"n":case"s":u[s]=r;break;case"u":void 0!==a[s]&&(u.z=r);break;case"d":void 0!==a[s]&&(u.z=-r);break;default:return null}return u},qt=function(t){var e={x:t[0],y:t[1]};return t.length>2&&(e.z=t[2]),t.length>3&&(e.m=t[3]),e},Ut=function(t){x(t.x),x(t.y);},jt=Projection("WGS84"),Ft=6,Wt="AJSAJS",Qt="AFAFAF",Bt=65,Jt=73,Ht=79,Vt=86,Xt=90,Zt={forward:k,inverse:function(t){var e=D(Q(t.toUpperCase()));return e.lat&&e.lon?[e.lon,e.lat,e.lon,e.lat]:[e.left,e.bottom,e.right,e.top]},toPoint:L};Point.fromMGRS=function(t){return new Point(L(t))},Point.prototype.toMGRS=function(t){return k([this.x,this.y],t)};var Kt=function(t,e){var a;return t>1e-7?(a=t*e,(1-t*t)*(e/(1-a*a)-.5/t*Math.log((1-a)/(1+a)))):2*e},Yt=.3333333333333333,$t=.17222222222222222,te=.10257936507936508,ee=.06388888888888888,ae=.0664021164021164,re=.016415012942191543,se={init:function(){var t=Math.abs(this.lat0);if(Math.abs(t-et)<it?this.mode=this.lat0<0?this.S_POLE:this.N_POLE:Math.abs(t)<it?this.mode=this.EQUIT:this.mode=this.OBLIQ,this.es>0){var e;switch(this.qp=Kt(this.e,1),this.mmf=.5/(1-this.es),this.apa=V(this.es),this.mode){case this.N_POLE:case this.S_POLE:this.dd=1;break;case this.EQUIT:this.rq=Math.sqrt(.5*this.qp),this.dd=1/this.rq,this.xmf=1,this.ymf=.5*this.qp;break;case this.OBLIQ:this.rq=Math.sqrt(.5*this.qp),e=Math.sin(this.lat0),this.sinb1=Kt(this.e,e)/this.qp,this.cosb1=Math.sqrt(1-this.sinb1*this.sinb1),this.dd=Math.cos(this.lat0)/(Math.sqrt(1-this.es*e*e)*this.rq*this.cosb1),this.ymf=(this.xmf=this.rq)/this.dd,this.xmf*=this.dd;}}else this.mode===this.OBLIQ&&(this.sinph0=Math.sin(this.lat0),this.cosph0=Math.cos(this.lat0));},forward:function(t){var e,a,r,s,i,n,o,h,u,l,d=t.x,c=t.y;if(d=xt(d-this.long0),this.sphere){if(i=Math.sin(c),l=Math.cos(c),r=Math.cos(d),this.mode===this.OBLIQ||this.mode===this.EQUIT){if((a=this.mode===this.EQUIT?1+l*r:1+this.sinph0*i+this.cosph0*l*r)<=it)return null;e=(a=Math.sqrt(2/a))*l*Math.sin(d),a*=this.mode===this.EQUIT?i:this.cosph0*i-this.sinph0*l*r;}else if(this.mode===this.N_POLE||this.mode===this.S_POLE){if(this.mode===this.N_POLE&&(r=-r),Math.abs(c+this.phi0)<it)return null;a=ht-.5*c,e=(a=2*(this.mode===this.S_POLE?Math.cos(a):Math.sin(a)))*Math.sin(d),a*=r;}}else {switch(o=0,h=0,u=0,r=Math.cos(d),s=Math.sin(d),i=Math.sin(c),n=Kt(this.e,i),this.mode!==this.OBLIQ&&this.mode!==this.EQUIT||(o=n/this.qp,h=Math.sqrt(1-o*o)),this.mode){case this.OBLIQ:u=1+this.sinb1*o+this.cosb1*h*r;break;case this.EQUIT:u=1+h*r;break;case this.N_POLE:u=et+c,n=this.qp-n;break;case this.S_POLE:u=c-et,n=this.qp+n;}if(Math.abs(u)<it)return null;switch(this.mode){case this.OBLIQ:case this.EQUIT:u=Math.sqrt(2/u),a=this.mode===this.OBLIQ?this.ymf*u*(this.cosb1*o-this.sinb1*h*r):(u=Math.sqrt(2/(1+h*r)))*o*this.ymf,e=this.xmf*u*h*s;break;case this.N_POLE:case this.S_POLE:n>=0?(e=(u=Math.sqrt(n))*s,a=r*(this.mode===this.S_POLE?u:-u)):e=a=0;}}return t.x=this.a*e+this.x0,t.y=this.a*a+this.y0,t},inverse:function(t){t.x-=this.x0,t.y-=this.y0;var e,a,r,s,i,n,o,h=t.x/this.a,u=t.y/this.a;if(this.sphere){var l,d=0,c=0;if(l=Math.sqrt(h*h+u*u),(a=.5*l)>1)return null;switch(a=2*Math.asin(a),this.mode!==this.OBLIQ&&this.mode!==this.EQUIT||(c=Math.sin(a),d=Math.cos(a)),this.mode){case this.EQUIT:a=Math.abs(l)<=it?0:Math.asin(u*c/l),h*=c,u=d*l;break;case this.OBLIQ:a=Math.abs(l)<=it?this.phi0:Math.asin(d*this.sinph0+u*c*this.cosph0/l),h*=c*this.cosph0,u=(d-Math.sin(a)*this.sinph0)*l;break;case this.N_POLE:u=-u,a=et-a;break;case this.S_POLE:a-=et;}e=0!==u||this.mode!==this.EQUIT&&this.mode!==this.OBLIQ?Math.atan2(h,u):0;}else {if(o=0,this.mode===this.OBLIQ||this.mode===this.EQUIT){if(h/=this.dd,u*=this.dd,(n=Math.sqrt(h*h+u*u))<it)return t.x=0,t.y=this.phi0,t;s=2*Math.asin(.5*n/this.rq),r=Math.cos(s),h*=s=Math.sin(s),this.mode===this.OBLIQ?(o=r*this.sinb1+u*s*this.cosb1/n,i=this.qp*o,u=n*this.cosb1*r-u*this.sinb1*s):(o=u*s/n,i=this.qp*o,u=n*r);}else if(this.mode===this.N_POLE||this.mode===this.S_POLE){if(this.mode===this.N_POLE&&(u=-u),!(i=h*h+u*u))return t.x=0,t.y=this.phi0,t;o=1-i/this.qp,this.mode===this.S_POLE&&(o=-o);}e=Math.atan2(h,u),a=X(Math.asin(o),this.apa);}return t.x=xt(this.long0+e),t.y=a,t},names:["Lambert Azimuthal Equal Area","Lambert_Azimuthal_Equal_Area","laea"],S_POLE:1,N_POLE:2,EQUIT:3,OBLIQ:4},ie=function(t){return Math.abs(t)>1&&(t=t>1?1:-1),Math.asin(t)},ne={init:function(){this.sin_p14=Math.sin(this.lat0),this.cos_p14=Math.cos(this.lat0);},forward:function(t){var e,a,r,s,i,n,o,h=t.x,u=t.y;return r=xt(h-this.long0),e=Math.sin(u),a=Math.cos(u),s=Math.cos(r),((i=this.sin_p14*e+this.cos_p14*a*s)>0||Math.abs(i)<=it)&&(n=1*this.a*a*Math.sin(r),o=this.y0+1*this.a*(this.cos_p14*e-this.sin_p14*a*s)),t.x=n,t.y=o,t},inverse:function(t){var e,a,r,s,i,n,o;return t.x-=this.x0,t.y-=this.y0,e=Math.sqrt(t.x*t.x+t.y*t.y),a=ie(e/this.a),r=Math.sin(a),s=Math.cos(a),n=this.long0,Math.abs(e)<=it?(o=this.lat0,t.x=n,t.y=o,t):(o=ie(s*this.sin_p14+t.y*r*this.cos_p14/e),i=Math.abs(this.lat0)-et,Math.abs(i)<=it?(n=xt(this.lat0>=0?this.long0+Math.atan2(t.x,-t.y):this.long0-Math.atan2(-t.x,t.y)),t.x=n,t.y=o,t):(n=xt(this.long0+Math.atan2(t.x*r,e*this.cos_p14*s-t.y*this.sin_p14*r)),t.x=n,t.y=o,t))},names:["ortho"]};return I.defaultDatum="WGS84",I.Proj=Projection,I.WGS84=new I.Proj("WGS84"),I.Point=Point,I.toPoint=qt,I.defs=h,I.transform=A,I.mgrs=Zt,I.version="2.6.2-alpha",function(proj4){proj4.Proj.projections.add(se),proj4.Proj.projections.add(ne);}(I),I});
+});
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+// Configure useful projections
+// Use http://spatialreference.org/ref/epsg/24817/proj4js/ to look up
+// proj4.js was built using: node_modules/.bin/grunt build:laea,ortho
+proj4.defs( [
+  [ 'EPSG:3035', '+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs' ],
+] );
+
+function GeoprojectStore() {
+  this.projection = null;
+  this.location = null;
+  this.globalOffset = new THREE.Vector2();
+  this.sceneScale = 1;
+
+  this.bindListeners( {
+    setCurrentPlace: UserActions.setCurrentPlace
+  } );
+
+  this.exportPublicMethods( {
+    positionToTileFraction: this.positionToTileFraction.bind( this ),
+  } );
+}
+
+GeoprojectStore.prototype.setCurrentPlace = function ( place ) {
+  this.location = place.location;
+  this.projection = 'EPSG:3857';
+
+  // Setup projectors
+  const lon = ApiUtils.snap( this.location[ 0 ] );
+  const lat = ApiUtils.snap( this.location[ 1 ] );
+  geoproject.projector = proj4( this.projection );
+  geoproject.center = geoproject.project( [ lon, lat ], true );
+
+  // For testing new data create temporary projector for 3035
+  // TODO remove this once we don't use 3035 data
+  geoproject.projector3035 = proj4( 'EPSG:3035' );
+  var projected3035 = geoproject.projector3035.forward( [ lon, lat ] );
+  geoproject.center3035 = { x: projected3035[ 0 ], y: projected3035[ 1 ] };
+
+  // To make the heights match the projection, we need to obtain the
+  // scene scale
+  this.sceneScale = geoproject.calculateSceneScale( lon, lat );
+
+  // Re-center our THREE Scene coordinate system such that it is 0, 0
+  // at the location of the place
+  this.globalOffset = geoproject.calculateGlobalOffset( lon, lat );
+};
+
+GeoprojectStore.prototype.positionToTileFraction = function ( position, z ) {
+  const p = position.clone();
+  p.x -= this.globalOffset.x;
+  p.y += this.globalOffset.y;
+  p.divideScalar( this.sceneScale * Math.pow( 2, 15 - z ) );
+  return [ p.x, p.y, z ];
+};
+
+GeoprojectStore.displayName = 'GeoprojectStore';
+var GeoprojectStore$1 = alt.createStore( GeoprojectStore );
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+function AppStore() {
+  this.appContainer = null;
+  this.datasource = {};
+  this.fatalError = false;
+  this.initialized = false;
+  this.resourceUrl = null;
+  this.bindListeners( {
+    configureElevationDatasource: ConfigActions.configureElevationDatasource,
+    configureImageryDatasource: ConfigActions.configureImageryDatasource,
+    setAppContainer: ConfigActions.setAppContainer,
+    setFatalError: RenderActions.fatalError,
+    setResourceUrl: ConfigActions.setResourceUrl
+  } );
+}
+
+AppStore.prototype.checkInitialized = function () {
+  this.initialized = ( this.appContainer !== null ) &&
+                     ( this.resourceUrl !== null );
+};
+
+AppStore.prototype.configureElevationDatasource = function ( elevation ) {
+  this.datasource.elevation = elevation;
+};
+
+AppStore.prototype.configureImageryDatasource = function ( imagery ) {
+  this.datasource.imagery = imagery;
+};
+
+AppStore.prototype.setFatalError = function () {
+  this.fatalError = true;
+};
+
+AppStore.prototype.setAppContainer = function ( container ) {
+  this.appContainer = container;
+  this.checkInitialized();
+};
+
+AppStore.prototype.setResourceUrl = function ( url ) {
+  this.resourceUrl = url;
+  this.checkInitialized();
+};
+
+AppStore.displayName = 'AppStore';
+var AppStore$1 = alt.createStore( AppStore );
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+let params = new URLSearchParams( window.location.search.slice( 1 ) );
+
+// TODO could support non-square POT textures also
+let elevationPoolSize = 4 * 4;
+let imageryPoolSize = 16 * 16;
+if ( params.has( 'elevationPoolSize' ) ) {
+  elevationPoolSize = Number.parseInt( params.get( 'elevationPoolSize' ) );
+}
+
+if ( params.has( 'imageryPoolSize' ) ) {
+  imageryPoolSize = Number.parseInt( params.get( 'imageryPoolSize' ) );
+}
+
+const ELEVATION_POOL_SIZE = elevationPoolSize;
+const ELEVATION_TILE_SIZE = 512;
+const IMAGERY_POOL_SIZE = imageryPoolSize;
+const IMAGERY_TILE_SIZE = 256;
+const INTERPOLATE_FLOAT = params.has( 'interpolateFloat' );
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+var renderer = new THREE.WebGLRenderer( {
+  alpha: true,
+  antialias: false,
+  clearColor: 0x000000,
+  logarithmicDepthBuffer: false
+} );
+renderer.sortObjects = true;
+
+// Don't clear buffers we know will be overwritten
+renderer.autoClear = false;
+renderer.autoClearColor = false;
+renderer.autoClearDepth = true;
+renderer.autoClearStencil = false;
+renderer.domElement.selectable = false;
+// We do our own tonemapping, so disable otherwise get shader errors
+renderer.toneMapping = THREE.NoToneMapping;
+
+var state = ContainerStore$1.getState();
+renderer.setPixelRatio( state.pixelRatio );
+renderer.setSize( state.width, state.height );
+ContainerStore$1.listen( function ( state ) {
+  renderer.setPixelRatio( state.pixelRatio );
+  renderer.setSize( state.width, state.height );
+} );
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+// Class for managing a set of indices
+// `next()` returns a integer
+class IntegerPool {
+  constructor( capacity ) {
+    this.capacity = capacity;
+    this.index = 0;
+    this.items = [];
+  }
+
+  next() {
+    let i;
+    // Once we hit capacity, start re-using stale entries
+    if ( this.index >= this.capacity ) {
+      i = this.items.splice( 0, 1 )[ 0 ];
+    } else {
+      // ...otherwise allocate sequentially
+      i = this.index++;
+    }
+
+    this.items.push( i );
+    return i;
+  }
+
+  // Method to keep element alive
+  tap( item ) {
+    let i = this.items.indexOf( item );
+    if ( i !== -1 ) {
+      this.items.splice( i, 1 );
+      this.items.push( item );
+    }
+  }
+}
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const ImageLoader$1 = ( typeof createImageBitmap === 'undefined' ) ?
+  THREE.ImageLoader : THREE.ImageBitmapLoader;
+
+var ImageLoader$2 = new ImageLoader$1();
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+const canvas$1 = document.createElement( 'canvas' );
+const width = ELEVATION_TILE_SIZE;
+const height = ELEVATION_TILE_SIZE;
+canvas$1.width = width;
+canvas$1.height = height;
+const ctx = canvas$1.getContext( '2d' );
+const N = width * height;
+
+const insertIntoTextureArray = ( textureArray, index, image ) => {
+  const w = textureArray.image.width / textureArray.__blocks;
+  const h = textureArray.image.height / textureArray.__blocks;
+  const x = w * ( Math.floor( index ) % textureArray.__blocks );
+  const y = h * Math.floor( Math.floor( index ) / textureArray.__blocks );
+
+  if ( textureArray.useFloat ) {
+    ctx.drawImage( image, 0, 0 );
+    let imgData = ctx.getImageData( 0, 0, width, height ).data;
+
+    let data = new Float32Array( N );
+
+    const baseVal = -32768;
+    //const interval = 1 / 256;
+    let dataView = new DataView( imgData.buffer );
+    for ( let i = 0; i < N; ++i ) {
+      //let h = interval * (
+      //  256 * 256 * imgData[ 4 * i ] +
+      //  256 * imgData[ 4 * i + 1 ] +
+      //  imgData[ 4 * i + 2 ]
+      //) + baseVal;
+      // Read as big-endian data (skipping B channel), equivalent to above
+      let H = dataView.getUint16( 4 * i, false ) + baseVal;
+
+      // Handle NODATA value, clamping to 0
+      data[ i ] = ( H === baseVal ? 0 : H );
+    }
+
+    // Do we need float? Perhaps just converting to data is
+    // enough?
+    renderer.copyTextureToTexture( { x, y }, {
+      image: { data, width, height },
+      isDataTexture: true
+    }, textureArray );
+  } else {
+    renderer.copyTextureToTexture( { x, y }, { image },
+      textureArray );
+  }
+};
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+class BaseDatasource {
+  constructor( { apiKey, poolSize, textureSize, useFloat, urlFormat } ) {
+    this.apiKey = apiKey;
+    this.urlFormat = urlFormat;
+    this.useFloat = !!useFloat;
+    this.hasUpdates = false;
+    this.listeners = [];
+    this.lookup = {};
+    this.fetching = {};
+    this.imgCache = {};
+    this.indexPool = new IntegerPool( poolSize );
+
+    // Emulate texture array by cutting up 2D texture
+    let n = Math.sqrt( poolSize );
+    if ( n % 1 ) {
+      console.error( 'poolSize needs to be a power of 2' );
+    }
+
+    let virtualTextureSize = textureSize * n;
+
+    const TextureFilter = ( this.useFloat && !INTERPOLATE_FLOAT ) ?
+      THREE.NearestFilter : THREE.LinearFilter;
+
+    this.textureArray = new THREE.DataTexture( null,
+      virtualTextureSize, virtualTextureSize,
+      // RGB seems to run *slower* than RGBA on iOS
+      this.useFloat ? THREE.AlphaFormat : THREE.RGBAFormat,
+      // HalfFloat doesn't work on iOS :(
+      this.useFloat ? THREE.FloatType : THREE.UnsignedByteType,
+      THREE.UVMapping,
+      THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping,
+      TextureFilter, TextureFilter,
+      //THREE.LinearFilter, THREE.LinearFilter,
+      //THREE.NearestFilter, THREE.NearestFilter,
+      renderer.capabilities.getMaxAnisotropy()
+    );
+    this.textureArray.__blocks = n;
+    this.textureArray.useFloat = this.useFloat;
+
+    if ( this.useFloat ) {
+      const size = 1024; // TODO reduce in future!
+      this.indirectionTexture = new THREE.DataTexture( null,
+        size, size,
+        // TODO Could perhaps use smaller format
+        THREE.RGBAFormat, // Using RGB led to errors...
+        // Need to use float type or get glitches on iOS
+        THREE.FloatType,
+        THREE.UVMapping,
+        THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping,
+        THREE.NearestFilter, THREE.NearestFilter,
+        1 // anisotropy
+      );
+    }
+  }
+
+  urlForTile( x, y, z ) {
+    return this.urlFormat.replace( '{x}', x ).replace( '{y}', y )
+      .replace( '{z}', z ).replace( '{apiKey}', this.apiKey );
+  }
+
+  fetchIfNeeded( quadkey ) {
+    if ( this.lookup[ quadkey ] !== undefined ||
+      this.fetching[ quadkey ] !== undefined ) {
+      // Have data, or download in progress, skip
+      return;
+    }
+
+    // Throttle downloads
+    let downloadIndices = Object.values( this.fetching );
+    if ( downloadIndices.length > 32 ) {
+      log$1( 'throttling...' );
+      return;
+    }
+
+    let newIndex = this.findNewIndex( quadkey );
+
+    // Mark as download in progress
+    this.fetching[ quadkey ] = newIndex;
+
+    // Actually fetch data
+    let url = this.urlForTile( ...tilebelt.quadkeyToTile( quadkey ) );
+    ImageLoader$2.load( url, ( image ) => {
+      // Image loaded OK
+        this.imgCache[ quadkey ] = image;
+        insertIntoTextureArray( this.textureArray, newIndex, image );
+
+        // Remove download and mark image location in lookup
+        delete this.fetching[ quadkey ];
+        this.lookup[ quadkey ] = newIndex;
+
+        // TODO remove, just for demo page
+        if ( this.useFloat ) {
+          let el = document.getElementById( 'elevation-tile-count' );
+          if ( el ) {
+            let n = parseInt( el.innerHTML );
+            if ( isNaN( n ) ) { n = 0; }
+
+            el.innerHTML = ++n;
+          }
+        }
+
+        this.updateIndirectionTexture();
+        this.notifyUpdate();
+      }, () => {
+        console.error( 'Failed to get image', quadkey );
+        delete this.fetching[ quadkey ];
+      } );
+  }
+
+  findNewIndex( quadkey ) {
+    // First request a new slot (index) to place image in
+    let downloadIndices = Object.values( this.fetching );
+    let newIndex;
+    let oldQuadKey;
+    let failed = true;
+    for ( let i = 32; i > 0; i-- ) {
+      // Try to obtain new index
+      newIndex = this.indexPool.next();
+
+      // Avoid situation where newIndex is used by an
+      // in-progress download, as it'll get clobbered
+      let goodIndex = downloadIndices.indexOf( newIndex ) === -1;
+
+      // Check what data this is pointing at
+      let oldDataSlot = Object.values( this.lookup ).indexOf( newIndex );
+      oldQuadKey = Object.keys( this.lookup )[ oldDataSlot ];
+
+      // Don't release tiles that are below us in
+      // heirarchy, so that when we zoom out we always have
+      // some data.
+      // Without this, we eject the data and then later
+      // tiles can end up having nothing to load! Resulting
+      // in a weird glitch where the previous index set in
+      // the uniform is used and some random tile is plastered
+      // in its place :(
+      let isParent = (
+        oldQuadKey !== undefined &&
+        quadkey.slice( 0, oldQuadKey.length - 1 ) === oldQuadKey.slice( 0, -1 ) );
+
+      if ( goodIndex && !isParent ) {
+        // Index is clean and not assigned being used by a download
+        failed = false;
+        break;
+      }
+    }
+
+    if ( failed ) {
+      log$1( `Failed to find index (${this.indexPool.capacity})` );
+      log$1( 'Downloads: ', downloadIndices.length );
+      // Fallback to using lowest resolution tile
+      oldQuadKey = Object.keys( this.lookup ).sort(
+        ( x, y ) => x.length - y.length )[ 0 ];
+      newIndex = this.lookup[ oldQuadKey ];
+    }
+
+    // Next, remove any existing lookup entry that references
+    // this index, as we are about to re-assign it. This should
+    // be safe to do as the index should have been recycled
+    // before
+    if ( oldQuadKey !== undefined ) {
+      delete this.lookup[ oldQuadKey ];
+    }
+
+    return newIndex;
+  }
+
+  updateIndirectionTexture() {
+    // Update indirection texture, loop over all textures
+    if ( this.indirectionTexture ) {
+      let quadkeys = Object.keys( this.lookup );
+      quadkeys.sort( ( a, b ) => Math.sign( a.length - b.length ) );
+      for ( let q of quadkeys ) {
+        let [ x, y, z ] = tilebelt.quadkeyToTile( q );
+        let tileIndex = this.lookup[ q ];
+        let size = Math.pow( 2, 10 - z );
+        x *= size; y *= size; // Move to zoom level 10
+        let data = new Float32Array( 4 * size * size );
+        let tileSize = Math.pow( 2, z );
+        let originScale = -tileSize / this.indirectionTexture.image.width;
+        for ( let i = 0; i < data.length; i++ ) {
+          // Location of tile in texture array
+          data[ 4 * i ] = tileIndex;
+          // Tile size
+          data[ 4 * i + 1 ] = tileSize;
+          // Tile origin position (scaled to save GPU instructions)
+          data[ 4 * i + 2 ] = x * originScale;
+          data[ 4 * i + 3 ] = y * originScale;
+        }
+
+        renderer.copyTextureToTexture( { x, y }, {
+          image: { data, width: size, height: size },
+          isDataTexture: true
+        }, this.indirectionTexture );
+      }
+    }
+  }
+
+  // Locates the highest resolution data we have for this tile
+  // return the data index and number of levels we are
+  // downsampling by
+  findBestAvailableData( quadkey, silent ) {
+    for ( let downsample = 0; downsample < 20; downsample++ ) {
+      // See if we have imagery already...
+      let index = this.lookup[ quadkey ];
+      if ( index !== undefined ) {
+        return { index, downsample, quadkey };
+      } else {
+        // Try parent tile...
+        // Parent key is just our key with last char removed
+        quadkey = quadkey.slice( 0, -1 );
+        if ( quadkey.length === 0 ) { break }
+      }
+    }
+
+    if ( !silent ) {
+      log$1( 'Failed to find data', quadkey );
+    }
+
+    return { index: null, downsample: 20, quadkey: null };
+  }
+
+  // Reads single point using local lookups
+  dataAtPoint( p ) {
+    let tile;
+    if ( p.longitude ) {
+      tile = tilebelt.pointToTileFraction( p.longitude, p.latitude, 10 );
+    } else {
+      tile = GeoprojectStore$1.positionToTileFraction( p, 10 );
+    }
+
+    const q = tilebelt.tileToQuadkey( tile );
+    const { quadkey } = this.findBestAvailableData( q );
+
+    if ( !quadkey ) { return null }
+
+    // Convert to zoom level at which we have data
+    const scale = Math.pow( 2, quadkey.length - tile[ 2 ] );
+    tile[ 0 ] *= scale;
+    tile[ 1 ] *= scale;
+
+    const img = this.imgCache[ quadkey ];
+    const canvas = document.createElement( 'canvas' );
+    canvas.width = 1; canvas.height = 1;
+
+    tile[ 0 ] = ( tile[ 0 ] % 1 ) * img.width;
+    tile[ 1 ] = ( tile[ 1 ] % 1 ) * img.height;
+
+    const ctx = canvas.getContext( '2d' );
+    ctx.drawImage( img,
+      tile[ 0 ], tile[ 1 ], 1, 1, // one pixel from src
+      0, 0, 1, 1 ); // ..to 1x1 canvas
+    return ctx.getImageData( 0, 0, 1, 1 ).data;
+  }
+
+  addListener( fn ) {
+    this.listeners.push( fn );
+  }
+
+  removeListener( fn ) {
+    let i = this.listeners.indexOf( fn );
+    if ( i !== -1 ) { this.listeners.splice( i, 1 ); }
+  }
+
+  notifyUpdate() {
+    this.hasUpdates = true;
+  }
+
+  broadcastUpdate() {
+    this.listeners.forEach( l => l() );
+    this.hasUpdates = false;
+  }
+}
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+const ElevationDatasource = new BaseDatasource( {
+  urlFormat: 'https://www.nasadem.xyz/api/v1/dem/{z}/{x}/{y}.png?key={apiKey}',
+  textureSize: ELEVATION_TILE_SIZE,
+  poolSize: ELEVATION_POOL_SIZE,
+  useFloat: true
+} );
+
+AppStore$1.listen( ( { datasource } ) => {
+  if ( datasource.elevation ) {
+    ElevationDatasource.apiKey = datasource.elevation.apiKey;
+  }
+} );
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+const earthScale = 0.0008176665341588574;
+function heightScale( p ) {
+  const sceneScale = GeoprojectStore$1.getState().sceneScale;
+  let tile;
+  if ( p.longitude ) {
+    tile = tilebelt.pointToTile( p.longitude, p.latitude, 10 );
+  } else {
+    tile = GeoprojectStore$1.positionToTileFraction( p, 10 );
+  }
+
+  const n = 3.141592653589793 - 0.006135923151542565 * tile[ 1 ];
+  return Math.cosh( n ) / ( earthScale * sceneScale );
+}
+
+function dataToHeight( data ) {
+  if ( data[ 0 ] === 0 && data[ 1 ] === 0 ) {
+    // NODATA values return 0
+    return 0;
+  }
+  return 256 * data[ 0 ] + data[ 1 ] - 32768;
+}
+
+// Simplified height lookup, doesn't interpolate between points
+// just picks the nearest pixel
+function heightAt( p, callback ) {
+  const data = ElevationDatasource.dataAtPoint( p );
+  if ( !data ) {
+    if ( typeof callback === 'function' ) {
+      const listener = () => {
+        // Now that data has updated, try again to fetch
+        const data = ElevationDatasource.dataAtPoint( p );
+        if ( data ) {
+          ElevationDatasource.removeListener( listener );
+          callback( dataToHeight( data ) * heightScale( p ) );
+        }
+      };
+
+      // Don't have data yet, but want to register for callback
+      // once available
+      ElevationDatasource.addListener( listener );
+    }
+
+    return 0;
+  }
+
+  const H = dataToHeight( data ) * heightScale( p );
+  if ( typeof callback === 'function' ) { callback( H ); }
+
+  return H;
+}
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+// Uniforms for shaders that lookup height
+const heightUniforms = {
+  elevationArray: { value: ElevationDatasource.textureArray },
+  indirectionTexture: { value: ElevationDatasource.indirectionTexture },
+  uGlobalOffset: { type: 'v2', value: new THREE.Vector2() },
+  uSceneScale: { type: 'f', value: 1 }
+};
+
+GeoprojectStore$1.listen( ( { globalOffset, sceneScale } ) => {
+  heightUniforms.uGlobalOffset.value.copy( globalOffset );
+  heightUniforms.uSceneScale.value = sceneScale;
+} );
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+const Shader = function ( value ) {
+  this.value = value;
+};
+
+Shader.prototype.define = function ( define, value ) {
+  var regexp = new RegExp( "#define " + define + " .*", "g" );
+  var newDefine = "#define " + define + ( value ? " " + value : "" );
+  if ( this.value.match( regexp ) ) {
+    // #define already exists, update its value
+    this.value = this.value.replace( regexp, newDefine );
+  } else {
+    // New #define, prepend to start of file
+    this.value = newDefine + "\n" + this.value;
+  }
+};
+
+Shader.prototype.clone = function () {
+  return new Shader( this.value );
+};
+
+var beaconVertex = new Shader(`uniform mat4 modelMatrix;uniform mat4 viewMatrix;uniform mat4 projectionMatrix;uniform vec3 cameraPosition;attribute vec3 position;attribute vec3 normal;uniform float uAccuracy;varying vec3 vPosition;varying vec3 vCenter;varying float vRingRadius;
+#define BEACON_RADIUS 50.0
+float a(float b){return clamp(b,0.0,1.0);}vec2 a(vec2 b){return clamp(b,0.0,1.0);}vec3 a(vec3 b){return clamp(b,0.0,1.0);}vec4 a(vec4 b){return clamp(b,0.0,1.0);}
+#define VIRTUAL_TEXTURE_ARRAY_BLOCKS 4.0
+
+#define VIRTUAL_TEXTURE_ARRAY_SIZE 512.0
+
+#define TEX_SIZE (VIRTUAL_TEXTURE_ARRAY_SIZE * VIRTUAL_TEXTURE_ARRAY_BLOCKS)
+const vec2 c=vec2(1.0/TEX_SIZE,0.0);vec4 d(const in sampler2D b,in vec2 e){e-=0.5*c.xx;vec2 f=fract(e*TEX_SIZE);vec2 g=e-c.xx*f+0.5*c.xx;
+#ifdef HEIGHT_LOOKUP_BIAS
+vec4 h=texture2D(b,g,-10.0);vec4 i=texture2D(b,g+c,-10.0);vec4 j=texture2D(b,g+c.yx,-10.0);vec4 k=texture2D(b,g+c.xx,-10.0);
+#else
+vec4 h=texture2D(b,g);vec4 i=texture2D(b,g+c);vec4 j=texture2D(b,g+c.yx);vec4 k=texture2D(b,g+c.xx);
+#endif
+vec4 l=mix(h,i,f.x);vec4 m=mix(j,k,f.x);return mix(l,m,f.y);}vec4 n(in sampler2D o,in vec2 e,in float p){vec2 q=vec2(mod(float(p),VIRTUAL_TEXTURE_ARRAY_BLOCKS),floor(float(p)/VIRTUAL_TEXTURE_ARRAY_BLOCKS));const float r=0.5;vec2 s=vec2(r,VIRTUAL_TEXTURE_ARRAY_SIZE-r)/VIRTUAL_TEXTURE_ARRAY_SIZE;vec2 t=(clamp(e,s.x,s.y)+q)/VIRTUAL_TEXTURE_ARRAY_BLOCKS;
+#ifdef MANUAL_TEXTURE_BILINEAR
+return d(o,t);
+#else
+return texture2D(o,t);
+#endif
+}uniform lowp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform float uSceneScale;const float u=0.0008176665341588574;float v(in float w){float x=3.141592653589793-0.006135923151542565*w;float y=dot(vec2(0.5),exp(vec2(x,-x)));return y/(u*uSceneScale);}uniform lowp sampler2D elevationArray;float z(in vec2 A){const float B=32.0;const float C=1024.0;vec2 D=A.xy-uGlobalOffset;D/=(uSceneScale*B);D*=vec2(1.0,-1.0);vec2 E=D/C;const vec2 F=vec2(0.5);vec2 G=(floor(D-F)+F);G+=step(F,D-G);vec2 H=G/C;vec4 I=texture2D(indirectionTexture,H);float p=I.r;float J=I.g;vec2 K=I.ba;vec2 t=E*J+K;return v(D.y)*n(elevationArray,t,p).a;}void main(){vCenter=position-BEACON_RADIUS*normal;vec4 L=modelMatrix*vec4(vCenter,1.0);vec3 M=L.xyz/L.w;vCenter=M;float N=abs((viewMatrix*vec4(M,1.0)).z);vRingRadius=25.0*clamp(N/1000.0,0.01,10.0);float O=max(vRingRadius,uAccuracy);vPosition=vCenter+O*normal;float P=z(vPosition.xy);float Q=P-vPosition.z+N/1000.0-0.3*O;vPosition.z=P;vec3 R=cameraPosition-vPosition;float S=length(R);R=normalize(R);float T=230.0*smoothstep(50.0,250.0,S);gl_Position=projectionMatrix*viewMatrix*vec4(vPosition+T*R,1.0);}`);
+
+var beaconFragment = new Shader(`precision highp float;uniform float uTime;varying vec3 vPosition;varying vec3 vCenter;varying float vRingRadius;const vec4 a=vec4(1.0,1.0,1.0,0.9);void main(){float b=distance(vPosition.xy,vCenter.xy)/vRingRadius;vec3 c=mix(vec3(0.0,0.0,1.0),vec3(0.0,0.5,1.0),0.2*b);vec4 d=vec4(c*sin(uTime),0.5);d=mix(d,a,smoothstep(0.75,0.8,b));d=mix(d,vec4(c.rgb,0.15),smoothstep(1.0,1.05,b));d.rgb=pow(abs(d.rgb),vec3(0.4545));gl_FragColor=d;}`);
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * This file incorporates work covered by the following copyright and
+ * permission notice:
+ *
+ *   The MIT License
+ *
+ *   Copyright © 2010-2020 three.js authors
+ *
+ *   Permission is hereby granted, free of charge, to any person obtaining a copy
+ *   of this software and associated documentation files (the "Software"), to deal
+ *   in the Software without restriction, including without limitation the rights
+ *   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *   copies of the Software, and to permit persons to whom the Software is
+ *   furnished to do so, subject to the following conditions:
+ *
+ *   The above copyright notice and this permission notice shall be included in
+ *   all copies or substantial portions of the Software.
+ *
+ *   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *   THE SOFTWARE.
+ */
+
+function Color$1( r, g, b, a ) {
+  if ( g === undefined && b === undefined ) {
+    // r is THREE.Color, hex or string
+    return this.set( r );
+  }
+
+  if ( a === undefined ) { a = 1; }
+
+  return this.setRGB( r, g, b, a );
+}
+
+Object.assign( Color$1.prototype, {
+
+  isColor: true,
+
+  r: 1, g: 1, b: 1, a: 1,
+
+  set: function ( value ) {
+    if ( value && value.isColor ) {
+      this.copy( value );
+    } else if ( typeof value === 'number' ) {
+      this.setHex( value );
+    } else if ( typeof value === 'string' ) {
+      this.setStyle( value );
+    }
+
+    return this;
+  },
+
+  setScalar: function ( scalar ) {
+    this.r = scalar;
+    this.g = scalar;
+    this.b = scalar;
+
+    return this;
+  },
+
+  setHex: function ( hex ) {
+    hex = Math.floor( hex );
+
+    this.r = ( hex >> 16 & 255 ) / 255;
+    this.g = ( hex >> 8 & 255 ) / 255;
+    this.b = ( hex & 255 ) / 255;
+
+    return this;
+  },
+
+  setRGB: function ( r, g, b, a ) {
+    this.r = r;
+    this.g = g;
+    this.b = b;
+    this.a = a;
+
+    return this;
+  },
+
+
+  setStyle: function ( style ) {
+    function handleAlpha( string ) {
+      if ( string === undefined ) return 1;
+      return parseFloat( string );
+    }
+
+
+    var m;
+
+    if ( m = /^((?:rgb)a?)\(\s*([^\)]*)\)/.exec( style ) ) {
+      // rgb / hsl
+
+      var color;
+      var name = m[ 1 ];
+      var components = m[ 2 ];
+
+      switch ( name ) {
+      case 'rgb':
+      case 'rgba':
+
+        if ( color = /^(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(,\s*([0-9]*\.?[0-9]+)\s*)?$/.exec( components ) ) {
+          // rgb(255,0,0) rgba(255,0,0,0.5)
+          this.r = Math.min( 255, parseInt( color[ 1 ], 10 ) ) / 255;
+          this.g = Math.min( 255, parseInt( color[ 2 ], 10 ) ) / 255;
+          this.b = Math.min( 255, parseInt( color[ 3 ], 10 ) ) / 255;
+
+          this.a = handleAlpha( color[ 5 ] );
+
+          return this;
+        }
+
+        if ( color = /^(\d+)\%\s*,\s*(\d+)\%\s*,\s*(\d+)\%\s*(,\s*([0-9]*\.?[0-9]+)\s*)?$/.exec( components ) ) {
+          // rgb(100%,0%,0%) rgba(100%,0%,0%,0.5)
+          this.r = Math.min( 100, parseInt( color[ 1 ], 10 ) ) / 100;
+          this.g = Math.min( 100, parseInt( color[ 2 ], 10 ) ) / 100;
+          this.b = Math.min( 100, parseInt( color[ 3 ], 10 ) ) / 100;
+
+          this.a = handleAlpha( color[ 5 ] );
+
+          return this;
+        }
+
+        break;
+      }
+    } else if ( m = /^\#([A-Fa-f0-9]+)$/.exec( style ) ) {
+      // hex color
+
+      var hex = m[ 1 ];
+      var size = hex.length;
+
+      if ( size === 3 ) {
+        // #ff0
+        this.r = parseInt( hex.charAt( 0 ) + hex.charAt( 0 ), 16 ) / 255;
+        this.g = parseInt( hex.charAt( 1 ) + hex.charAt( 1 ), 16 ) / 255;
+        this.b = parseInt( hex.charAt( 2 ) + hex.charAt( 2 ), 16 ) / 255;
+
+        return this;
+      } else if ( size === 6 ) {
+        // #ff0000
+        this.r = parseInt( hex.charAt( 0 ) + hex.charAt( 1 ), 16 ) / 255;
+        this.g = parseInt( hex.charAt( 2 ) + hex.charAt( 3 ), 16 ) / 255;
+        this.b = parseInt( hex.charAt( 4 ) + hex.charAt( 5 ), 16 ) / 255;
+
+        return this;
+      }
+    }
+
+    if ( style && style.length > 0 ) {
+      // color keywords
+      var hex = THREE.Color.NAMES[ style ];
+
+      if ( hex !== undefined ) {
+        // red
+        this.setHex( hex );
+      } else {
+        // unknown color
+        console.warn( 'THREE.Color: Unknown color ' + style );
+      }
+    }
+
+    return this;
+  },
+
+  clone: function () {
+    return new this.constructor( this.r, this.g, this.b, this.a );
+  },
+
+  copy: function ( color ) {
+    this.r = color.r;
+    this.g = color.g;
+    this.b = color.b;
+    this.a = color.a;
+
+    return this;
+  },
+
+  copyGammaToLinear: function ( color, gammaFactor ) {
+    if ( gammaFactor === undefined ) gammaFactor = 2.0;
+
+    this.r = Math.pow( color.r, gammaFactor );
+    this.g = Math.pow( color.g, gammaFactor );
+    this.b = Math.pow( color.b, gammaFactor );
+
+    return this;
+  },
+
+  copyLinearToGamma: function ( color, gammaFactor ) {
+    if ( gammaFactor === undefined ) gammaFactor = 2.0;
+
+    var safeInverse = ( gammaFactor > 0 ) ? ( 1.0 / gammaFactor ) : 1.0;
+
+    this.r = Math.pow( color.r, safeInverse );
+    this.g = Math.pow( color.g, safeInverse );
+    this.b = Math.pow( color.b, safeInverse );
+
+    return this;
+  },
+
+  convertGammaToLinear: function () {
+    var r = this.r, g = this.g, b = this.b;
+
+    this.r = r * r;
+    this.g = g * g;
+    this.b = b * b;
+
+    return this;
+  },
+
+  convertLinearToGamma: function () {
+    this.r = Math.sqrt( this.r );
+    this.g = Math.sqrt( this.g );
+    this.b = Math.sqrt( this.b );
+
+    return this;
+  },
+
+  getHex: function () {
+    return ( this.r * 255 ) << 16 ^ ( this.g * 255 ) << 8 ^ ( this.b * 255 ) << 0;
+  },
+
+  getHexString: function () {
+    return ( '000000' + this.getHex().toString( 16 ) ).slice( -6 );
+  },
+
+  getHSL: function ( optionalTarget ) {
+    // h,s,l ranges are in 0.0 - 1.0
+
+    var hsl = optionalTarget || { h: 0, s: 0, l: 0 };
+
+    var r = this.r, g = this.g, b = this.b;
+
+    var max = Math.max( r, g, b );
+    var min = Math.min( r, g, b );
+
+    var hue, saturation;
+    var lightness = ( min + max ) / 2.0;
+
+    if ( min === max ) {
+      hue = 0;
+      saturation = 0;
+    } else {
+      var delta = max - min;
+
+      saturation = lightness <= 0.5 ? delta / ( max + min ) : delta / ( 2 - max - min );
+
+      switch ( max ) {
+      case r: hue = ( g - b ) / delta + ( g < b ? 6 : 0 ); break;
+      case g: hue = ( b - r ) / delta + 2; break;
+      case b: hue = ( r - g ) / delta + 4; break;
+      }
+
+      hue /= 6;
+    }
+
+    hsl.h = hue;
+    hsl.s = saturation;
+    hsl.l = lightness;
+
+    return hsl;
+  },
+
+  getStyle: function () {
+    return 'rgb(' + ( ( this.r * 255 ) | 0 ) + ',' + ( ( this.g * 255 ) | 0 ) + ',' + ( ( this.b * 255 ) | 0 ) + ')';
+  },
+
+  offsetHSL: function ( h, s, l ) {
+    var hsl = this.getHSL();
+
+    hsl.h += h; hsl.s += s; hsl.l += l;
+
+    this.setHSL( hsl.h, hsl.s, hsl.l );
+
+    return this;
+  },
+
+  add: function ( color ) {
+    this.r += color.r;
+    this.g += color.g;
+    this.b += color.b;
+
+    return this;
+  },
+
+  addColors: function ( color1, color2 ) {
+    this.r = color1.r + color2.r;
+    this.g = color1.g + color2.g;
+    this.b = color1.b + color2.b;
+
+    return this;
+  },
+
+  addScalar: function ( s ) {
+    this.r += s;
+    this.g += s;
+    this.b += s;
+
+    return this;
+  },
+
+  sub: function ( color ) {
+    this.r = Math.max( 0, this.r - color.r );
+    this.g = Math.max( 0, this.g - color.g );
+    this.b = Math.max( 0, this.b - color.b );
+
+    return this;
+  },
+
+  multiply: function ( color ) {
+    this.r *= color.r;
+    this.g *= color.g;
+    this.b *= color.b;
+
+    return this;
+  },
+
+  multiplyScalar: function ( s ) {
+    this.r *= s;
+    this.g *= s;
+    this.b *= s;
+
+    return this;
+  },
+
+  lerp: function ( color, alpha ) {
+    this.r += ( color.r - this.r ) * alpha;
+    this.g += ( color.g - this.g ) * alpha;
+    this.b += ( color.b - this.b ) * alpha;
+    this.a += ( color.a - this.a ) * alpha;
+
+    return this;
+  },
+
+  equals: function ( c ) {
+    return ( c.r === this.r ) && ( c.g === this.g ) && ( c.b === this.b );
+  },
+
+  fromArray: function ( array, offset ) {
+    if ( offset === undefined ) offset = 0;
+
+    this.r = array[ offset ];
+    this.g = array[ offset + 1 ];
+    this.b = array[ offset + 2 ];
+
+    return this;
+  },
+
+  toArray: function ( array, offset ) {
+    if ( array === undefined ) array = [];
+    if ( offset === undefined ) offset = 0;
+
+    array[ offset ] = this.r;
+    array[ offset + 1 ] = this.g;
+    array[ offset + 2 ] = this.b;
+
+    return array;
+  },
+
+  toJSON: function () {
+    return this.getHex();
+  }
+
 } );
 
 /**
@@ -37265,432 +36513,6 @@ var MapControls = function ( object, domElement ) {
 MapControls.prototype = Object.create( EventDispatcher.prototype );
 MapControls.prototype.constructor = MapControls;
 
-'use strict';
-
-var d2r = Math.PI / 180,
-    r2d = 180 / Math.PI;
-
-/**
- * Get the bbox of a tile
- *
- * @name tileToBBOX
- * @param {Array<number>} tile
- * @returns {Array<number>} bbox
- * @example
- * var bbox = tileToBBOX([5, 10, 10])
- * //=bbox
- */
-function tileToBBOX(tile) {
-    var e = tile2lon(tile[0] + 1, tile[2]);
-    var w = tile2lon(tile[0], tile[2]);
-    var s = tile2lat(tile[1] + 1, tile[2]);
-    var n = tile2lat(tile[1], tile[2]);
-    return [w, s, e, n];
-}
-
-/**
- * Get a geojson representation of a tile
- *
- * @name tileToGeoJSON
- * @param {Array<number>} tile
- * @returns {Feature<Polygon>}
- * @example
- * var poly = tileToGeoJSON([5, 10, 10])
- * //=poly
- */
-function tileToGeoJSON(tile) {
-    var bbox = tileToBBOX(tile);
-    var poly = {
-        type: 'Polygon',
-        coordinates: [[
-            [bbox[0], bbox[1]],
-            [bbox[0], bbox[3]],
-            [bbox[2], bbox[3]],
-            [bbox[2], bbox[1]],
-            [bbox[0], bbox[1]]
-        ]]
-    };
-    return poly;
-}
-
-function tile2lon(x, z) {
-    return x / Math.pow(2, z) * 360 - 180;
-}
-
-function tile2lat(y, z) {
-    var n = Math.PI - 2 * Math.PI * y / Math.pow(2, z);
-    return r2d * Math.atan(0.5 * (Math.exp(n) - Math.exp(-n)));
-}
-
-/**
- * Get the tile for a point at a specified zoom level
- *
- * @name pointToTile
- * @param {number} lon
- * @param {number} lat
- * @param {number} z
- * @returns {Array<number>} tile
- * @example
- * var tile = pointToTile(1, 1, 20)
- * //=tile
- */
-function pointToTile(lon, lat, z) {
-    var tile = pointToTileFraction(lon, lat, z);
-    tile[0] = Math.floor(tile[0]);
-    tile[1] = Math.floor(tile[1]);
-    return tile;
-}
-
-/**
- * Get the 4 tiles one zoom level higher
- *
- * @name getChildren
- * @param {Array<number>} tile
- * @returns {Array<Array<number>>} tiles
- * @example
- * var tiles = getChildren([5, 10, 10])
- * //=tiles
- */
-function getChildren(tile) {
-    return [
-        [tile[0] * 2, tile[1] * 2, tile[2] + 1],
-        [tile[0] * 2 + 1, tile[1] * 2, tile[2 ] + 1],
-        [tile[0] * 2 + 1, tile[1] * 2 + 1, tile[2] + 1],
-        [tile[0] * 2, tile[1] * 2 + 1, tile[2] + 1]
-    ];
-}
-
-/**
- * Get the tile one zoom level lower
- *
- * @name getParent
- * @param {Array<number>} tile
- * @returns {Array<number>} tile
- * @example
- * var tile = getParent([5, 10, 10])
- * //=tile
- */
-function getParent(tile) {
-    // top left
-    if (tile[0] % 2 === 0 && tile[1] % 2 === 0) {
-        return [tile[0] / 2, tile[1] / 2, tile[2] - 1];
-    }
-    // bottom left
-    if ((tile[0] % 2 === 0) && (!tile[1] % 2 === 0)) {
-        return [tile[0] / 2, (tile[1] - 1) / 2, tile[2] - 1];
-    }
-    // top right
-    if ((!tile[0] % 2 === 0) && (tile[1] % 2 === 0)) {
-        return [(tile[0] - 1) / 2, (tile[1]) / 2, tile[2] - 1];
-    }
-    // bottom right
-    return [(tile[0] - 1) / 2, (tile[1] - 1) / 2, tile[2] - 1];
-}
-
-function getSiblings(tile) {
-    return getChildren(getParent(tile));
-}
-
-/**
- * Get the 3 sibling tiles for a tile
- *
- * @name getSiblings
- * @param {Array<number>} tile
- * @returns {Array<Array<number>>} tiles
- * @example
- * var tiles = getSiblings([5, 10, 10])
- * //=tiles
- */
-function hasSiblings(tile, tiles) {
-    var siblings = getSiblings(tile);
-    for (var i = 0; i < siblings.length; i++) {
-        if (!hasTile(tiles, siblings[i])) return false;
-    }
-    return true;
-}
-
-/**
- * Check to see if an array of tiles contains a particular tile
- *
- * @name hasTile
- * @param {Array<Array<number>>} tiles
- * @param {Array<number>} tile
- * @returns {boolean}
- * @example
- * var tiles = [
- *     [0, 0, 5],
- *     [0, 1, 5],
- *     [1, 1, 5],
- *     [1, 0, 5]
- * ]
- * hasTile(tiles, [0, 0, 5])
- * //=boolean
- */
-function hasTile(tiles, tile) {
-    for (var i = 0; i < tiles.length; i++) {
-        if (tilesEqual(tiles[i], tile)) return true;
-    }
-    return false;
-}
-
-/**
- * Check to see if two tiles are the same
- *
- * @name tilesEqual
- * @param {Array<number>} tile1
- * @param {Array<number>} tile2
- * @returns {boolean}
- * @example
- * tilesEqual([0, 1, 5], [0, 0, 5])
- * //=boolean
- */
-function tilesEqual(tile1, tile2) {
-    return (
-        tile1[0] === tile2[0] &&
-        tile1[1] === tile2[1] &&
-        tile1[2] === tile2[2]
-    );
-}
-
-/**
- * Get the quadkey for a tile
- *
- * @name tileToQuadkey
- * @param {Array<number>} tile
- * @returns {string} quadkey
- * @example
- * var quadkey = tileToQuadkey([0, 1, 5])
- * //=quadkey
- */
-function tileToQuadkey(tile) {
-    var index = '';
-    for (var z = tile[2]; z > 0; z--) {
-        var b = 0;
-        var mask = 1 << (z - 1);
-        if ((tile[0] & mask) !== 0) b++;
-        if ((tile[1] & mask) !== 0) b += 2;
-        index += b.toString();
-    }
-    return index;
-}
-
-/**
- * Get the tile for a quadkey
- *
- * @name quadkeyToTile
- * @param {string} quadkey
- * @returns {Array<number>} tile
- * @example
- * var tile = quadkeyToTile('00001033')
- * //=tile
- */
-function quadkeyToTile(quadkey) {
-    var x = 0;
-    var y = 0;
-    var z = quadkey.length;
-
-    for (var i = z; i > 0; i--) {
-        var mask = 1 << (i - 1);
-        var q = +quadkey[z - i];
-        if (q === 1) x |= mask;
-        if (q === 2) y |= mask;
-        if (q === 3) {
-            x |= mask;
-            y |= mask;
-        }
-    }
-    return [x, y, z];
-}
-
-/**
- * Get the smallest tile to cover a bbox
- *
- * @name bboxToTile
- * @param {Array<number>} bbox
- * @returns {Array<number>} tile
- * @example
- * var tile = bboxToTile([ -178, 84, -177, 85 ])
- * //=tile
- */
-function bboxToTile(bboxCoords) {
-    var min = pointToTile(bboxCoords[0], bboxCoords[1], 32);
-    var max = pointToTile(bboxCoords[2], bboxCoords[3], 32);
-    var bbox = [min[0], min[1], max[0], max[1]];
-
-    var z = getBboxZoom(bbox);
-    if (z === 0) return [0, 0, 0];
-    var x = bbox[0] >>> (32 - z);
-    var y = bbox[1] >>> (32 - z);
-    return [x, y, z];
-}
-
-function getBboxZoom(bbox) {
-    var MAX_ZOOM = 28;
-    for (var z = 0; z < MAX_ZOOM; z++) {
-        var mask = 1 << (32 - (z + 1));
-        if (((bbox[0] & mask) !== (bbox[2] & mask)) ||
-            ((bbox[1] & mask) !== (bbox[3] & mask))) {
-            return z;
-        }
-    }
-
-    return MAX_ZOOM;
-}
-
-/**
- * Get the precise fractional tile location for a point at a zoom level
- *
- * @name pointToTileFraction
- * @param {number} lon
- * @param {number} lat
- * @param {number} z
- * @returns {Array<number>} tile fraction
- * var tile = pointToTileFraction(30.5, 50.5, 15)
- * //=tile
- */
-function pointToTileFraction(lon, lat, z) {
-    var sin = Math.sin(lat * d2r),
-        z2 = Math.pow(2, z),
-        x = z2 * (lon / 360 + 0.5),
-        y = z2 * (0.5 - 0.25 * Math.log((1 + sin) / (1 - sin)) / Math.PI);
-    return [x, y, z];
-}
-
-var tilebelt = {
-    tileToGeoJSON: tileToGeoJSON,
-    tileToBBOX: tileToBBOX,
-    getChildren: getChildren,
-    getParent: getParent,
-    getSiblings: getSiblings,
-    hasTile: hasTile,
-    hasSiblings: hasSiblings,
-    tilesEqual: tilesEqual,
-    tileToQuadkey: tileToQuadkey,
-    quadkeyToTile: quadkeyToTile,
-    pointToTile: pointToTile,
-    bboxToTile: bboxToTile,
-    pointToTileFraction: pointToTileFraction
-};
-var tilebelt_1 = tilebelt.tileToGeoJSON;
-var tilebelt_2 = tilebelt.tileToBBOX;
-var tilebelt_3 = tilebelt.getChildren;
-var tilebelt_4 = tilebelt.getParent;
-var tilebelt_5 = tilebelt.getSiblings;
-var tilebelt_6 = tilebelt.hasTile;
-var tilebelt_7 = tilebelt.hasSiblings;
-var tilebelt_8 = tilebelt.tilesEqual;
-var tilebelt_9 = tilebelt.tileToQuadkey;
-var tilebelt_10 = tilebelt.quadkeyToTile;
-var tilebelt_11 = tilebelt.pointToTile;
-var tilebelt_12 = tilebelt.bboxToTile;
-var tilebelt_13 = tilebelt.pointToTileFraction;
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-
-// A collection of utility functions for converting between coordinate
-// systems
-var geoproject = {
-  center: new THREE.Vector2( 0, 0 ), // Coordinate map is centered on (projected coordinates)
-  center3035: new THREE.Vector2( 0, 0 ), // Coordinate map is centered on (projected coordinates)
-  projector: null,
-
-  calculateGlobalOffset: function ( lon, lat ) {
-    // TODO define `baseZ` in one place!!!
-    const baseZ = 7;
-    const [ x, y, z ] = tilebelt.pointToTileFraction( lon, lat, baseZ );
-    const scale = Math.pow( 2, 15 - z ) *
-      geoproject.calculateSceneScale( lon, lat );
-    return new THREE.Vector2( -x, y ).multiplyScalar( scale );
-  },
-
-  // Calculate scale factor at zoom level 15
-  // This will let us scale the terrain to match features in scene
-  calculateSceneScale: function ( lon, lat ) {
-    var tile15 = tilebelt.pointToTile( lon, lat, 15 );
-    var bbox15 = tilebelt.tileToBBOX( tile15 );
-    var size = geoproject.project( [ bbox15[ 2 ], bbox15[ 3 ] ] )
-      .sub( geoproject.project( [ bbox15[ 0 ], bbox15[ 1 ] ] ) );
-    return size.x;
-  },
-
-  project: function ( lonlatH, absolute ) {
-    if ( typeof lonlatH[ 0 ] !== 'number' ) {
-      // Assume we have an array, iterate over it
-      return lonlatH.map( function ( x ) {
-        return geoproject.project( x, absolute );
-      } );
-    }
-
-    var projected = geoproject.projector.forward( lonlatH );
-    if ( !absolute ) {
-      // Hot function, so in-line vector math
-      projected[ 0 ] -= geoproject.center.x;
-      projected[ 1 ] -= geoproject.center.y;
-    }
-
-    return new THREE.Vector3( projected[ 0 ], projected[ 1 ], lonlatH[ 2 ] ); // Pass through the height
-  },
-  unproject: function ( v, absolute ) {
-    if ( Array.isArray( v ) ) {
-      return v.map( function ( x ) {
-        return geoproject.unproject( x, absolute );
-      } );
-    }
-
-    var projected = [ v.x, v.y ];
-    if ( !absolute ) {
-      projected[ 0 ] += geoproject.center.x;
-      projected[ 1 ] += geoproject.center.y;
-    }
-
-    var unprojected = geoproject.projector.inverse( projected );
-    return [ unprojected[ 0 ], unprojected[ 1 ], v.z ]; // Pass through the height
-  },
-  unproject3035: function ( v, absolute ) {
-    if ( Array.isArray( v[ 0 ] ) ) {
-      return v.map( function ( x ) {
-        return geoproject.unproject3035( x, absolute );
-      } );
-    }
-
-    var projected = [ v[ 0 ], v[ 1 ] ];
-    if ( !absolute ) {
-      projected[ 0 ] += geoproject.center3035.x;
-      projected[ 1 ] += geoproject.center3035.y;
-    }
-
-    var unprojected = geoproject.projector3035.inverse( projected );
-    return [ unprojected[ 0 ], unprojected[ 1 ], v.z ]; // Pass through the height
-  },
-  vectorize: function ( lonlatH ) {
-    if ( typeof lonlatH[ 0 ] !== 'number' ) {
-      // Assume we have an array, iterate over it
-      var result = new Array( lonlatH.length );
-      for ( var i = 0, il = lonlatH.length; i < il; i++ ) {
-        result[ i ] = geoproject.vectorize( lonlatH[ i ] );
-      }
-
-      return result;
-    }
-
-    return new THREE.Vector3( lonlatH[ 0 ], lonlatH[ 1 ], lonlatH[ 2 ] );
-  },
-  // Convert a JSON feature representation into arrays of THREE.Vectors
-  vectorizeFeature: function ( feature ) {
-    if ( feature.projected ) {
-      return geoproject.vectorize( feature.geometry.coordinates );
-    } else {
-      return geoproject.project( feature.geometry.coordinates );
-    }
-  }
-};
-
 /**
  * Copyright 2020 (c) Felix Palmer
  *
@@ -38025,655 +36847,6 @@ CurrentLocationStore.prototype.toggleTracking = function () {
 CurrentLocationStore.displayName = 'CurrentLocationStore';
 var CurrentLocationStore$1 = alt.createStore( CurrentLocationStore );
 
-var proj4 = createCommonjsModule(function (module, exports) {
-!function(t,e){"object"=='object'&&"undefined"!='object'?module.exports=e():"function"==typeof undefined&&undefined.amd?undefined(e):t.proj4=e();}(commonjsGlobal,function(){"use strict";function t(t,e){if(t[e])return t[e];for(var a,r=Object.keys(t),s=e.toLowerCase().replace(ct,""),i=-1;++i<r.length;)if(a=r[i],a.toLowerCase().replace(ct,"")===s)return t[a]}function e(t){if("string"!=typeof t)throw new Error("not a string");this.text=t.trim(),this.level=0,this.place=0,this.root=null,this.stack=[],this.currentObject=null,this.state=ft;}function a(t){return new e(t).output()}function r(t,e,a){Array.isArray(e)&&(a.unshift(e),e=null);var r=e?{}:t,i=a.reduce(function(t,e){return s(e,t),t},r);e&&(t[e]=i);}function s(t,e){if(Array.isArray(t)){var a=t.shift();if("PARAMETER"===a&&(a=t.shift()),1===t.length)return Array.isArray(t[0])?(e[a]={},void s(t[0],e[a])):void(e[a]=t[0]);if(t.length)if("TOWGS84"!==a){if("AXIS"===a)return a in e||(e[a]=[]),void e[a].push(t);Array.isArray(a)||(e[a]={});var i;switch(a){case"UNIT":case"PRIMEM":case"VERT_DATUM":return e[a]={name:t[0].toLowerCase(),convert:t[1]},void(3===t.length&&s(t[2],e[a]));case"SPHEROID":case"ELLIPSOID":return e[a]={name:t[0],a:t[1],rf:t[2]},void(4===t.length&&s(t[3],e[a]));case"PROJECTEDCRS":case"PROJCRS":case"GEOGCS":case"GEOCCS":case"PROJCS":case"LOCAL_CS":case"GEODCRS":case"GEODETICCRS":case"GEODETICDATUM":case"EDATUM":case"ENGINEERINGDATUM":case"VERT_CS":case"VERTCRS":case"VERTICALCRS":case"COMPD_CS":case"COMPOUNDCRS":case"ENGINEERINGCRS":case"ENGCRS":case"FITTED_CS":case"LOCAL_DATUM":case"DATUM":return t[0]=["name",t[0]],void r(e,a,t);default:for(i=-1;++i<t.length;)if(!Array.isArray(t[i]))return s(t,e[a]);return r(e,a,t)}}else e[a]=t;else e[a]=!0;}else e[t]=!0;}function i(t,e){var a=e[0],r=e[1];!(a in t)&&r in t&&(t[a]=t[r],3===e.length&&(t[a]=e[2](t[a])));}function n(t){return t*vt}function o(t){function e(e){return e*(t.to_meter||1)}if("GEOGCS"===t.type?t.projName="longlat":"LOCAL_CS"===t.type?(t.projName="identity",t.local=!0):"object"==typeof t.PROJECTION?t.projName=Object.keys(t.PROJECTION)[0]:t.projName=t.PROJECTION,t.AXIS){for(var a="",r=0,s=t.AXIS.length;r<s;++r){var o=t.AXIS[r][0].toLowerCase();-1!==o.indexOf("north")?a+="n":-1!==o.indexOf("south")?a+="s":-1!==o.indexOf("east")?a+="e":-1!==o.indexOf("west")&&(a+="w");}2===a.length&&(a+="u"),3===a.length&&(t.axis=a);}t.UNIT&&(t.units=t.UNIT.name.toLowerCase(),"metre"===t.units&&(t.units="meter"),t.UNIT.convert&&("GEOGCS"===t.type?t.DATUM&&t.DATUM.SPHEROID&&(t.to_meter=t.UNIT.convert*t.DATUM.SPHEROID.a):t.to_meter=t.UNIT.convert));var h=t.GEOGCS;"GEOGCS"===t.type&&(h=t),h&&(h.DATUM?t.datumCode=h.DATUM.name.toLowerCase():t.datumCode=h.name.toLowerCase(),"d_"===t.datumCode.slice(0,2)&&(t.datumCode=t.datumCode.slice(2)),"new_zealand_geodetic_datum_1949"!==t.datumCode&&"new_zealand_1949"!==t.datumCode||(t.datumCode="nzgd49"),"wgs_1984"!==t.datumCode&&"world_geodetic_system_1984"!==t.datumCode||("Mercator_Auxiliary_Sphere"===t.PROJECTION&&(t.sphere=!0),t.datumCode="wgs84"),"_ferro"===t.datumCode.slice(-6)&&(t.datumCode=t.datumCode.slice(0,-6)),"_jakarta"===t.datumCode.slice(-8)&&(t.datumCode=t.datumCode.slice(0,-8)),~t.datumCode.indexOf("belge")&&(t.datumCode="rnb72"),h.DATUM&&h.DATUM.SPHEROID&&(t.ellps=h.DATUM.SPHEROID.name.replace("_19","").replace(/[Cc]larke\_18/,"clrk"),"international"===t.ellps.toLowerCase().slice(0,13)&&(t.ellps="intl"),t.a=h.DATUM.SPHEROID.a,t.rf=parseFloat(h.DATUM.SPHEROID.rf,10)),h.DATUM&&h.DATUM.TOWGS84&&(t.datum_params=h.DATUM.TOWGS84),~t.datumCode.indexOf("osgb_1936")&&(t.datumCode="osgb36"),~t.datumCode.indexOf("osni_1952")&&(t.datumCode="osni52"),(~t.datumCode.indexOf("tm65")||~t.datumCode.indexOf("geodetic_datum_of_1965"))&&(t.datumCode="ire65"),"ch1903+"===t.datumCode&&(t.datumCode="ch1903"),~t.datumCode.indexOf("israel")&&(t.datumCode="isr93")),t.b&&!isFinite(t.b)&&(t.b=t.a);[["standard_parallel_1","Standard_Parallel_1"],["standard_parallel_2","Standard_Parallel_2"],["false_easting","False_Easting"],["false_northing","False_Northing"],["central_meridian","Central_Meridian"],["latitude_of_origin","Latitude_Of_Origin"],["latitude_of_origin","Central_Parallel"],["scale_factor","Scale_Factor"],["k0","scale_factor"],["latitude_of_center","Latitude_Of_Center"],["latitude_of_center","Latitude_of_center"],["lat0","latitude_of_center",n],["longitude_of_center","Longitude_Of_Center"],["longitude_of_center","Longitude_of_center"],["longc","longitude_of_center",n],["x0","false_easting",e],["y0","false_northing",e],["long0","central_meridian",n],["lat0","latitude_of_origin",n],["lat0","standard_parallel_1",n],["lat1","standard_parallel_1",n],["lat2","standard_parallel_2",n],["azimuth","Azimuth"],["alpha","azimuth",n],["srsCode","name"]].forEach(function(e){return i(t,e)}),t.long0||!t.longc||"Albers_Conic_Equal_Area"!==t.projName&&"Lambert_Azimuthal_Equal_Area"!==t.projName||(t.long0=t.longc),t.lat_ts||!t.lat1||"Stereographic_South_Pole"!==t.projName&&"Polar Stereographic (variant B)"!==t.projName||(t.lat0=n(t.lat1>0?90:-90),t.lat_ts=t.lat1);}function h(t){var e=this;if(2===arguments.length){var a=arguments[1];"string"==typeof a?"+"===a.charAt(0)?h[t]=mt(arguments[1]):h[t]=bt(arguments[1]):h[t]=a;}else if(1===arguments.length){if(Array.isArray(t))return t.map(function(t){Array.isArray(t)?h.apply(e,t):h(t);});if("string"==typeof t){if(t in h)return h[t]}else "EPSG"in t?h["EPSG:"+t.EPSG]=t:"ESRI"in t?h["ESRI:"+t.ESRI]=t:"IAU2000"in t?h["IAU2000:"+t.IAU2000]=t:console.log(t);return}}function u(t){return "string"==typeof t}function l(t){return t in h}function d(t){return St.some(function(e){return t.indexOf(e)>-1})}function c(e){var a=t(e,"authority");if(a){var r=t(a,"epsg");return r&&Nt.indexOf(r)>-1}}function m(e){var a=t(e,"extension");if(a)return t(a,"proj4")}function f(t){return "+"===t[0]}function p(t){if(!u(t))return t;if(l(t))return h[t];if(d(t)){var e=bt(t);if(c(e))return h["EPSG:3857"];var a=m(e);return a?mt(a):e}return f(t)?mt(t):void 0}function _(t){return t}function M(t,e){var a=It.length;return t.names?(It[a]=t,t.names.forEach(function(t){Gt[t.toLowerCase()]=a;}),this):(console.log(e),!0)}function y(t,e,a,r){var s=t*t,i=e*e,n=(s-i)/s,o=0;return r?(s=(t*=1-n*(at+n*(rt+n*st)))*t,n=0):o=Math.sqrt(n),{es:n,e:o,ep2:(s-i)/i}}function g(e,a,r,s,i){if(!e){var n=t(Lt,s);n||(n=zt),e=n.a,a=n.b,r=n.rf;}return r&&!a&&(a=(1-1/r)*e),(0===r||Math.abs(e-a)<it)&&(i=!0,a=e),{a:e,b:a,rf:r,sphere:i}}function v(t,e,a,r,s,i){var n={};return n.datum_type=void 0===t||"none"===t?$:Y,e&&(n.datum_params=e.map(parseFloat),0===n.datum_params[0]&&0===n.datum_params[1]&&0===n.datum_params[2]||(n.datum_type=Z),n.datum_params.length>3&&(0===n.datum_params[3]&&0===n.datum_params[4]&&0===n.datum_params[5]&&0===n.datum_params[6]||(n.datum_type=K,n.datum_params[3]*=tt,n.datum_params[4]*=tt,n.datum_params[5]*=tt,n.datum_params[6]=n.datum_params[6]/1e6+1))),n.a=a,n.b=r,n.es=s,n.ep2=i,n}function Projection(e,a){if(!(this instanceof Projection))return new Projection(e);a=a||function(t){if(t)throw t};var r=p(e);if("object"==typeof r){var s=Projection.projections.get(r.projName);if(s){if(r.datumCode&&"none"!==r.datumCode){var i=t(Rt,r.datumCode);i&&(r.datum_params=i.towgs84?i.towgs84.split(","):null,r.ellps=i.ellipse,r.datumName=i.datumName?i.datumName:r.datumCode);}r.k0=r.k0||1,r.axis=r.axis||"enu",r.ellps=r.ellps||"wgs84";var n=g(r.a,r.b,r.rf,r.ellps,r.sphere),o=y(n.a,n.b,n.rf,r.R_A),h=r.datum||v(r.datumCode,r.datum_params,n.a,n.b,o.es,o.ep2);Et(this,r),Et(this,s),this.a=n.a,this.b=n.b,this.rf=n.rf,this.sphere=n.sphere,this.es=o.es,this.e=o.e,this.ep2=o.ep2,this.datum=h,this.init(),a(null,this);}else a(e);}else a(e);}function b(t,e){return t.datum_type===e.datum_type&&(!(t.a!==e.a||Math.abs(t.es-e.es)>5e-11)&&(t.datum_type===Z?t.datum_params[0]===e.datum_params[0]&&t.datum_params[1]===e.datum_params[1]&&t.datum_params[2]===e.datum_params[2]:t.datum_type!==K||t.datum_params[0]===e.datum_params[0]&&t.datum_params[1]===e.datum_params[1]&&t.datum_params[2]===e.datum_params[2]&&t.datum_params[3]===e.datum_params[3]&&t.datum_params[4]===e.datum_params[4]&&t.datum_params[5]===e.datum_params[5]&&t.datum_params[6]===e.datum_params[6]))}function S(t,e,a){var r,s,i,n,o=t.x,h=t.y,u=t.z?t.z:0;if(h<-et&&h>-1.001*et)h=-et;else if(h>et&&h<1.001*et)h=et;else {if(h<-et)return {x:-1/0,y:-1/0,z:t.z};if(h>et)return {x:1/0,y:1/0,z:t.z}}return o>Math.PI&&(o-=2*Math.PI),s=Math.sin(h),n=Math.cos(h),i=s*s,r=a/Math.sqrt(1-e*i),{x:(r+u)*n*Math.cos(o),y:(r+u)*n*Math.sin(o),z:(r*(1-e)+u)*s}}function N(t,e,a,r){var s,i,n,o,h,u,l,d,c,m,f,p,_,M,y,g,v=t.x,b=t.y,S=t.z?t.z:0;if(s=Math.sqrt(v*v+b*b),i=Math.sqrt(v*v+b*b+S*S),s/a<1e-12){if(M=0,i/a<1e-12)return y=et,g=-r,{x:t.x,y:t.y,z:t.z}}else M=Math.atan2(b,v);n=S/i,d=(o=s/i)*(1-e)*(h=1/Math.sqrt(1-e*(2-e)*o*o)),c=n*h,_=0;do{_++,u=e*(l=a/Math.sqrt(1-e*c*c))/(l+(g=s*d+S*c-l*(1-e*c*c))),p=(f=n*(h=1/Math.sqrt(1-u*(2-u)*o*o)))*d-(m=o*(1-u)*h)*c,d=m,c=f;}while(p*p>1e-24&&_<30);return y=Math.atan(f/Math.abs(m)),{x:M,y:y,z:g}}function E(t,e,a){if(e===Z)return {x:t.x+a[0],y:t.y+a[1],z:t.z+a[2]};if(e===K){var r=a[0],s=a[1],i=a[2],n=a[3],o=a[4],h=a[5],u=a[6];return {x:u*(t.x-h*t.y+o*t.z)+r,y:u*(h*t.x+t.y-n*t.z)+s,z:u*(-o*t.x+n*t.y+t.z)+i}}}function w(t,e,a){if(e===Z)return {x:t.x-a[0],y:t.y-a[1],z:t.z-a[2]};if(e===K){var r=a[0],s=a[1],i=a[2],n=a[3],o=a[4],h=a[5],u=a[6],l=(t.x-r)/u,d=(t.y-s)/u,c=(t.z-i)/u;return {x:l+h*d-o*c,y:-h*l+d+n*c,z:o*l-n*d+c}}}function C(t){return t===Z||t===K}function x(t){if("function"==typeof Number.isFinite){if(Number.isFinite(t))return;throw new TypeError("coordinates must be finite numbers")}if("number"!=typeof t||t!==t||!isFinite(t))throw new TypeError("coordinates must be finite numbers")}function O(t,e){return (t.datum.datum_type===Z||t.datum.datum_type===K)&&"WGS84"!==e.datumCode||(e.datum.datum_type===Z||e.datum.datum_type===K)&&"WGS84"!==t.datumCode}function A(t,e,a){var r;return Array.isArray(a)&&(a=qt(a)),Ut(a),t.datum&&e.datum&&O(t,e)&&(a=A(t,r=new Projection("WGS84"),a),t=r),"enu"!==t.axis&&(a=Dt(t,!1,a)),"longlat"===t.projName?a={x:a.x*nt,y:a.y*nt,z:a.z||0}:(t.to_meter&&(a={x:a.x*t.to_meter,y:a.y*t.to_meter,z:a.z||0}),a=t.inverse(a)),t.from_greenwich&&(a.x+=t.from_greenwich),a=Tt(t.datum,e.datum,a),e.from_greenwich&&(a={x:a.x-e.from_greenwich,y:a.y,z:a.z||0}),"longlat"===e.projName?a={x:a.x*ot,y:a.y*ot,z:a.z||0}:(a=e.forward(a),e.to_meter&&(a={x:a.x/e.to_meter,y:a.y/e.to_meter,z:a.z||0})),"enu"!==e.axis?Dt(e,!0,a):a}function P(t,e,a){var r,s,i;return Array.isArray(a)?(r=A(t,e,a)||{x:NaN,y:NaN},a.length>2?void 0!==t.name&&"geocent"===t.name||void 0!==e.name&&"geocent"===e.name?"number"==typeof r.z?[r.x,r.y,r.z].concat(a.splice(3)):[r.x,r.y,a[2]].concat(a.splice(3)):[r.x,r.y].concat(a.splice(2)):[r.x,r.y]):(s=A(t,e,a),2===(i=Object.keys(a)).length?s:(i.forEach(function(r){if(void 0!==t.name&&"geocent"===t.name||void 0!==e.name&&"geocent"===e.name){if("x"===r||"y"===r||"z"===r)return}else if("x"===r||"y"===r)return;s[r]=a[r];}),s))}function G(t){return t instanceof Projection?t:t.oProj?t.oProj:Projection(t)}function I(t,e,a){t=G(t);var r,s=!1;return void 0===e?(e=t,t=jt,s=!0):(void 0!==e.x||Array.isArray(e))&&(a=e,e=t,t=jt,s=!0),e=G(e),a?P(t,e,a):(r={forward:function(a){return P(t,e,a)},inverse:function(a){return P(e,t,a)}},s&&(r.oProj=e),r)}function k(t,e){return e=e||5,U(T({lat:t[1],lon:t[0]}),e)}function L(t){var e=D(Q(t.toUpperCase()));return e.lat&&e.lon?[e.lon,e.lat]:[(e.left+e.right)/2,(e.top+e.bottom)/2]}function z(t){return t*(Math.PI/180)}function R(t){return t/Math.PI*180}function T(t){var e,a,r,s,i,n,o,h=t.lat,u=t.lon,l=6378137,d=z(h),c=z(u);o=Math.floor((u+180)/6)+1,180===u&&(o=60),h>=56&&h<64&&u>=3&&u<12&&(o=32),h>=72&&h<84&&(u>=0&&u<9?o=31:u>=9&&u<21?o=33:u>=21&&u<33?o=35:u>=33&&u<42&&(o=37)),n=z(6*(o-1)-180+3),e=l/Math.sqrt(1-.00669438*Math.sin(d)*Math.sin(d)),a=Math.tan(d)*Math.tan(d),r=.006739496752268451*Math.cos(d)*Math.cos(d);var m=.9996*e*((s=Math.cos(d)*(c-n))+(1-a+r)*s*s*s/6+(5-18*a+a*a+72*r-.39089081163157013)*s*s*s*s*s/120)+5e5,f=.9996*((i=l*(.9983242984503243*d-.002514607064228144*Math.sin(2*d)+2639046602129982e-21*Math.sin(4*d)-3.418046101696858e-9*Math.sin(6*d)))+e*Math.tan(d)*(s*s/2+(5-a+9*r+4*r*r)*s*s*s*s/24+(61-58*a+a*a+600*r-2.2240339282485886)*s*s*s*s*s*s/720));return h<0&&(f+=1e7),{northing:Math.round(f),easting:Math.round(m),zoneNumber:o,zoneLetter:q(h)}}function D(t){var e=t.northing,a=t.easting,r=t.zoneLetter,s=t.zoneNumber;if(s<0||s>60)return null;var i,n,o,h,u,l,d,c,m=6378137,f=(1-Math.sqrt(.99330562))/(1+Math.sqrt(.99330562)),p=a-5e5,_=e;r<"N"&&(_-=1e7),l=6*(s-1)-180+3,c=(d=_/.9996/6367449.145945056)+(3*f/2-27*f*f*f/32)*Math.sin(2*d)+(21*f*f/16-55*f*f*f*f/32)*Math.sin(4*d)+151*f*f*f/96*Math.sin(6*d),i=m/Math.sqrt(1-.00669438*Math.sin(c)*Math.sin(c)),n=Math.tan(c)*Math.tan(c),o=.006739496752268451*Math.cos(c)*Math.cos(c),h=.99330562*m/Math.pow(1-.00669438*Math.sin(c)*Math.sin(c),1.5),u=p/(.9996*i);var M=c-i*Math.tan(c)/h*(u*u/2-(5+3*n+10*o-4*o*o-.06065547077041606)*u*u*u*u/24+(61+90*n+298*o+45*n*n-1.6983531815716497-3*o*o)*u*u*u*u*u*u/720);M=R(M);var y=(u-(1+2*n+o)*u*u*u/6+(5-2*o+28*n-3*o*o+.05391597401814761+24*n*n)*u*u*u*u*u/120)/Math.cos(c);y=l+R(y);var g;if(t.accuracy){var v=D({northing:t.northing+t.accuracy,easting:t.easting+t.accuracy,zoneLetter:t.zoneLetter,zoneNumber:t.zoneNumber});g={top:v.lat,right:v.lon,bottom:M,left:y};}else g={lat:M,lon:y};return g}function q(t){var e="Z";return 84>=t&&t>=72?e="X":72>t&&t>=64?e="W":64>t&&t>=56?e="V":56>t&&t>=48?e="U":48>t&&t>=40?e="T":40>t&&t>=32?e="S":32>t&&t>=24?e="R":24>t&&t>=16?e="Q":16>t&&t>=8?e="P":8>t&&t>=0?e="N":0>t&&t>=-8?e="M":-8>t&&t>=-16?e="L":-16>t&&t>=-24?e="K":-24>t&&t>=-32?e="J":-32>t&&t>=-40?e="H":-40>t&&t>=-48?e="G":-48>t&&t>=-56?e="F":-56>t&&t>=-64?e="E":-64>t&&t>=-72?e="D":-72>t&&t>=-80&&(e="C"),e}function U(t,e){var a="00000"+t.easting,r="00000"+t.northing;return t.zoneNumber+t.zoneLetter+j(t.easting,t.northing,t.zoneNumber)+a.substr(a.length-5,e)+r.substr(r.length-5,e)}function j(t,e,a){var r=F(a);return W(Math.floor(t/1e5),Math.floor(e/1e5)%20,r)}function F(t){var e=t%Ft;return 0===e&&(e=Ft),e}function W(t,e,a){var r=a-1,s=Wt.charCodeAt(r),i=Qt.charCodeAt(r),n=s+t-1,o=i+e,h=!1;return n>Xt&&(n=n-Xt+Bt-1,h=!0),(n===Jt||s<Jt&&n>Jt||(n>Jt||s<Jt)&&h)&&n++,(n===Ht||s<Ht&&n>Ht||(n>Ht||s<Ht)&&h)&&++n===Jt&&n++,n>Xt&&(n=n-Xt+Bt-1),o>Vt?(o=o-Vt+Bt-1,h=!0):h=!1,(o===Jt||i<Jt&&o>Jt||(o>Jt||i<Jt)&&h)&&o++,(o===Ht||i<Ht&&o>Ht||(o>Ht||i<Ht)&&h)&&++o===Jt&&o++,o>Vt&&(o=o-Vt+Bt-1),String.fromCharCode(n)+String.fromCharCode(o)}function Q(t){if(t&&0===t.length)throw "MGRSPoint coverting from nothing";for(var e,a=t.length,r=null,s="",i=0;!/[A-Z]/.test(e=t.charAt(i));){if(i>=2)throw "MGRSPoint bad conversion from: "+t;s+=e,i++;}var n=parseInt(s,10);if(0===i||i+3>a)throw "MGRSPoint bad conversion from: "+t;var o=t.charAt(i++);if(o<="A"||"B"===o||"Y"===o||o>="Z"||"I"===o||"O"===o)throw "MGRSPoint zone letter "+o+" not handled: "+t;r=t.substring(i,i+=2);for(var h=F(n),u=B(r.charAt(0),h),l=J(r.charAt(1),h);l<H(o);)l+=2e6;var d=a-i;if(d%2!=0)throw "MGRSPoint has to have an even number \nof digits after the zone letter and two 100km letters - front \nhalf for easting meters, second half for \nnorthing meters"+t;var c,m,f,p,_,M=d/2,y=0,g=0;return M>0&&(c=1e5/Math.pow(10,M),m=t.substring(i,i+M),y=parseFloat(m)*c,f=t.substring(i+M),g=parseFloat(f)*c),p=y+u,_=g+l,{easting:p,northing:_,zoneLetter:o,zoneNumber:n,accuracy:c}}function B(t,e){for(var a=Wt.charCodeAt(e-1),r=1e5,s=!1;a!==t.charCodeAt(0);){if(++a===Jt&&a++,a===Ht&&a++,a>Xt){if(s)throw "Bad character: "+t;a=Bt,s=!0;}r+=1e5;}return r}function J(t,e){if(t>"V")throw "MGRSPoint given invalid Northing "+t;for(var a=Qt.charCodeAt(e-1),r=0,s=!1;a!==t.charCodeAt(0);){if(++a===Jt&&a++,a===Ht&&a++,a>Vt){if(s)throw "Bad character: "+t;a=Bt,s=!0;}r+=1e5;}return r}function H(t){var e;switch(t){case"C":e=11e5;break;case"D":e=2e6;break;case"E":e=28e5;break;case"F":e=37e5;break;case"G":e=46e5;break;case"H":e=55e5;break;case"J":e=64e5;break;case"K":e=73e5;break;case"L":e=82e5;break;case"M":e=91e5;break;case"N":e=0;break;case"P":e=8e5;break;case"Q":e=17e5;break;case"R":e=26e5;break;case"S":e=35e5;break;case"T":e=44e5;break;case"U":e=53e5;break;case"V":e=62e5;break;case"W":e=7e6;break;case"X":e=79e5;break;default:e=-1;}if(e>=0)return e;throw "Invalid zone letter: "+t}function Point(t,e,a){if(!(this instanceof Point))return new Point(t,e,a);if(Array.isArray(t))this.x=t[0],this.y=t[1],this.z=t[2]||0;else if("object"==typeof t)this.x=t.x,this.y=t.y,this.z=t.z||0;else if("string"==typeof t&&void 0===e){var r=t.split(",");this.x=parseFloat(r[0],10),this.y=parseFloat(r[1],10),this.z=parseFloat(r[2],10)||0;}else this.x=t,this.y=e,this.z=a||0;console.warn("proj4.Point will be removed in version 3, use proj4.toPoint");}function V(t){var e,a=[];return a[0]=t*Yt,e=t*t,a[0]+=e*$t,a[1]=e*ee,e*=t,a[0]+=e*te,a[1]+=e*ae,a[2]=e*re,a}function X(t,e){var a=t+t;return t+e[0]*Math.sin(a)+e[1]*Math.sin(a+a)+e[2]*Math.sin(a+a+a)}var Z=1,K=2,Y=4,$=5,tt=484813681109536e-20,et=Math.PI/2,at=.16666666666666666,rt=.04722222222222222,st=.022156084656084655,it=1e-10,nt=.017453292519943295,ot=57.29577951308232,ht=Math.PI/4,ut=2*Math.PI,lt={};lt.greenwich=0,lt.lisbon=-9.131906111111,lt.paris=2.337229166667,lt.bogota=-74.080916666667,lt.madrid=-3.687938888889,lt.rome=12.452333333333,lt.bern=7.439583333333,lt.jakarta=106.807719444444,lt.ferro=-17.666666666667,lt.brussels=4.367975,lt.stockholm=18.058277777778,lt.athens=23.7163375,lt.oslo=10.722916666667;var dt={ft:{to_meter:.3048},"us-ft":{to_meter:1200/3937}},ct=/[\s_\-\/\(\)]/g,mt=function(e){var a,r,s,i={},n=e.split("+").map(function(t){return t.trim()}).filter(function(t){return t}).reduce(function(t,e){var a=e.split("=");return a.push(!0),t[a[0].toLowerCase()]=a[1],t},{}),o={proj:"projName",datum:"datumCode",rf:function(t){i.rf=parseFloat(t);},lat_0:function(t){i.lat0=t*nt;},lat_1:function(t){i.lat1=t*nt;},lat_2:function(t){i.lat2=t*nt;},lat_ts:function(t){i.lat_ts=t*nt;},lon_0:function(t){i.long0=t*nt;},lon_1:function(t){i.long1=t*nt;},lon_2:function(t){i.long2=t*nt;},alpha:function(t){i.alpha=parseFloat(t)*nt;},lonc:function(t){i.longc=t*nt;},x_0:function(t){i.x0=parseFloat(t);},y_0:function(t){i.y0=parseFloat(t);},k_0:function(t){i.k0=parseFloat(t);},k:function(t){i.k0=parseFloat(t);},a:function(t){i.a=parseFloat(t);},b:function(t){i.b=parseFloat(t);},r_a:function(){i.R_A=!0;},zone:function(t){i.zone=parseInt(t,10);},south:function(){i.utmSouth=!0;},towgs84:function(t){i.datum_params=t.split(",").map(function(t){return parseFloat(t)});},to_meter:function(t){i.to_meter=parseFloat(t);},units:function(e){i.units=e;var a=t(dt,e);a&&(i.to_meter=a.to_meter);},from_greenwich:function(t){i.from_greenwich=t*nt;},pm:function(e){var a=t(lt,e);i.from_greenwich=(a||parseFloat(e))*nt;},nadgrids:function(t){"@null"===t?i.datumCode="none":i.nadgrids=t;},axis:function(t){3===t.length&&-1!=="ewnsud".indexOf(t.substr(0,1))&&-1!=="ewnsud".indexOf(t.substr(1,1))&&-1!=="ewnsud".indexOf(t.substr(2,1))&&(i.axis=t);}};for(a in n)r=n[a],a in o?"function"==typeof(s=o[a])?s(r):i[s]=r:i[a]=r;return "string"==typeof i.datumCode&&"WGS84"!==i.datumCode&&(i.datumCode=i.datumCode.toLowerCase()),i},ft=1,pt=/\s/,_t=/[A-Za-z]/,Mt=/[A-Za-z84]/,yt=/[,\]]/,gt=/[\d\.E\-\+]/;e.prototype.readCharicter=function(){var t=this.text[this.place++];if(4!==this.state)for(;pt.test(t);){if(this.place>=this.text.length)return;t=this.text[this.place++];}switch(this.state){case ft:return this.neutral(t);case 2:return this.keyword(t);case 4:return this.quoted(t);case 5:return this.afterquote(t);case 3:return this.number(t);case-1:return}},e.prototype.afterquote=function(t){if('"'===t)return this.word+='"',void(this.state=4);if(yt.test(t))return this.word=this.word.trim(),void this.afterItem(t);throw new Error("havn't handled \""+t+'" in afterquote yet, index '+this.place)},e.prototype.afterItem=function(t){return ","===t?(null!==this.word&&this.currentObject.push(this.word),this.word=null,void(this.state=ft)):"]"===t?(this.level--,null!==this.word&&(this.currentObject.push(this.word),this.word=null),this.state=ft,this.currentObject=this.stack.pop(),void(this.currentObject||(this.state=-1))):void 0},e.prototype.number=function(t){if(!gt.test(t)){if(yt.test(t))return this.word=parseFloat(this.word),void this.afterItem(t);throw new Error("havn't handled \""+t+'" in number yet, index '+this.place)}this.word+=t;},e.prototype.quoted=function(t){'"'!==t?this.word+=t:this.state=5;},e.prototype.keyword=function(t){if(Mt.test(t))this.word+=t;else {if("["===t){var e=[];return e.push(this.word),this.level++,null===this.root?this.root=e:this.currentObject.push(e),this.stack.push(this.currentObject),this.currentObject=e,void(this.state=ft)}if(!yt.test(t))throw new Error("havn't handled \""+t+'" in keyword yet, index '+this.place);this.afterItem(t);}},e.prototype.neutral=function(t){if(_t.test(t))return this.word=t,void(this.state=2);if('"'===t)return this.word="",void(this.state=4);if(gt.test(t))return this.word=t,void(this.state=3);{if(!yt.test(t))throw new Error("havn't handled \""+t+'" in neutral yet, index '+this.place);this.afterItem(t);}},e.prototype.output=function(){for(;this.place<this.text.length;)this.readCharicter();if(-1===this.state)return this.root;throw new Error('unable to parse string "'+this.text+'". State is '+this.state)};var vt=.017453292519943295,bt=function(t){var e=a(t),r=e.shift(),i=e.shift();e.unshift(["name",i]),e.unshift(["type",r]);var n={};return s(e,n),o(n),n};!function(t){t("EPSG:4326","+title=WGS 84 (long/lat) +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees"),t("EPSG:4269","+title=NAD83 (long/lat) +proj=longlat +a=6378137.0 +b=6356752.31414036 +ellps=GRS80 +datum=NAD83 +units=degrees"),t("EPSG:3857","+title=WGS 84 / Pseudo-Mercator +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs"),t.WGS84=t["EPSG:4326"],t["EPSG:3785"]=t["EPSG:3857"],t.GOOGLE=t["EPSG:3857"],t["EPSG:900913"]=t["EPSG:3857"],t["EPSG:102113"]=t["EPSG:3857"];}(h);var St=["PROJECTEDCRS","PROJCRS","GEOGCS","GEOCCS","PROJCS","LOCAL_CS","GEODCRS","GEODETICCRS","GEODETICDATUM","ENGCRS","ENGINEERINGCRS"],Nt=["3857","900913","3785","102113"],Et=function(t,e){t=t||{};var a,r;if(!e)return t;for(r in e)void 0!==(a=e[r])&&(t[r]=a);return t},wt=function(t,e,a){var r=t*e;return a/Math.sqrt(1-r*r)},Ct=function(t){return t<0?-1:1},xt=function(t){return Math.abs(t)<=3.14159265359?t:t-Ct(t)*ut},Ot=function(t,e,a){var r=t*a,s=.5*t;return r=Math.pow((1-r)/(1+r),s),Math.tan(.5*(et-e))/r},At=function(t,e){for(var a,r,s=.5*t,i=et-2*Math.atan(e),n=0;n<=15;n++)if(a=t*Math.sin(i),r=et-2*Math.atan(e*Math.pow((1-a)/(1+a),s))-i,i+=r,Math.abs(r)<=1e-10)return i;return -9999},Pt=[{init:function(){var t=this.b/this.a;this.es=1-t*t,"x0"in this||(this.x0=0),"y0"in this||(this.y0=0),this.e=Math.sqrt(this.es),this.lat_ts?this.sphere?this.k0=Math.cos(this.lat_ts):this.k0=wt(this.e,Math.sin(this.lat_ts),Math.cos(this.lat_ts)):this.k0||(this.k?this.k0=this.k:this.k0=1);},forward:function(t){var e=t.x,a=t.y;if(a*ot>90&&a*ot<-90&&e*ot>180&&e*ot<-180)return null;var r,s;if(Math.abs(Math.abs(a)-et)<=it)return null;if(this.sphere)r=this.x0+this.a*this.k0*xt(e-this.long0),s=this.y0+this.a*this.k0*Math.log(Math.tan(ht+.5*a));else {var i=Math.sin(a),n=Ot(this.e,a,i);r=this.x0+this.a*this.k0*xt(e-this.long0),s=this.y0-this.a*this.k0*Math.log(n);}return t.x=r,t.y=s,t},inverse:function(t){var e,a,r=t.x-this.x0,s=t.y-this.y0;if(this.sphere)a=et-2*Math.atan(Math.exp(-s/(this.a*this.k0)));else {var i=Math.exp(-s/(this.a*this.k0));if(-9999===(a=At(this.e,i)))return null}return e=xt(this.long0+r/(this.a*this.k0)),t.x=e,t.y=a,t},names:["Mercator","Popular Visualisation Pseudo Mercator","Mercator_1SP","Mercator_Auxiliary_Sphere","merc"]},{init:function(){},forward:_,inverse:_,names:["longlat","identity"]}],Gt={},It=[],kt={start:function(){Pt.forEach(M);},add:M,get:function(t){if(!t)return !1;var e=t.toLowerCase();return void 0!==Gt[e]&&It[Gt[e]]?It[Gt[e]]:void 0}},Lt={};Lt.MERIT={a:6378137,rf:298.257,ellipseName:"MERIT 1983"},Lt.SGS85={a:6378136,rf:298.257,ellipseName:"Soviet Geodetic System 85"},Lt.GRS80={a:6378137,rf:298.257222101,ellipseName:"GRS 1980(IUGG, 1980)"},Lt.IAU76={a:6378140,rf:298.257,ellipseName:"IAU 1976"},Lt.airy={a:6377563.396,b:6356256.91,ellipseName:"Airy 1830"},Lt.APL4={a:6378137,rf:298.25,ellipseName:"Appl. Physics. 1965"},Lt.NWL9D={a:6378145,rf:298.25,ellipseName:"Naval Weapons Lab., 1965"},Lt.mod_airy={a:6377340.189,b:6356034.446,ellipseName:"Modified Airy"},Lt.andrae={a:6377104.43,rf:300,ellipseName:"Andrae 1876 (Den., Iclnd.)"},Lt.aust_SA={a:6378160,rf:298.25,ellipseName:"Australian Natl & S. Amer. 1969"},Lt.GRS67={a:6378160,rf:298.247167427,ellipseName:"GRS 67(IUGG 1967)"},Lt.bessel={a:6377397.155,rf:299.1528128,ellipseName:"Bessel 1841"},Lt.bess_nam={a:6377483.865,rf:299.1528128,ellipseName:"Bessel 1841 (Namibia)"},Lt.clrk66={a:6378206.4,b:6356583.8,ellipseName:"Clarke 1866"},Lt.clrk80={a:6378249.145,rf:293.4663,ellipseName:"Clarke 1880 mod."},Lt.clrk58={a:6378293.645208759,rf:294.2606763692654,ellipseName:"Clarke 1858"},Lt.CPM={a:6375738.7,rf:334.29,ellipseName:"Comm. des Poids et Mesures 1799"},Lt.delmbr={a:6376428,rf:311.5,ellipseName:"Delambre 1810 (Belgium)"},Lt.engelis={a:6378136.05,rf:298.2566,ellipseName:"Engelis 1985"},Lt.evrst30={a:6377276.345,rf:300.8017,ellipseName:"Everest 1830"},Lt.evrst48={a:6377304.063,rf:300.8017,ellipseName:"Everest 1948"},Lt.evrst56={a:6377301.243,rf:300.8017,ellipseName:"Everest 1956"},Lt.evrst69={a:6377295.664,rf:300.8017,ellipseName:"Everest 1969"},Lt.evrstSS={a:6377298.556,rf:300.8017,ellipseName:"Everest (Sabah & Sarawak)"},Lt.fschr60={a:6378166,rf:298.3,ellipseName:"Fischer (Mercury Datum) 1960"},Lt.fschr60m={a:6378155,rf:298.3,ellipseName:"Fischer 1960"},Lt.fschr68={a:6378150,rf:298.3,ellipseName:"Fischer 1968"},Lt.helmert={a:6378200,rf:298.3,ellipseName:"Helmert 1906"},Lt.hough={a:6378270,rf:297,ellipseName:"Hough"},Lt.intl={a:6378388,rf:297,ellipseName:"International 1909 (Hayford)"},Lt.kaula={a:6378163,rf:298.24,ellipseName:"Kaula 1961"},Lt.lerch={a:6378139,rf:298.257,ellipseName:"Lerch 1979"},Lt.mprts={a:6397300,rf:191,ellipseName:"Maupertius 1738"},Lt.new_intl={a:6378157.5,b:6356772.2,ellipseName:"New International 1967"},Lt.plessis={a:6376523,rf:6355863,ellipseName:"Plessis 1817 (France)"},Lt.krass={a:6378245,rf:298.3,ellipseName:"Krassovsky, 1942"},Lt.SEasia={a:6378155,b:6356773.3205,ellipseName:"Southeast Asia"},Lt.walbeck={a:6376896,b:6355834.8467,ellipseName:"Walbeck"},Lt.WGS60={a:6378165,rf:298.3,ellipseName:"WGS 60"},Lt.WGS66={a:6378145,rf:298.25,ellipseName:"WGS 66"},Lt.WGS7={a:6378135,rf:298.26,ellipseName:"WGS 72"};var zt=Lt.WGS84={a:6378137,rf:298.257223563,ellipseName:"WGS 84"};Lt.sphere={a:6370997,b:6370997,ellipseName:"Normal Sphere (r=6370997)"};var Rt={};Rt.wgs84={towgs84:"0,0,0",ellipse:"WGS84",datumName:"WGS84"},Rt.ch1903={towgs84:"674.374,15.056,405.346",ellipse:"bessel",datumName:"swiss"},Rt.ggrs87={towgs84:"-199.87,74.79,246.62",ellipse:"GRS80",datumName:"Greek_Geodetic_Reference_System_1987"},Rt.nad83={towgs84:"0,0,0",ellipse:"GRS80",datumName:"North_American_Datum_1983"},Rt.nad27={nadgrids:"@conus,@alaska,@ntv2_0.gsb,@ntv1_can.dat",ellipse:"clrk66",datumName:"North_American_Datum_1927"},Rt.potsdam={towgs84:"606.0,23.0,413.0",ellipse:"bessel",datumName:"Potsdam Rauenberg 1950 DHDN"},Rt.carthage={towgs84:"-263.0,6.0,431.0",ellipse:"clark80",datumName:"Carthage 1934 Tunisia"},Rt.hermannskogel={towgs84:"653.0,-212.0,449.0",ellipse:"bessel",datumName:"Hermannskogel"},Rt.osni52={towgs84:"482.530,-130.596,564.557,-1.042,-0.214,-0.631,8.15",ellipse:"airy",datumName:"Irish National"},Rt.ire65={towgs84:"482.530,-130.596,564.557,-1.042,-0.214,-0.631,8.15",ellipse:"mod_airy",datumName:"Ireland 1965"},Rt.rassadiran={towgs84:"-133.63,-157.5,-158.62",ellipse:"intl",datumName:"Rassadiran"},Rt.nzgd49={towgs84:"59.47,-5.04,187.44,0.47,-0.1,1.024,-4.5993",ellipse:"intl",datumName:"New Zealand Geodetic Datum 1949"},Rt.osgb36={towgs84:"446.448,-125.157,542.060,0.1502,0.2470,0.8421,-20.4894",ellipse:"airy",datumName:"Airy 1830"},Rt.s_jtsk={towgs84:"589,76,480",ellipse:"bessel",datumName:"S-JTSK (Ferro)"},Rt.beduaram={towgs84:"-106,-87,188",ellipse:"clrk80",datumName:"Beduaram"},Rt.gunung_segara={towgs84:"-403,684,41",ellipse:"bessel",datumName:"Gunung Segara Jakarta"},Rt.rnb72={towgs84:"106.869,-52.2978,103.724,-0.33657,0.456955,-1.84218,1",ellipse:"intl",datumName:"Reseau National Belge 1972"},Projection.projections=kt,Projection.projections.start();var Tt=function(t,e,a){return b(t,e)?a:t.datum_type===$||e.datum_type===$?a:t.es!==e.es||t.a!==e.a||C(t.datum_type)||C(e.datum_type)?(a=S(a,t.es,t.a),C(t.datum_type)&&(a=E(a,t.datum_type,t.datum_params)),C(e.datum_type)&&(a=w(a,e.datum_type,e.datum_params)),N(a,e.es,e.a,e.b)):a},Dt=function(t,e,a){var r,s,i,n=a.x,o=a.y,h=a.z||0,u={};for(i=0;i<3;i++)if(!e||2!==i||void 0!==a.z)switch(0===i?(r=n,s=-1!=="ew".indexOf(t.axis[i])?"x":"y"):1===i?(r=o,s=-1!=="ns".indexOf(t.axis[i])?"y":"x"):(r=h,s="z"),t.axis[i]){case"e":case"w":case"n":case"s":u[s]=r;break;case"u":void 0!==a[s]&&(u.z=r);break;case"d":void 0!==a[s]&&(u.z=-r);break;default:return null}return u},qt=function(t){var e={x:t[0],y:t[1]};return t.length>2&&(e.z=t[2]),t.length>3&&(e.m=t[3]),e},Ut=function(t){x(t.x),x(t.y);},jt=Projection("WGS84"),Ft=6,Wt="AJSAJS",Qt="AFAFAF",Bt=65,Jt=73,Ht=79,Vt=86,Xt=90,Zt={forward:k,inverse:function(t){var e=D(Q(t.toUpperCase()));return e.lat&&e.lon?[e.lon,e.lat,e.lon,e.lat]:[e.left,e.bottom,e.right,e.top]},toPoint:L};Point.fromMGRS=function(t){return new Point(L(t))},Point.prototype.toMGRS=function(t){return k([this.x,this.y],t)};var Kt=function(t,e){var a;return t>1e-7?(a=t*e,(1-t*t)*(e/(1-a*a)-.5/t*Math.log((1-a)/(1+a)))):2*e},Yt=.3333333333333333,$t=.17222222222222222,te=.10257936507936508,ee=.06388888888888888,ae=.0664021164021164,re=.016415012942191543,se={init:function(){var t=Math.abs(this.lat0);if(Math.abs(t-et)<it?this.mode=this.lat0<0?this.S_POLE:this.N_POLE:Math.abs(t)<it?this.mode=this.EQUIT:this.mode=this.OBLIQ,this.es>0){var e;switch(this.qp=Kt(this.e,1),this.mmf=.5/(1-this.es),this.apa=V(this.es),this.mode){case this.N_POLE:case this.S_POLE:this.dd=1;break;case this.EQUIT:this.rq=Math.sqrt(.5*this.qp),this.dd=1/this.rq,this.xmf=1,this.ymf=.5*this.qp;break;case this.OBLIQ:this.rq=Math.sqrt(.5*this.qp),e=Math.sin(this.lat0),this.sinb1=Kt(this.e,e)/this.qp,this.cosb1=Math.sqrt(1-this.sinb1*this.sinb1),this.dd=Math.cos(this.lat0)/(Math.sqrt(1-this.es*e*e)*this.rq*this.cosb1),this.ymf=(this.xmf=this.rq)/this.dd,this.xmf*=this.dd;}}else this.mode===this.OBLIQ&&(this.sinph0=Math.sin(this.lat0),this.cosph0=Math.cos(this.lat0));},forward:function(t){var e,a,r,s,i,n,o,h,u,l,d=t.x,c=t.y;if(d=xt(d-this.long0),this.sphere){if(i=Math.sin(c),l=Math.cos(c),r=Math.cos(d),this.mode===this.OBLIQ||this.mode===this.EQUIT){if((a=this.mode===this.EQUIT?1+l*r:1+this.sinph0*i+this.cosph0*l*r)<=it)return null;e=(a=Math.sqrt(2/a))*l*Math.sin(d),a*=this.mode===this.EQUIT?i:this.cosph0*i-this.sinph0*l*r;}else if(this.mode===this.N_POLE||this.mode===this.S_POLE){if(this.mode===this.N_POLE&&(r=-r),Math.abs(c+this.phi0)<it)return null;a=ht-.5*c,e=(a=2*(this.mode===this.S_POLE?Math.cos(a):Math.sin(a)))*Math.sin(d),a*=r;}}else {switch(o=0,h=0,u=0,r=Math.cos(d),s=Math.sin(d),i=Math.sin(c),n=Kt(this.e,i),this.mode!==this.OBLIQ&&this.mode!==this.EQUIT||(o=n/this.qp,h=Math.sqrt(1-o*o)),this.mode){case this.OBLIQ:u=1+this.sinb1*o+this.cosb1*h*r;break;case this.EQUIT:u=1+h*r;break;case this.N_POLE:u=et+c,n=this.qp-n;break;case this.S_POLE:u=c-et,n=this.qp+n;}if(Math.abs(u)<it)return null;switch(this.mode){case this.OBLIQ:case this.EQUIT:u=Math.sqrt(2/u),a=this.mode===this.OBLIQ?this.ymf*u*(this.cosb1*o-this.sinb1*h*r):(u=Math.sqrt(2/(1+h*r)))*o*this.ymf,e=this.xmf*u*h*s;break;case this.N_POLE:case this.S_POLE:n>=0?(e=(u=Math.sqrt(n))*s,a=r*(this.mode===this.S_POLE?u:-u)):e=a=0;}}return t.x=this.a*e+this.x0,t.y=this.a*a+this.y0,t},inverse:function(t){t.x-=this.x0,t.y-=this.y0;var e,a,r,s,i,n,o,h=t.x/this.a,u=t.y/this.a;if(this.sphere){var l,d=0,c=0;if(l=Math.sqrt(h*h+u*u),(a=.5*l)>1)return null;switch(a=2*Math.asin(a),this.mode!==this.OBLIQ&&this.mode!==this.EQUIT||(c=Math.sin(a),d=Math.cos(a)),this.mode){case this.EQUIT:a=Math.abs(l)<=it?0:Math.asin(u*c/l),h*=c,u=d*l;break;case this.OBLIQ:a=Math.abs(l)<=it?this.phi0:Math.asin(d*this.sinph0+u*c*this.cosph0/l),h*=c*this.cosph0,u=(d-Math.sin(a)*this.sinph0)*l;break;case this.N_POLE:u=-u,a=et-a;break;case this.S_POLE:a-=et;}e=0!==u||this.mode!==this.EQUIT&&this.mode!==this.OBLIQ?Math.atan2(h,u):0;}else {if(o=0,this.mode===this.OBLIQ||this.mode===this.EQUIT){if(h/=this.dd,u*=this.dd,(n=Math.sqrt(h*h+u*u))<it)return t.x=0,t.y=this.phi0,t;s=2*Math.asin(.5*n/this.rq),r=Math.cos(s),h*=s=Math.sin(s),this.mode===this.OBLIQ?(o=r*this.sinb1+u*s*this.cosb1/n,i=this.qp*o,u=n*this.cosb1*r-u*this.sinb1*s):(o=u*s/n,i=this.qp*o,u=n*r);}else if(this.mode===this.N_POLE||this.mode===this.S_POLE){if(this.mode===this.N_POLE&&(u=-u),!(i=h*h+u*u))return t.x=0,t.y=this.phi0,t;o=1-i/this.qp,this.mode===this.S_POLE&&(o=-o);}e=Math.atan2(h,u),a=X(Math.asin(o),this.apa);}return t.x=xt(this.long0+e),t.y=a,t},names:["Lambert Azimuthal Equal Area","Lambert_Azimuthal_Equal_Area","laea"],S_POLE:1,N_POLE:2,EQUIT:3,OBLIQ:4},ie=function(t){return Math.abs(t)>1&&(t=t>1?1:-1),Math.asin(t)},ne={init:function(){this.sin_p14=Math.sin(this.lat0),this.cos_p14=Math.cos(this.lat0);},forward:function(t){var e,a,r,s,i,n,o,h=t.x,u=t.y;return r=xt(h-this.long0),e=Math.sin(u),a=Math.cos(u),s=Math.cos(r),((i=this.sin_p14*e+this.cos_p14*a*s)>0||Math.abs(i)<=it)&&(n=1*this.a*a*Math.sin(r),o=this.y0+1*this.a*(this.cos_p14*e-this.sin_p14*a*s)),t.x=n,t.y=o,t},inverse:function(t){var e,a,r,s,i,n,o;return t.x-=this.x0,t.y-=this.y0,e=Math.sqrt(t.x*t.x+t.y*t.y),a=ie(e/this.a),r=Math.sin(a),s=Math.cos(a),n=this.long0,Math.abs(e)<=it?(o=this.lat0,t.x=n,t.y=o,t):(o=ie(s*this.sin_p14+t.y*r*this.cos_p14/e),i=Math.abs(this.lat0)-et,Math.abs(i)<=it?(n=xt(this.lat0>=0?this.long0+Math.atan2(t.x,-t.y):this.long0-Math.atan2(-t.x,t.y)),t.x=n,t.y=o,t):(n=xt(this.long0+Math.atan2(t.x*r,e*this.cos_p14*s-t.y*this.sin_p14*r)),t.x=n,t.y=o,t))},names:["ortho"]};return I.defaultDatum="WGS84",I.Proj=Projection,I.WGS84=new I.Proj("WGS84"),I.Point=Point,I.toPoint=qt,I.defs=h,I.transform=A,I.mgrs=Zt,I.version="2.6.2-alpha",function(proj4){proj4.Proj.projections.add(se),proj4.Proj.projections.add(ne);}(I),I});
-});
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-
-// Configure useful projections
-// Use http://spatialreference.org/ref/epsg/24817/proj4js/ to look up
-// proj4.js was built using: node_modules/.bin/grunt build:laea,ortho
-proj4.defs( [
-  [ 'EPSG:3035', '+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs' ],
-] );
-
-function GeoprojectStore() {
-  this.projection = null;
-  this.location = null;
-  this.globalOffset = new THREE.Vector2();
-  this.sceneScale = 1;
-
-  this.bindListeners( {
-    setCurrentPlace: UserActions.setCurrentPlace
-  } );
-
-  this.exportPublicMethods( {
-    positionToTileFraction: this.positionToTileFraction.bind( this ),
-  } );
-}
-
-GeoprojectStore.prototype.setCurrentPlace = function ( place ) {
-  this.location = place.location;
-  this.projection = 'EPSG:3857';
-
-  // Setup projectors
-  const lon = ApiUtils.snap( this.location[ 0 ] );
-  const lat = ApiUtils.snap( this.location[ 1 ] );
-  geoproject.projector = proj4( this.projection );
-  geoproject.center = geoproject.project( [ lon, lat ], true );
-
-  // For testing new data create temporary projector for 3035
-  // TODO remove this once we don't use 3035 data
-  geoproject.projector3035 = proj4( 'EPSG:3035' );
-  var projected3035 = geoproject.projector3035.forward( [ lon, lat ] );
-  geoproject.center3035 = { x: projected3035[ 0 ], y: projected3035[ 1 ] };
-
-  // To make the heights match the projection, we need to obtain the
-  // scene scale
-  this.sceneScale = geoproject.calculateSceneScale( lon, lat );
-
-  // Re-center our THREE Scene coordinate system such that it is 0, 0
-  // at the location of the place
-  this.globalOffset = geoproject.calculateGlobalOffset( lon, lat );
-};
-
-GeoprojectStore.prototype.positionToTileFraction = function ( position, z ) {
-  const p = position.clone();
-  p.x -= this.globalOffset.x;
-  p.y += this.globalOffset.y;
-  p.divideScalar( this.sceneScale * Math.pow( 2, 15 - z ) );
-  return [ p.x, p.y, z ];
-};
-
-GeoprojectStore.displayName = 'GeoprojectStore';
-var GeoprojectStore$1 = alt.createStore( GeoprojectStore );
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-function AppStore() {
-  this.appContainer = null;
-  this.datasource = {};
-  this.fatalError = false;
-  this.initialized = false;
-  this.resourceUrl = null;
-  this.bindListeners( {
-    configureElevationDatasource: ConfigActions.configureElevationDatasource,
-    configureImageryDatasource: ConfigActions.configureImageryDatasource,
-    setAppContainer: ConfigActions.setAppContainer,
-    setFatalError: RenderActions.fatalError,
-    setResourceUrl: ConfigActions.setResourceUrl
-  } );
-}
-
-AppStore.prototype.checkInitialized = function () {
-  this.initialized = ( this.appContainer !== null ) &&
-                     ( this.resourceUrl !== null );
-};
-
-AppStore.prototype.configureElevationDatasource = function ( elevation ) {
-  this.datasource.elevation = elevation;
-};
-
-AppStore.prototype.configureImageryDatasource = function ( imagery ) {
-  this.datasource.imagery = imagery;
-};
-
-AppStore.prototype.setFatalError = function () {
-  this.fatalError = true;
-};
-
-AppStore.prototype.setAppContainer = function ( container ) {
-  this.appContainer = container;
-  this.checkInitialized();
-};
-
-AppStore.prototype.setResourceUrl = function ( url ) {
-  this.resourceUrl = url;
-  this.checkInitialized();
-};
-
-AppStore.displayName = 'AppStore';
-var AppStore$1 = alt.createStore( AppStore );
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-let params = new URLSearchParams( window.location.search.slice( 1 ) );
-
-// TODO could support non-square POT textures also
-let elevationPoolSize = 4 * 4;
-let imageryPoolSize = 16 * 16;
-if ( params.has( 'elevationPoolSize' ) ) {
-  elevationPoolSize = Number.parseInt( params.get( 'elevationPoolSize' ) );
-}
-
-if ( params.has( 'imageryPoolSize' ) ) {
-  imageryPoolSize = Number.parseInt( params.get( 'imageryPoolSize' ) );
-}
-
-const ELEVATION_POOL_SIZE = elevationPoolSize;
-const ELEVATION_TILE_SIZE = 512;
-const IMAGERY_POOL_SIZE = imageryPoolSize;
-const IMAGERY_TILE_SIZE = 256;
-const INTERPOLATE_FLOAT = params.has( 'interpolateFloat' );
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-var renderer = new THREE.WebGLRenderer( {
-  alpha: true,
-  antialias: false,
-  clearColor: 0x000000,
-  logarithmicDepthBuffer: false
-} );
-renderer.sortObjects = true;
-
-// Don't clear buffers we know will be overwritten
-renderer.autoClear = false;
-renderer.autoClearColor = false;
-renderer.autoClearDepth = true;
-renderer.autoClearStencil = false;
-renderer.domElement.selectable = false;
-// We do our own tonemapping, so disable otherwise get shader errors
-renderer.toneMapping = THREE.NoToneMapping;
-
-var state = ContainerStore$1.getState();
-renderer.setPixelRatio( state.pixelRatio );
-renderer.setSize( state.width, state.height );
-ContainerStore$1.listen( function ( state ) {
-  renderer.setPixelRatio( state.pixelRatio );
-  renderer.setSize( state.width, state.height );
-} );
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// Class for managing a set of indices
-// `next()` returns a integer
-class IntegerPool {
-  constructor( capacity ) {
-    this.capacity = capacity;
-    this.index = 0;
-    this.items = [];
-  }
-
-  next() {
-    let i;
-    // Once we hit capacity, start re-using stale entries
-    if ( this.index >= this.capacity ) {
-      i = this.items.splice( 0, 1 )[ 0 ];
-    } else {
-      // ...otherwise allocate sequentially
-      i = this.index++;
-    }
-
-    this.items.push( i );
-    return i;
-  }
-
-  // Method to keep element alive
-  tap( item ) {
-    let i = this.items.indexOf( item );
-    if ( i !== -1 ) {
-      this.items.splice( i, 1 );
-      this.items.push( item );
-    }
-  }
-}
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-const ImageLoader$1 = ( typeof createImageBitmap === 'undefined' ) ?
-  THREE.ImageLoader : THREE.ImageBitmapLoader;
-
-var ImageLoader$2 = new ImageLoader$1();
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-
-const canvas$1 = document.createElement( 'canvas' );
-const width = ELEVATION_TILE_SIZE;
-const height = ELEVATION_TILE_SIZE;
-canvas$1.width = width;
-canvas$1.height = height;
-const ctx = canvas$1.getContext( '2d' );
-const N = width * height;
-
-const insertIntoTextureArray = ( textureArray, index, image ) => {
-  const w = textureArray.image.width / textureArray.__blocks;
-  const h = textureArray.image.height / textureArray.__blocks;
-  const x = w * ( Math.floor( index ) % textureArray.__blocks );
-  const y = h * Math.floor( Math.floor( index ) / textureArray.__blocks );
-
-  if ( textureArray.useFloat ) {
-    ctx.drawImage( image, 0, 0 );
-    let imgData = ctx.getImageData( 0, 0, width, height ).data;
-
-    let data = new Float32Array( N );
-
-    const baseVal = -32768;
-    //const interval = 1 / 256;
-    let dataView = new DataView( imgData.buffer );
-    for ( let i = 0; i < N; ++i ) {
-      //let h = interval * (
-      //  256 * 256 * imgData[ 4 * i ] +
-      //  256 * imgData[ 4 * i + 1 ] +
-      //  imgData[ 4 * i + 2 ]
-      //) + baseVal;
-      // Read as big-endian data (skipping B channel), equivalent to above
-      let H = dataView.getUint16( 4 * i, false ) + baseVal;
-
-      // Handle NODATA value, clamping to 0
-      data[ i ] = ( H === baseVal ? 0 : H );
-    }
-
-    // Do we need float? Perhaps just converting to data is
-    // enough?
-    renderer.copyTextureToTexture( { x, y }, {
-      image: { data, width, height },
-      isDataTexture: true
-    }, textureArray );
-  } else {
-    renderer.copyTextureToTexture( { x, y }, { image },
-      textureArray );
-  }
-};
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-
-class BaseDatasource {
-  constructor( { apiKey, poolSize, textureSize, useFloat, urlFormat } ) {
-    this.apiKey = apiKey;
-    this.urlFormat = urlFormat;
-    this.useFloat = !!useFloat;
-    this.hasUpdates = false;
-    this.listeners = [];
-    this.lookup = {};
-    this.fetching = {};
-    this.imgCache = {};
-    this.indexPool = new IntegerPool( poolSize );
-
-    // Emulate texture array by cutting up 2D texture
-    let n = Math.sqrt( poolSize );
-    if ( n % 1 ) {
-      console.error( 'poolSize needs to be a power of 2' );
-    }
-
-    let virtualTextureSize = textureSize * n;
-
-    const TextureFilter = ( this.useFloat && !INTERPOLATE_FLOAT ) ?
-      THREE.NearestFilter : THREE.LinearFilter;
-
-    this.textureArray = new THREE.DataTexture( null,
-      virtualTextureSize, virtualTextureSize,
-      // RGB seems to run *slower* than RGBA on iOS
-      this.useFloat ? THREE.AlphaFormat : THREE.RGBAFormat,
-      // HalfFloat doesn't work on iOS :(
-      this.useFloat ? THREE.FloatType : THREE.UnsignedByteType,
-      THREE.UVMapping,
-      THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping,
-      TextureFilter, TextureFilter,
-      //THREE.LinearFilter, THREE.LinearFilter,
-      //THREE.NearestFilter, THREE.NearestFilter,
-      renderer.capabilities.getMaxAnisotropy()
-    );
-    this.textureArray.__blocks = n;
-    this.textureArray.useFloat = this.useFloat;
-
-    if ( this.useFloat ) {
-      const size = 1024; // TODO reduce in future!
-      this.indirectionTexture = new THREE.DataTexture( null,
-        size, size,
-        // TODO Could perhaps use smaller format
-        THREE.RGBAFormat, // Using RGB led to errors...
-        // Need to use float type or get glitches on iOS
-        THREE.FloatType,
-        THREE.UVMapping,
-        THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping,
-        THREE.NearestFilter, THREE.NearestFilter,
-        1 // anisotropy
-      );
-    }
-  }
-
-  urlForTile( x, y, z ) {
-    return this.urlFormat.replace( '{x}', x ).replace( '{y}', y )
-      .replace( '{z}', z ).replace( '{apiKey}', this.apiKey );
-  }
-
-  fetchIfNeeded( quadkey ) {
-    if ( this.lookup[ quadkey ] !== undefined ||
-      this.fetching[ quadkey ] !== undefined ) {
-      // Have data, or download in progress, skip
-      return;
-    }
-
-    // Throttle downloads
-    let downloadIndices = Object.values( this.fetching );
-    if ( downloadIndices.length > 32 ) {
-      log$1( 'throttling...' );
-      return;
-    }
-
-    let newIndex = this.findNewIndex( quadkey );
-
-    // Mark as download in progress
-    this.fetching[ quadkey ] = newIndex;
-
-    // Actually fetch data
-    let url = this.urlForTile( ...tilebelt.quadkeyToTile( quadkey ) );
-    ImageLoader$2.load( url, ( image ) => {
-      // Image loaded OK
-        this.imgCache[ quadkey ] = image;
-        insertIntoTextureArray( this.textureArray, newIndex, image );
-
-        // Remove download and mark image location in lookup
-        delete this.fetching[ quadkey ];
-        this.lookup[ quadkey ] = newIndex;
-
-        // TODO remove, just for demo page
-        if ( this.useFloat ) {
-          let el = document.getElementById( 'elevation-tile-count' );
-          if ( el ) {
-            let n = parseInt( el.innerHTML );
-            if ( isNaN( n ) ) { n = 0; }
-
-            el.innerHTML = ++n;
-          }
-        }
-
-        this.updateIndirectionTexture();
-        this.notifyUpdate();
-      }, () => {
-        console.error( 'Failed to get image', quadkey );
-        delete this.fetching[ quadkey ];
-      } );
-  }
-
-  findNewIndex( quadkey ) {
-    // First request a new slot (index) to place image in
-    let downloadIndices = Object.values( this.fetching );
-    let newIndex;
-    let oldQuadKey;
-    let failed = true;
-    for ( let i = 32; i > 0; i-- ) {
-      // Try to obtain new index
-      newIndex = this.indexPool.next();
-
-      // Avoid situation where newIndex is used by an
-      // in-progress download, as it'll get clobbered
-      let goodIndex = downloadIndices.indexOf( newIndex ) === -1;
-
-      // Check what data this is pointing at
-      let oldDataSlot = Object.values( this.lookup ).indexOf( newIndex );
-      oldQuadKey = Object.keys( this.lookup )[ oldDataSlot ];
-
-      // Don't release tiles that are below us in
-      // heirarchy, so that when we zoom out we always have
-      // some data.
-      // Without this, we eject the data and then later
-      // tiles can end up having nothing to load! Resulting
-      // in a weird glitch where the previous index set in
-      // the uniform is used and some random tile is plastered
-      // in its place :(
-      let isParent = (
-        oldQuadKey !== undefined &&
-        quadkey.slice( 0, oldQuadKey.length - 1 ) === oldQuadKey.slice( 0, -1 ) );
-
-      if ( goodIndex && !isParent ) {
-        // Index is clean and not assigned being used by a download
-        failed = false;
-        break;
-      }
-    }
-
-    if ( failed ) {
-      log$1( `Failed to find index (${this.indexPool.capacity})` );
-      log$1( 'Downloads: ', downloadIndices.length );
-      // Fallback to using lowest resolution tile
-      oldQuadKey = Object.keys( this.lookup ).sort(
-        ( x, y ) => x.length - y.length )[ 0 ];
-      newIndex = this.lookup[ oldQuadKey ];
-    }
-
-    // Next, remove any existing lookup entry that references
-    // this index, as we are about to re-assign it. This should
-    // be safe to do as the index should have been recycled
-    // before
-    if ( oldQuadKey !== undefined ) {
-      delete this.lookup[ oldQuadKey ];
-    }
-
-    return newIndex;
-  }
-
-  updateIndirectionTexture() {
-    // Update indirection texture, loop over all textures
-    if ( this.indirectionTexture ) {
-      let quadkeys = Object.keys( this.lookup );
-      quadkeys.sort( ( a, b ) => Math.sign( a.length - b.length ) );
-      for ( let q of quadkeys ) {
-        let [ x, y, z ] = tilebelt.quadkeyToTile( q );
-        let tileIndex = this.lookup[ q ];
-        let size = Math.pow( 2, 10 - z );
-        x *= size; y *= size; // Move to zoom level 10
-        let data = new Float32Array( 4 * size * size );
-        let tileSize = Math.pow( 2, z );
-        let originScale = -tileSize / this.indirectionTexture.image.width;
-        for ( let i = 0; i < data.length; i++ ) {
-          // Location of tile in texture array
-          data[ 4 * i ] = tileIndex;
-          // Tile size
-          data[ 4 * i + 1 ] = tileSize;
-          // Tile origin position (scaled to save GPU instructions)
-          data[ 4 * i + 2 ] = x * originScale;
-          data[ 4 * i + 3 ] = y * originScale;
-        }
-
-        renderer.copyTextureToTexture( { x, y }, {
-          image: { data, width: size, height: size },
-          isDataTexture: true
-        }, this.indirectionTexture );
-      }
-    }
-  }
-
-  // Locates the highest resolution data we have for this tile
-  // return the data index and number of levels we are
-  // downsampling by
-  findBestAvailableData( quadkey, silent ) {
-    for ( let downsample = 0; downsample < 20; downsample++ ) {
-      // See if we have imagery already...
-      let index = this.lookup[ quadkey ];
-      if ( index !== undefined ) {
-        return { index, downsample, quadkey };
-      } else {
-        // Try parent tile...
-        // Parent key is just our key with last char removed
-        quadkey = quadkey.slice( 0, -1 );
-        if ( quadkey.length === 0 ) { break }
-      }
-    }
-
-    if ( !silent ) {
-      log$1( 'Failed to find data', quadkey );
-    }
-
-    return { index: null, downsample: 20, quadkey: null };
-  }
-
-  // Reads single point using local lookups
-  dataAtPoint( p ) {
-    let tile;
-    if ( p.longitude ) {
-      tile = tilebelt.pointToTileFraction( p.longitude, p.latitude, 10 );
-    } else {
-      tile = GeoprojectStore$1.positionToTileFraction( p, 10 );
-    }
-
-    const q = tilebelt.tileToQuadkey( tile );
-    const { quadkey } = this.findBestAvailableData( q );
-
-    if ( !quadkey ) { return null }
-
-    // Convert to zoom level at which we have data
-    const scale = Math.pow( 2, quadkey.length - tile[ 2 ] );
-    tile[ 0 ] *= scale;
-    tile[ 1 ] *= scale;
-
-    const img = this.imgCache[ quadkey ];
-    const canvas = document.createElement( 'canvas' );
-    canvas.width = 1; canvas.height = 1;
-
-    tile[ 0 ] = ( tile[ 0 ] % 1 ) * img.width;
-    tile[ 1 ] = ( tile[ 1 ] % 1 ) * img.height;
-
-    const ctx = canvas.getContext( '2d' );
-    ctx.drawImage( img,
-      tile[ 0 ], tile[ 1 ], 1, 1, // one pixel from src
-      0, 0, 1, 1 ); // ..to 1x1 canvas
-    return ctx.getImageData( 0, 0, 1, 1 ).data;
-  }
-
-  addListener( fn ) {
-    this.listeners.push( fn );
-  }
-
-  removeListener( fn ) {
-    let i = this.listeners.indexOf( fn );
-    if ( i !== -1 ) { this.listeners.splice( i, 1 ); }
-  }
-
-  notifyUpdate() {
-    this.hasUpdates = true;
-  }
-
-  broadcastUpdate() {
-    this.listeners.forEach( l => l() );
-    this.hasUpdates = false;
-  }
-}
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-
-const ElevationDatasource = new BaseDatasource( {
-  urlFormat: 'https://www.nasadem.xyz/api/v1/dem/{z}/{x}/{y}.png?key={apiKey}',
-  textureSize: ELEVATION_TILE_SIZE,
-  poolSize: ELEVATION_POOL_SIZE,
-  useFloat: true
-} );
-
-AppStore$1.listen( ( { datasource } ) => {
-  if ( datasource.elevation ) {
-    ElevationDatasource.apiKey = datasource.elevation.apiKey;
-  }
-} );
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-
-const earthScale = 0.0008176665341588574;
-function heightScale( p ) {
-  const sceneScale = GeoprojectStore$1.getState().sceneScale;
-  let tile;
-  if ( p.longitude ) {
-    tile = tilebelt.pointToTile( p.longitude, p.latitude, 10 );
-  } else {
-    tile = GeoprojectStore$1.positionToTileFraction( p, 10 );
-  }
-
-  const n = 3.141592653589793 - 0.006135923151542565 * tile[ 1 ];
-  return Math.cosh( n ) / ( earthScale * sceneScale );
-}
-
-function dataToHeight( data ) {
-  if ( data[ 0 ] === 0 && data[ 1 ] === 0 ) {
-    // NODATA values return 0
-    return 0;
-  }
-  return 256 * data[ 0 ] + data[ 1 ] - 32768;
-}
-
-// Simplified height lookup, doesn't interpolate between points
-// just picks the nearest pixel
-function heightAt( p, callback ) {
-  const data = ElevationDatasource.dataAtPoint( p );
-  if ( !data ) {
-    if ( typeof callback === 'function' ) {
-      const listener = () => {
-        // Now that data has updated, try again to fetch
-        const data = ElevationDatasource.dataAtPoint( p );
-        if ( data ) {
-          ElevationDatasource.removeListener( listener );
-          callback( dataToHeight( data ) * heightScale( p ) );
-        }
-      };
-
-      // Don't have data yet, but want to register for callback
-      // once available
-      ElevationDatasource.addListener( listener );
-    }
-
-    return 0;
-  }
-
-  const H = dataToHeight( data ) * heightScale( p );
-  if ( typeof callback === 'function' ) { callback( H ); }
-
-  return H;
-}
-
 /**
  * Copyright 2020 (c) Felix Palmer
  *
@@ -38683,42 +36856,12 @@ function heightAt( p, callback ) {
  */
 var p1 = new THREE.Vector3( 0, 0, 0 );
 var p2 = new THREE.Vector3( 0, 0, 0 );
-var addNormal = function ( normal, origin, delta1, delta2 ) {
-  p1.addVectors( origin, delta1 );
-  delta1.z = heightAt( p1 ) - origin.z;
-
-  p2.addVectors( origin, delta2 );
-  delta2.z = heightAt( p2 ) - origin.z;
-
-  delta1.cross( delta2 );
-  delta1.normalize();
-  normal.add( delta1 );
-};
-
-var n = 4, i$1;
-var theta = 2 * Math.PI / n;
 var origin = new THREE.Vector3();
-var defaultStep = 25;
 var normal = new THREE.Vector3( 0, 0, 1 );
 var d1 = new THREE.Vector3( 0, 0, 0 );
 var d2 = new THREE.Vector3( 0, 0, 0 );
 var normalAt = function ( p, step ) {
   // TODO fix. Hardcoded normal along z-axis everywhere for now
-  return normal;
-  step = step ? step : defaultStep;
-
-  origin.copy( p );
-  origin.z = heightAt( origin );
-  normal.set( 0, 0, 0 );
-  for ( i$1 = 0; i$1 < n; i$1++ ) {
-    d1.x = step * Math.cos( i$1 * theta );
-    d1.y = step * Math.sin( i$1 * theta );
-    d2.x = -d1.y;
-    d2.y = d1.x;
-    addNormal( normal, origin, d1, d2 );
-  }
-
-  normal.normalize();
   return normal;
 };
 
@@ -38876,7 +37019,7 @@ CameraStore.prototype.vantageForTarget = function ( target ) {
       -Math.sin( theta ), -Math.cos( theta ), 0 );
   } else {
     // otherwise figure out vantage point from normal
-    vantage = normalAt( target, 100 ).clone();
+    vantage = normalAt().clone();
   }
 
   // Direction away from slope, at 30 degree angle
@@ -39263,1627 +37406,6 @@ CameraStore.displayName = 'CameraStore';
 var CameraStore$1 = alt.createStore( CameraStore );
 
 /**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-var EE = 1000.0;
-var cutoffAngle = 1.61107315568707; //pi/1.95;
-var invSteepness = 0.66666666666667;
-var rayleigh = new THREE.Vector3( 5.804542996261093e-06, 1.3562911419845635e-05, 3.026590246882488e-05 );
-var mie = new THREE.Vector3( 7.633915830775757e-05, 7.544890573273999e-05, 7.411352687021361e-05 );
-
-
-var skyUniforms = {
-  luminance: { type: 'f', value: 1 },
-  turbidity: { type: 'f', value: 2 },
-  reileigh: { type: 'f', value: 1 },
-  mieCoefficient: { type: 'f', value: 0.005 },
-  mieDirectionalG: { type: 'f', value: 0.8 },
-  sunPosition: { type: 'v3', value: new THREE.Vector3( 0, 0, 0 ) },
-  // Derived uniforms
-  sunDirection: { type: 'v3', value: new THREE.Vector3( 0, 0, 0 ) },
-  lightDirection: { type: 'v3', value: new THREE.Vector3( 0, 0, 0 ) },
-  betaRM: { type: 'v3', value: new THREE.Vector3( 0, 0, 0 ) },
-  betaRnorm: { type: 'v3', value: new THREE.Vector3( 0, 0, 0 ) },
-  betaMnorm: { type: 'v3', value: new THREE.Vector3( 0, 0, 0 ) },
-  // To avoid using many uniforms, pass constants in block
-  // sunE, hgPhaseA, hgPhaseB & LinWeight
-  constants: { type: 'v4', value: new THREE.Vector4( 0, 0, 0, 0 ) },
-  gamma: { type: 'f', value: 0 },
-  tonemapScale: { type: 'f', value: 0 },
-
-  // Calculate derived uniforms
-  update: function () {
-    // Sun direction (using different coordinate system, so convert)
-    // TODO unify on single coordinate system
-    var sunPosition = skyUniforms.sunPosition.value;
-    var sunDirection = sunPosition.clone().normalize();
-    var tmp = sunDirection.z;
-    sunDirection.z = sunDirection.y;
-    sunDirection.y = tmp;
-    skyUniforms.sunDirection.value.copy( sunDirection );
-
-    // Normal coordinate system for other shaders
-    var lightDirection = sunPosition.clone().normalize();
-    skyUniforms.lightDirection.value.copy( lightDirection );
-
-    // Hg phase constants (refactored to minimize shader computation)
-    var g = skyUniforms.mieDirectionalG.value;
-    var B = Math.pow( 0.07957747154595 * ( 1 - g * g ), -0.666666666 );
-    var hgPhaseA = -2 * B * g;
-    var hgPhaseB = B * ( g * g + 1 );
-    skyUniforms.constants.value.y = hgPhaseA;
-    skyUniforms.constants.value.z = hgPhaseB;
-
-    // Save on calulation power of sun direction
-    var LinWeight = Math.pow( 1.0 - sunDirection.y, 5.0 );
-    LinWeight = THREE.Math.clamp( LinWeight, 0.0, 1.0 );
-    skyUniforms.constants.value.w = LinWeight;
-
-    // Extinction
-    var sunFade = 1.0 - THREE.Math.clamp( 1.0 - Math.exp( sunPosition.z / 450000.0 ), 0.0, 1.0 );
-    var reileighCoefficient = skyUniforms.reileigh.value + sunFade - 1.0;
-
-    var exponent = ( Math.acos( sunDirection.y ) - cutoffAngle ) * invSteepness;
-    var sunE = EE * Math.max( 0.0, 1.0 - Math.exp( exponent ) );
-    skyUniforms.constants.value.x = 19000 * sunE;
-
-    var turbidity = skyUniforms.turbidity.value;
-    var mieCoefficient = skyUniforms.mieCoefficient.value;
-
-    var betaR = rayleigh.clone().multiplyScalar( reileighCoefficient );
-    var betaM = mie.clone().multiplyScalar( turbidity * mieCoefficient );
-
-    // betaMnorm & betaRnorm don't really mean anything, just save of shader work
-    var A = new THREE.Vector3( sunE / ( betaR.x + betaM.x ),
-      sunE / ( betaR.y + betaM.y ),
-      sunE / ( betaR.z + betaM.z ) );
-    var betaRnorm = betaR.clone().multiply( A ).multiplyScalar( 0.01492077591487 );
-    var betaMnorm = betaM.clone().multiply( A );
-
-    // Fold in zeniths
-    betaR.multiplyScalar( 8400 );
-    betaM.multiplyScalar( 1250 );
-
-    skyUniforms.betaRM.value.copy( betaR.add( betaM ) );
-    skyUniforms.betaRnorm.value.copy( betaRnorm );
-    skyUniforms.betaMnorm.value.copy( betaMnorm );
-
-    var gamma = 1.0 / ( 1.2 + ( 1.2 * sunFade ) );
-    skyUniforms.gamma.value = gamma;
-
-    var luminance = skyUniforms.luminance.value;
-
-    // Magic 1.7 value to match tonemap of sky to scene
-    var tonemapScale = 1.7 * Math.log( 2.0 / Math.pow( luminance, 4 ) ) / Math.LN2;
-    skyUniforms.tonemapScale.value = tonemapScale;
-  }
-};
-
-skyUniforms.update();
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-var A = 0.15;
-var B = 0.50;
-var C = 0.10;
-var D = 0.20;
-var E = 0.02;
-var F = 0.30;
-
-var RawTonemap = function ( x ) {
-  return ( ( x * ( A * x + C * B ) + D * E ) / ( x * ( A * x + B ) + D * F ) ) - E / F;
-};
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-var tonemapUniforms = {
-  exposureBias: { type: 'f', value: 1 },
-  whitePoint: { type: 'f', value: 11.2 },
-
-  // Calculate the white scale from the white point
-  uTonemapExposureBias: { type: 'f', value: 1 },
-  uTonemapWhiteScale: { type: 'f', value: 1 },
-  update: function () {
-    tonemapUniforms.uTonemapExposureBias.value =
-      tonemapUniforms.exposureBias.value;
-    tonemapUniforms.uTonemapWhiteScale.value =
-      1.0 / RawTonemap( tonemapUniforms.whitePoint.value );
-  }
-};
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// Duplicate calculate to sky shader
-var skyColor = function ( direction ) {
-  var cosZenithAngle = Math.max( 0.0, direction.y );
-  // Approximate acos( x ) by pi/2 - x
-  // This allows us to simplify and error is only large when looking up
-  var denom = cosZenithAngle + Math.pow( 17.6579343808112 + cosZenithAngle * 260.41830500372932, -1.253 );
-
-  // combined extinction factor
-  var betaRM = skyUniforms.betaRM.value.clone();
-  var Fex = betaRM.multiplyScalar( -1 / denom );
-  Fex.x = Math.exp( Fex.x );
-  Fex.y = Math.exp( Fex.y );
-  Fex.z = Math.exp( Fex.z );
-
-  // in scattering
-  var sunDirection = skyUniforms.sunDirection.value.clone();
-  var constants = skyUniforms.constants.value.clone();
-  var cosTheta = direction.dot( sunDirection );
-  var rPhase = cosTheta + 1.0;
-  var betaRTheta = skyUniforms.betaRnorm.value.clone();
-  var betaMTheta = skyUniforms.betaMnorm.value.clone();
-  betaRTheta.multiplyScalar( 4.0 + rPhase * rPhase );
-  betaMTheta.multiplyScalar( Math.pow( constants.y * cosTheta + constants.z, -1.5 ) );
-
-  var tmp = betaRTheta.clone().add( betaMTheta );
-  var Lin = new THREE.Vector3(
-    Math.pow( tmp.x * ( 1.0 - Fex.x ), 1.5 ),
-    Math.pow( tmp.y * ( 1.0 - Fex.y ), 1.5 ),
-    Math.pow( tmp.z * ( 1.0 - Fex.z ), 1.5 )
-  );
-
-  //vec3 Lin = spow( tmp * ( 1.0 - Fex ), vec3( 1.5 ) );
-  Lin.x *= ( 1 - constants.w ) + constants.w * Math.sqrt( tmp.x * Fex.x );
-  Lin.y *= ( 1 - constants.w ) + constants.w * Math.sqrt( tmp.y * Fex.y );
-  Lin.z *= ( 1 - constants.w ) + constants.w * Math.sqrt( tmp.z * Fex.z );
-  //Lin *= mix( vec3( 1.0 ), ssqrt( tmp * Fex ), constants.w );
-
-  // nightsky
-  var L0 = Fex.clone().multiplyScalar( 0.1 );
-
-  //#ifdef SUN_DISK
-  //L0 += constants.x * Fex * smoothstep( 0.9999566769, 0.9999766769, cosTheta );
-  //#endif
-
-  // Combine all components
-  var color = Lin.clone().add( L0 ).multiplyScalar( 0.04 ).add( new THREE.Vector3( 0.0, 0.0003, 0.00075 ) );
-  //0.04 * ( Lin + L0 ) + vec3( 0.0, 0.0003, 0.00075 );
-  var tonemapScale = skyUniforms.tonemapScale.value;
-  color.multiplyScalar( tonemapScale );
-
-  // Precomputed whitescale with W = 1000
-  //color = 1.07487246756328 * Tonemap( tonemapScale * color );
-  var gamma = skyUniforms.gamma.value;
-  var bias = tonemapUniforms.uTonemapExposureBias.value;
-  var whiteScale = tonemapUniforms.uTonemapWhiteScale.value;
-  color.x = Math.pow( bias * RawTonemap( whiteScale * color.x ), gamma );
-  color.y = Math.pow( bias * RawTonemap( whiteScale * color.y ), gamma );
-  color.z = Math.pow( bias * RawTonemap( whiteScale * color.z ), gamma );
-
-  return new THREE.Color( color.x, color.y, color.z );
-};
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-var direction = new THREE.Vector3();
-var lastDirection = new THREE.Vector3();
-var forceUpdate = false;
-
-// Uniforms required where drawing basic fog
-var fogUniforms = {
-  uFogDropoff: { type: 'f', value: 0.0006 },
-  uFogIntensity: { type: 'f', value: 0.1 },
-  uFogColor: { type: 'c', value: new THREE.Color() },
-  update: function ( state ) {
-    forceUpdate = !state;
-    state = state || CameraStore$1.getState();
-
-    // Sky uses different coordinate system
-    direction.copy( state.target ).sub( state.position );
-
-    direction.z = direction.y;
-
-    // Flatten y component to look at horizon
-    direction.y = 0.0;
-    direction.normalize();
-
-    if ( forceUpdate || direction.distanceToSquared( lastDirection ) > 0.01 ) {
-      fogUniforms.uFogColor.value.copy( skyColor( direction ) );
-      lastDirection.copy( direction );
-    }
-  }
-};
-
-CameraStore$1.listen( fogUniforms.update );
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-var PlacesStore = SetterStore( [
-  [ UserActions.setCurrentPlace, {} ]
-] );
-PlacesStore.displayName = 'PlacesStore';
-var PlacesStore$1 = alt.createStore( PlacesStore );
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-var envParams = {};
-
-var distance = 400000; // Sun distance
-envParams.update = function () {
-  // Sky
-  skyUniforms.turbidity.value = envParams.turbidity;
-  skyUniforms.reileigh.value = envParams.reileigh;
-  skyUniforms.luminance.value = envParams.luminance;
-  skyUniforms.mieCoefficient.value = envParams.mieCoefficient;
-  skyUniforms.mieDirectionalG.value = envParams.mieDirectionalG;
-
-  var theta = Math.PI * ( envParams.inclination - 0.5 );
-  var phi = 2 * Math.PI * ( envParams.azimuth - 0.5 );
-
-  skyUniforms.sunPosition.value.set(
-    distance * Math.sin( phi ) * Math.cos( theta ),
-    distance * Math.cos( phi ) * Math.cos( theta ),
-    distance * Math.sin( theta )
-  );
-  skyUniforms.update();
-  fogUniforms.update();
-
-  fogUniforms.uFogDropoff.value = envParams.fogDropoff;
-  fogUniforms.uFogIntensity.value = envParams.fogIntensity;
-
-  tonemapUniforms.exposureBias.value = envParams.exposureBias;
-  tonemapUniforms.whitePoint.value = envParams.whitePoint;
-  tonemapUniforms.update();
-};
-
-envParams.set = function ( params, duration ) {
-  if ( duration === 0 ) {
-    // Skip interpolation
-    Object.assign( envParams, params );
-    envParams.update();
-    setTimeout( function () { RenderActions.needsRender( { env: true } ); } );
-  } else {
-    var oldParams = lodash_min.clone( envParams );
-    var newParams = lodash_min.clone( params );
-    StoreUtils.transition( function ( params ) {
-      Object.assign( envParams, params );
-      envParams.update();
-      setTimeout( function () { RenderActions.needsRender( { env: true } ); } );
-    }, oldParams, newParams, {
-      duration: duration,
-      doNotCancel: true,
-      lerp: StoreUtils.lerp.params,
-      onComplete: function () {
-        RenderActions.needsRender( { env: true } );
-      }
-    } );
-  }
-};
-
-// Sync up to EnvironmentStore
-// TODO, perhaps cleaner to rename this to some sort of Transition class?
-EnvironmentStore$1.listen( function ( state ) {
-  var env = state.environment;
-  envParams.set( env.parameters, env.animationDuration );
-} );
-
-PlacesStore$1.listen( function ( state ) {
-  var place = state.currentPlace;
-  if ( place.env ) { envParams.set( place.env, 0 ); }
-} );
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-var out = {
-  gui: null,
-  onChange: null,
-  initEnv: function () {
-    if ( out.envGui ) { return }
-
-    var guiChanged = function () {
-      envParams.update();
-      RenderActions.needsRender( { env: true } );
-      if ( out.onChange ) { out.onChange(); }
-    };
-
-    var envGui = new dat.GUI();
-    out.envGui = envGui;
-    envGui.remember( envParams );
-
-    var guiSky = envGui.addFolder( 'Sky' );
-    guiSky.add( envParams, 'turbidity', 1.0, 20.0 ).onChange( guiChanged );
-    guiSky.add( envParams, 'reileigh', 0.0, 4 ).onChange( guiChanged );
-    guiSky.add( envParams, 'mieCoefficient', 0.0, 0.1 ).onChange( guiChanged );
-    guiSky.add( envParams, 'mieDirectionalG', 0.0, 1 ).onChange( guiChanged );
-    guiSky.add( envParams, 'luminance', 0.0, 2 ).onChange( guiChanged );
-    guiSky.add( envParams, 'inclination', 0.4, 1 ).onChange( guiChanged );
-    guiSky.add( envParams, 'azimuth', 0, 1 ).onChange( guiChanged );
-
-    var guiFog = envGui.addFolder( 'Fog' );
-    guiFog.add( envParams, 'fogDropoff', 0, 0.0001 ).onChange( guiChanged );
-    guiFog.add( envParams, 'fogIntensity', 0, 2.5 ).onChange( guiChanged );
-
-    var guiScene = envGui.addFolder( 'Scene' );
-    guiScene.add( envParams, 'exposureBias', 0.1, 10 ).onChange( guiChanged );
-    guiScene.add( envParams, 'whitePoint', 0.1, 30 ).onChange( guiChanged );
-  },
-};
-
-// Quick display of GUI
-window.letMePlay = function () {
-  out.initEnv();
-};
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-
-const Procedural$4 = {};
-
-/**
- * @exports Procedural
- * @name Environment
- * @description Environments describe how the scene is rendered,
- * for example the color of the lighting, or the position of the
- * sun.
- *
- * To interactively adjust the values of the environment
- * you can use the editor, launched using:
- * [Procedural.environmentEditor]{@link module:Environment.environmentEditor}
- */
-
-/**
- * @name setEnvironment
- * @memberof module:Environment
- * @function
- * @param {Object} environment
- * @description Update the engine's environment to the environment
- * configuration passed.
- * @example
- * var environment = {
- *   title: 'custom',
- *   parameters: {
- *     inclination: 0.6,
- *     fogDropoff: 0.0002
- *   }
- * };
- * Procedural.setEnvironment( environment )
- */
-Procedural$4.setEnvironment = function ( environment ) {
-  setTimeout( function () { UserActions.setEnvironment( environment ); }, 0 );
-};
-
-/**
- * @name environmentEditor
- * @memberof module:Environment
- * @function
- * @description Launches the environment editor
- */
-Procedural$4.environmentEditor = function () { out.initEnv(); };
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-var queue = [];
-var processNext = function () { queue.shift()(); };
-
-var enqueue = function ( fn ) {
-  if ( typeof fn !== 'function' ) {
-    console.error( 'Tried to enqueue non-function' );
-    return;
-  }
-
-  queue.push( fn );
-  setTimeout( processNext, 0 );
-};
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-var FeatureUtils = {
-  // TODO perhaps better to inline these, as we're parsing a lot of data???
-  isLineString: function ( feature ) {
-    return feature.geometry.type === 'LineString';
-  },
-  isPolygon: function ( feature ) {
-    return feature.geometry.type === 'Polygon';
-  },
-  isMultiPolygon: function ( feature ) {
-    return feature.geometry.type === 'MultiPolygon';
-  },
-  isPoint: function ( feature ) {
-    return feature.geometry.type === 'Point';
-  },
-  tagValue: function ( feature, tag ) {
-    if ( !feature.properties.tags ) { return null }
-
-    return feature.properties.tags[ tag ];
-  },
-  hasTag: function ( feature, tag ) {
-    return !!FeatureUtils.tagValue( feature, tag );
-  },
-  isPiste: function ( feature ) {
-    return FeatureUtils.isLineString( feature ) && FeatureUtils.hasTag( feature, 'piste:type' );
-  },
-  isAerial: function ( feature ) {
-    return FeatureUtils.isLineString( feature ) && FeatureUtils.hasTag( feature, 'aerialway' );
-  },
-  isHighway: function ( feature ) {
-    return FeatureUtils.isLineString( feature ) && FeatureUtils.hasTag( feature, 'highway' );
-  },
-  isTrack: function ( feature ) {
-    if ( !FeatureUtils.isLineString( feature ) ) { return false }
-
-    var highway = FeatureUtils.tagValue( feature, 'highway' );
-    return ( highway === 'track' ||
-               highway === 'footway' ||
-               highway === 'path' ||
-               highway === 'cycleway' ||
-               highway === 'bridleway' );
-  },
-  isRiver: function ( feature ) {
-    return FeatureUtils.isLineString( feature ) && FeatureUtils.hasTag( feature, 'waterway' );
-  },
-  isBuilding: function ( feature ) {
-    return FeatureUtils.isPolygon( feature ) && FeatureUtils.hasTag( feature, 'building' );
-  },
-  isForest: function ( feature ) {
-    return ( FeatureUtils.isPolygon( feature ) || FeatureUtils.isMultiPolygon( feature ) ) &&
-        !FeatureUtils.isBuilding( feature );
-  },
-  color: function ( feature ) {
-    var difficulty = !!feature.properties.tags && feature.properties.tags[ 'piste:difficulty' ];
-    if ( difficulty ) {
-      if ( difficulty === 'advanced' || difficulty === 'expert' || difficulty === 'freeride' ) { return '#030512' }
-
-      if ( difficulty === 'intermediate' ) { return '#ef2415' }
-
-      if ( difficulty === 'easy' ) { return '#1976d2' }
-
-      if ( difficulty === 'novice' ) { return '#4caf50' }
-
-      log$1( 'Unknown piste difficulty', difficulty );
-      return '#17afef';
-    }
-
-    if ( FeatureUtils.isAerial( feature ) ) { return '#0c0c0c' }
-
-    if ( FeatureUtils.isTrack( feature ) ) { return 'rgba(46, 42, 22, 0.5)' }
-
-    if ( FeatureUtils.isHighway( feature ) ) { return '#222120' }
-
-    if ( feature.properties.color ) { return feature.properties.color }
-
-    if ( FeatureUtils.isRiver( feature ) ) {
-      // Hack this in to allow memoize to work
-      return feature.properties.tags.waterway === 'stream' ? 5 : 100;
-    }
-
-    log$1( 'Unknown feature color', feature );
-  },
-  thickness: function ( feature ) {
-    if ( feature.properties.thickness ) { return feature.properties.thickness }
-
-    if ( FeatureUtils.isPiste( feature ) ) { return 2.7 }
-
-    if ( FeatureUtils.isAerial( feature ) ) { return 3.0 }
-
-    if ( FeatureUtils.isTrack( feature ) ) { return 3 }
-
-    if ( FeatureUtils.isHighway( feature ) ) {
-      var highway = FeatureUtils.tagValue( feature, 'highway' );
-      if ( highway === 'motorway' ) { return 13 }
-
-      if ( highway === 'trunk' ) { return 11 }
-
-      if ( highway === 'primary' ) { return 10 }
-
-      if ( highway === 'secondary' ) { return 8 }
-
-      return 5;
-    }
-
-    if ( FeatureUtils.isRiver( feature ) ) {
-      if ( feature.properties.tags.width ) { return feature.properties.tags.width }
-
-      return feature.properties.tags.waterway === 'stream' ? 2 : 3.7;
-    }
-
-    return 2.5;
-  }
-};
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-
-// Have other stores depend on this to get subsets of
-// OSM data
-function OSMAdapter() {
-  this.bindListeners( {
-    clearFeatures: UserActions.setCurrentPlace,
-    setFeatures: GeodataActions.setFeatures
-  } );
-
-  this.clearFeatures();
-}
-
-OSMAdapter.prototype.clearFeatures = function () {
-  this.buildings = [];
-  this.forests = [];
-  this.highways = [];
-  this.lifts = [];
-  this.peaks = [];
-  this.places = [];
-  this.pistes = [];
-  this.lakes = [];
-  this.rivers = [];
-  this.unknown = [];
-  return false;
-};
-
-// Return collection to place feature into
-OSMAdapter.prototype.classify = function ( feature ) {
-  if ( FeatureUtils.isLineString( feature ) ) {
-    // Give top priority to pistes, so we don't classify as roads
-    if ( FeatureUtils.hasTag( feature, 'piste:type' ) ) { return this.pistes }
-
-    if ( FeatureUtils.hasTag( feature, 'highway' ) ) { return this.highways }
-
-    if ( FeatureUtils.hasTag( feature, 'waterway' ) ) { return this.rivers }
-
-    if ( FeatureUtils.hasTag( feature, 'aerialway' ) ) {
-      return this.lifts;
-    }
-
-    // Assume this is a piste (or generic trail)
-    // TODO, create another type?
-    //if ( FeatureUtils.hasTag( feature, 'piste:type' ) ) {
-    return this.pistes;
-    //}
-  } else if ( FeatureUtils.isPolygon( feature ) ) {
-    if ( FeatureUtils.hasTag( feature, 'building' ) ) { return this.buildings }
-
-    var natural = FeatureUtils.tagValue( feature, 'natural' );
-    if ( natural === 'water' ) { return this.lakes }
-
-    // For now, treat river areas as lakes, as we don't have flow
-    // working yet
-    var waterway = FeatureUtils.tagValue( feature, 'waterway' );
-    if ( waterway === 'riverbank' ) { return this.lakes }
-
-    return this.forests;
-  } else if ( FeatureUtils.isMultiPolygon( feature ) ) {
-    return this.forests;
-  } else if ( FeatureUtils.isPoint( feature ) ) {
-    var tags = feature.properties.tags;
-    if ( tags.natural === 'peak' && tags.name ) {
-      return this.peaks;
-    } else if ( tags.place ) {
-      return this.places;
-    } else {
-      return this.unknown;
-    }
-  }
-
-  return this.unknown;
-};
-
-
-// Convert OSM data into something matching our API
-// TODO should eventually deprecate and generate the
-// data better, this is all pretty messy
-OSMAdapter.prototype.normalize = function ( feature ) {
-  if ( feature.properties.tags === undefined ) { return }
-
-  var props = feature.properties;
-  var tags = props.tags;
-  delete props.tags;
-
-  // Promote name to real property
-  if ( tags.name ) { props.name = tags.name; }
-
-  // Figure out type and add icon
-  if ( tags.natural === 'peak' ) {
-    props.icon = 'caret-up';
-    props.fadeDistance = 10000;
-    if ( tags.ele && props.name ) {
-      props.name += ' - ' + tags.ele + 'm';
-    }
-  } else if ( tags.place ) {
-    props.icon = 'dot-circle-o';
-    props.fadeDistance = 15000;
-  }
-
-  // TODO mark builtin features
-  // TODO extract to default
-  props.collapseDistance = 0.5 * props.fadeDistance;
-  props.priority = -10;
-  props.borderRadius = 20;
-  props.background = 'rgba(0, 0, 0, 0.6)';
-  props.color = '#fff';
-  props.clipping = 'object';
-  props.anchor = 'left';
-
-  props.padding = 2;
-};
-
-OSMAdapter.prototype.setFeatures = function ( data ) {
-  // Is data already projected?
-  var projected = !!data.crs;
-
-  // Classify features, for now without duplication
-  var feature, collection;
-  var startTime = track$1.now();
-  while ( data.features.length > 0 ) {
-    feature = data.features.pop();
-    // Remove 3035 projection
-    if ( projected ) {
-      feature.geometry.coordinates =
-        geoproject.unproject3035( feature.geometry.coordinates );
-    }
-
-    if ( feature.projected === undefined ) {
-      feature.projected = false;
-    }
-
-    collection = this.classify( feature );
-    collection.push( feature );
-  }
-
-  this.peaks.forEach( this.normalize.bind( this ) );
-  this.places.forEach( this.normalize.bind( this ) );
-  var time = track$1.now() - startTime;
-  track$1.timing( 'geodata', 'classify', 'osm', time );
-};
-
-OSMAdapter.displayName = 'OSMAdapter';
-
-var OSMAdapter$1 = alt.createStore( OSMAdapter );
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-var DEFAULT = '____default____';
-// Have other stores depend on this to get subsets of
-// overlay data
-function OverlayAdapter() {
-  this.bindListeners( {
-    addBuiltinOverlay: GeodataActions.addBuiltinOverlay,
-    addOverlay: GeodataActions.addOverlay,
-    updateOverlay: GeodataActions.updateOverlay,
-    featureCreated: RenderActions.featureCreated,
-    removeOverlay: GeodataActions.removeOverlay,
-    setFeatures: GeodataActions.setFeatures
-  } );
-
-  // Hash to keep track of overlays added
-  this.overlays = {};
-
-  // Hash to keep track of when overlays are displayed
-  this.overlayTracker = {};
-
-  // Builtin overlays are not specified by the user,
-  // but rather extracted from the OSM data
-  this.builtinOverlays = [];
-  this.supportedBuiltinOverlays = [ 'lifts', 'peaks', 'pistes', 'places' ];
-
-  // Overlays which which don't want to generate new data
-  // for, just mark whether to show them
-  this.referenceOnlyBuiltinOverlays = [ 'lifts', 'pistes' ];
-
-  // Collections to sort elements into
-  this.lines = [];
-  this.markers = [];
-}
-
-// Return collection to place feature into
-OverlayAdapter.prototype.classify = function ( feature ) {
-  if ( FeatureUtils.isLineString( feature ) ) {
-    return this.lines;
-  } else if ( FeatureUtils.isPoint( feature ) ) {
-    return this.markers;
-  }
-
-  return null;
-};
-
-OverlayAdapter.prototype.removeFeature = function ( feature ) {
-  var collection = this.classify( feature );
-  if ( collection === null ) { return }
-
-  var index = collection.indexOf( feature );
-  if ( index !== -1 ) { collection.splice( index, 1 ); }
-};
-
-OverlayAdapter.prototype.addOverlay = function ( data ) {
-  var builtin = this.builtinOverlays.indexOf( data.name ) !== -1;
-  this.removeOverlay( data.name );
-
-  // removeOverlay clears out the overlay from the builtinOverlays
-  // list, which we do not want, so add it back
-  // TODO doesn't work as we modify order of array!!!!
-  if ( builtin ) { this.builtinOverlays.unshift( data.name ); }
-
-  if ( data.name === undefined ) { data.name = DEFAULT; }
-
-  // Cache away overlay so we can later remove it
-  this.overlays[ data.name ] = data;
-
-  // Make a copy of the array, to avoid modifying original
-  var features = data.features.concat();
-
-  // Classify features, for now without duplication
-  var feature;
-  var startTime = track$1.now();
-
-  while ( features.length > 0 ) {
-    feature = features.pop();
-
-    // Copy across default properties
-    if ( data.defaults && data.defaults.properties ) {
-      lodash_min.defaults( feature.properties, data.defaults.properties );
-    }
-
-    if ( feature.projected === undefined ) {
-      feature.projected = false;
-    }
-
-    var collection = this.classify( feature );
-    if ( collection ) {
-      collection.push( feature );
-      feature.overlayName = data.name;
-      this.featureClassified( feature );
-    }
-  }
-
-  var time = track$1.now() - startTime;
-  track$1.timing( 'geodata', 'classify', 'overlay', time );
-};
-
-OverlayAdapter.prototype.updateOverlay = function ( data ) {
-  var exists = this.overlays[ data.name ] !== undefined;
-  if ( !exists ) {
-    console.error( name + ' overlay has not been added, so cannot be updated' );
-    return false;
-  }
-
-  var newFeatures = data.features, oldFeatures = this.overlays[ data.name ].features;
-  var newL = newFeatures.length, oldL = oldFeatures.length;
-  if ( newL !== oldL ) {
-    console.error( 'Tried to call updateOverlay on overlay ' + data.name + ', but number of features does not match. Original: ' + oldL + ', new: ' + newL );
-    return false;
-  }
-
-  // Is data already projected?
-  // Note we do not support multiple different projections
-  // or projections with different centers
-  var projected = !!data.crs;
-
-  var oldFeature, newFeature;
-  for ( var n = 0; n < newL; n++ ) {
-    var oldFeature = oldFeatures[ n ];
-    var newFeature = newFeatures[ n ];
-    // TODO should we check ids match?
-    oldFeature.projected = newFeature.projected === undefined ? projected : newFeature.projected;
-    oldFeature.geometry.coordinates = newFeature.geometry.coordinates;
-  }
-};
-
-OverlayAdapter.prototype.addBuiltinOverlay = function ( overlay ) {
-  // Support single and array parameters
-  if ( !Array.isArray( overlay ) ) {
-    overlay = [ overlay ];
-  }
-
-  for ( var n = 0, nl = overlay.length; n < nl; n++ ) {
-    var name = overlay[ n ];
-    var index = this.supportedBuiltinOverlays.indexOf( name );
-    if ( index === -1 ) {
-      console.error( name + ' is not a supported built-in overlay' );
-      return false;
-    }
-
-    // Just mark that we want to use this overlay and rely
-    // on updateBuiltinOverlays to populate data
-    index = this.builtinOverlays.indexOf( name );
-    if ( index === -1 ) { this.builtinOverlays.push( name ); }
-  }
-
-  return this.updateBuiltinOverlays();
-};
-
-OverlayAdapter.prototype.updateBuiltinOverlays = function () {
-  this.waitFor( OSMAdapter$1 );
-  var osm = OSMAdapter$1.getState();
-  for ( var o = 0, ol = this.builtinOverlays.length; o < ol; o++ ) {
-    var name = this.builtinOverlays[ o ];
-    if ( this.referenceOnlyBuiltinOverlays.indexOf( name ) !== -1 ) {
-      continue;
-    }
-
-    this.addOverlay( {
-      name: name,
-      type: 'FeatureCollection',
-      features: osm[ name ]
-    } );
-  }
-};
-
-OverlayAdapter.prototype.setFeatures = function () {
-  return this.updateBuiltinOverlays();
-};
-
-OverlayAdapter.prototype.removeOverlay = function ( toRemove ) {
-  if ( toRemove === undefined ) { toRemove = [ DEFAULT ]; }
-
-  if ( !Array.isArray( toRemove ) ) { toRemove = [ toRemove ]; }
-
-  for ( var n = 0, nl = toRemove.length; n < nl; n++ ) {
-    var name = toRemove[ n ];
-    var index = this.builtinOverlays.indexOf( name );
-    if ( index !== -1 ) {
-      this.builtinOverlays.splice( index, 1 );
-    }
-
-    if ( this.overlays[ name ] === undefined ) { continue }
-
-    var overlay = this.overlays[ name ];
-    for ( var f = 0, fl = overlay.features.length; f < fl; f++ ) {
-      this.removeFeature( overlay.features[ f ] );
-    }
-
-    delete this.overlays[ name ];
-  }
-};
-
-OverlayAdapter.prototype.featureClassified = function ( feature ) {
-  if ( this.overlayTracker[ feature.overlayName ] === undefined ) {
-    this.overlayTracker[ feature.overlayName ] = 1;
-  } else {
-    this.overlayTracker[ feature.overlayName ] += 1;
-  }
-};
-
-OverlayAdapter.prototype.featureCreated = function ( feature ) {
-  if ( this.overlayTracker[ feature.overlayName ] === undefined ) {
-    return false;
-  } else {
-    this.overlayTracker[ feature.overlayName ] -= 1;
-  }
-
-  if ( this.overlayTracker[ feature.overlayName ] === 0 ) {
-    var overlayName = feature.overlayName;
-    delete this.overlayTracker[ feature.overlayName ];
-    enqueue( function () {
-      RenderActions.overlayDisplayed( overlayName );
-    } );
-  }
-
-  delete feature.overlayName;
-};
-
-OverlayAdapter.displayName = 'OverlayAdapter';
-
-var OverlayAdapter$1 = alt.createStore( OverlayAdapter );
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-
-// Uniforms for shaders that lookup height
-const heightUniforms = {
-  elevationArray: { value: ElevationDatasource.textureArray },
-  indirectionTexture: { value: ElevationDatasource.indirectionTexture },
-  uGlobalOffset: { type: 'v2', value: new THREE.Vector2() },
-  uSceneScale: { type: 'f', value: 1 }
-};
-
-GeoprojectStore$1.listen( ( { globalOffset, sceneScale } ) => {
-  heightUniforms.uGlobalOffset.value.copy( globalOffset );
-  heightUniforms.uSceneScale.value = sceneScale;
-} );
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-const Shader = function ( value ) {
-  this.value = value;
-};
-
-Shader.prototype.define = function ( define, value ) {
-  var regexp = new RegExp( "#define " + define + " .*", "g" );
-  var newDefine = "#define " + define + ( value ? " " + value : "" );
-  if ( this.value.match( regexp ) ) {
-    // #define already exists, update its value
-    this.value = this.value.replace( regexp, newDefine );
-  } else {
-    // New #define, prepend to start of file
-    this.value = newDefine + "\n" + this.value;
-  }
-};
-
-Shader.prototype.clone = function () {
-  return new Shader( this.value );
-};
-
-var beaconVertex = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-uniform mat4 modelMatrix;
-uniform mat4 viewMatrix;
-uniform mat4 projectionMatrix;
-uniform vec3 cameraPosition;
-
-attribute vec3 position;
-attribute vec3 normal;
-
-uniform float uAccuracy;
-
-varying vec3 vPosition;
-varying vec3 vCenter; // Center of beacon
-varying float vRingRadius; // Radius to draw inner ring at
-
-// Radius of beacon geometry, as defined in JS
-#define BEACON_RADIUS 50.0
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-float saturate( float t ) { return clamp( t, 0.0, 1.0 ); }
-vec2 saturate( vec2 t ) { return clamp( t, 0.0, 1.0 ); }
-vec3 saturate( vec3 t ) { return clamp( t, 0.0, 1.0 ); }
-vec4 saturate( vec4 t ) { return clamp( t, 0.0, 1.0 ); }
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// TODO set these from JS
-#define VIRTUAL_TEXTURE_ARRAY_BLOCKS 4.0
-#define VIRTUAL_TEXTURE_ARRAY_SIZE 512.0
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// On iOS standard texture linear filtering has
-// artifacts, so use this manual replacement.
-// It also doesn't work for FLOAT textures
-#define TEX_SIZE (VIRTUAL_TEXTURE_ARRAY_SIZE * VIRTUAL_TEXTURE_ARRAY_BLOCKS)
-const vec2 texelSize = vec2( 1.0 / TEX_SIZE, 0.0 );
-vec4 texture2D_bilinear( const in sampler2D t, in vec2 uv )
-{
-  // Calculate pixels to sample and interpolating factor
-  uv -= 0.5 * texelSize.xx;
-  vec2 f = fract( uv * TEX_SIZE );
-  // Snap to corner of texel and then move to center
-  vec2 uvSnapped = uv - texelSize.xx * f + 0.5 * texelSize.xx;
-
-  #ifdef HEIGHT_LOOKUP_BIAS
-  // As we are sampling snapped pixels need to override
-  // the mip-map selection by selecting a large negative
-  // bias. Otherwise at boundaries the gradient of
-  // uvSnapped is large and an incorrect mip-level is used
-  // leading to artifacts
-  vec4 tl = texture2D(t, uvSnapped, -10.0);
-  vec4 tr = texture2D(t, uvSnapped + texelSize, -10.0 );
-  vec4 bl = texture2D(t, uvSnapped + texelSize.yx, -10.0 );
-  vec4 br = texture2D(t, uvSnapped + texelSize.xx, -10.0 );
-  #else
-  vec4 tl = texture2D(t, uvSnapped);
-  vec4 tr = texture2D(t, uvSnapped + texelSize);
-  vec4 bl = texture2D(t, uvSnapped + texelSize.yx);
-  vec4 br = texture2D(t, uvSnapped + texelSize.xx);
-  #endif
-  vec4 tA = mix( tl, tr, f.x );
-  vec4 tB = mix( bl, br, f.x );
-  return mix( tA, tB, f.y );
-}
-
-// Virtual texture array lookup (WebGL1 fallback)
-vec4 readTex( in sampler2D tex, in vec2 uv, in float index ) {
-  // Convert index into spatial offset
-  vec2 offset = vec2(
-    mod( float( index ), VIRTUAL_TEXTURE_ARRAY_BLOCKS ),
-    floor( float( index ) / VIRTUAL_TEXTURE_ARRAY_BLOCKS )
-  );
-
-  // Don't bleed across to next texture
-  const float padding = 0.5;
-  vec2 limits = vec2( padding, VIRTUAL_TEXTURE_ARRAY_SIZE - padding ) / VIRTUAL_TEXTURE_ARRAY_SIZE; 
-
-  // Calculate uv for lookup
-  vec2 scaledUv = ( clamp( uv, limits.x, limits.y ) + offset ) / VIRTUAL_TEXTURE_ARRAY_BLOCKS;
-  #ifdef MANUAL_TEXTURE_BILINEAR
-  return texture2D_bilinear( tex, scaledUv );
-  #else
-  return texture2D( tex, scaledUv );
-  #endif
-}
-
-
-uniform lowp sampler2D indirectionTexture;
-uniform vec2 uGlobalOffset;
-uniform float uSceneScale;
-
-// Function to scale height such that one unit in the
-// horizontal plane is equal to one vertical unit
-// Basically comes down to the Mercator projection
-// Math.pow(2, 15) / 40075016.686
-const float earthScale = 0.0008176665341588574;
-float heightScale ( in float y ) {
-  // PI - 2 * PI * y / pow( 2, 10 ) [ z is fixed to 10 ]
-  float n = 3.141592653589793 - 0.006135923151542565 * y;
-  // cosh( n ) / ( earthScale * uSceneScale)
-  float cosh_n = dot( vec2( 0.5 ), exp( vec2( n, -n ) ) );
-  return cosh_n / ( earthScale * uSceneScale );
-}
-
-// TODO should this be highp? Seems OK on iOS
-// From: https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices
-//     If you have a float texture, iOS requires that you use highp sampler2D foo;
-//     or it will very painfully give you lowp texture samples!
-//     (+/-2.0 max is probably not good enough for you)
-// +/-2 seems OK, but should revisit if artifacts present
-uniform lowp sampler2D elevationArray;
-float getHeight( in vec2 p ) {
-  // Get tile coord (at z = 10), currently we are at z = 15
-  const float zoomScale = 32.0; // pow( 2, 15 - 10 )
-  const float indirectionSize = 1024.0;
-  vec2 tile = p.xy - uGlobalOffset;
-  tile /= ( uSceneScale * zoomScale );
-  tile *= vec2( 1.0, -1.0 );
-
-  // Unsnapped uv will be used below for secondary lookup
-  vec2 indirectionUv = tile / indirectionSize;
-
-  // Snap as on Windows/ANGLE Nearest filtering is not respected
-  const vec2 halfTexel = vec2( 0.5 );
-  vec2 snapped = ( floor( tile - halfTexel ) + halfTexel );
-  snapped += step( halfTexel, tile - snapped );
-  vec2 indirectionUvRounded = snapped / indirectionSize;
-
-  vec4 indirection = texture2D( indirectionTexture, indirectionUvRounded );
-
-  // Update index from indirection
-  float index = indirection.r;
-  float tileSize = indirection.g;
-  vec2 tileOrigin = indirection.ba;
-
-  // We know index of texture to do lookup in, but now
-  // we need to know the uv coordinates within the tile
-  // For this we need to know what the tile origin and size are
-  // At first glance it might seem possible to derive the tile origin
-  // mathematically from the indirectionUv (using \`fract\`), but the issue
-  // then is numerical precision. On some GPUs the lack of precision
-  // means that the data we read from the indirection texture doesn't
-  // align with that derived in the shader. It is more reliable to
-  // store the entire transformation from the indirectionUv to
-  // scaledUv in the texture, that way it will be no spurious errors
-  vec2 scaledUv = indirectionUv * tileSize + tileOrigin;
-
-  // Finally read out height, and unpack to single float
-  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;
-}
-
-
-void main() {
-  vCenter = position - BEACON_RADIUS * normal;
-  vec4 c4 = modelMatrix * vec4( vCenter, 1.0 );
-  vec3 worldCenter = c4.xyz / c4.w;
-  vCenter = worldCenter;
-
-  // Get distance to camera, and scale so that all beacon has constant screen size
-  float D = abs( ( viewMatrix * vec4( worldCenter, 1.0 ) ).z );
-  vRingRadius = 25.0 * clamp( D / 1000.0, 0.01, 10.0 ); // Cap size at so don't get artifacts when zooming
-
-  // Now have the minimum visible radius for beacon, adjust if smaller than accuracy
-  float radius = max( vRingRadius, uAccuracy );
-
-  vPosition = vCenter + radius * normal;
-
-  // Correct height
-  float height = getHeight( vPosition.xy );
-
-  // Place at correct height (flattening sphere in process)
-  float delta = height - vPosition.z + D / 1000.0 - 0.3 * radius; // Lift up at large distance so terrain doesn't swallow us & sink into ground
-  vPosition.z = height;
-
-
-  // To ensure beacon appears on top of forests & pistes, move towards camera
-  vec3 view = cameraPosition - vPosition;
-  float d = length( view );
-  view = normalize( view );
-  // Do not apply if too close, as it screws up geometry too much
-  float scale = 230.0 * smoothstep( 50.0, 250.0, d );
-
-  gl_Position = projectionMatrix * viewMatrix * vec4( vPosition + scale * view, 1.0 );
-}
-`);
-
-var beaconFragment = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-precision highp float;
-
-uniform float uTime;
-
-varying vec3 vPosition;
-varying vec3 vCenter;
-varying float vRingRadius;
-
-const vec4 white = vec4( 1.0, 1.0, 1.0, 0.9 );
-
-void main() {
-  float fractionalR = distance( vPosition.xy, vCenter.xy ) / vRingRadius;
-  vec3 baseColor = mix( vec3( 0.0, 0.0, 1.0 ), vec3( 0.0, 0.5, 1.0 ), 0.2 * fractionalR );
-  vec4 color = vec4( baseColor * sin( uTime ), 0.5 );
-  
-  // White ring
-  color = mix( color, white, smoothstep( 0.75, 0.8, fractionalR ) );
-  color = mix( color, vec4( baseColor.rgb, 0.15 ), smoothstep( 1.0, 1.05, fractionalR ) );
-
-  // Gamma
-  color.rgb = pow( abs( color.rgb ), vec3( 0.4545 ) );
-
-  gl_FragColor = color;
-}
-`);
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- *
- * This file incorporates work covered by the following copyright and
- * permission notice:
- *
- *   The MIT License
- *
- *   Copyright © 2010-2020 three.js authors
- *
- *   Permission is hereby granted, free of charge, to any person obtaining a copy
- *   of this software and associated documentation files (the "Software"), to deal
- *   in the Software without restriction, including without limitation the rights
- *   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- *   copies of the Software, and to permit persons to whom the Software is
- *   furnished to do so, subject to the following conditions:
- *
- *   The above copyright notice and this permission notice shall be included in
- *   all copies or substantial portions of the Software.
- *
- *   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- *   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- *   THE SOFTWARE.
- */
-
-function Color$1( r, g, b, a ) {
-  if ( g === undefined && b === undefined ) {
-    // r is THREE.Color, hex or string
-    return this.set( r );
-  }
-
-  if ( a === undefined ) { a = 1; }
-
-  return this.setRGB( r, g, b, a );
-}
-
-Object.assign( Color$1.prototype, {
-
-  isColor: true,
-
-  r: 1, g: 1, b: 1, a: 1,
-
-  set: function ( value ) {
-    if ( value && value.isColor ) {
-      this.copy( value );
-    } else if ( typeof value === 'number' ) {
-      this.setHex( value );
-    } else if ( typeof value === 'string' ) {
-      this.setStyle( value );
-    }
-
-    return this;
-  },
-
-  setScalar: function ( scalar ) {
-    this.r = scalar;
-    this.g = scalar;
-    this.b = scalar;
-
-    return this;
-  },
-
-  setHex: function ( hex ) {
-    hex = Math.floor( hex );
-
-    this.r = ( hex >> 16 & 255 ) / 255;
-    this.g = ( hex >> 8 & 255 ) / 255;
-    this.b = ( hex & 255 ) / 255;
-
-    return this;
-  },
-
-  setRGB: function ( r, g, b, a ) {
-    this.r = r;
-    this.g = g;
-    this.b = b;
-    this.a = a;
-
-    return this;
-  },
-
-
-  setStyle: function ( style ) {
-    function handleAlpha( string ) {
-      if ( string === undefined ) return 1;
-      return parseFloat( string );
-    }
-
-
-    var m;
-
-    if ( m = /^((?:rgb)a?)\(\s*([^\)]*)\)/.exec( style ) ) {
-      // rgb / hsl
-
-      var color;
-      var name = m[ 1 ];
-      var components = m[ 2 ];
-
-      switch ( name ) {
-      case 'rgb':
-      case 'rgba':
-
-        if ( color = /^(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(,\s*([0-9]*\.?[0-9]+)\s*)?$/.exec( components ) ) {
-          // rgb(255,0,0) rgba(255,0,0,0.5)
-          this.r = Math.min( 255, parseInt( color[ 1 ], 10 ) ) / 255;
-          this.g = Math.min( 255, parseInt( color[ 2 ], 10 ) ) / 255;
-          this.b = Math.min( 255, parseInt( color[ 3 ], 10 ) ) / 255;
-
-          this.a = handleAlpha( color[ 5 ] );
-
-          return this;
-        }
-
-        if ( color = /^(\d+)\%\s*,\s*(\d+)\%\s*,\s*(\d+)\%\s*(,\s*([0-9]*\.?[0-9]+)\s*)?$/.exec( components ) ) {
-          // rgb(100%,0%,0%) rgba(100%,0%,0%,0.5)
-          this.r = Math.min( 100, parseInt( color[ 1 ], 10 ) ) / 100;
-          this.g = Math.min( 100, parseInt( color[ 2 ], 10 ) ) / 100;
-          this.b = Math.min( 100, parseInt( color[ 3 ], 10 ) ) / 100;
-
-          this.a = handleAlpha( color[ 5 ] );
-
-          return this;
-        }
-
-        break;
-      }
-    } else if ( m = /^\#([A-Fa-f0-9]+)$/.exec( style ) ) {
-      // hex color
-
-      var hex = m[ 1 ];
-      var size = hex.length;
-
-      if ( size === 3 ) {
-        // #ff0
-        this.r = parseInt( hex.charAt( 0 ) + hex.charAt( 0 ), 16 ) / 255;
-        this.g = parseInt( hex.charAt( 1 ) + hex.charAt( 1 ), 16 ) / 255;
-        this.b = parseInt( hex.charAt( 2 ) + hex.charAt( 2 ), 16 ) / 255;
-
-        return this;
-      } else if ( size === 6 ) {
-        // #ff0000
-        this.r = parseInt( hex.charAt( 0 ) + hex.charAt( 1 ), 16 ) / 255;
-        this.g = parseInt( hex.charAt( 2 ) + hex.charAt( 3 ), 16 ) / 255;
-        this.b = parseInt( hex.charAt( 4 ) + hex.charAt( 5 ), 16 ) / 255;
-
-        return this;
-      }
-    }
-
-    if ( style && style.length > 0 ) {
-      // color keywords
-      var hex = THREE.Color.NAMES[ style ];
-
-      if ( hex !== undefined ) {
-        // red
-        this.setHex( hex );
-      } else {
-        // unknown color
-        console.warn( 'THREE.Color: Unknown color ' + style );
-      }
-    }
-
-    return this;
-  },
-
-  clone: function () {
-    return new this.constructor( this.r, this.g, this.b, this.a );
-  },
-
-  copy: function ( color ) {
-    this.r = color.r;
-    this.g = color.g;
-    this.b = color.b;
-    this.a = color.a;
-
-    return this;
-  },
-
-  copyGammaToLinear: function ( color, gammaFactor ) {
-    if ( gammaFactor === undefined ) gammaFactor = 2.0;
-
-    this.r = Math.pow( color.r, gammaFactor );
-    this.g = Math.pow( color.g, gammaFactor );
-    this.b = Math.pow( color.b, gammaFactor );
-
-    return this;
-  },
-
-  copyLinearToGamma: function ( color, gammaFactor ) {
-    if ( gammaFactor === undefined ) gammaFactor = 2.0;
-
-    var safeInverse = ( gammaFactor > 0 ) ? ( 1.0 / gammaFactor ) : 1.0;
-
-    this.r = Math.pow( color.r, safeInverse );
-    this.g = Math.pow( color.g, safeInverse );
-    this.b = Math.pow( color.b, safeInverse );
-
-    return this;
-  },
-
-  convertGammaToLinear: function () {
-    var r = this.r, g = this.g, b = this.b;
-
-    this.r = r * r;
-    this.g = g * g;
-    this.b = b * b;
-
-    return this;
-  },
-
-  convertLinearToGamma: function () {
-    this.r = Math.sqrt( this.r );
-    this.g = Math.sqrt( this.g );
-    this.b = Math.sqrt( this.b );
-
-    return this;
-  },
-
-  getHex: function () {
-    return ( this.r * 255 ) << 16 ^ ( this.g * 255 ) << 8 ^ ( this.b * 255 ) << 0;
-  },
-
-  getHexString: function () {
-    return ( '000000' + this.getHex().toString( 16 ) ).slice( -6 );
-  },
-
-  getHSL: function ( optionalTarget ) {
-    // h,s,l ranges are in 0.0 - 1.0
-
-    var hsl = optionalTarget || { h: 0, s: 0, l: 0 };
-
-    var r = this.r, g = this.g, b = this.b;
-
-    var max = Math.max( r, g, b );
-    var min = Math.min( r, g, b );
-
-    var hue, saturation;
-    var lightness = ( min + max ) / 2.0;
-
-    if ( min === max ) {
-      hue = 0;
-      saturation = 0;
-    } else {
-      var delta = max - min;
-
-      saturation = lightness <= 0.5 ? delta / ( max + min ) : delta / ( 2 - max - min );
-
-      switch ( max ) {
-      case r: hue = ( g - b ) / delta + ( g < b ? 6 : 0 ); break;
-      case g: hue = ( b - r ) / delta + 2; break;
-      case b: hue = ( r - g ) / delta + 4; break;
-      }
-
-      hue /= 6;
-    }
-
-    hsl.h = hue;
-    hsl.s = saturation;
-    hsl.l = lightness;
-
-    return hsl;
-  },
-
-  getStyle: function () {
-    return 'rgb(' + ( ( this.r * 255 ) | 0 ) + ',' + ( ( this.g * 255 ) | 0 ) + ',' + ( ( this.b * 255 ) | 0 ) + ')';
-  },
-
-  offsetHSL: function ( h, s, l ) {
-    var hsl = this.getHSL();
-
-    hsl.h += h; hsl.s += s; hsl.l += l;
-
-    this.setHSL( hsl.h, hsl.s, hsl.l );
-
-    return this;
-  },
-
-  add: function ( color ) {
-    this.r += color.r;
-    this.g += color.g;
-    this.b += color.b;
-
-    return this;
-  },
-
-  addColors: function ( color1, color2 ) {
-    this.r = color1.r + color2.r;
-    this.g = color1.g + color2.g;
-    this.b = color1.b + color2.b;
-
-    return this;
-  },
-
-  addScalar: function ( s ) {
-    this.r += s;
-    this.g += s;
-    this.b += s;
-
-    return this;
-  },
-
-  sub: function ( color ) {
-    this.r = Math.max( 0, this.r - color.r );
-    this.g = Math.max( 0, this.g - color.g );
-    this.b = Math.max( 0, this.b - color.b );
-
-    return this;
-  },
-
-  multiply: function ( color ) {
-    this.r *= color.r;
-    this.g *= color.g;
-    this.b *= color.b;
-
-    return this;
-  },
-
-  multiplyScalar: function ( s ) {
-    this.r *= s;
-    this.g *= s;
-    this.b *= s;
-
-    return this;
-  },
-
-  lerp: function ( color, alpha ) {
-    this.r += ( color.r - this.r ) * alpha;
-    this.g += ( color.g - this.g ) * alpha;
-    this.b += ( color.b - this.b ) * alpha;
-    this.a += ( color.a - this.a ) * alpha;
-
-    return this;
-  },
-
-  equals: function ( c ) {
-    return ( c.r === this.r ) && ( c.g === this.g ) && ( c.b === this.b );
-  },
-
-  fromArray: function ( array, offset ) {
-    if ( offset === undefined ) offset = 0;
-
-    this.r = array[ offset ];
-    this.g = array[ offset + 1 ];
-    this.b = array[ offset + 2 ];
-
-    return this;
-  },
-
-  toArray: function ( array, offset ) {
-    if ( array === undefined ) array = [];
-    if ( offset === undefined ) offset = 0;
-
-    array[ offset ] = this.r;
-    array[ offset + 1 ] = this.g;
-    array[ offset + 2 ] = this.b;
-
-    return array;
-  },
-
-  toJSON: function () {
-    return this.getHex();
-  }
-
-} );
-
-/**
  * @author alteredq / http://alteredqualia.com/
  *
  * Full-screen textured quad shader
@@ -41021,38 +37543,6 @@ Pass.FullScreenQuad = ( function () {
 /**
  * @author alteredq / http://alteredqualia.com/
  */
-const getFullscreenTriangleWithSize = function ( w, h ) {
-  // Create triangle that covers the area produced by:
-  //return new THREE.PlaneBufferGeometry( w, h );
-
-  var vertices = new Float32Array( [
-    -0.5 * w, -0.5 * h, 0,
-    1.5 * w, -0.5 * h, 0,
-    -0.5 * w, 1.5 * h, 0
-  ] );
-  var uvs = new Float32Array( [0, 0, 2, 0, 0, 2] );
-  var geom = new BufferGeometry();
-  if ( geom.setAttribute !== undefined ) {
-    geom.setAttribute( "position", new BufferAttribute( vertices, 3 ) );
-    geom.setAttribute( "uv", new BufferAttribute( uvs, 2 ) );
-  } else {
-    geom.addAttribute( "position", new BufferAttribute( vertices, 3 ) );
-    geom.addAttribute( "uv", new BufferAttribute( uvs, 2 ) );
-  }
-
-  return geom;
-};
-
-// Full screen triangle is more cache-friendly than
-// two triangles
-const _fullScreenTriangle = null;
-const getFullscreenTriangle = function ( w, h ) {
-	if ( _fullScreenTriangle === null ) {
-    _fullScreenTriangle = getFullscreenTriangleWithSize( 2, 2 );
-	}
-
-	return _fullScreenTriangle;
-};
 
 const ShaderPass = function ( shader, textureID ) {
 
@@ -41270,21 +37760,6 @@ Object.assign( EffectComposer.prototype, {
 			pass.render( this.renderer, this.writeBuffer, src, deltaTime, maskActive );
 
 			if ( pass.needsSwap ) {
-
-				if ( maskActive ) {
-
-					var context = this.renderer.getContext();
-					var stencil = this.renderer.state.buffers.stencil;
-
-					//context.stencilFunc( context.NOTEQUAL, 1, 0xffffffff );
-					stencil.setFunc( context.NOTEQUAL, 1, 0xffffffff );
-
-					this.copyPass.render( this.renderer, this.writeBuffer, this.readBuffer, deltaTime );
-
-					//context.stencilFunc( context.EQUAL, 1, 0xffffffff );
-					stencil.setFunc( context.EQUAL, 1, 0xffffffff );
-
-				}
 
 				this.swapBuffers();
 
@@ -41572,38 +38047,6 @@ SavePass.prototype = Object.assign( Object.create( Pass.prototype ), {
 /**
  * @author alteredq / http://alteredqualia.com/
  */
-const getFullscreenTriangleWithSize$1 = function ( w, h ) {
-  // Create triangle that covers the area produced by:
-  //return new THREE.PlaneBufferGeometry( w, h );
-
-  var vertices = new Float32Array( [
-    -0.5 * w, -0.5 * h, 0,
-    1.5 * w, -0.5 * h, 0,
-    -0.5 * w, 1.5 * h, 0
-  ] );
-  var uvs = new Float32Array( [0, 0, 2, 0, 0, 2] );
-  var geom = new BufferGeometry();
-  if ( geom.setAttribute !== undefined ) {
-    geom.setAttribute( "position", new BufferAttribute( vertices, 3 ) );
-    geom.setAttribute( "uv", new BufferAttribute( uvs, 2 ) );
-  } else {
-    geom.addAttribute( "position", new BufferAttribute( vertices, 3 ) );
-    geom.addAttribute( "uv", new BufferAttribute( uvs, 2 ) );
-  }
-
-  return geom;
-};
-
-// Full screen triangle is more cache-friendly than
-// two triangles
-const _fullScreenTriangle$1 = null;
-const getFullscreenTriangle$1 = function ( w, h ) {
-	if ( _fullScreenTriangle$1 === null ) {
-    _fullScreenTriangle$1 = getFullscreenTriangleWithSize$1( 2, 2 );
-	}
-
-	return _fullScreenTriangle$1;
-};
 
 const ShaderPass$1 = function ( shader, textureID ) {
 
@@ -41700,95 +38143,15 @@ var postprocessUniforms = {
   uResolution: { type: 'v2', value: new THREE.Vector2( 1.0, 1.0 ) }
 };
 
-var postProcessFragment = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-precision highp float;
-
-uniform sampler2D tDiffuse;
-uniform vec2 uResolution;
-
-varying vec2 vUv;
-
+var postProcessFragment = new Shader(`precision highp float;uniform sampler2D tDiffuse;uniform vec2 uResolution;varying vec2 vUv;
 #define FXAA_REDUCE_MIN   0.0078125 // (1.0/128.0)
+
 #define FXAA_REDUCE_MUL   0.03125   // (1.0/32.0)
+
 #define FXAA_SPAN_MAX     8.0
+const vec3 a=vec3(0.299,0.587,0.114);const vec2 b=vec2(FXAA_SPAN_MAX);void main(){vec4 c=vec4(vUv+uResolution,vUv-uResolution);vec3 d=texture2D(tDiffuse,c.zw).rgb;vec3 e=texture2D(tDiffuse,c.xw).rgb;vec3 f=texture2D(tDiffuse,c.zy).rgb;vec3 g=texture2D(tDiffuse,c.xy).rgb;vec4 h=vec4(dot(d,a),dot(e,a),dot(f,a),dot(g,a));vec4 i=h.xzxy+h.ywzw;vec2 j=i.yz-i.xw;float k=FXAA_REDUCE_MUL*max(i.x+i.y,FXAA_REDUCE_MIN/FXAA_REDUCE_MUL);float l=min(abs(j.x),abs(j.y))+k;j=uResolution*clamp(j/l,-b,b);vec4 m=(texture2D(tDiffuse,vUv-j*0.16666666666667)+texture2D(tDiffuse,vUv+j*0.16666666666667));vec4 n=texture2D(tDiffuse,vUv);gl_FragColor=0.33333333333*(m+n);float o=distance(vUv,vec2(0.5));gl_FragColor.rgb*=1.0-0.17*smoothstep(0.42,0.65,o);}`);
 
-const vec3 luma = vec3( 0.299, 0.587, 0.114 );
-const vec2 fxaa_span = vec2( FXAA_SPAN_MAX );
-
-void main() {
-  // FXAA
-  vec4 uv = vec4( vUv + uResolution, vUv - uResolution );
-  vec3 rgbNW = texture2D( tDiffuse, uv.zw ).rgb;
-  vec3 rgbNE = texture2D( tDiffuse, uv.xw ).rgb;
-  vec3 rgbSW = texture2D( tDiffuse, uv.zy ).rgb;
-  vec3 rgbSE = texture2D( tDiffuse, uv.xy ).rgb;
-  vec4 lumas = vec4( dot( rgbNW, luma ),
-                     dot( rgbNE, luma ),
-                     dot( rgbSW, luma ),
-                     dot( rgbSE, luma ) );
-
-  // Precalculate common combinations
-  vec4 tmp = lumas.xzxy + lumas.ywzw;
-  vec2 dir = tmp.yz - tmp.xw;
-  float dirReduce = FXAA_REDUCE_MUL * max( tmp.x + tmp.y, FXAA_REDUCE_MIN / FXAA_REDUCE_MUL );
-  float dirMin = min( abs( dir.x ), abs( dir.y ) ) + dirReduce;
-  dir = uResolution * clamp( dir / dirMin, -fxaa_span, fxaa_span );
-  vec4 rgbA = (
-      texture2D( tDiffuse, vUv - dir * 0.16666666666667 ) +
-      texture2D( tDiffuse, vUv + dir * 0.16666666666667 ) );
-  vec4 rgbM = texture2D( tDiffuse, vUv );
-
-  // We used to check the range of the luma of rgbB against max/min of
-  // lumas above, to determine whether to use rgbA or rgbB
-  // but it didn't make much difference, with rgbB used most of the time
-  // So just used that as it saved us computing lumaMin/lumaMax
-
-  // Testing, draw different regions with different AA
-  //if ( vUv.x < 0.25 ) {
-  //  gl_FragColor = 0.5 * rgbA; // Just blurred
-  //} else if ( vUv.x < 0.5 ) {
-  //  gl_FragColor = 0.36 * ( rgbA + rgbM ); // Slight original pixel 2 : 1
-  //} else if ( vUv.x < 0.75 ) {
-  //  gl_FragColor = 0.25 * ( rgbA + 2.0 * rgbM ); // More 1 : 1
-  //} else {
-  //  gl_FragColor = 1.1 * rgbM; // No anti-alias
-  //}
-  gl_FragColor = 0.33333333333 * ( rgbA + rgbM ); // Slight original pixel 2 : 1
-
-  // Vignette
-  float d = distance( vUv, vec2( 0.5 ) );
-  gl_FragColor.rgb *= 1.0 - 0.17 * smoothstep( 0.42, 0.65, d );
-}
-`);
-
-var quadVertex = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-attribute vec3 position;
-attribute vec2 uv;
-
-// Quad vertex shader that also passes through uv coordinate
-varying vec2 vUv;
-
-void main() {
-  vUv = uv;
-  // Do not need any matrix multiplications as positions already in clip
-  // space
-  gl_Position = vec4( position, 1.0 );
-}
-`);
+var quadVertex = new Shader(`attribute vec3 position;attribute vec2 uv;varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position,1.0);}`);
 
 /**
  * Copyright 2020 (c) Felix Palmer
@@ -41900,6 +38263,256 @@ CameraStore$1.listen( function ( state ) {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
+var EE = 1000.0;
+var cutoffAngle = 1.61107315568707; //pi/1.95;
+var invSteepness = 0.66666666666667;
+var rayleigh = new THREE.Vector3( 5.804542996261093e-06, 1.3562911419845635e-05, 3.026590246882488e-05 );
+var mie = new THREE.Vector3( 7.633915830775757e-05, 7.544890573273999e-05, 7.411352687021361e-05 );
+
+
+var skyUniforms = {
+  luminance: { type: 'f', value: 1 },
+  turbidity: { type: 'f', value: 2 },
+  reileigh: { type: 'f', value: 1 },
+  mieCoefficient: { type: 'f', value: 0.005 },
+  mieDirectionalG: { type: 'f', value: 0.8 },
+  sunPosition: { type: 'v3', value: new THREE.Vector3( 0, 0, 0 ) },
+  // Derived uniforms
+  sunDirection: { type: 'v3', value: new THREE.Vector3( 0, 0, 0 ) },
+  lightDirection: { type: 'v3', value: new THREE.Vector3( 0, 0, 0 ) },
+  betaRM: { type: 'v3', value: new THREE.Vector3( 0, 0, 0 ) },
+  betaRnorm: { type: 'v3', value: new THREE.Vector3( 0, 0, 0 ) },
+  betaMnorm: { type: 'v3', value: new THREE.Vector3( 0, 0, 0 ) },
+  // To avoid using many uniforms, pass constants in block
+  // sunE, hgPhaseA, hgPhaseB & LinWeight
+  constants: { type: 'v4', value: new THREE.Vector4( 0, 0, 0, 0 ) },
+  gamma: { type: 'f', value: 0 },
+  tonemapScale: { type: 'f', value: 0 },
+
+  // Calculate derived uniforms
+  update: function () {
+    // Sun direction (using different coordinate system, so convert)
+    // TODO unify on single coordinate system
+    var sunPosition = skyUniforms.sunPosition.value;
+    var sunDirection = sunPosition.clone().normalize();
+    var tmp = sunDirection.z;
+    sunDirection.z = sunDirection.y;
+    sunDirection.y = tmp;
+    skyUniforms.sunDirection.value.copy( sunDirection );
+
+    // Normal coordinate system for other shaders
+    var lightDirection = sunPosition.clone().normalize();
+    skyUniforms.lightDirection.value.copy( lightDirection );
+
+    // Hg phase constants (refactored to minimize shader computation)
+    var g = skyUniforms.mieDirectionalG.value;
+    var B = Math.pow( 0.07957747154595 * ( 1 - g * g ), -0.666666666 );
+    var hgPhaseA = -2 * B * g;
+    var hgPhaseB = B * ( g * g + 1 );
+    skyUniforms.constants.value.y = hgPhaseA;
+    skyUniforms.constants.value.z = hgPhaseB;
+
+    // Save on calulation power of sun direction
+    var LinWeight = Math.pow( 1.0 - sunDirection.y, 5.0 );
+    LinWeight = THREE.Math.clamp( LinWeight, 0.0, 1.0 );
+    skyUniforms.constants.value.w = LinWeight;
+
+    // Extinction
+    var sunFade = 1.0 - THREE.Math.clamp( 1.0 - Math.exp( sunPosition.z / 450000.0 ), 0.0, 1.0 );
+    var reileighCoefficient = skyUniforms.reileigh.value + sunFade - 1.0;
+
+    var exponent = ( Math.acos( sunDirection.y ) - cutoffAngle ) * invSteepness;
+    var sunE = EE * Math.max( 0.0, 1.0 - Math.exp( exponent ) );
+    skyUniforms.constants.value.x = 19000 * sunE;
+
+    var turbidity = skyUniforms.turbidity.value;
+    var mieCoefficient = skyUniforms.mieCoefficient.value;
+
+    var betaR = rayleigh.clone().multiplyScalar( reileighCoefficient );
+    var betaM = mie.clone().multiplyScalar( turbidity * mieCoefficient );
+
+    // betaMnorm & betaRnorm don't really mean anything, just save of shader work
+    var A = new THREE.Vector3( sunE / ( betaR.x + betaM.x ),
+      sunE / ( betaR.y + betaM.y ),
+      sunE / ( betaR.z + betaM.z ) );
+    var betaRnorm = betaR.clone().multiply( A ).multiplyScalar( 0.01492077591487 );
+    var betaMnorm = betaM.clone().multiply( A );
+
+    // Fold in zeniths
+    betaR.multiplyScalar( 8400 );
+    betaM.multiplyScalar( 1250 );
+
+    skyUniforms.betaRM.value.copy( betaR.add( betaM ) );
+    skyUniforms.betaRnorm.value.copy( betaRnorm );
+    skyUniforms.betaMnorm.value.copy( betaMnorm );
+
+    var gamma = 1.0 / ( 1.2 + ( 1.2 * sunFade ) );
+    skyUniforms.gamma.value = gamma;
+
+    var luminance = skyUniforms.luminance.value;
+
+    // Magic 1.7 value to match tonemap of sky to scene
+    var tonemapScale = 1.7 * Math.log( 2.0 / Math.pow( luminance, 4 ) ) / Math.LN2;
+    skyUniforms.tonemapScale.value = tonemapScale;
+  }
+};
+
+skyUniforms.update();
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+var A = 0.15;
+var B = 0.50;
+var C = 0.10;
+var D = 0.20;
+var E = 0.02;
+var F = 0.30;
+
+var RawTonemap = function ( x ) {
+  return ( ( x * ( A * x + C * B ) + D * E ) / ( x * ( A * x + B ) + D * F ) ) - E / F;
+};
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+var tonemapUniforms = {
+  exposureBias: { type: 'f', value: 1 },
+  whitePoint: { type: 'f', value: 11.2 },
+
+  // Calculate the white scale from the white point
+  uTonemapExposureBias: { type: 'f', value: 1 },
+  uTonemapWhiteScale: { type: 'f', value: 1 },
+  update: function () {
+    tonemapUniforms.uTonemapExposureBias.value =
+      tonemapUniforms.exposureBias.value;
+    tonemapUniforms.uTonemapWhiteScale.value =
+      1.0 / RawTonemap( tonemapUniforms.whitePoint.value );
+  }
+};
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+// Duplicate calculate to sky shader
+var skyColor = function ( direction ) {
+  var cosZenithAngle = Math.max( 0.0, direction.y );
+  // Approximate acos( x ) by pi/2 - x
+  // This allows us to simplify and error is only large when looking up
+  var denom = cosZenithAngle + Math.pow( 17.6579343808112 + cosZenithAngle * 260.41830500372932, -1.253 );
+
+  // combined extinction factor
+  var betaRM = skyUniforms.betaRM.value.clone();
+  var Fex = betaRM.multiplyScalar( -1 / denom );
+  Fex.x = Math.exp( Fex.x );
+  Fex.y = Math.exp( Fex.y );
+  Fex.z = Math.exp( Fex.z );
+
+  // in scattering
+  var sunDirection = skyUniforms.sunDirection.value.clone();
+  var constants = skyUniforms.constants.value.clone();
+  var cosTheta = direction.dot( sunDirection );
+  var rPhase = cosTheta + 1.0;
+  var betaRTheta = skyUniforms.betaRnorm.value.clone();
+  var betaMTheta = skyUniforms.betaMnorm.value.clone();
+  betaRTheta.multiplyScalar( 4.0 + rPhase * rPhase );
+  betaMTheta.multiplyScalar( Math.pow( constants.y * cosTheta + constants.z, -1.5 ) );
+
+  var tmp = betaRTheta.clone().add( betaMTheta );
+  var Lin = new THREE.Vector3(
+    Math.pow( tmp.x * ( 1.0 - Fex.x ), 1.5 ),
+    Math.pow( tmp.y * ( 1.0 - Fex.y ), 1.5 ),
+    Math.pow( tmp.z * ( 1.0 - Fex.z ), 1.5 )
+  );
+
+  //vec3 Lin = spow( tmp * ( 1.0 - Fex ), vec3( 1.5 ) );
+  Lin.x *= ( 1 - constants.w ) + constants.w * Math.sqrt( tmp.x * Fex.x );
+  Lin.y *= ( 1 - constants.w ) + constants.w * Math.sqrt( tmp.y * Fex.y );
+  Lin.z *= ( 1 - constants.w ) + constants.w * Math.sqrt( tmp.z * Fex.z );
+  //Lin *= mix( vec3( 1.0 ), ssqrt( tmp * Fex ), constants.w );
+
+  // nightsky
+  var L0 = Fex.clone().multiplyScalar( 0.1 );
+
+  //#ifdef SUN_DISK
+  //L0 += constants.x * Fex * smoothstep( 0.9999566769, 0.9999766769, cosTheta );
+  //#endif
+
+  // Combine all components
+  var color = Lin.clone().add( L0 ).multiplyScalar( 0.04 ).add( new THREE.Vector3( 0.0, 0.0003, 0.00075 ) );
+  //0.04 * ( Lin + L0 ) + vec3( 0.0, 0.0003, 0.00075 );
+  var tonemapScale = skyUniforms.tonemapScale.value;
+  color.multiplyScalar( tonemapScale );
+
+  // Precomputed whitescale with W = 1000
+  //color = 1.07487246756328 * Tonemap( tonemapScale * color );
+  var gamma = skyUniforms.gamma.value;
+  var bias = tonemapUniforms.uTonemapExposureBias.value;
+  var whiteScale = tonemapUniforms.uTonemapWhiteScale.value;
+  color.x = Math.pow( bias * RawTonemap( whiteScale * color.x ), gamma );
+  color.y = Math.pow( bias * RawTonemap( whiteScale * color.y ), gamma );
+  color.z = Math.pow( bias * RawTonemap( whiteScale * color.z ), gamma );
+
+  return new THREE.Color( color.x, color.y, color.z );
+};
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+var direction = new THREE.Vector3();
+var lastDirection = new THREE.Vector3();
+var forceUpdate = false;
+
+// Uniforms required where drawing basic fog
+var fogUniforms = {
+  uFogDropoff: { type: 'f', value: 0.0006 },
+  uFogIntensity: { type: 'f', value: 0.1 },
+  uFogColor: { type: 'c', value: new THREE.Color() },
+  update: function ( state ) {
+    forceUpdate = !state;
+    state = state || CameraStore$1.getState();
+
+    // Sky uses different coordinate system
+    direction.copy( state.target ).sub( state.position );
+
+    direction.z = direction.y;
+
+    // Flatten y component to look at horizon
+    direction.y = 0.0;
+    direction.normalize();
+
+    if ( forceUpdate || direction.distanceToSquared( lastDirection ) > 0.01 ) {
+      fogUniforms.uFogColor.value.copy( skyColor( direction ) );
+      lastDirection.copy( direction );
+    }
+  }
+};
+
+CameraStore$1.listen( fogUniforms.update );
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
 
 const ImageryDatasource = new BaseDatasource( {
   textureSize: IMAGERY_TILE_SIZE,
@@ -41913,266 +38526,27 @@ AppStore$1.listen( ( { datasource } ) => {
   }
 } );
 
-var lineVertex = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-precision highp float;
-
-uniform mat4 viewMatrix;
-uniform mat4 projectionMatrix;
-uniform vec3 cameraPosition;
-
-attribute vec3 tag;
-attribute vec4 tangent;
-attribute vec3 position;
-attribute vec4 color;
-
-uniform float uThickness;
-uniform vec3 uSelectedTag;
-
-varying vec4 vColor;
-varying float vAlpha;
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-uniform vec2 uViewportInverse;
-
-// Calculate our position from the center and tangent of line
-vec4 positionFromTangent( const in vec3 center,
-                          const in float thickness ) {
-  // Get clipspace positions of center and center + tangent
-  vec4 p = vec4( center, 1.0 );
-  vec4 c4 = projectionMatrix * viewMatrix * p;
-
-  p.xyz += tangent.xyz;
-  vec4 cplust4 = projectionMatrix * viewMatrix * p;
-
-  // Tangent vector in clipspace (normalizing by w!)
-  vec2 t4 = cplust4.xy / cplust4.w - c4.xy / c4.w;
-
-  // Issue here when line is going towards screen, up and
-  // then down. The tangent will then flip from up to down
-  // and the line normal will also switch sides, leading
-  // to a fold in the quads forming the line
-  // Not really clear how to overcome this...
-
-  // Get normal in clipspace by crossing with vec3(0, 0, 1)
-  vec2 delt = t4.yx * vec2( 1.0, -1.0 ); // Move one side one way, the other the other way (tangent is opposite for vertices in pair)
-  delt = thickness * c4.w * normalize( delt ) * uViewportInverse;
-
-  c4.xy += delt;
-  return c4;
-}
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// TODO set these from JS
+var lineVertex = new Shader(`precision highp float;uniform mat4 viewMatrix;uniform mat4 projectionMatrix;uniform vec3 cameraPosition;attribute vec3 tag;attribute vec4 tangent;attribute vec3 position;attribute vec4 color;uniform float uThickness;uniform vec3 uSelectedTag;varying vec4 vColor;varying float vAlpha;uniform vec2 uViewportInverse;vec4 a(const in vec3 b,const in float c){vec4 d=vec4(b,1.0);vec4 e=projectionMatrix*viewMatrix*d;d.xyz+=tangent.xyz;vec4 f=projectionMatrix*viewMatrix*d;vec2 g=f.xy/f.w-e.xy/e.w;vec2 h=g.yx*vec2(1.0,-1.0);h=c*e.w*normalize(h)*uViewportInverse;e.xy+=h;return e;}
 #define VIRTUAL_TEXTURE_ARRAY_BLOCKS 4.0
+
 #define VIRTUAL_TEXTURE_ARRAY_SIZE 512.0
 
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// On iOS standard texture linear filtering has
-// artifacts, so use this manual replacement.
-// It also doesn't work for FLOAT textures
 #define TEX_SIZE (VIRTUAL_TEXTURE_ARRAY_SIZE * VIRTUAL_TEXTURE_ARRAY_BLOCKS)
-const vec2 texelSize = vec2( 1.0 / TEX_SIZE, 0.0 );
-vec4 texture2D_bilinear( const in sampler2D t, in vec2 uv )
-{
-  // Calculate pixels to sample and interpolating factor
-  uv -= 0.5 * texelSize.xx;
-  vec2 f = fract( uv * TEX_SIZE );
-  // Snap to corner of texel and then move to center
-  vec2 uvSnapped = uv - texelSize.xx * f + 0.5 * texelSize.xx;
+const vec2 i=vec2(1.0/TEX_SIZE,0.0);vec4 j(const in sampler2D k,in vec2 l){l-=0.5*i.xx;vec2 m=fract(l*TEX_SIZE);vec2 n=l-i.xx*m+0.5*i.xx;
+#ifdef HEIGHT_LOOKUP_BIAS
+vec4 o=texture2D(k,n,-10.0);vec4 p=texture2D(k,n+i,-10.0);vec4 q=texture2D(k,n+i.yx,-10.0);vec4 r=texture2D(k,n+i.xx,-10.0);
+#else
+vec4 o=texture2D(k,n);vec4 p=texture2D(k,n+i);vec4 q=texture2D(k,n+i.yx);vec4 r=texture2D(k,n+i.xx);
+#endif
+vec4 s=mix(o,p,m.x);vec4 t=mix(q,r,m.x);return mix(s,t,m.y);}vec4 u(in sampler2D v,in vec2 l,in float w){vec2 x=vec2(mod(float(w),VIRTUAL_TEXTURE_ARRAY_BLOCKS),floor(float(w)/VIRTUAL_TEXTURE_ARRAY_BLOCKS));const float y=0.5;vec2 z=vec2(y,VIRTUAL_TEXTURE_ARRAY_SIZE-y)/VIRTUAL_TEXTURE_ARRAY_SIZE;vec2 A=(clamp(l,z.x,z.y)+x)/VIRTUAL_TEXTURE_ARRAY_BLOCKS;
+#ifdef MANUAL_TEXTURE_BILINEAR
+return j(v,A);
+#else
+return texture2D(v,A);
+#endif
+}uniform lowp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform float uSceneScale;const float B=0.0008176665341588574;float C(in float D){float E=3.141592653589793-0.006135923151542565*D;float F=dot(vec2(0.5),exp(vec2(E,-E)));return F/(B*uSceneScale);}uniform lowp sampler2D elevationArray;float G(in vec2 d){const float H=32.0;const float I=1024.0;vec2 J=d.xy-uGlobalOffset;J/=(uSceneScale*H);J*=vec2(1.0,-1.0);vec2 K=J/I;const vec2 L=vec2(0.5);vec2 M=(floor(J-L)+L);M+=step(L,J-M);vec2 N=M/I;vec4 O=texture2D(indirectionTexture,N);float w=O.r;float P=O.g;vec2 Q=O.ba;vec2 A=K*P+Q;return C(J.y)*u(elevationArray,A,w).a;}void main(){vec3 b=position;b.z+=G(b.xy);gl_Position=a(b,uThickness);vColor=color;float R=step(distance(tag,uSelectedTag),0.0);gl_Position.z-=0.5+0.01*R;vColor.rgb=mix(vColor.rgb,vec3(1.0),0.8*R);vAlpha=sign(tangent.w);}`);
 
-  #ifdef HEIGHT_LOOKUP_BIAS
-  // As we are sampling snapped pixels need to override
-  // the mip-map selection by selecting a large negative
-  // bias. Otherwise at boundaries the gradient of
-  // uvSnapped is large and an incorrect mip-level is used
-  // leading to artifacts
-  vec4 tl = texture2D(t, uvSnapped, -10.0);
-  vec4 tr = texture2D(t, uvSnapped + texelSize, -10.0 );
-  vec4 bl = texture2D(t, uvSnapped + texelSize.yx, -10.0 );
-  vec4 br = texture2D(t, uvSnapped + texelSize.xx, -10.0 );
-  #else
-  vec4 tl = texture2D(t, uvSnapped);
-  vec4 tr = texture2D(t, uvSnapped + texelSize);
-  vec4 bl = texture2D(t, uvSnapped + texelSize.yx);
-  vec4 br = texture2D(t, uvSnapped + texelSize.xx);
-  #endif
-  vec4 tA = mix( tl, tr, f.x );
-  vec4 tB = mix( bl, br, f.x );
-  return mix( tA, tB, f.y );
-}
-
-// Virtual texture array lookup (WebGL1 fallback)
-vec4 readTex( in sampler2D tex, in vec2 uv, in float index ) {
-  // Convert index into spatial offset
-  vec2 offset = vec2(
-    mod( float( index ), VIRTUAL_TEXTURE_ARRAY_BLOCKS ),
-    floor( float( index ) / VIRTUAL_TEXTURE_ARRAY_BLOCKS )
-  );
-
-  // Don't bleed across to next texture
-  const float padding = 0.5;
-  vec2 limits = vec2( padding, VIRTUAL_TEXTURE_ARRAY_SIZE - padding ) / VIRTUAL_TEXTURE_ARRAY_SIZE; 
-
-  // Calculate uv for lookup
-  vec2 scaledUv = ( clamp( uv, limits.x, limits.y ) + offset ) / VIRTUAL_TEXTURE_ARRAY_BLOCKS;
-  #ifdef MANUAL_TEXTURE_BILINEAR
-  return texture2D_bilinear( tex, scaledUv );
-  #else
-  return texture2D( tex, scaledUv );
-  #endif
-}
-
-
-uniform lowp sampler2D indirectionTexture;
-uniform vec2 uGlobalOffset;
-uniform float uSceneScale;
-
-// Function to scale height such that one unit in the
-// horizontal plane is equal to one vertical unit
-// Basically comes down to the Mercator projection
-// Math.pow(2, 15) / 40075016.686
-const float earthScale = 0.0008176665341588574;
-float heightScale ( in float y ) {
-  // PI - 2 * PI * y / pow( 2, 10 ) [ z is fixed to 10 ]
-  float n = 3.141592653589793 - 0.006135923151542565 * y;
-  // cosh( n ) / ( earthScale * uSceneScale)
-  float cosh_n = dot( vec2( 0.5 ), exp( vec2( n, -n ) ) );
-  return cosh_n / ( earthScale * uSceneScale );
-}
-
-// TODO should this be highp? Seems OK on iOS
-// From: https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices
-//     If you have a float texture, iOS requires that you use highp sampler2D foo;
-//     or it will very painfully give you lowp texture samples!
-//     (+/-2.0 max is probably not good enough for you)
-// +/-2 seems OK, but should revisit if artifacts present
-uniform lowp sampler2D elevationArray;
-float getHeight( in vec2 p ) {
-  // Get tile coord (at z = 10), currently we are at z = 15
-  const float zoomScale = 32.0; // pow( 2, 15 - 10 )
-  const float indirectionSize = 1024.0;
-  vec2 tile = p.xy - uGlobalOffset;
-  tile /= ( uSceneScale * zoomScale );
-  tile *= vec2( 1.0, -1.0 );
-
-  // Unsnapped uv will be used below for secondary lookup
-  vec2 indirectionUv = tile / indirectionSize;
-
-  // Snap as on Windows/ANGLE Nearest filtering is not respected
-  const vec2 halfTexel = vec2( 0.5 );
-  vec2 snapped = ( floor( tile - halfTexel ) + halfTexel );
-  snapped += step( halfTexel, tile - snapped );
-  vec2 indirectionUvRounded = snapped / indirectionSize;
-
-  vec4 indirection = texture2D( indirectionTexture, indirectionUvRounded );
-
-  // Update index from indirection
-  float index = indirection.r;
-  float tileSize = indirection.g;
-  vec2 tileOrigin = indirection.ba;
-
-  // We know index of texture to do lookup in, but now
-  // we need to know the uv coordinates within the tile
-  // For this we need to know what the tile origin and size are
-  // At first glance it might seem possible to derive the tile origin
-  // mathematically from the indirectionUv (using \`fract\`), but the issue
-  // then is numerical precision. On some GPUs the lack of precision
-  // means that the data we read from the indirection texture doesn't
-  // align with that derived in the shader. It is more reliable to
-  // store the entire transformation from the indirectionUv to
-  // scaledUv in the texture, that way it will be no spurious errors
-  vec2 scaledUv = indirectionUv * tileSize + tileOrigin;
-
-  // Finally read out height, and unpack to single float
-  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;
-}
-
-
-void main() {
-  // Vertices are placed based on tangent, to give constant width on screen
-  vec3 center = position;
-  center.z += getHeight( center.xy );
-  gl_Position = positionFromTangent( center, uThickness );
-
-  vColor = color;
-
-  // Is line selected?
-  float selected = step( distance( tag, uSelectedTag ), 0.0 );
-  gl_Position.z -= 0.5 + 0.01 * selected;
-  vColor.rgb = mix( vColor.rgb, vec3( 1.0 ), 0.8 * selected );
-
-  // Safe way to identify side of line
-  vAlpha = sign( tangent.w );
-
-  // Dashed line
-  // float D = ( viewMatrix * vec4( position, 1.0 ) ).z;
-  // Round to log values
-  // D = pow( 2.0, floor( log2( D ) ) );
-  // Modulate distance along line by depth
-  // float dash = position.w * D;
-
-}
-`);
-
-var lineFragment = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-precision highp float;
-
-uniform float uCutoff;
-uniform vec4 uOutlineColor;
-
-varying vec4 vColor;
-varying float vAlpha;
-
-void main() {
-  // Smoothly interpolate between:
-  // x: line color and edge color
-  // y: line alpha and transparent antialiased edge
-  vec2 f = smoothstep(
-   vec2( 0.4, 1.0 ) * uCutoff,
-   vec2( 0.5, 1.0 ),
-   abs( vec2( vAlpha ) ) );
-
-  // Multiply application of edge line with alpha
-  f.x *= uOutlineColor.a;
-
-  gl_FragColor = mix(
-    vColor,
-    vec4( uOutlineColor.rgb, 0.0 ),
-    f.xxxy );
-}
-`);
+var lineFragment = new Shader(`precision highp float;uniform float uCutoff;uniform vec4 uOutlineColor;varying vec4 vColor;varying float vAlpha;void main(){vec2 a=smoothstep(vec2(0.4,1.0)*uCutoff,vec2(0.5,1.0),abs(vec2(vAlpha)));a.x*=uOutlineColor.a;gl_FragColor=mix(vColor,vec4(uOutlineColor.rgb,0.0),a.xxxy);}`);
 
 /**
  * Copyright 2020 (c) Felix Palmer
@@ -42190,430 +38564,49 @@ ContainerStore$1.listen( ( { height, width } ) => {
   lineUniforms.uViewportInverse.value.set( 1.0 / width, 1.0 / height );
 } );
 
-var markerVertex = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-precision highp float;
-
-uniform mat4 viewMatrix;
-uniform mat4 projectionMatrix;
-uniform mat4 uOrthoTransform;
-uniform vec3 cameraPosition;
-uniform float uLodScale;
-
-uniform vec3 uSelectedTag;
-uniform float uPixelRatio;
-uniform vec2 uViewportInverse;
-uniform float uReadDepthOverride;
-
+var markerVertex = new Shader(`precision highp float;uniform mat4 viewMatrix;uniform mat4 projectionMatrix;uniform mat4 uOrthoTransform;uniform vec3 cameraPosition;uniform float uLodScale;uniform vec3 uSelectedTag;uniform float uPixelRatio;uniform vec2 uViewportInverse;uniform float uReadDepthOverride;
 #ifdef READ_DEPTH
 uniform sampler2D uDepth;
 #endif
-
-// Can only have up to 16 attributes. Currently have 9
-attribute vec2 position; // Not instanced, defines quad to draw
-
-attribute vec4 anchor; // (xy: anchor, zw: anchor offset)
-attribute vec4 atlas; // (xy: location in atlas, zw: size in atlas)
-attribute vec4 background;
-attribute vec4 clipping; // (x: per-object depth, y: per-pixel depth)
-attribute vec4 color;
-attribute vec3 layout; // (x: padding, y: borderWidth, z: borderRadius)
-attribute vec4 normal; // (xyz: normal, w: collapseDistance)
-attribute vec4 offset; // (xyz: offset, w: fadeDistance)
-attribute vec4 tag; // (xyz: tag, w: highlightOpacity)
-
-// Can have max 8 varyings. Currently have 6
-varying vec4 vUv; // (xy: uv, z: selected, w: visibility)
-varying vec4 vBox;
-varying vec4 vBackground;
-varying vec4 vColor;
-varying float vReadDepth;
-varying vec3 vLayout;
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// Normalized the input vector in place at the same
-// time as finding its lengt
-// Doesn't appear to be faster than length() & normalize() (same speed)
-float lengthNormalize( inout vec3 v ) {
-  float lengthSquared = dot( v, v );
-  float rcpLength = inversesqrt( lengthSquared );
-  v = rcpLength * v; // Normalized vector
-  return lengthSquared * rcpLength; // Vector length
-}
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// TODO set these from JS
+attribute vec2 position;attribute vec4 anchor;attribute vec4 atlas;attribute vec4 background;attribute vec4 clipping;attribute vec4 color;attribute vec3 layout;attribute vec4 normal;attribute vec4 offset;attribute vec4 tag;varying vec4 vUv;varying vec4 vBox;varying vec4 vBackground;varying vec4 vColor;varying float vReadDepth;varying vec3 vLayout;float a(inout vec3 b){float c=dot(b,b);float d=inversesqrt(c);b=d*b;return c*d;}
 #define VIRTUAL_TEXTURE_ARRAY_BLOCKS 4.0
+
 #define VIRTUAL_TEXTURE_ARRAY_SIZE 512.0
 
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// On iOS standard texture linear filtering has
-// artifacts, so use this manual replacement.
-// It also doesn't work for FLOAT textures
 #define TEX_SIZE (VIRTUAL_TEXTURE_ARRAY_SIZE * VIRTUAL_TEXTURE_ARRAY_BLOCKS)
-const vec2 texelSize = vec2( 1.0 / TEX_SIZE, 0.0 );
-vec4 texture2D_bilinear( const in sampler2D t, in vec2 uv )
-{
-  // Calculate pixels to sample and interpolating factor
-  uv -= 0.5 * texelSize.xx;
-  vec2 f = fract( uv * TEX_SIZE );
-  // Snap to corner of texel and then move to center
-  vec2 uvSnapped = uv - texelSize.xx * f + 0.5 * texelSize.xx;
-
-  #ifdef HEIGHT_LOOKUP_BIAS
-  // As we are sampling snapped pixels need to override
-  // the mip-map selection by selecting a large negative
-  // bias. Otherwise at boundaries the gradient of
-  // uvSnapped is large and an incorrect mip-level is used
-  // leading to artifacts
-  vec4 tl = texture2D(t, uvSnapped, -10.0);
-  vec4 tr = texture2D(t, uvSnapped + texelSize, -10.0 );
-  vec4 bl = texture2D(t, uvSnapped + texelSize.yx, -10.0 );
-  vec4 br = texture2D(t, uvSnapped + texelSize.xx, -10.0 );
-  #else
-  vec4 tl = texture2D(t, uvSnapped);
-  vec4 tr = texture2D(t, uvSnapped + texelSize);
-  vec4 bl = texture2D(t, uvSnapped + texelSize.yx);
-  vec4 br = texture2D(t, uvSnapped + texelSize.xx);
-  #endif
-  vec4 tA = mix( tl, tr, f.x );
-  vec4 tB = mix( bl, br, f.x );
-  return mix( tA, tB, f.y );
-}
-
-// Virtual texture array lookup (WebGL1 fallback)
-vec4 readTex( in sampler2D tex, in vec2 uv, in float index ) {
-  // Convert index into spatial offset
-  vec2 offset = vec2(
-    mod( float( index ), VIRTUAL_TEXTURE_ARRAY_BLOCKS ),
-    floor( float( index ) / VIRTUAL_TEXTURE_ARRAY_BLOCKS )
-  );
-
-  // Don't bleed across to next texture
-  const float padding = 0.5;
-  vec2 limits = vec2( padding, VIRTUAL_TEXTURE_ARRAY_SIZE - padding ) / VIRTUAL_TEXTURE_ARRAY_SIZE; 
-
-  // Calculate uv for lookup
-  vec2 scaledUv = ( clamp( uv, limits.x, limits.y ) + offset ) / VIRTUAL_TEXTURE_ARRAY_BLOCKS;
-  #ifdef MANUAL_TEXTURE_BILINEAR
-  return texture2D_bilinear( tex, scaledUv );
-  #else
-  return texture2D( tex, scaledUv );
-  #endif
-}
-
-
-uniform lowp sampler2D indirectionTexture;
-uniform vec2 uGlobalOffset;
-uniform float uSceneScale;
-
-// Function to scale height such that one unit in the
-// horizontal plane is equal to one vertical unit
-// Basically comes down to the Mercator projection
-// Math.pow(2, 15) / 40075016.686
-const float earthScale = 0.0008176665341588574;
-float heightScale ( in float y ) {
-  // PI - 2 * PI * y / pow( 2, 10 ) [ z is fixed to 10 ]
-  float n = 3.141592653589793 - 0.006135923151542565 * y;
-  // cosh( n ) / ( earthScale * uSceneScale)
-  float cosh_n = dot( vec2( 0.5 ), exp( vec2( n, -n ) ) );
-  return cosh_n / ( earthScale * uSceneScale );
-}
-
-// TODO should this be highp? Seems OK on iOS
-// From: https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices
-//     If you have a float texture, iOS requires that you use highp sampler2D foo;
-//     or it will very painfully give you lowp texture samples!
-//     (+/-2.0 max is probably not good enough for you)
-// +/-2 seems OK, but should revisit if artifacts present
-uniform lowp sampler2D elevationArray;
-float getHeight( in vec2 p ) {
-  // Get tile coord (at z = 10), currently we are at z = 15
-  const float zoomScale = 32.0; // pow( 2, 15 - 10 )
-  const float indirectionSize = 1024.0;
-  vec2 tile = p.xy - uGlobalOffset;
-  tile /= ( uSceneScale * zoomScale );
-  tile *= vec2( 1.0, -1.0 );
-
-  // Unsnapped uv will be used below for secondary lookup
-  vec2 indirectionUv = tile / indirectionSize;
-
-  // Snap as on Windows/ANGLE Nearest filtering is not respected
-  const vec2 halfTexel = vec2( 0.5 );
-  vec2 snapped = ( floor( tile - halfTexel ) + halfTexel );
-  snapped += step( halfTexel, tile - snapped );
-  vec2 indirectionUvRounded = snapped / indirectionSize;
-
-  vec4 indirection = texture2D( indirectionTexture, indirectionUvRounded );
-
-  // Update index from indirection
-  float index = indirection.r;
-  float tileSize = indirection.g;
-  vec2 tileOrigin = indirection.ba;
-
-  // We know index of texture to do lookup in, but now
-  // we need to know the uv coordinates within the tile
-  // For this we need to know what the tile origin and size are
-  // At first glance it might seem possible to derive the tile origin
-  // mathematically from the indirectionUv (using \`fract\`), but the issue
-  // then is numerical precision. On some GPUs the lack of precision
-  // means that the data we read from the indirection texture doesn't
-  // align with that derived in the shader. It is more reliable to
-  // store the entire transformation from the indirectionUv to
-  // scaledUv in the texture, that way it will be no spurious errors
-  vec2 scaledUv = indirectionUv * tileSize + tileOrigin;
-
-  // Finally read out height, and unpack to single float
-  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;
-}
-
-
-// Size of atlas scaled by atlas pixel ratio
-// Also set in picker.vert
-#define SIZE vec2( 512.0, 1024.0 )
-
-void main() {
-  vec3 worldPosition = offset.xyz;
-  worldPosition.z = getHeight( worldPosition.xy );
-
-  // Pass on attributes for shading
-  vBackground = background;
-  vColor = color;
-  vLayout = uPixelRatio * layout;
-  vReadDepth = clipping.y * uReadDepthOverride;
-
-  // Fade with distance
-  vec3 reverseViewVec = cameraPosition - worldPosition;
-  float D = lengthNormalize( reverseViewVec );
-
-  // Convert from clip space to uv space
-  // position          --> pointCoord
-  // (-1,+1) - (+1,+1)     (0,0) - (1,0)
-  //    |         |    -->   |       |
-  // (-1,-1) - (-1,+1)     (0,1) - (1,1)
-  vec2 flipped = vec2( 1.0, -1.0 ) * position;
-  vec2 pointCoord = 0.5 * flipped + vec2( 0.5 );
-
-  // Are we selected?
-  vUv.z = step( distance( tag.xyz, uSelectedTag ), 0.0 );
-
-  // Collapse/fade the label
-  vec2 expandshow = vec2( normal.w, offset.w ) + 1000000.0 * vUv.zz;
-  expandshow = smoothstep( expandshow, vec2( 0.95, 0.9 ) * expandshow, vec2( D ) );
-  vUv.w = ( 0.6 * expandshow.x + 0.4 ) * expandshow.y;
-
-  // Opacity of highlight
-  vUv.z *= tag.w;
-
-  // Calculate potentially collapsed size of label
-  vec2 crop = mix( atlas.ww * vec2( SIZE.y / SIZE.x, 1.0 ),
-    atlas.zw, expandshow.x );
-  vUv.xy = atlas.xy + crop * pointCoord;
-
-  // Hide when on slope facing away, disabled when
-  // we perform per-pixel depth clipping
-  vUv.w *= smoothstep( 0.0, 0.15, clipping.y + dot( reverseViewVec, normal.xyz ) );
-  vUv.w *= step( 0.3, vUv.w );
-
-  // Adding padding & border around marker
-  vec2 padding = layout.xx + layout.yy;
-  vUv.xy += ( padding * flipped ) / SIZE;
-  vec2 aspect = SIZE * crop + 2.0 * padding;
-  aspect *= uPixelRatio;
-
-  // Position towards us so we show up above terrain
-  // Make bigger for object clipping as to avoid flashing
-  float bringForward = min( 0.5 * D, 100.0 + 200.0 * clipping.x );
-  vec4 p = vec4( worldPosition + bringForward * reverseViewVec, 1.0 );
-  //vec4 p = vec4( worldPosition, 1.0 );
-  gl_Position = projectionMatrix * viewMatrix * p;
-
-  // Convert between gl_Position.xy clip-space to pixels
-  vec2 pixelScale = 2.0 * gl_Position.w * uViewportInverse; 
-
-  #ifdef READ_DEPTH
-  // Hide entire label if anchor obscured
-  vec3 uvz = 0.5 * gl_Position.xyz / gl_Position.w + vec3( 0.5 );
-  float fragCoordZ = texture2D( uDepth, uvz.xy ).x;
-
-  // Move back by amount relative to precision limit of depth
-  float b = projectionMatrix[3][2]; // -2 * far * near / ( far - near )
-  // Not entirely clear why 0.01 is correct, but lower
-  // than this leading to flashing on iOS
-  fragCoordZ /= 1.0 + 0.02 * fragCoordZ / b;
-
-  vUv.w *= step( clipping.x * uvz.z, fragCoordZ );
-  #endif
-
-  // Snap to position. Do this before applying anchor
-  // to ensure composite markers stay together without wobbling
-  // Final offset of vec2( 0.5 ) is to emulate round() using ceil()
-  gl_Position.xy = pixelScale * floor( gl_Position.xy / pixelScale + vec2( 0.5 ) );
-
-  // Half of box for marker in clipspace
-  vec2 halfSize = 0.5 * pixelScale * aspect;
-
-  // Shift entire marker based on anchor position
-  gl_Position.xy += pixelScale * ( 0.5 * anchor.xy * aspect + anchor.zw );
-
-  // Finally move out vertices to form quad
-  // First get clipspace of top-left point
-  gl_Position.xy -= halfSize;
-
-  // box in fragCoord space, xy: center, zw: width/height
-  const vec2 halfPixel = vec2( 0.5 );
-  vBox.xy = ( gl_Position.xy + halfSize - halfPixel ) / pixelScale + vec2( 0.5 ) / uViewportInverse;
-  vBox.zw = aspect;
-
-  // Now calculate other vertices (relative to top-left)
-  vec2 vertex = ( position + vec2( 1.0 ) ) * halfSize;
-
-  // Shift by half pixel so that we are snapped to pixel for sharper text
-  vertex -= halfPixel;
-
-  // Only expand to primitive if visible, otherwise collapse to degenerate
-  // triangle, avoiding the fragment shader having to execute
-  gl_Position.xy += step( 0.0001, vUv.w ) * vertex;
-
-  // Clamp border radius to sensible range
-  vLayout.z = min( vLayout.z, 0.5 * vBox.w - vLayout.y ); // no larger than half of box
-  vLayout.z = max( 0.0001, vLayout.z ); // 0 causes rendering issues
-}
-`);
-
-var markerFragment = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-precision highp float;
-
-#ifdef READ_DEPTH
-uniform sampler2D uDepth;
-uniform vec2 uViewportInverse;
+const vec2 e=vec2(1.0/TEX_SIZE,0.0);vec4 f(const in sampler2D g,in vec2 h){h-=0.5*e.xx;vec2 i=fract(h*TEX_SIZE);vec2 j=h-e.xx*i+0.5*e.xx;
+#ifdef HEIGHT_LOOKUP_BIAS
+vec4 k=texture2D(g,j,-10.0);vec4 l=texture2D(g,j+e,-10.0);vec4 m=texture2D(g,j+e.yx,-10.0);vec4 n=texture2D(g,j+e.xx,-10.0);
+#else
+vec4 k=texture2D(g,j);vec4 l=texture2D(g,j+e);vec4 m=texture2D(g,j+e.yx);vec4 n=texture2D(g,j+e.xx);
 #endif
-uniform sampler2D uMap;
+vec4 o=mix(k,l,i.x);vec4 p=mix(m,n,i.x);return mix(o,p,i.y);}vec4 q(in sampler2D r,in vec2 h,in float s){vec2 t=vec2(mod(float(s),VIRTUAL_TEXTURE_ARRAY_BLOCKS),floor(float(s)/VIRTUAL_TEXTURE_ARRAY_BLOCKS));const float u=0.5;vec2 v=vec2(u,VIRTUAL_TEXTURE_ARRAY_SIZE-u)/VIRTUAL_TEXTURE_ARRAY_SIZE;vec2 w=(clamp(h,v.x,v.y)+t)/VIRTUAL_TEXTURE_ARRAY_BLOCKS;
+#ifdef MANUAL_TEXTURE_BILINEAR
+return f(r,w);
+#else
+return texture2D(r,w);
+#endif
+}uniform lowp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform float uSceneScale;const float x=0.0008176665341588574;float y(in float z){float A=3.141592653589793-0.006135923151542565*z;float B=dot(vec2(0.5),exp(vec2(A,-A)));return B/(x*uSceneScale);}uniform lowp sampler2D elevationArray;float C(in vec2 D){const float E=32.0;const float F=1024.0;vec2 G=D.xy-uGlobalOffset;G/=(uSceneScale*E);G*=vec2(1.0,-1.0);vec2 H=G/F;const vec2 I=vec2(0.5);vec2 J=(floor(G-I)+I);J+=step(I,G-J);vec2 K=J/F;vec4 L=texture2D(indirectionTexture,K);float s=L.r;float M=L.g;vec2 N=L.ba;vec2 w=H*M+N;return y(G.y)*q(elevationArray,w,s).a;}
+#define SIZE vec2( 512.0, 1024.0 )
+void main(){vec3 O=offset.xyz;O.z=C(O.xy);vBackground=background;vColor=color;vLayout=uPixelRatio*layout;vReadDepth=clipping.y*uReadDepthOverride;vec3 P=cameraPosition-O;float Q=a(P);vec2 R=vec2(1.0,-1.0)*position;vec2 S=0.5*R+vec2(0.5);vUv.z=step(distance(tag.xyz,uSelectedTag),0.0);vec2 T=vec2(normal.w,offset.w)+1000000.0*vUv.zz;T=smoothstep(T,vec2(0.95,0.9)*T,vec2(Q));vUv.w=(0.6*T.x+0.4)*T.y;vUv.z*=tag.w;vec2 U=mix(atlas.ww*vec2(SIZE.y/SIZE.x,1.0),atlas.zw,T.x);vUv.xy=atlas.xy+U*S;vUv.w*=smoothstep(0.0,0.15,clipping.y+dot(P,normal.xyz));vUv.w*=step(0.3,vUv.w);vec2 u=layout.xx+layout.yy;vUv.xy+=(u*R)/SIZE;vec2 V=SIZE*U+2.0*u;V*=uPixelRatio;float W=min(0.5*Q,100.0+200.0*clipping.x);vec4 D=vec4(O+W*P,1.0);gl_Position=projectionMatrix*viewMatrix*D;vec2 X=2.0*gl_Position.w*uViewportInverse;
+#ifdef READ_DEPTH
+vec3 Y=0.5*gl_Position.xyz/gl_Position.w+vec3(0.5);float Z=texture2D(uDepth,Y.xy).x;float ba=projectionMatrix[3][2];Z/=1.0+0.02*Z/ba;vUv.w*=step(clipping.x*Y.z,Z);
+#endif
+gl_Position.xy=X*floor(gl_Position.xy/X+vec2(0.5));vec2 bb=0.5*X*V;gl_Position.xy+=X*(0.5*anchor.xy*V+anchor.zw);gl_Position.xy-=bb;const vec2 bc=vec2(0.5);vBox.xy=(gl_Position.xy+bb-bc)/X+vec2(0.5)/uViewportInverse;vBox.zw=V;vec2 bd=(position+vec2(1.0))*bb;bd-=bc;gl_Position.xy+=step(0.0001,vUv.w)*bd;vLayout.z=min(vLayout.z,0.5*vBox.w-vLayout.y);vLayout.z=max(0.0001,vLayout.z);}`);
 
-varying vec4 vUv;
-varying vec4 vBox;
-varying vec4 vBackground;
-varying vec4 vColor;
-varying float vReadDepth;
-varying vec3 vLayout;
-
+var markerFragment = new Shader(`precision highp float;
+#ifdef READ_DEPTH
+uniform sampler2D uDepth;uniform vec2 uViewportInverse;
+#endif
+uniform sampler2D uMap;varying vec4 vUv;varying vec4 vBox;varying vec4 vBackground;varying vec4 vColor;varying float vReadDepth;varying vec3 vLayout;
 #define SIZE 512.0
-
-void main() {
-  //gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );
-  //return;
-  // Partially hide label (per-pixel depth check)
-  #ifdef READ_DEPTH
-  float fragCoordZ = texture2D(uDepth, uViewportInverse * gl_FragCoord.xy).x;
-
-  float visibility = vUv.w * step( vReadDepth * gl_FragCoord.z, fragCoordZ );
-  #else
-  float visibility = vUv.w;
-  #endif
-
-  // Background color
-  gl_FragColor = vBackground;
-
-  // Padding
-  vec2 limit = 0.5 * vBox.zw - vec2( vLayout.x + vLayout.y );
-  vec2 clamped = clamp( gl_FragCoord.xy,
-      vBox.xy - limit,
-      vBox.xy + limit );
-  float inside = step( distance( clamped, gl_FragCoord.xy ), 0.0 );
-
-  // Image
-  // TODO not the correct blend operation, but works on black
-  // background
-  // Should switch to over operator
-  // e.g. https://en.wikipedia.org/wiki/Alpha_compositing
-  vec4 image = texture2D( uMap, vUv.xy );
-
-  // Mask out correct channel
-  // 1: R, 2: B, 3: G, 4: A - see atlas.js
-  vec4 channel = step( vec4( 1.0, 3.0, 2.0, 4.0 ), vec4( vUv.y ) );
-  channel *= step( vec4( vUv.y ), vec4( 2.0, 4.0, 3.0, 5.0 ) );
-  float monochrome = length( channel );
-  image = mix( image,
-               vec4( vec3( 1.0 ), dot( channel, image ) ),
-               monochrome );
-
-  // Clip image by padding
-  image.a *= inside;
-
-  // Colorize image
-  image *= vColor;
-
-  gl_FragColor.rgb = mix( gl_FragColor.rgb, image.rgb, image.a );
-  gl_FragColor.a = max( gl_FragColor.a, image.a );
-
-  // Radius of border
-  float radius = vLayout.z;
-
-  // Modify clamp to be circular
-  limit = 0.5 * vBox.zw - vec2( radius + vLayout.y );
-  clamped = clamp( gl_FragCoord.xy,
-                   vBox.xy - limit,
-                   vBox.xy + limit );
-  float d = distance( clamped, gl_FragCoord.xy );
-
-  // Draw border (similarly smoothstepping to reduce aliasing)
-  limit = vec2( max( radius - 1.0, 0.0 ), radius ); // Inner radius of border
-  float border = smoothstep( limit.x, limit.y, d );
-  border *= step( 0.4999, vLayout.y ); // Do not draw border if width less than 0.5
-  gl_FragColor = mix( gl_FragColor, vec4( 1.0 ), border );
-  limit += vLayout.yy; // Outer radius of border
-
-  // Fade out rounded border over one pixel to reduce aliasing
-  gl_FragColor.a *= smoothstep( limit.y, limit.x, d );
-
-  // Highlight and visibility
-  gl_FragColor.rgb += vUv.z;
-  gl_FragColor.a *= visibility;
-
-  // Debug
-  // Check that uv is always centered on texel
-  // Get constant color when we disable snapping
-  //gl_FragColor.rg = 10.0 * abs( fract( SIZE * vUv.xy ) - vec2( 0.5 ) );
-
-  // Display channel used
-  //gl_FragColor.rgb = mix( gl_FragColor.rgb, channel.rgb, vUv.z );
-
-  // Show entire quad
-  //gl_FragColor += vec4(1.0, 0.0, 0.0, 0.1);
-  if ( gl_FragColor.a < 0.0001 ) { discard; }
-}
-`);
+void main(){
+#ifdef READ_DEPTH
+float a=texture2D(uDepth,uViewportInverse*gl_FragCoord.xy).x;float b=vUv.w*step(vReadDepth*gl_FragCoord.z,a);
+#else
+float b=vUv.w;
+#endif
+gl_FragColor=vBackground;vec2 c=0.5*vBox.zw-vec2(vLayout.x+vLayout.y);vec2 d=clamp(gl_FragCoord.xy,vBox.xy-c,vBox.xy+c);float e=step(distance(d,gl_FragCoord.xy),0.0);vec4 f=texture2D(uMap,vUv.xy);vec4 g=step(vec4(1.0,3.0,2.0,4.0),vec4(vUv.y));g*=step(vec4(vUv.y),vec4(2.0,4.0,3.0,5.0));float h=length(g);f=mix(f,vec4(vec3(1.0),dot(g,f)),h);f.a*=e;f*=vColor;gl_FragColor.rgb=mix(gl_FragColor.rgb,f.rgb,f.a);gl_FragColor.a=max(gl_FragColor.a,f.a);float i=vLayout.z;c=0.5*vBox.zw-vec2(i+vLayout.y);d=clamp(gl_FragCoord.xy,vBox.xy-c,vBox.xy+c);float j=distance(d,gl_FragCoord.xy);c=vec2(max(i-1.0,0.0),i);float k=smoothstep(c.x,c.y,j);k*=step(0.4999,vLayout.y);gl_FragColor=mix(gl_FragColor,vec4(1.0),k);c+=vLayout.yy;gl_FragColor.a*=smoothstep(c.y,c.x,j);gl_FragColor.rgb+=vUv.z;gl_FragColor.a*=b;if(gl_FragColor.a<0.0001){discard;}}`);
 
 /**
  * Copyright 2020 (c) Felix Palmer
@@ -42635,143 +38628,13 @@ ContainerStore$1.listen( ( { canvasHeight, pixelRatio, canvasWidth } ) => {
   markerUniforms.uPixelRatio.value = pixelRatio;
 } );
 
-var skyVertex = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-uniform mat4 modelViewMatrix;
-uniform mat4 projectionMatrix;
+var skyVertex = new Shader(`uniform mat4 modelViewMatrix;uniform mat4 projectionMatrix;attribute vec3 position;varying vec3 vPosition;void main(){vPosition=position.xzy;vPosition.y=max(0.0,vPosition.y);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`);
 
-attribute vec3 position;
-
-varying vec3 vPosition;
-
-void main() {
-  vPosition = position.xzy;
-  vPosition.y = max( 0.0, vPosition.y );
-  gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-}
-`);
-
-var skyFragment = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-precision highp float;
-
-varying vec3 vPosition;
-
-// Not including sun disk for now as we rarely see it anyway
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// Derived uniforms
-uniform vec3 sunDirection;
-uniform vec3 betaRM;
-uniform vec3 betaRnorm;
-uniform vec3 betaMnorm;
-uniform vec4 constants; // sunE, hgPhaseA, hgPhaseB & LinWeight
-uniform float gamma;
-uniform float tonemapScale;
-
-// Safe functions
-float spow( const float x, const float y ) {
-  return pow( abs( x ), y );
-}
-
-vec3 spow( const vec3 x, const vec3 y ) {
-  return pow( abs( x ), y );
-}
-
-vec3 ssqrt( const vec3 x ) {
-  return sqrt( abs( x ) );
-}
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-const float A = 0.15;
-const float B = 0.50;
-const float C = 0.10;
-const float D = 0.20;
-const float E = 0.02;
-const float F = 0.30;
-
-uniform float uTonemapExposureBias;
-uniform float uTonemapWhiteScale;
-
-vec3 RawTonemap( vec3 x )
-{
-  return ((x*(A*x+C*B)+D*E)/(x*(A*x+B)+D*F))-E/F;
-}
-
-vec3 Tonemap( vec3 color ) {
-  return uTonemapExposureBias * RawTonemap( uTonemapWhiteScale * color );
-}
-
-
-vec3 skyColor( vec3 direction ) {
-  float cosZenithAngle = max( 0.0, direction.y );
-  // Approximate acos( x ) by pi/2 - x
-  // This allows us to simplify and error is only large when looking up
-  float denom = cosZenithAngle + spow( 17.6579343808112 + cosZenithAngle * 260.41830500372932, -1.253 );
-
-  // combined extinction factor	
-  vec3 Fex = exp( -betaRM / denom );
-
-  // in scattering
-  float cosTheta = dot( direction, sunDirection );
-  float rPhase = cosTheta + 1.0;
-  vec3 betaRTheta = betaRnorm * ( 4.0 + rPhase * rPhase );
-  vec3 betaMTheta = betaMnorm * spow( constants.y * cosTheta + constants.z, -1.5 );
-
-  vec3 tmp = betaRTheta + betaMTheta;
-  vec3 Lin = spow( tmp * ( 1.0 - Fex ), vec3( 1.5 ) );
-  Lin *= mix( vec3( 1.0 ), ssqrt( tmp * Fex ), constants.w );
-
-  // nightsky
-  vec3 L0 = 0.1 * Fex;
-
-  #ifdef SUN_DISK
-  L0 += constants.x * Fex * smoothstep( 0.9999566769, 0.9999766769, cosTheta );
-  #endif
-
-  // Combine all components
-  vec3 color = 0.04 * ( Lin + L0 ) + vec3( 0.0, 0.0003, 0.00075 );   
-  color = Tonemap( tonemapScale * color );
-  return spow( color, vec3( gamma ) );
-}
-
-
-void main() {
-  vec3 direction = normalize( vPosition );
-  vec3 color = skyColor( direction );
-  // Stars
-  //float r = 500.0;
-  //vec3 rounded = floor( 0.4999999 + r * direction ) / r;
-  //float hash = fract( sin( 21041.4 * rounded.x ) + sin( 317041.4 * rounded.z ) + sin( 210041.4 * rounded.x ) + sin( 217041.4 * rounded.y ));
-  //float star = distance( rounded, direction );
-  //star = smoothstep( 0.5 / r, 0.0, star );
-  //color += vec3( star * smoothstep( 0.97, 1.0, hash ) * smoothstep( 0.01, 0.05, direction.y) );
-  gl_FragColor = vec4( color, 1.0 );
-}
-`);
+var skyFragment = new Shader(`precision highp float;varying vec3 vPosition;uniform vec3 sunDirection;uniform vec3 betaRM;uniform vec3 betaRnorm;uniform vec3 betaMnorm;uniform vec4 constants;uniform float gamma;uniform float tonemapScale;float a(const float b,const float c){return pow(abs(b),c);}vec3 a(const vec3 b,const vec3 c){return pow(abs(b),c);}vec3 d(const vec3 b){return sqrt(abs(b));}const float e=0.15;const float f=0.50;const float g=0.10;const float h=0.20;const float i=0.02;const float j=0.30;uniform float uTonemapExposureBias;uniform float uTonemapWhiteScale;vec3 k(vec3 b){return ((b*(e*b+g*f)+h*i)/(b*(e*b+f)+h*j))-i/j;}vec3 l(vec3 m){return uTonemapExposureBias*k(uTonemapWhiteScale*m);}vec3 n(vec3 o){float p=max(0.0,o.y);float q=p+a(17.6579343808112+p*260.41830500372932,-1.253);vec3 r=exp(-betaRM/q);float s=dot(o,sunDirection);float t=s+1.0;vec3 u=betaRnorm*(4.0+t*t);vec3 v=betaMnorm*a(constants.y*s+constants.z,-1.5);vec3 w=u+v;vec3 x=a(w*(1.0-r),vec3(1.5));x*=mix(vec3(1.0),d(w*r),constants.w);vec3 y=0.1*r;
+#ifdef SUN_DISK
+y+=constants.x*r*smoothstep(0.9999566769,0.9999766769,s);
+#endif
+vec3 m=0.04*(x+y)+vec3(0.0,0.0003,0.00075);m=l(tonemapScale*m);return a(m,vec3(gamma));}void main(){vec3 o=normalize(vPosition);vec3 m=n(o);gl_FragColor=vec4(m,1.0);}`);
 
 /**
  * Copyright 2020 (c) Felix Palmer
@@ -42819,564 +38682,71 @@ FeaturesStore$1.listen( ( { selected } ) => {
   tagUniforms.selectedTag.value.set( id );
 } );
 
-var terrainVertex = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-precision highp float;
-
-uniform mat4 viewMatrix;
-uniform mat4 projectionMatrix;
-uniform vec3 cameraPosition;
-
-attribute vec4 position;
-
-uniform vec4 uOffset;
-uniform vec4 uImageryUvOffset;
-
-varying vec4 vUV;
-varying float D;
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// TODO set these from JS
+var terrainVertex = new Shader(`precision highp float;uniform mat4 viewMatrix;uniform mat4 projectionMatrix;uniform vec3 cameraPosition;attribute vec4 position;uniform vec4 uOffset;uniform vec4 uImageryUvOffset;varying vec4 vUV;varying float D;
 #define VIRTUAL_TEXTURE_ARRAY_BLOCKS 4.0
+
 #define VIRTUAL_TEXTURE_ARRAY_SIZE 512.0
 
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// On iOS standard texture linear filtering has
-// artifacts, so use this manual replacement.
-// It also doesn't work for FLOAT textures
 #define TEX_SIZE (VIRTUAL_TEXTURE_ARRAY_SIZE * VIRTUAL_TEXTURE_ARRAY_BLOCKS)
-const vec2 texelSize = vec2( 1.0 / TEX_SIZE, 0.0 );
-vec4 texture2D_bilinear( const in sampler2D t, in vec2 uv )
-{
-  // Calculate pixels to sample and interpolating factor
-  uv -= 0.5 * texelSize.xx;
-  vec2 f = fract( uv * TEX_SIZE );
-  // Snap to corner of texel and then move to center
-  vec2 uvSnapped = uv - texelSize.xx * f + 0.5 * texelSize.xx;
+const vec2 a=vec2(1.0/TEX_SIZE,0.0);vec4 b(const in sampler2D c,in vec2 d){d-=0.5*a.xx;vec2 e=fract(d*TEX_SIZE);vec2 f=d-a.xx*e+0.5*a.xx;
+#ifdef HEIGHT_LOOKUP_BIAS
+vec4 g=texture2D(c,f,-10.0);vec4 h=texture2D(c,f+a,-10.0);vec4 i=texture2D(c,f+a.yx,-10.0);vec4 j=texture2D(c,f+a.xx,-10.0);
+#else
+vec4 g=texture2D(c,f);vec4 h=texture2D(c,f+a);vec4 i=texture2D(c,f+a.yx);vec4 j=texture2D(c,f+a.xx);
+#endif
+vec4 k=mix(g,h,e.x);vec4 l=mix(i,j,e.x);return mix(k,l,e.y);}vec4 m(in sampler2D n,in vec2 d,in float o){vec2 p=vec2(mod(float(o),VIRTUAL_TEXTURE_ARRAY_BLOCKS),floor(float(o)/VIRTUAL_TEXTURE_ARRAY_BLOCKS));const float q=0.5;vec2 r=vec2(q,VIRTUAL_TEXTURE_ARRAY_SIZE-q)/VIRTUAL_TEXTURE_ARRAY_SIZE;vec2 s=(clamp(d,r.x,r.y)+p)/VIRTUAL_TEXTURE_ARRAY_BLOCKS;
+#ifdef MANUAL_TEXTURE_BILINEAR
+return b(n,s);
+#else
+return texture2D(n,s);
+#endif
+}uniform lowp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform float uSceneScale;const float t=0.0008176665341588574;float u(in float v){float w=3.141592653589793-0.006135923151542565*v;float x=dot(vec2(0.5),exp(vec2(w,-w)));return x/(t*uSceneScale);}uniform lowp sampler2D elevationArray;float y(in vec2 z){const float A=32.0;const float B=1024.0;vec2 C=z.xy-uGlobalOffset;C/=(uSceneScale*A);C*=vec2(1.0,-1.0);vec2 D=C/B;const vec2 E=vec2(0.5);vec2 F=(floor(C-E)+E);F+=step(E,C-F);vec2 G=F/B;vec4 H=texture2D(indirectionTexture,G);float o=H.r;float I=H.g;vec2 J=H.ba;vec2 s=D*I+J;return u(C.y)*m(elevationArray,s,o).a;}void main(){vec4 z=vec4(position.xy,0.0,1.0);z.xy*=uOffset.z;z.xy+=uOffset.xy;vec2 K=10.0*floor(position.zw/10.0);vec2 d=position.zw-K;z.z=y(z.xy);z.z-=0.01*uOffset.z*K.x;vUV.xy=uImageryUvOffset.z*d.xy+uImageryUvOffset.xy;vUV.zw=d.xy;D=distance(cameraPosition,z.xyz);gl_Position=projectionMatrix*viewMatrix*z;}`);
 
-  #ifdef HEIGHT_LOOKUP_BIAS
-  // As we are sampling snapped pixels need to override
-  // the mip-map selection by selecting a large negative
-  // bias. Otherwise at boundaries the gradient of
-  // uvSnapped is large and an incorrect mip-level is used
-  // leading to artifacts
-  vec4 tl = texture2D(t, uvSnapped, -10.0);
-  vec4 tr = texture2D(t, uvSnapped + texelSize, -10.0 );
-  vec4 bl = texture2D(t, uvSnapped + texelSize.yx, -10.0 );
-  vec4 br = texture2D(t, uvSnapped + texelSize.xx, -10.0 );
-  #else
-  vec4 tl = texture2D(t, uvSnapped);
-  vec4 tr = texture2D(t, uvSnapped + texelSize);
-  vec4 bl = texture2D(t, uvSnapped + texelSize.yx);
-  vec4 br = texture2D(t, uvSnapped + texelSize.xx);
-  #endif
-  vec4 tA = mix( tl, tr, f.x );
-  vec4 tB = mix( bl, br, f.x );
-  return mix( tA, tB, f.y );
-}
-
-// Virtual texture array lookup (WebGL1 fallback)
-vec4 readTex( in sampler2D tex, in vec2 uv, in float index ) {
-  // Convert index into spatial offset
-  vec2 offset = vec2(
-    mod( float( index ), VIRTUAL_TEXTURE_ARRAY_BLOCKS ),
-    floor( float( index ) / VIRTUAL_TEXTURE_ARRAY_BLOCKS )
-  );
-
-  // Don't bleed across to next texture
-  const float padding = 0.5;
-  vec2 limits = vec2( padding, VIRTUAL_TEXTURE_ARRAY_SIZE - padding ) / VIRTUAL_TEXTURE_ARRAY_SIZE; 
-
-  // Calculate uv for lookup
-  vec2 scaledUv = ( clamp( uv, limits.x, limits.y ) + offset ) / VIRTUAL_TEXTURE_ARRAY_BLOCKS;
-  #ifdef MANUAL_TEXTURE_BILINEAR
-  return texture2D_bilinear( tex, scaledUv );
-  #else
-  return texture2D( tex, scaledUv );
-  #endif
-}
-
-
-uniform lowp sampler2D indirectionTexture;
-uniform vec2 uGlobalOffset;
-uniform float uSceneScale;
-
-// Function to scale height such that one unit in the
-// horizontal plane is equal to one vertical unit
-// Basically comes down to the Mercator projection
-// Math.pow(2, 15) / 40075016.686
-const float earthScale = 0.0008176665341588574;
-float heightScale ( in float y ) {
-  // PI - 2 * PI * y / pow( 2, 10 ) [ z is fixed to 10 ]
-  float n = 3.141592653589793 - 0.006135923151542565 * y;
-  // cosh( n ) / ( earthScale * uSceneScale)
-  float cosh_n = dot( vec2( 0.5 ), exp( vec2( n, -n ) ) );
-  return cosh_n / ( earthScale * uSceneScale );
-}
-
-// TODO should this be highp? Seems OK on iOS
-// From: https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices
-//     If you have a float texture, iOS requires that you use highp sampler2D foo;
-//     or it will very painfully give you lowp texture samples!
-//     (+/-2.0 max is probably not good enough for you)
-// +/-2 seems OK, but should revisit if artifacts present
-uniform lowp sampler2D elevationArray;
-float getHeight( in vec2 p ) {
-  // Get tile coord (at z = 10), currently we are at z = 15
-  const float zoomScale = 32.0; // pow( 2, 15 - 10 )
-  const float indirectionSize = 1024.0;
-  vec2 tile = p.xy - uGlobalOffset;
-  tile /= ( uSceneScale * zoomScale );
-  tile *= vec2( 1.0, -1.0 );
-
-  // Unsnapped uv will be used below for secondary lookup
-  vec2 indirectionUv = tile / indirectionSize;
-
-  // Snap as on Windows/ANGLE Nearest filtering is not respected
-  const vec2 halfTexel = vec2( 0.5 );
-  vec2 snapped = ( floor( tile - halfTexel ) + halfTexel );
-  snapped += step( halfTexel, tile - snapped );
-  vec2 indirectionUvRounded = snapped / indirectionSize;
-
-  vec4 indirection = texture2D( indirectionTexture, indirectionUvRounded );
-
-  // Update index from indirection
-  float index = indirection.r;
-  float tileSize = indirection.g;
-  vec2 tileOrigin = indirection.ba;
-
-  // We know index of texture to do lookup in, but now
-  // we need to know the uv coordinates within the tile
-  // For this we need to know what the tile origin and size are
-  // At first glance it might seem possible to derive the tile origin
-  // mathematically from the indirectionUv (using \`fract\`), but the issue
-  // then is numerical precision. On some GPUs the lack of precision
-  // means that the data we read from the indirection texture doesn't
-  // align with that derived in the shader. It is more reliable to
-  // store the entire transformation from the indirectionUv to
-  // scaledUv in the texture, that way it will be no spurious errors
-  vec2 scaledUv = indirectionUv * tileSize + tileOrigin;
-
-  // Finally read out height, and unpack to single float
-  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;
-}
-
-
-void main() {
-  // Move into place by shifting instanced position by tile offset
-  vec4 p = vec4( position.xy, 0.0, 1.0 );
-  p.xy *= uOffset.z; // Scale
-  p.xy += uOffset.xy; // Shift
-
-  // Extract the height (for skirting from the uv)
-  vec2 skirt = 10.0 * floor( position.zw / 10.0 );
-  vec2 uv = position.zw - skirt;
-
-  p.z = getHeight( p.xy );
-
-  // Pull down skirt vertices
-  p.z -= 0.01 * uOffset.z * skirt.x;
-
-  // Scale image uv lookup for fragment shader
-  vUV.xy = uImageryUvOffset.z * uv.xy + uImageryUvOffset.xy;
-  vUV.zw = uv.xy;
-
-  // Distance for fog
-  D = distance( cameraPosition, p.xyz );
-
-	gl_Position = projectionMatrix * viewMatrix * p;
-}
-`);
-
-var terrainFragment = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-//#extension GL_OES_standard_derivatives : enable
-precision highp float;
-
-uniform vec4 uImageryUvOffset;
-
-varying vec4 vUV; // xy: scaled for imagery lookup, zw: actual uv across tile
-
-varying float D;
-
-uniform lowp sampler2D imageryArray;
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-uniform float uFogDropoff;
-uniform float uFogIntensity;
-uniform vec3 uFogColor;
-
-float fogFactor( in float dist ) {
-  float fog = uFogIntensity *  ( 1.0 - exp( -dist * uFogDropoff ) );
-  return clamp( fog, 0.0, 1.0 );
-}
-
-float fogFactor( in vec3 camera, in vec3 pos ) {
-  float dist = distance( camera, pos );
-  return fogFactor( dist );
-}
-
-
+var terrainFragment = new Shader(`precision highp float;uniform vec4 uImageryUvOffset;varying vec4 vUV;varying float D;uniform lowp sampler2D imageryArray;uniform float uFogDropoff;uniform float uFogIntensity;uniform vec3 uFogColor;float a(in float b){float c=uFogIntensity*(1.0-exp(-b*uFogDropoff));return clamp(c,0.0,1.0);}float a(in vec3 d,in vec3 e){float b=distance(d,e);return a(b);}
 #define VIRTUAL_TEXTURE_ARRAY_BLOCKS 16.0
+
 #define VIRTUAL_TEXTURE_ARRAY_SIZE 256.0
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// On iOS standard texture linear filtering has
-// artifacts, so use this manual replacement.
-// It also doesn't work for FLOAT textures
+
 #define TEX_SIZE (VIRTUAL_TEXTURE_ARRAY_SIZE * VIRTUAL_TEXTURE_ARRAY_BLOCKS)
-const vec2 texelSize = vec2( 1.0 / TEX_SIZE, 0.0 );
-vec4 texture2D_bilinear( const in sampler2D t, in vec2 uv )
-{
-  // Calculate pixels to sample and interpolating factor
-  uv -= 0.5 * texelSize.xx;
-  vec2 f = fract( uv * TEX_SIZE );
-  // Snap to corner of texel and then move to center
-  vec2 uvSnapped = uv - texelSize.xx * f + 0.5 * texelSize.xx;
+const vec2 f=vec2(1.0/TEX_SIZE,0.0);vec4 g(const in sampler2D h,in vec2 i){i-=0.5*f.xx;vec2 j=fract(i*TEX_SIZE);vec2 k=i-f.xx*j+0.5*f.xx;
+#ifdef HEIGHT_LOOKUP_BIAS
+vec4 l=texture2D(h,k,-10.0);vec4 m=texture2D(h,k+f,-10.0);vec4 n=texture2D(h,k+f.yx,-10.0);vec4 o=texture2D(h,k+f.xx,-10.0);
+#else
+vec4 l=texture2D(h,k);vec4 m=texture2D(h,k+f);vec4 n=texture2D(h,k+f.yx);vec4 o=texture2D(h,k+f.xx);
+#endif
+vec4 p=mix(l,m,j.x);vec4 q=mix(n,o,j.x);return mix(p,q,j.y);}vec4 r(in sampler2D s,in vec2 i,in float t){vec2 u=vec2(mod(float(t),VIRTUAL_TEXTURE_ARRAY_BLOCKS),floor(float(t)/VIRTUAL_TEXTURE_ARRAY_BLOCKS));const float v=0.5;vec2 w=vec2(v,VIRTUAL_TEXTURE_ARRAY_SIZE-v)/VIRTUAL_TEXTURE_ARRAY_SIZE;vec2 x=(clamp(i,w.x,w.y)+u)/VIRTUAL_TEXTURE_ARRAY_BLOCKS;
+#ifdef MANUAL_TEXTURE_BILINEAR
+return g(s,x);
+#else
+return texture2D(s,x);
+#endif
+}void main(){vec3 y=r(imageryArray,vUV.xy,uImageryUvOffset.w).rgb;float z=a(D);y=mix(y,uFogColor,z);gl_FragColor=vec4(y,1.0);}`);
 
-  #ifdef HEIGHT_LOOKUP_BIAS
-  // As we are sampling snapped pixels need to override
-  // the mip-map selection by selecting a large negative
-  // bias. Otherwise at boundaries the gradient of
-  // uvSnapped is large and an incorrect mip-level is used
-  // leading to artifacts
-  vec4 tl = texture2D(t, uvSnapped, -10.0);
-  vec4 tr = texture2D(t, uvSnapped + texelSize, -10.0 );
-  vec4 bl = texture2D(t, uvSnapped + texelSize.yx, -10.0 );
-  vec4 br = texture2D(t, uvSnapped + texelSize.xx, -10.0 );
-  #else
-  vec4 tl = texture2D(t, uvSnapped);
-  vec4 tr = texture2D(t, uvSnapped + texelSize);
-  vec4 bl = texture2D(t, uvSnapped + texelSize.yx);
-  vec4 br = texture2D(t, uvSnapped + texelSize.xx);
-  #endif
-  vec4 tA = mix( tl, tr, f.x );
-  vec4 tB = mix( bl, br, f.x );
-  return mix( tA, tB, f.y );
-}
-
-// Virtual texture array lookup (WebGL1 fallback)
-vec4 readTex( in sampler2D tex, in vec2 uv, in float index ) {
-  // Convert index into spatial offset
-  vec2 offset = vec2(
-    mod( float( index ), VIRTUAL_TEXTURE_ARRAY_BLOCKS ),
-    floor( float( index ) / VIRTUAL_TEXTURE_ARRAY_BLOCKS )
-  );
-
-  // Don't bleed across to next texture
-  const float padding = 0.5;
-  vec2 limits = vec2( padding, VIRTUAL_TEXTURE_ARRAY_SIZE - padding ) / VIRTUAL_TEXTURE_ARRAY_SIZE; 
-
-  // Calculate uv for lookup
-  vec2 scaledUv = ( clamp( uv, limits.x, limits.y ) + offset ) / VIRTUAL_TEXTURE_ARRAY_BLOCKS;
-  #ifdef MANUAL_TEXTURE_BILINEAR
-  return texture2D_bilinear( tex, scaledUv );
-  #else
-  return texture2D( tex, scaledUv );
-  #endif
-}
-
-
-void main() {
-  vec3 color = readTex( imageryArray, vUV.xy, uImageryUvOffset.w ).rgb;
-
-  float fogAmount = fogFactor( D );
-  color = mix( color, uFogColor, fogAmount );
-
-  gl_FragColor = vec4( color, 1.0 );
-
-  //// Edge debug
-  //gl_FragColor.r *= 1.0 - dot( vec2( 1.0 ), step( vUV.xy, vec2( 0.01 ) ) );
-  //gl_FragColor.g *= 1.0 - dot( vec2( 1.0 ), step( vUV.zw, vec2( 0.01 ) ) );
-
-  // Error calc (mimics picker shader)
-  //vec4 error = dFdx( vUV );
-  //error *= 256.0;
-  //float E = log2( length( error.zw ) ) - 0.75;
-  //float cap = 0.75; // Value to cap error display at
-  //vec3 errorColor = mix( vec3( 1.0 ), vec3( 1.0, 0.0, 0.0 ),
-  //  max( 0.0, E / cap ) );
-  //errorColor = mix( errorColor, vec3( 0.0, 1.0, 0.0 ),
-  //  max( 0.0, -E / cap ) );
-
-  //// Tile outlines
-  //vec4 wire = smoothstep(
-  // 0.48, 0.49,
-  // fract( vec4( 1.0, -1.0, 1.0, -1.0 ) * 2.0 * vUV.zzww + vec4( 0.5 ) ) );
-  //float wireframe = min( 1.0, wire.x * wire.y + wire.z * wire.w );
-  //gl_FragColor.rgb = mix( gl_FragColor.rgb, errorColor, wireframe );
-}
-`);
-
-var terrainPickerVertex = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-precision highp float;
-
-uniform mat4 viewMatrix;
-uniform mat4 projectionMatrix;
-
-attribute vec4 position;
-
-uniform vec4 uOffset;
-uniform vec4 uImageryUvOffset;
-uniform vec3 uScaling; // xy: center pixel, z: downScaling
-
-varying vec4 vUV;
-
+var terrainPickerVertex = new Shader(`precision highp float;uniform mat4 viewMatrix;uniform mat4 projectionMatrix;attribute vec4 position;uniform vec4 uOffset;uniform vec4 uImageryUvOffset;uniform vec3 uScaling;varying vec4 vUV;
 #define MANUAL_TEXTURE_BILINEAR 1
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// TODO set these from JS
+
 #define VIRTUAL_TEXTURE_ARRAY_BLOCKS 4.0
+
 #define VIRTUAL_TEXTURE_ARRAY_SIZE 512.0
 
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// On iOS standard texture linear filtering has
-// artifacts, so use this manual replacement.
-// It also doesn't work for FLOAT textures
 #define TEX_SIZE (VIRTUAL_TEXTURE_ARRAY_SIZE * VIRTUAL_TEXTURE_ARRAY_BLOCKS)
-const vec2 texelSize = vec2( 1.0 / TEX_SIZE, 0.0 );
-vec4 texture2D_bilinear( const in sampler2D t, in vec2 uv )
-{
-  // Calculate pixels to sample and interpolating factor
-  uv -= 0.5 * texelSize.xx;
-  vec2 f = fract( uv * TEX_SIZE );
-  // Snap to corner of texel and then move to center
-  vec2 uvSnapped = uv - texelSize.xx * f + 0.5 * texelSize.xx;
+const vec2 a=vec2(1.0/TEX_SIZE,0.0);vec4 b(const in sampler2D c,in vec2 d){d-=0.5*a.xx;vec2 e=fract(d*TEX_SIZE);vec2 f=d-a.xx*e+0.5*a.xx;
+#ifdef HEIGHT_LOOKUP_BIAS
+vec4 g=texture2D(c,f,-10.0);vec4 h=texture2D(c,f+a,-10.0);vec4 i=texture2D(c,f+a.yx,-10.0);vec4 j=texture2D(c,f+a.xx,-10.0);
+#else
+vec4 g=texture2D(c,f);vec4 h=texture2D(c,f+a);vec4 i=texture2D(c,f+a.yx);vec4 j=texture2D(c,f+a.xx);
+#endif
+vec4 k=mix(g,h,e.x);vec4 l=mix(i,j,e.x);return mix(k,l,e.y);}vec4 m(in sampler2D n,in vec2 d,in float o){vec2 p=vec2(mod(float(o),VIRTUAL_TEXTURE_ARRAY_BLOCKS),floor(float(o)/VIRTUAL_TEXTURE_ARRAY_BLOCKS));const float q=0.5;vec2 r=vec2(q,VIRTUAL_TEXTURE_ARRAY_SIZE-q)/VIRTUAL_TEXTURE_ARRAY_SIZE;vec2 s=(clamp(d,r.x,r.y)+p)/VIRTUAL_TEXTURE_ARRAY_BLOCKS;
+#ifdef MANUAL_TEXTURE_BILINEAR
+return b(n,s);
+#else
+return texture2D(n,s);
+#endif
+}uniform lowp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform float uSceneScale;const float t=0.0008176665341588574;float u(in float v){float w=3.141592653589793-0.006135923151542565*v;float x=dot(vec2(0.5),exp(vec2(w,-w)));return x/(t*uSceneScale);}uniform lowp sampler2D elevationArray;float y(in vec2 z){const float A=32.0;const float B=1024.0;vec2 C=z.xy-uGlobalOffset;C/=(uSceneScale*A);C*=vec2(1.0,-1.0);vec2 D=C/B;const vec2 E=vec2(0.5);vec2 F=(floor(C-E)+E);F+=step(E,C-F);vec2 G=F/B;vec4 H=texture2D(indirectionTexture,G);float o=H.r;float I=H.g;vec2 J=H.ba;vec2 s=D*I+J;return u(C.y)*m(elevationArray,s,o).a;}void main(){vec4 z=vec4(position.xy,0.0,1.0);z.xy*=uOffset.z;z.xy+=uOffset.xy;vec2 K=10.0*floor(position.zw/10.0);vec2 d=position.zw-K;z.z=y(z.xy);z.z-=0.01*uOffset.z*K.x;float L=uOffset.w;vec2 M=vec2(floor(L/256.0)/256.0,fract(L/256.0))*(256.0/255.0);vUV.xy=d.xy*uScaling.z;vUV.zw=M;gl_Position=projectionMatrix*viewMatrix*z;}`);
 
-  #ifdef HEIGHT_LOOKUP_BIAS
-  // As we are sampling snapped pixels need to override
-  // the mip-map selection by selecting a large negative
-  // bias. Otherwise at boundaries the gradient of
-  // uvSnapped is large and an incorrect mip-level is used
-  // leading to artifacts
-  vec4 tl = texture2D(t, uvSnapped, -10.0);
-  vec4 tr = texture2D(t, uvSnapped + texelSize, -10.0 );
-  vec4 bl = texture2D(t, uvSnapped + texelSize.yx, -10.0 );
-  vec4 br = texture2D(t, uvSnapped + texelSize.xx, -10.0 );
-  #else
-  vec4 tl = texture2D(t, uvSnapped);
-  vec4 tr = texture2D(t, uvSnapped + texelSize);
-  vec4 bl = texture2D(t, uvSnapped + texelSize.yx);
-  vec4 br = texture2D(t, uvSnapped + texelSize.xx);
-  #endif
-  vec4 tA = mix( tl, tr, f.x );
-  vec4 tB = mix( bl, br, f.x );
-  return mix( tA, tB, f.y );
-}
-
-// Virtual texture array lookup (WebGL1 fallback)
-vec4 readTex( in sampler2D tex, in vec2 uv, in float index ) {
-  // Convert index into spatial offset
-  vec2 offset = vec2(
-    mod( float( index ), VIRTUAL_TEXTURE_ARRAY_BLOCKS ),
-    floor( float( index ) / VIRTUAL_TEXTURE_ARRAY_BLOCKS )
-  );
-
-  // Don't bleed across to next texture
-  const float padding = 0.5;
-  vec2 limits = vec2( padding, VIRTUAL_TEXTURE_ARRAY_SIZE - padding ) / VIRTUAL_TEXTURE_ARRAY_SIZE; 
-
-  // Calculate uv for lookup
-  vec2 scaledUv = ( clamp( uv, limits.x, limits.y ) + offset ) / VIRTUAL_TEXTURE_ARRAY_BLOCKS;
-  #ifdef MANUAL_TEXTURE_BILINEAR
-  return texture2D_bilinear( tex, scaledUv );
-  #else
-  return texture2D( tex, scaledUv );
-  #endif
-}
-
-
-uniform lowp sampler2D indirectionTexture;
-uniform vec2 uGlobalOffset;
-uniform float uSceneScale;
-
-// Function to scale height such that one unit in the
-// horizontal plane is equal to one vertical unit
-// Basically comes down to the Mercator projection
-// Math.pow(2, 15) / 40075016.686
-const float earthScale = 0.0008176665341588574;
-float heightScale ( in float y ) {
-  // PI - 2 * PI * y / pow( 2, 10 ) [ z is fixed to 10 ]
-  float n = 3.141592653589793 - 0.006135923151542565 * y;
-  // cosh( n ) / ( earthScale * uSceneScale)
-  float cosh_n = dot( vec2( 0.5 ), exp( vec2( n, -n ) ) );
-  return cosh_n / ( earthScale * uSceneScale );
-}
-
-// TODO should this be highp? Seems OK on iOS
-// From: https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices
-//     If you have a float texture, iOS requires that you use highp sampler2D foo;
-//     or it will very painfully give you lowp texture samples!
-//     (+/-2.0 max is probably not good enough for you)
-// +/-2 seems OK, but should revisit if artifacts present
-uniform lowp sampler2D elevationArray;
-float getHeight( in vec2 p ) {
-  // Get tile coord (at z = 10), currently we are at z = 15
-  const float zoomScale = 32.0; // pow( 2, 15 - 10 )
-  const float indirectionSize = 1024.0;
-  vec2 tile = p.xy - uGlobalOffset;
-  tile /= ( uSceneScale * zoomScale );
-  tile *= vec2( 1.0, -1.0 );
-
-  // Unsnapped uv will be used below for secondary lookup
-  vec2 indirectionUv = tile / indirectionSize;
-
-  // Snap as on Windows/ANGLE Nearest filtering is not respected
-  const vec2 halfTexel = vec2( 0.5 );
-  vec2 snapped = ( floor( tile - halfTexel ) + halfTexel );
-  snapped += step( halfTexel, tile - snapped );
-  vec2 indirectionUvRounded = snapped / indirectionSize;
-
-  vec4 indirection = texture2D( indirectionTexture, indirectionUvRounded );
-
-  // Update index from indirection
-  float index = indirection.r;
-  float tileSize = indirection.g;
-  vec2 tileOrigin = indirection.ba;
-
-  // We know index of texture to do lookup in, but now
-  // we need to know the uv coordinates within the tile
-  // For this we need to know what the tile origin and size are
-  // At first glance it might seem possible to derive the tile origin
-  // mathematically from the indirectionUv (using \`fract\`), but the issue
-  // then is numerical precision. On some GPUs the lack of precision
-  // means that the data we read from the indirection texture doesn't
-  // align with that derived in the shader. It is more reliable to
-  // store the entire transformation from the indirectionUv to
-  // scaledUv in the texture, that way it will be no spurious errors
-  vec2 scaledUv = indirectionUv * tileSize + tileOrigin;
-
-  // Finally read out height, and unpack to single float
-  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;
-}
-
-
-void main() {
-  // Move into place by shifting instanced position by tile offset
-  vec4 p = vec4( position.xy, 0.0, 1.0 );
-  p.xy *= uOffset.z; // Scale
-  p.xy += uOffset.xy; // Shift
-
-  // Extract the height (for skirting from the uv)
-  vec2 skirt = 10.0 * floor( position.zw / 10.0 );
-  vec2 uv = position.zw - skirt;
-
-  p.z = getHeight( p.xy );
-
-  // Pull down skirt vertices
-  p.z -= 0.01 * uOffset.z * skirt.x;
-
-  // Pass values through to fragment shader
-  float tileId = uOffset.w;
-  vec2 encodedTileId = vec2(
-    floor( tileId / 256.0 ) / 256.0,
-    fract( tileId / 256.0 )
-    ) * ( 256.0 / 255.0 );
-
-  // Scale error to texture width
-  vUV.xy = uv.xy * uScaling.z;
-  vUV.zw = encodedTileId;
-
-	gl_Position = projectionMatrix * viewMatrix * p;
-}
-`);
-
-var terrainPickerFragment = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
+var terrainPickerFragment = new Shader(`
 #extension GL_OES_standard_derivatives : enable  
-precision highp float;
-
-uniform vec3 uScaling; // xy: center pixel, z: downScaling
-
-varying vec4 vUV; // xy: actual uv across tile, zw: encodedTileId
-
-void main() {
-  // Assess our screen space error, both for tile size and texture blur
-  // For now not actually using the texture blur error, as it is best to
-  // fetch just based on the tile geometry, makes things more stable
-  vec2 deltaUV = dFdx( vUV.xy );
-
-  float err = log2( length( deltaUV ) );
-
-  vec2 encodedTileId = vUV.zw;
-
-  // TODO perhaps we could encode this the same way we encode Z
-  // and save some instructions
-  // Store error clamped to range -5 > 5 (log encoded)
-  float encodedError = 0.1 * err + 0.5;
-
-  // Scale to fill 0->1 to 16bit capacity
-  float scaledZ = 256.0 * 255.0 * gl_FragCoord.z;
-  vec2 encodedZ = vec2(
-    floor( scaledZ / 256.0 ),
-    mod( scaledZ, 256.0 )
-   ) / 255.0;
-  float isCenter = step( distance( gl_FragCoord.xy, uScaling.xy ), 4.0 );
-
-  vec4 standard = vec4( encodedTileId, 0.0, encodedError );
-  vec4 centerPixels = vec4( 0.0, 0.0, encodedZ );
-  gl_FragColor = mix( standard, centerPixels, isCenter );
-}
-`);
+precision highp float;uniform vec3 uScaling;varying vec4 vUV;void main(){vec2 a=dFdx(vUV.xy);float b=log2(length(a));vec2 c=vUV.zw;float d=0.1*b+0.5;float e=256.0*255.0*gl_FragCoord.z;vec2 f=vec2(floor(e/256.0),mod(e,256.0))/255.0;float g=step(distance(gl_FragCoord.xy,uScaling.xy),4.0);vec4 h=vec4(c,0.0,d);vec4 i=vec4(0.0,0.0,f);gl_FragColor=mix(h,i,g);}`);
 
 /**
  * Copyright 2020 (c) Felix Palmer
@@ -43551,363 +38921,35 @@ lodash_min.forOwn( material, function ( m ) {
   }
 } );
 
-var pickerVertex = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-uniform mat4 viewMatrix;
-uniform mat4 projectionMatrix;
-uniform vec3 cameraPosition;
-
-uniform float uPixelRatio;
-uniform vec2 uViewportCanvasInverse;
-
-// This material needs to handle both pistes and markers
-// which is tricky as their attributes mean different things
-// In particular position is instanced for markers but
-// not for pistes
-
-// Rather than have 2 materials we use the position attribute
-// to decide what we are rendering. Perhaps it is faster to have
-// two materials, but this is simpler and saves swapping programs
-
-// For markers the position attribute is 1, 1 or similar
-// assume that for pistes it is longer. A bit hacky but works
-// Using another attribute isn't reliable, e.g. we cannot
-// use the atlas which should be 0 for pistes as this randomly
-// fails. TODO investigate more robust solution
-
-// Shared attributes
-attribute vec3 tag;
-attribute vec3 position;
-
-// Piste attribute
-attribute vec3 tangent;
-
-// Marker attributes
-attribute vec4 atlas; // (xy: location in atlas, zw: size in atlas)
-attribute vec4 anchor; // (xy: anchor, z: per-object depth, w: per-pixel depth)
-attribute vec4 clipping; // (x: per-object depth, y: per-pixel depth)
-attribute vec3 layout; // (x: padding, y: borderWidth, z: borderRadius)
-attribute vec4 normal; // (xyz: normal, w: collapseDistance)
-attribute vec4 offset; // (xyz: offset, w: fadeDistance)
-
-varying vec4 vTag;
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// Normalized the input vector in place at the same
-// time as finding its lengt
-// Doesn't appear to be faster than length() & normalize() (same speed)
-float lengthNormalize( inout vec3 v ) {
-  float lengthSquared = dot( v, v );
-  float rcpLength = inversesqrt( lengthSquared );
-  v = rcpLength * v; // Normalized vector
-  return lengthSquared * rcpLength; // Vector length
-}
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// TODO set these from JS
+var pickerVertex = new Shader(`uniform mat4 viewMatrix;uniform mat4 projectionMatrix;uniform vec3 cameraPosition;uniform float uPixelRatio;uniform vec2 uViewportCanvasInverse;attribute vec3 tag;attribute vec3 position;attribute vec3 tangent;attribute vec4 atlas;attribute vec4 anchor;attribute vec4 clipping;attribute vec3 layout;attribute vec4 normal;attribute vec4 offset;varying vec4 vTag;float a(inout vec3 b){float c=dot(b,b);float d=inversesqrt(c);b=d*b;return c*d;}
 #define VIRTUAL_TEXTURE_ARRAY_BLOCKS 4.0
+
 #define VIRTUAL_TEXTURE_ARRAY_SIZE 512.0
 
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// On iOS standard texture linear filtering has
-// artifacts, so use this manual replacement.
-// It also doesn't work for FLOAT textures
 #define TEX_SIZE (VIRTUAL_TEXTURE_ARRAY_SIZE * VIRTUAL_TEXTURE_ARRAY_BLOCKS)
-const vec2 texelSize = vec2( 1.0 / TEX_SIZE, 0.0 );
-vec4 texture2D_bilinear( const in sampler2D t, in vec2 uv )
-{
-  // Calculate pixels to sample and interpolating factor
-  uv -= 0.5 * texelSize.xx;
-  vec2 f = fract( uv * TEX_SIZE );
-  // Snap to corner of texel and then move to center
-  vec2 uvSnapped = uv - texelSize.xx * f + 0.5 * texelSize.xx;
-
-  #ifdef HEIGHT_LOOKUP_BIAS
-  // As we are sampling snapped pixels need to override
-  // the mip-map selection by selecting a large negative
-  // bias. Otherwise at boundaries the gradient of
-  // uvSnapped is large and an incorrect mip-level is used
-  // leading to artifacts
-  vec4 tl = texture2D(t, uvSnapped, -10.0);
-  vec4 tr = texture2D(t, uvSnapped + texelSize, -10.0 );
-  vec4 bl = texture2D(t, uvSnapped + texelSize.yx, -10.0 );
-  vec4 br = texture2D(t, uvSnapped + texelSize.xx, -10.0 );
-  #else
-  vec4 tl = texture2D(t, uvSnapped);
-  vec4 tr = texture2D(t, uvSnapped + texelSize);
-  vec4 bl = texture2D(t, uvSnapped + texelSize.yx);
-  vec4 br = texture2D(t, uvSnapped + texelSize.xx);
-  #endif
-  vec4 tA = mix( tl, tr, f.x );
-  vec4 tB = mix( bl, br, f.x );
-  return mix( tA, tB, f.y );
-}
-
-// Virtual texture array lookup (WebGL1 fallback)
-vec4 readTex( in sampler2D tex, in vec2 uv, in float index ) {
-  // Convert index into spatial offset
-  vec2 offset = vec2(
-    mod( float( index ), VIRTUAL_TEXTURE_ARRAY_BLOCKS ),
-    floor( float( index ) / VIRTUAL_TEXTURE_ARRAY_BLOCKS )
-  );
-
-  // Don't bleed across to next texture
-  const float padding = 0.5;
-  vec2 limits = vec2( padding, VIRTUAL_TEXTURE_ARRAY_SIZE - padding ) / VIRTUAL_TEXTURE_ARRAY_SIZE; 
-
-  // Calculate uv for lookup
-  vec2 scaledUv = ( clamp( uv, limits.x, limits.y ) + offset ) / VIRTUAL_TEXTURE_ARRAY_BLOCKS;
-  #ifdef MANUAL_TEXTURE_BILINEAR
-  return texture2D_bilinear( tex, scaledUv );
-  #else
-  return texture2D( tex, scaledUv );
-  #endif
-}
-
-
-uniform lowp sampler2D indirectionTexture;
-uniform vec2 uGlobalOffset;
-uniform float uSceneScale;
-
-// Function to scale height such that one unit in the
-// horizontal plane is equal to one vertical unit
-// Basically comes down to the Mercator projection
-// Math.pow(2, 15) / 40075016.686
-const float earthScale = 0.0008176665341588574;
-float heightScale ( in float y ) {
-  // PI - 2 * PI * y / pow( 2, 10 ) [ z is fixed to 10 ]
-  float n = 3.141592653589793 - 0.006135923151542565 * y;
-  // cosh( n ) / ( earthScale * uSceneScale)
-  float cosh_n = dot( vec2( 0.5 ), exp( vec2( n, -n ) ) );
-  return cosh_n / ( earthScale * uSceneScale );
-}
-
-// TODO should this be highp? Seems OK on iOS
-// From: https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices
-//     If you have a float texture, iOS requires that you use highp sampler2D foo;
-//     or it will very painfully give you lowp texture samples!
-//     (+/-2.0 max is probably not good enough for you)
-// +/-2 seems OK, but should revisit if artifacts present
-uniform lowp sampler2D elevationArray;
-float getHeight( in vec2 p ) {
-  // Get tile coord (at z = 10), currently we are at z = 15
-  const float zoomScale = 32.0; // pow( 2, 15 - 10 )
-  const float indirectionSize = 1024.0;
-  vec2 tile = p.xy - uGlobalOffset;
-  tile /= ( uSceneScale * zoomScale );
-  tile *= vec2( 1.0, -1.0 );
-
-  // Unsnapped uv will be used below for secondary lookup
-  vec2 indirectionUv = tile / indirectionSize;
-
-  // Snap as on Windows/ANGLE Nearest filtering is not respected
-  const vec2 halfTexel = vec2( 0.5 );
-  vec2 snapped = ( floor( tile - halfTexel ) + halfTexel );
-  snapped += step( halfTexel, tile - snapped );
-  vec2 indirectionUvRounded = snapped / indirectionSize;
-
-  vec4 indirection = texture2D( indirectionTexture, indirectionUvRounded );
-
-  // Update index from indirection
-  float index = indirection.r;
-  float tileSize = indirection.g;
-  vec2 tileOrigin = indirection.ba;
-
-  // We know index of texture to do lookup in, but now
-  // we need to know the uv coordinates within the tile
-  // For this we need to know what the tile origin and size are
-  // At first glance it might seem possible to derive the tile origin
-  // mathematically from the indirectionUv (using \`fract\`), but the issue
-  // then is numerical precision. On some GPUs the lack of precision
-  // means that the data we read from the indirection texture doesn't
-  // align with that derived in the shader. It is more reliable to
-  // store the entire transformation from the indirectionUv to
-  // scaledUv in the texture, that way it will be no spurious errors
-  vec2 scaledUv = indirectionUv * tileSize + tileOrigin;
-
-  // Finally read out height, and unpack to single float
-  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;
-}
-
-
+const vec2 e=vec2(1.0/TEX_SIZE,0.0);vec4 f(const in sampler2D g,in vec2 h){h-=0.5*e.xx;vec2 i=fract(h*TEX_SIZE);vec2 j=h-e.xx*i+0.5*e.xx;
+#ifdef HEIGHT_LOOKUP_BIAS
+vec4 k=texture2D(g,j,-10.0);vec4 l=texture2D(g,j+e,-10.0);vec4 m=texture2D(g,j+e.yx,-10.0);vec4 n=texture2D(g,j+e.xx,-10.0);
+#else
+vec4 k=texture2D(g,j);vec4 l=texture2D(g,j+e);vec4 m=texture2D(g,j+e.yx);vec4 n=texture2D(g,j+e.xx);
+#endif
+vec4 o=mix(k,l,i.x);vec4 p=mix(m,n,i.x);return mix(o,p,i.y);}vec4 q(in sampler2D r,in vec2 h,in float s){vec2 t=vec2(mod(float(s),VIRTUAL_TEXTURE_ARRAY_BLOCKS),floor(float(s)/VIRTUAL_TEXTURE_ARRAY_BLOCKS));const float u=0.5;vec2 v=vec2(u,VIRTUAL_TEXTURE_ARRAY_SIZE-u)/VIRTUAL_TEXTURE_ARRAY_SIZE;vec2 w=(clamp(h,v.x,v.y)+t)/VIRTUAL_TEXTURE_ARRAY_BLOCKS;
+#ifdef MANUAL_TEXTURE_BILINEAR
+return f(r,w);
+#else
+return texture2D(r,w);
+#endif
+}uniform lowp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform float uSceneScale;const float x=0.0008176665341588574;float y(in float z){float A=3.141592653589793-0.006135923151542565*z;float B=dot(vec2(0.5),exp(vec2(A,-A)));return B/(x*uSceneScale);}uniform lowp sampler2D elevationArray;float C(in vec2 D){const float E=32.0;const float F=1024.0;vec2 G=D.xy-uGlobalOffset;G/=(uSceneScale*E);G*=vec2(1.0,-1.0);vec2 H=G/F;const vec2 I=vec2(0.5);vec2 J=(floor(G-I)+I);J+=step(I,G-J);vec2 K=J/F;vec4 L=texture2D(indirectionTexture,K);float s=L.r;float M=L.g;vec2 N=L.ba;vec2 w=H*M+N;return y(G.y)*q(elevationArray,w,s).a;}
 #define TUBE_RADIUS 20.0
+
 #define SIZE vec2( 512.0, 1024.0 )
+uniform vec2 uViewportInverse;vec4 O(const in vec3 P,const in float Q){vec4 D=vec4(P,1.0);vec4 R=projectionMatrix*viewMatrix*D;D.xyz+=tangent.xyz;vec4 S=projectionMatrix*viewMatrix*D;vec2 T=S.xy/S.w-R.xy/R.w;vec2 U=T.yx*vec2(1.0,-1.0);U=Q*R.w*normalize(U)*uViewportInverse;R.xy+=U;return R;}void main(){vTag.rgb=tag;float V=1.0-step(length(tag),0.0);float W=length(position.x);float X=step(W,1.00001);X*=step(0.99999,W);vec3 Y=mix(position,offset.xyz,X);Y.z=C(Y.xy);vec4 Z=O(Y,TUBE_RADIUS);vec3 ba=cameraPosition-Y;float bb=a(ba);vec2 bc=vec2(1.0,-1.0)*position.xy;vec2 bd=0.5*bc+vec2(0.5);vec4 be;vec2 bf=vec2(normal.w,offset.w);bf=smoothstep(bf,vec2(0.95,0.9)*bf,vec2(bb));be.w=(0.6*bf.x+0.4)*bf.y;vec2 bg=mix(atlas.ww*vec2(SIZE.y/SIZE.x,1.0),atlas.zw,bf.x);be.xy=atlas.xy+bg*bd;be.w*=smoothstep(0.0,0.15,clipping.y+dot(ba,normal.xyz));be.w*=step(0.3,be.w);vec2 u=layout.xx+layout.yy;be.xy+=(u*bc)/SIZE;vec2 bh=SIZE*bg+2.0*u;bh*=uPixelRatio;float bi=min(0.5*bb,100.0+200.0*clipping.x);vec4 D=vec4(Y+bi*ba,1.0);vec4 bj=projectionMatrix*viewMatrix*D;vec2 bk=uPixelRatio*bj.w*uViewportCanvasInverse;
+#ifdef READ_DEPTH
+vec3 bl=0.5*bj.xyz/bj.w+vec3(0.5);float bm=texture2D(uDepth,bl.xy).x;float bn=projectionMatrix[3][2];bm/=1.0+0.02*bm/bn;be.w*=step(clipping.x*bl.z,bm);
+#endif
+bj.xy=bk*floor(bj.xy/bk);vec2 bo=0.5*bk*bh;bj.xy+=bk*(0.5*anchor.xy*bh+anchor.zw);bj.xy-=bo;vec2 bp=(position.xy+vec2(1.0))*bo;bj.xy+=bp;gl_Position=V*mix(Z,bj,X);}`);
 
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-uniform vec2 uViewportInverse;
-
-// Calculate our position from the center and tangent of line
-vec4 positionFromTangent( const in vec3 center,
-                          const in float thickness ) {
-  // Get clipspace positions of center and center + tangent
-  vec4 p = vec4( center, 1.0 );
-  vec4 c4 = projectionMatrix * viewMatrix * p;
-
-  p.xyz += tangent.xyz;
-  vec4 cplust4 = projectionMatrix * viewMatrix * p;
-
-  // Tangent vector in clipspace (normalizing by w!)
-  vec2 t4 = cplust4.xy / cplust4.w - c4.xy / c4.w;
-
-  // Issue here when line is going towards screen, up and
-  // then down. The tangent will then flip from up to down
-  // and the line normal will also switch sides, leading
-  // to a fold in the quads forming the line
-  // Not really clear how to overcome this...
-
-  // Get normal in clipspace by crossing with vec3(0, 0, 1)
-  vec2 delt = t4.yx * vec2( 1.0, -1.0 ); // Move one side one way, the other the other way (tangent is opposite for vertices in pair)
-  delt = thickness * c4.w * normalize( delt ) * uViewportInverse;
-
-  c4.xy += delt;
-  return c4;
-}
-
-
-void main() {
-  vTag.rgb = tag;
-
-  // If we have a tag of zero, do not even draw
-  // TODO appears to break in Firefox!
-  float visible = 1.0 - step( length( tag ), 0.0 );
-
-  // Select which material this is
-  // TODO also broken on FF?
-  float l = length( position.x );
-  float isMarker = step( l, 1.00001 );
-  isMarker *= step( 0.99999, l );
-
-  // Lookup height
-  vec3 worldPosition = mix( position, offset.xyz, isMarker );
-  worldPosition.z = getHeight( worldPosition.xy );
-
-  // Render path for piste
-  vec4 piste = positionFromTangent( worldPosition, TUBE_RADIUS );
-
-  // Render path for markers
-  vec3 reverseViewVec = cameraPosition - worldPosition;
-  float D = lengthNormalize( reverseViewVec );
-
-  // Pack all into one varying xy: uv, z: selected, w: visibility
-  vec2 flipped = vec2( 1.0, -1.0 ) * position.xy;
-  vec2 pointCoord = 0.5 * flipped + vec2( 0.5 );
-
-  // Collapse/fade the label
-  vec4 vUv;
-  vec2 expandshow = vec2( normal.w, offset.w );
-  expandshow = smoothstep( expandshow, vec2( 0.95, 0.9 ) * expandshow, vec2( D ) );
-  vUv.w = ( 0.6 * expandshow.x + 0.4 ) * expandshow.y;
-
-  // Calculate potentially collapsed size of label
-  vec2 crop = mix( atlas.ww * vec2( SIZE.y / SIZE.x, 1.0 ),
-    atlas.zw, expandshow.x );
-  vUv.xy = atlas.xy + crop * pointCoord;
-
-  // Hide when on slope facing away, disabled when
-  // we perform per-pixel depth clipping
-  vUv.w *= smoothstep( 0.0, 0.15, clipping.y + dot( reverseViewVec, normal.xyz ) );
-  vUv.w *= step( 0.3, vUv.w );
-
-  // Adding padding & border around marker
-  vec2 padding = layout.xx + layout.yy;
-  vUv.xy += ( padding * flipped ) / SIZE;
-  vec2 aspect = SIZE * crop + 2.0 * padding;
-  aspect *= uPixelRatio;
-
-  // Position towards us so we show up above terrain
-  // Make bigger for object clipping as to avoid flashing
-  float bringForward = min( 0.5 * D, 100.0 + 200.0 * clipping.x );
-  vec4 p = vec4( worldPosition + bringForward * reverseViewVec, 1.0 );
-  //vec4 p = vec4( worldPosition, 1.0 );
-  vec4 marker = projectionMatrix * viewMatrix * p;
-
-  // Pixel-snapping (means we can use nearest filtering on texture)
-  vec2 pixelScale = uPixelRatio * marker.w * uViewportCanvasInverse; 
-
-  #ifdef READ_DEPTH
-  // Hide entire label if anchor obscured
-  vec3 uvz = 0.5 * marker.xyz / marker.w + vec3( 0.5 );
-  float fragCoordZ = texture2D( uDepth, uvz.xy ).x;
-
-  // Move back by amount relative to precision limit of depth
-  float b = projectionMatrix[3][2]; // -2 * far * near / ( far - near )
-  // Not entirely clear why 0.01 is correct, but lower
-  // than this leading to flashing on iOS
-  fragCoordZ /= 1.0 + 0.02 * fragCoordZ / b;
-
-  vUv.w *= step( clipping.x * uvz.z, fragCoordZ );
-  #endif
-
-  marker.xy = pixelScale * floor( marker.xy / pixelScale );
-
-  // Half of box for marker in clipspace
-  vec2 halfSize = 0.5 * pixelScale * aspect;
-
-  // Shift entire marker based on anchor position
-  marker.xy += pixelScale * ( 0.5 * anchor.xy * aspect + anchor.zw );
-
-
-  // Finally move out vertices to form quad
-  // First get clipspace of top-left point
-  marker.xy -= halfSize;
-
-  // Now calculate other vertices (relative to top-left)
-  vec2 vertex = ( position.xy + vec2( 1.0 ) ) * halfSize;
-  marker.xy += vertex;
-
-  gl_Position = visible * mix( piste, marker, isMarker );
-}
-`);
-
-var pickerFragment = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-precision highp float;
-
-varying vec4 vTag;
-
-void main() {
-  gl_FragColor = vTag;
-  // For testing draw more visible colors
-  //gl_FragColor.rgb = mod( 10000.0 * vTag.rgb, vec3( 1.0 ) );
-  //gl_FragColor.a = 1.0;
-}
-`);
+var pickerFragment = new Shader(`precision highp float;varying vec4 vTag;void main(){gl_FragColor=vTag;}`);
 
 /**
  * Copyright 2020 (c) Felix Palmer
@@ -43931,195 +38973,27 @@ ContainerStore$1.listen( ( { canvasHeight, canvasWidth,
   pickerUniforms.uPixelRatio.value = pixelRatio;
 } );
 
-var raycastVertex = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-precision highp float;
-
-uniform mat4 viewMatrix;
-uniform mat4 projectionMatrix;
-
-attribute vec4 position;
-
-uniform vec4 uOffset;
-
-varying vec2 vPosition;
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// TODO set these from JS
+var raycastVertex = new Shader(`precision highp float;uniform mat4 viewMatrix;uniform mat4 projectionMatrix;attribute vec4 position;uniform vec4 uOffset;varying vec2 vPosition;
 #define VIRTUAL_TEXTURE_ARRAY_BLOCKS 4.0
+
 #define VIRTUAL_TEXTURE_ARRAY_SIZE 512.0
 
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// On iOS standard texture linear filtering has
-// artifacts, so use this manual replacement.
-// It also doesn't work for FLOAT textures
 #define TEX_SIZE (VIRTUAL_TEXTURE_ARRAY_SIZE * VIRTUAL_TEXTURE_ARRAY_BLOCKS)
-const vec2 texelSize = vec2( 1.0 / TEX_SIZE, 0.0 );
-vec4 texture2D_bilinear( const in sampler2D t, in vec2 uv )
-{
-  // Calculate pixels to sample and interpolating factor
-  uv -= 0.5 * texelSize.xx;
-  vec2 f = fract( uv * TEX_SIZE );
-  // Snap to corner of texel and then move to center
-  vec2 uvSnapped = uv - texelSize.xx * f + 0.5 * texelSize.xx;
+const vec2 a=vec2(1.0/TEX_SIZE,0.0);vec4 b(const in sampler2D c,in vec2 d){d-=0.5*a.xx;vec2 e=fract(d*TEX_SIZE);vec2 f=d-a.xx*e+0.5*a.xx;
+#ifdef HEIGHT_LOOKUP_BIAS
+vec4 g=texture2D(c,f,-10.0);vec4 h=texture2D(c,f+a,-10.0);vec4 i=texture2D(c,f+a.yx,-10.0);vec4 j=texture2D(c,f+a.xx,-10.0);
+#else
+vec4 g=texture2D(c,f);vec4 h=texture2D(c,f+a);vec4 i=texture2D(c,f+a.yx);vec4 j=texture2D(c,f+a.xx);
+#endif
+vec4 k=mix(g,h,e.x);vec4 l=mix(i,j,e.x);return mix(k,l,e.y);}vec4 m(in sampler2D n,in vec2 d,in float o){vec2 p=vec2(mod(float(o),VIRTUAL_TEXTURE_ARRAY_BLOCKS),floor(float(o)/VIRTUAL_TEXTURE_ARRAY_BLOCKS));const float q=0.5;vec2 r=vec2(q,VIRTUAL_TEXTURE_ARRAY_SIZE-q)/VIRTUAL_TEXTURE_ARRAY_SIZE;vec2 s=(clamp(d,r.x,r.y)+p)/VIRTUAL_TEXTURE_ARRAY_BLOCKS;
+#ifdef MANUAL_TEXTURE_BILINEAR
+return b(n,s);
+#else
+return texture2D(n,s);
+#endif
+}uniform lowp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform float uSceneScale;const float t=0.0008176665341588574;float u(in float v){float w=3.141592653589793-0.006135923151542565*v;float x=dot(vec2(0.5),exp(vec2(w,-w)));return x/(t*uSceneScale);}uniform lowp sampler2D elevationArray;float y(in vec2 z){const float A=32.0;const float B=1024.0;vec2 C=z.xy-uGlobalOffset;C/=(uSceneScale*A);C*=vec2(1.0,-1.0);vec2 D=C/B;const vec2 E=vec2(0.5);vec2 F=(floor(C-E)+E);F+=step(E,C-F);vec2 G=F/B;vec4 H=texture2D(indirectionTexture,G);float o=H.r;float I=H.g;vec2 J=H.ba;vec2 s=D*I+J;return u(C.y)*m(elevationArray,s,o).a;}void main(){vec4 z=vec4(position.xy,0.0,1.0);z.xy*=uOffset.z;z.xy+=uOffset.xy;vPosition=z.xy+vec2(32768.0);z.z=y(z.xy);gl_Position=projectionMatrix*viewMatrix*z;}`);
 
-  #ifdef HEIGHT_LOOKUP_BIAS
-  // As we are sampling snapped pixels need to override
-  // the mip-map selection by selecting a large negative
-  // bias. Otherwise at boundaries the gradient of
-  // uvSnapped is large and an incorrect mip-level is used
-  // leading to artifacts
-  vec4 tl = texture2D(t, uvSnapped, -10.0);
-  vec4 tr = texture2D(t, uvSnapped + texelSize, -10.0 );
-  vec4 bl = texture2D(t, uvSnapped + texelSize.yx, -10.0 );
-  vec4 br = texture2D(t, uvSnapped + texelSize.xx, -10.0 );
-  #else
-  vec4 tl = texture2D(t, uvSnapped);
-  vec4 tr = texture2D(t, uvSnapped + texelSize);
-  vec4 bl = texture2D(t, uvSnapped + texelSize.yx);
-  vec4 br = texture2D(t, uvSnapped + texelSize.xx);
-  #endif
-  vec4 tA = mix( tl, tr, f.x );
-  vec4 tB = mix( bl, br, f.x );
-  return mix( tA, tB, f.y );
-}
-
-// Virtual texture array lookup (WebGL1 fallback)
-vec4 readTex( in sampler2D tex, in vec2 uv, in float index ) {
-  // Convert index into spatial offset
-  vec2 offset = vec2(
-    mod( float( index ), VIRTUAL_TEXTURE_ARRAY_BLOCKS ),
-    floor( float( index ) / VIRTUAL_TEXTURE_ARRAY_BLOCKS )
-  );
-
-  // Don't bleed across to next texture
-  const float padding = 0.5;
-  vec2 limits = vec2( padding, VIRTUAL_TEXTURE_ARRAY_SIZE - padding ) / VIRTUAL_TEXTURE_ARRAY_SIZE; 
-
-  // Calculate uv for lookup
-  vec2 scaledUv = ( clamp( uv, limits.x, limits.y ) + offset ) / VIRTUAL_TEXTURE_ARRAY_BLOCKS;
-  #ifdef MANUAL_TEXTURE_BILINEAR
-  return texture2D_bilinear( tex, scaledUv );
-  #else
-  return texture2D( tex, scaledUv );
-  #endif
-}
-
-
-uniform lowp sampler2D indirectionTexture;
-uniform vec2 uGlobalOffset;
-uniform float uSceneScale;
-
-// Function to scale height such that one unit in the
-// horizontal plane is equal to one vertical unit
-// Basically comes down to the Mercator projection
-// Math.pow(2, 15) / 40075016.686
-const float earthScale = 0.0008176665341588574;
-float heightScale ( in float y ) {
-  // PI - 2 * PI * y / pow( 2, 10 ) [ z is fixed to 10 ]
-  float n = 3.141592653589793 - 0.006135923151542565 * y;
-  // cosh( n ) / ( earthScale * uSceneScale)
-  float cosh_n = dot( vec2( 0.5 ), exp( vec2( n, -n ) ) );
-  return cosh_n / ( earthScale * uSceneScale );
-}
-
-// TODO should this be highp? Seems OK on iOS
-// From: https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices
-//     If you have a float texture, iOS requires that you use highp sampler2D foo;
-//     or it will very painfully give you lowp texture samples!
-//     (+/-2.0 max is probably not good enough for you)
-// +/-2 seems OK, but should revisit if artifacts present
-uniform lowp sampler2D elevationArray;
-float getHeight( in vec2 p ) {
-  // Get tile coord (at z = 10), currently we are at z = 15
-  const float zoomScale = 32.0; // pow( 2, 15 - 10 )
-  const float indirectionSize = 1024.0;
-  vec2 tile = p.xy - uGlobalOffset;
-  tile /= ( uSceneScale * zoomScale );
-  tile *= vec2( 1.0, -1.0 );
-
-  // Unsnapped uv will be used below for secondary lookup
-  vec2 indirectionUv = tile / indirectionSize;
-
-  // Snap as on Windows/ANGLE Nearest filtering is not respected
-  const vec2 halfTexel = vec2( 0.5 );
-  vec2 snapped = ( floor( tile - halfTexel ) + halfTexel );
-  snapped += step( halfTexel, tile - snapped );
-  vec2 indirectionUvRounded = snapped / indirectionSize;
-
-  vec4 indirection = texture2D( indirectionTexture, indirectionUvRounded );
-
-  // Update index from indirection
-  float index = indirection.r;
-  float tileSize = indirection.g;
-  vec2 tileOrigin = indirection.ba;
-
-  // We know index of texture to do lookup in, but now
-  // we need to know the uv coordinates within the tile
-  // For this we need to know what the tile origin and size are
-  // At first glance it might seem possible to derive the tile origin
-  // mathematically from the indirectionUv (using \`fract\`), but the issue
-  // then is numerical precision. On some GPUs the lack of precision
-  // means that the data we read from the indirection texture doesn't
-  // align with that derived in the shader. It is more reliable to
-  // store the entire transformation from the indirectionUv to
-  // scaledUv in the texture, that way it will be no spurious errors
-  vec2 scaledUv = indirectionUv * tileSize + tileOrigin;
-
-  // Finally read out height, and unpack to single float
-  return heightScale( tile.y ) * readTex( elevationArray, scaledUv, index ).a;
-}
-
-
-// TODO, not yet working, but shader should look something like this
-void main() {
-  // Move into place by shifting instanced position by tile offset
-  vec4 p = vec4( position.xy, 0.0, 1.0 );
-  p.xy *= uOffset.z; // Scale
-  p.xy += uOffset.xy; // Shift
-
-  vPosition = p.xy + vec2( 32768.0 );
-  p.z = getHeight( p.xy );
-	gl_Position = projectionMatrix * viewMatrix * p;
-}
-`);
-
-var raycastFragment = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-precision highp float;
-
-varying vec2 vPosition;
-
-void main() {
-  // Pack position xy into RGBA
-  gl_FragColor = vec4( mod( vPosition.xy, 256.0 ),
-                       floor( vPosition.xy / 256.0 ) ) / 255.0;
-}
-`);
+var raycastFragment = new Shader(`precision highp float;varying vec2 vPosition;void main(){gl_FragColor=vec4(mod(vPosition.xy,256.0),floor(vPosition.xy/256.0))/255.0;}`);
 
 /**
  * Copyright 2020 (c) Felix Palmer
@@ -44875,7 +39749,7 @@ Procedural$8.setZoomControlVisible = function ( value ) {
 };
 
 var preact_umd_min = createCommonjsModule(function (module, exports) {
-!function(e,t){"object"=='object'&&"undefined"!='object'?t(exports):"function"==typeof undefined&&undefined.amd?undefined(["exports"],t):t(e.preact={});}(commonjsGlobal,function(e){"use strict";function t(e,t){var n=E,o=void 0,r=void 0,i=void 0,l=void 0;for(l=arguments.length;l-- >2;)T.push(arguments[l]);t&&null!=t.children&&(T.length||T.push(t.children),delete t.children);while(T.length)if((r=T.pop())&&void 0!==r.pop)for(l=r.length;l--;)T.push(r[l]);else "boolean"==typeof r&&(r=null),(i="function"!=typeof e)&&(null==r?r="":"number"==typeof r?r+="":"string"!=typeof r&&(i=!1)),i&&o?n[n.length-1]+=r:n===E?n=[r]:n.push(r),o=i;var s=new L;return s.nodeName=e,s.children=n,s.attributes=null==t?void 0:t,s.key=null==t?void 0:t.key,void 0!==M.vnode&&M.vnode(s),s}function n(e,t){for(var n in t)e[n]=t[n];return e}function o(e,t){e&&("function"==typeof e?e(t):e.current=t);}function r(e,o){return t(e.nodeName,n(n({},e.attributes),o),arguments.length>2?[].slice.call(arguments,2):e.children)}function i(e){!e._dirty&&(e._dirty=!0)&&1==z.push(e)&&(M.debounceRendering||W)(l);}function l(){var e=void 0;while(e=z.pop())e._dirty&&N(e);}function s(e,t,n){return "string"==typeof t||"number"==typeof t?void 0!==e.splitText:"string"==typeof t.nodeName?!e._componentConstructor&&a(e,t.nodeName):n||e._componentConstructor===t.nodeName}function a(e,t){return e.normalizedNodeName===t||e.nodeName.toLowerCase()===t.toLowerCase()}function p(e){var t=n({},e.attributes);t.children=e.children;var o=e.nodeName.defaultProps;if(void 0!==o)for(var r in o)void 0===t[r]&&(t[r]=o[r]);return t}function u(e,t){var n=t?document.createElementNS("http://www.w3.org/2000/svg",e):document.createElement(e);return n.normalizedNodeName=e,n}function d(e){var t=e.parentNode;t&&t.removeChild(e);}function c(e,t,n,r,i){if("className"===t&&(t="class"),"key"===t);else if("ref"===t)o(n,null),o(r,e);else if("class"!==t||i)if("style"===t){if(r&&"string"!=typeof r&&"string"!=typeof n||(e.style.cssText=r||""),r&&"object"==typeof r){if("string"!=typeof n)for(var l in n)l in r||(e.style[l]="");for(var s in r)e.style[s]="number"==typeof r[s]&&!1===H.test(s)?r[s]+"px":r[s];}}else if("dangerouslySetInnerHTML"===t)r&&(e.innerHTML=r.__html||"");else if("o"==t[0]&&"n"==t[1]){var a=t!==(t=t.replace(/Capture$/,""));t=t.toLowerCase().substring(2),r?n||e.addEventListener(t,f,a):e.removeEventListener(t,f,a),(e._listeners||(e._listeners={}))[t]=r;}else if("list"!==t&&"type"!==t&&!i&&t in e){try{e[t]=null==r?"":r;}catch(e){}null!=r&&!1!==r||"spellcheck"==t||e.removeAttribute(t);}else {var p=i&&t!==(t=t.replace(/^xlink:?/,""));null==r||!1===r?p?e.removeAttributeNS("http://www.w3.org/1999/xlink",t.toLowerCase()):e.removeAttribute(t):"function"!=typeof r&&(p?e.setAttributeNS("http://www.w3.org/1999/xlink",t.toLowerCase(),r):e.setAttribute(t,r));}else e.className=r||"";}function f(e){return this._listeners[e.type](M.event&&M.event(e)||e)}function v(){var e=void 0;while(e=F.shift())M.afterMount&&M.afterMount(e),e.componentDidMount&&e.componentDidMount();}function h(e,t,n,o,r,i){I++||(O=null!=r&&void 0!==r.ownerSVGElement,$=null!=e&&!(j in e));var l=m(e,t,n,o,i);return r&&l.parentNode!==r&&r.appendChild(l),--I||($=!1,i||v()),l}function m(e,t,n,o,r){var i=e,l=O;if(null!=t&&"boolean"!=typeof t||(t=""),"string"==typeof t||"number"==typeof t)return e&&void 0!==e.splitText&&e.parentNode&&(!e._component||r)?e.nodeValue!=t&&(e.nodeValue=t):(i=document.createTextNode(t),e&&(e.parentNode&&e.parentNode.replaceChild(i,e),y(e,!0))),i[j]=!0,i;var s=t.nodeName;if("function"==typeof s)return k(e,t,n,o);if(O="svg"===s||"foreignObject"!==s&&O,s+="",(!e||!a(e,s))&&(i=u(s,O),e)){while(e.firstChild)i.appendChild(e.firstChild);e.parentNode&&e.parentNode.replaceChild(i,e),y(e,!0);}var p=i.firstChild,d=i[j],c=t.children;if(null==d){d=i[j]={};for(var f=i.attributes,v=f.length;v--;)d[f[v].name]=f[v].value;}return !$&&c&&1===c.length&&"string"==typeof c[0]&&null!=p&&void 0!==p.splitText&&null==p.nextSibling?p.nodeValue!=c[0]&&(p.nodeValue=c[0]):(c&&c.length||null!=p)&&_(i,c,n,o,$||null!=d.dangerouslySetInnerHTML),g(i,t.attributes,d),O=l,i}function _(e,t,n,o,r){var i=e.childNodes,l=[],a={},p=0,u=0,c=i.length,f=0,v=t?t.length:0,h=void 0,_=void 0,b=void 0,g=void 0,C=void 0;if(0!==c)for(var x=0;x<c;x++){var w=i[x],N=w[j],k=v&&N?w._component?w._component.__key:N.key:null;null!=k?(p++,a[k]=w):(N||(void 0!==w.splitText?!r||w.nodeValue.trim():r))&&(l[f++]=w);}if(0!==v)for(var S=0;S<v;S++){g=t[S],C=null;var U=g.key;if(null!=U)p&&void 0!==a[U]&&(C=a[U],a[U]=void 0,p--);else if(u<f)for(h=u;h<f;h++)if(void 0!==l[h]&&s(_=l[h],g,r)){C=_,l[h]=void 0,h===f-1&&f--,h===u&&u++;break}C=m(C,g,n,o),b=i[S],C&&C!==e&&C!==b&&(null==b?e.appendChild(C):C===b.nextSibling?d(b):e.insertBefore(C,b));}if(p)for(var P in a)void 0!==a[P]&&y(a[P],!1);while(u<=f)void 0!==(C=l[f--])&&y(C,!1);}function y(e,t){var n=e._component;n?S(n):(null!=e[j]&&o(e[j].ref,null),!1!==t&&null!=e[j]||d(e),b(e));}function b(e){e=e.lastChild;while(e){var t=e.previousSibling;y(e,!0),e=t;}}function g(e,t,n){var o=void 0;for(o in n)t&&null!=t[o]||null==n[o]||c(e,o,n[o],n[o]=void 0,O);for(o in t)"children"===o||"innerHTML"===o||o in n&&t[o]===("value"===o||"checked"===o?e[o]:n[o])||c(e,o,n[o],n[o]=t[o],O);}function C(e,t,n){var o=void 0,r=G.length;e.prototype&&e.prototype.render?(o=new e(t,n),U.call(o,t,n)):(o=new U(t,n),o.constructor=e,o.render=x);while(r--)if(G[r].constructor===e)return o.nextBase=G[r].nextBase,G.splice(r,1),o;return o}function x(e,t,n){return this.constructor(e,n)}function w(e,t,n,r,l){e._disable||(e._disable=!0,e.__ref=t.ref,e.__key=t.key,delete t.ref,delete t.key,void 0===e.constructor.getDerivedStateFromProps&&(!e.base||l?e.componentWillMount&&e.componentWillMount():e.componentWillReceiveProps&&e.componentWillReceiveProps(t,r)),r&&r!==e.context&&(e.prevContext||(e.prevContext=e.context),e.context=r),e.prevProps||(e.prevProps=e.props),e.props=t,e._disable=!1,n!==D&&(n!==V&&!1===M.syncComponentUpdates&&e.base?i(e):N(e,V,l)),o(e.__ref,e));}function N(e,t,o,r){if(!e._disable){var i=e.props,l=e.state,s=e.context,a=e.prevProps||i,u=e.prevState||l,d=e.prevContext||s,c=e.base,f=e.nextBase,m=c||f,_=e._component,b=!1,g=d,x=void 0,k=void 0,U=void 0;if(e.constructor.getDerivedStateFromProps&&(l=n(n({},l),e.constructor.getDerivedStateFromProps(i,l)),e.state=l),c&&(e.props=a,e.state=u,e.context=d,t!==A&&e.shouldComponentUpdate&&!1===e.shouldComponentUpdate(i,l,s)?b=!0:e.componentWillUpdate&&e.componentWillUpdate(i,l,s),e.props=i,e.state=l,e.context=s),e.prevProps=e.prevState=e.prevContext=e.nextBase=null,e._dirty=!1,!b){x=e.render(i,l,s),e.getChildContext&&(s=n(n({},s),e.getChildContext())),c&&e.getSnapshotBeforeUpdate&&(g=e.getSnapshotBeforeUpdate(a,u));var P=x&&x.nodeName,B=void 0,L=void 0;if("function"==typeof P){var T=p(x);k=_,k&&k.constructor===P&&T.key==k.__key?w(k,T,V,s,!1):(B=k,e._component=k=C(P,T,s),k.nextBase=k.nextBase||f,k._parentComponent=e,w(k,T,D,s,!1),N(k,V,o,!0)),L=k.base;}else U=m,B=_,B&&(U=e._component=null),(m||t===V)&&(U&&(U._component=null),L=h(U,x,s,o||!c,m&&m.parentNode,!0));if(m&&L!==m&&k!==_){var E=m.parentNode;E&&L!==E&&(E.replaceChild(L,m),B||(m._component=null,y(m,!1)));}if(B&&S(B),e.base=L,L&&!r){var W=e,R=e;while(R=R._parentComponent)(W=R).base=L;L._component=W,L._componentConstructor=W.constructor;}}!c||o?F.push(e):b||(e.componentDidUpdate&&e.componentDidUpdate(a,u,g),M.afterUpdate&&M.afterUpdate(e));while(e._renderCallbacks.length)e._renderCallbacks.pop().call(e);I||r||v();}}function k(e,t,n,o){var r=e&&e._component,i=r,l=e,s=r&&e._componentConstructor===t.nodeName,a=s,u=p(t);while(r&&!a&&(r=r._parentComponent))a=r.constructor===t.nodeName;return r&&a&&(!o||r._component)?(w(r,u,R,n,o),e=r.base):(i&&!s&&(S(i),e=l=null),r=C(t.nodeName,u,n),e&&!r.nextBase&&(r.nextBase=e,l=null),w(r,u,V,n,o),e=r.base,l&&e!==l&&(l._component=null,y(l,!1))),e}function S(e){M.beforeUnmount&&M.beforeUnmount(e);var t=e.base;e._disable=!0,e.componentWillUnmount&&e.componentWillUnmount(),e.base=null;var n=e._component;n?S(n):t&&(null!=t[j]&&o(t[j].ref,null),e.nextBase=t,d(t),G.push(e),b(t)),o(e.__ref,null);}function U(e,t){this._dirty=!0,this.context=t,this.props=e,this.state=this.state||{},this._renderCallbacks=[];}function P(e,t,n){return h(n,e,{},!1,t,!1)}function B(){return {}}var L=function(){},M={},T=[],E=[],W="function"==typeof Promise?Promise.resolve().then.bind(Promise.resolve()):setTimeout,D=0,V=1,A=2,R=3,j="__preactattr_",H=/acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i,z=[],F=[],I=0,O=!1,$=!1,G=[];n(U.prototype,{setState:function(e,t){this.prevState||(this.prevState=this.state),this.state=n(n({},this.state),"function"==typeof e?e(this.state,this.props):e),t&&this._renderCallbacks.push(t),i(this);},forceUpdate:function(e){e&&this._renderCallbacks.push(e),N(this,A);},render:function(){}}),e.default={h:t,createElement:t,cloneElement:r,createRef:B,Component:U,render:P,rerender:l,options:M},e.h=t,e.createElement=t,e.cloneElement=r,e.createRef=B,e.Component=U,e.render=P,e.rerender=l,e.options=M,Object.defineProperty(e,"__esModule",{value:!0});});
+!function(e,t){t(exports);}(commonjsGlobal,function(e){function t(e,t){var n=E,o=void 0,r=void 0,i=void 0,l=void 0;for(l=arguments.length;l-- >2;)T.push(arguments[l]);t&&null!=t.children&&(T.length||T.push(t.children),delete t.children);while(T.length)if((r=T.pop())&&void 0!==r.pop)for(l=r.length;l--;)T.push(r[l]);else "boolean"==typeof r&&(r=null),(i="function"!=typeof e)&&(null==r?r="":"number"==typeof r?r+="":"string"!=typeof r&&(i=!1)),i&&o?n[n.length-1]+=r:n===E?n=[r]:n.push(r),o=i;var s=new L;return s.nodeName=e,s.children=n,s.attributes=null==t?void 0:t,s.key=null==t?void 0:t.key,void 0!==M.vnode&&M.vnode(s),s}function n(e,t){for(var n in t)e[n]=t[n];return e}function o(e,t){e&&("function"==typeof e?e(t):e.current=t);}function r(e,o){return t(e.nodeName,n(n({},e.attributes),o),arguments.length>2?[].slice.call(arguments,2):e.children)}function i(e){!e._dirty&&(e._dirty=!0)&&1==z.push(e)&&(M.debounceRendering||W)(l);}function l(){var e=void 0;while(e=z.pop())e._dirty&&N(e);}function s(e,t,n){return "string"==typeof t||"number"==typeof t?void 0!==e.splitText:"string"==typeof t.nodeName?!e._componentConstructor&&a(e,t.nodeName):n||e._componentConstructor===t.nodeName}function a(e,t){return e.normalizedNodeName===t||e.nodeName.toLowerCase()===t.toLowerCase()}function p(e){var t=n({},e.attributes);t.children=e.children;var o=e.nodeName.defaultProps;if(void 0!==o)for(var r in o)void 0===t[r]&&(t[r]=o[r]);return t}function u(e,t){var n=t?document.createElementNS("http://www.w3.org/2000/svg",e):document.createElement(e);return n.normalizedNodeName=e,n}function d(e){var t=e.parentNode;t&&t.removeChild(e);}function c(e,t,n,r,i){if("className"===t&&(t="class"),"key"===t);else if("ref"===t)o(n,null),o(r,e);else if("class"!==t||i)if("style"===t){if(r&&"string"!=typeof r&&"string"!=typeof n||(e.style.cssText=r||""),r&&"object"==typeof r){if("string"!=typeof n)for(var l in n)l in r||(e.style[l]="");for(var s in r)e.style[s]="number"==typeof r[s]&&!1===H.test(s)?r[s]+"px":r[s];}}else if("dangerouslySetInnerHTML"===t)r&&(e.innerHTML=r.__html||"");else if("o"==t[0]&&"n"==t[1]){var a=t!==(t=t.replace(/Capture$/,""));t=t.toLowerCase().substring(2),r?n||e.addEventListener(t,f,a):e.removeEventListener(t,f,a),(e._listeners||(e._listeners={}))[t]=r;}else if("list"!==t&&"type"!==t&&!i&&t in e){try{e[t]=null==r?"":r;}catch(e){}null!=r&&!1!==r||"spellcheck"==t||e.removeAttribute(t);}else {var p=i&&t!==(t=t.replace(/^xlink:?/,""));null==r||!1===r?p?e.removeAttributeNS("http://www.w3.org/1999/xlink",t.toLowerCase()):e.removeAttribute(t):"function"!=typeof r&&(p?e.setAttributeNS("http://www.w3.org/1999/xlink",t.toLowerCase(),r):e.setAttribute(t,r));}else e.className=r||"";}function f(e){return this._listeners[e.type](M.event&&M.event(e)||e)}function v(){var e=void 0;while(e=F.shift())M.afterMount&&M.afterMount(e),e.componentDidMount&&e.componentDidMount();}function h(e,t,n,o,r,i){I++||(O=null!=r&&void 0!==r.ownerSVGElement,$=null!=e&&!(j in e));var l=m(e,t,n,o,i);return r&&l.parentNode!==r&&r.appendChild(l),--I||($=!1,i||v()),l}function m(e,t,n,o,r){var i=e,l=O;if(null!=t&&"boolean"!=typeof t||(t=""),"string"==typeof t||"number"==typeof t)return e&&void 0!==e.splitText&&e.parentNode&&(!e._component||r)?e.nodeValue!=t&&(e.nodeValue=t):(i=document.createTextNode(t),e&&(e.parentNode&&e.parentNode.replaceChild(i,e),y(e,!0))),i[j]=!0,i;var s=t.nodeName;if("function"==typeof s)return k(e,t,n,o);if(O="svg"===s||"foreignObject"!==s&&O,s+="",(!e||!a(e,s))&&(i=u(s,O),e)){while(e.firstChild)i.appendChild(e.firstChild);e.parentNode&&e.parentNode.replaceChild(i,e),y(e,!0);}var p=i.firstChild,d=i[j],c=t.children;if(null==d){d=i[j]={};for(var f=i.attributes,v=f.length;v--;)d[f[v].name]=f[v].value;}return !$&&c&&1===c.length&&"string"==typeof c[0]&&null!=p&&void 0!==p.splitText&&null==p.nextSibling?p.nodeValue!=c[0]&&(p.nodeValue=c[0]):(c&&c.length||null!=p)&&_(i,c,n,o,$||null!=d.dangerouslySetInnerHTML),g(i,t.attributes,d),O=l,i}function _(e,t,n,o,r){var i=e.childNodes,l=[],a={},p=0,u=0,c=i.length,f=0,v=t?t.length:0,h=void 0,_=void 0,b=void 0,g=void 0,C=void 0;if(0!==c)for(var x=0;x<c;x++){var w=i[x],N=w[j],k=v&&N?w._component?w._component.__key:N.key:null;null!=k?(p++,a[k]=w):(N||(void 0!==w.splitText?!r||w.nodeValue.trim():r))&&(l[f++]=w);}if(0!==v)for(var S=0;S<v;S++){g=t[S],C=null;var U=g.key;if(null!=U)p&&void 0!==a[U]&&(C=a[U],a[U]=void 0,p--);else if(u<f)for(h=u;h<f;h++)if(void 0!==l[h]&&s(_=l[h],g,r)){C=_,l[h]=void 0,h===f-1&&f--,h===u&&u++;break}C=m(C,g,n,o),b=i[S],C&&C!==e&&C!==b&&(null==b?e.appendChild(C):C===b.nextSibling?d(b):e.insertBefore(C,b));}if(p)for(var P in a)void 0!==a[P]&&y(a[P],!1);while(u<=f)void 0!==(C=l[f--])&&y(C,!1);}function y(e,t){var n=e._component;n?S(n):(null!=e[j]&&o(e[j].ref,null),!1!==t&&null!=e[j]||d(e),b(e));}function b(e){e=e.lastChild;while(e){var t=e.previousSibling;y(e,!0),e=t;}}function g(e,t,n){var o=void 0;for(o in n)t&&null!=t[o]||null==n[o]||c(e,o,n[o],n[o]=void 0,O);for(o in t)"children"===o||"innerHTML"===o||o in n&&t[o]===("value"===o||"checked"===o?e[o]:n[o])||c(e,o,n[o],n[o]=t[o],O);}function C(e,t,n){var o=void 0,r=G.length;e.prototype&&e.prototype.render?(o=new e(t,n),U.call(o,t,n)):(o=new U(t,n),o.constructor=e,o.render=x);while(r--)if(G[r].constructor===e)return o.nextBase=G[r].nextBase,G.splice(r,1),o;return o}function x(e,t,n){return this.constructor(e,n)}function w(e,t,n,r,l){e._disable||(e._disable=!0,e.__ref=t.ref,e.__key=t.key,delete t.ref,delete t.key,void 0===e.constructor.getDerivedStateFromProps&&(!e.base||l?e.componentWillMount&&e.componentWillMount():e.componentWillReceiveProps&&e.componentWillReceiveProps(t,r)),r&&r!==e.context&&(e.prevContext||(e.prevContext=e.context),e.context=r),e.prevProps||(e.prevProps=e.props),e.props=t,e._disable=!1,n!==D&&(n!==V&&!1===M.syncComponentUpdates&&e.base?i(e):N(e,V,l)),o(e.__ref,e));}function N(e,t,o,r){if(!e._disable){var i=e.props,l=e.state,s=e.context,a=e.prevProps||i,u=e.prevState||l,d=e.prevContext||s,c=e.base,f=e.nextBase,m=c||f,_=e._component,b=!1,g=d,x=void 0,k=void 0,U=void 0;if(e.constructor.getDerivedStateFromProps&&(l=n(n({},l),e.constructor.getDerivedStateFromProps(i,l)),e.state=l),c&&(e.props=a,e.state=u,e.context=d,t!==A&&e.shouldComponentUpdate&&!1===e.shouldComponentUpdate(i,l,s)?b=!0:e.componentWillUpdate&&e.componentWillUpdate(i,l,s),e.props=i,e.state=l,e.context=s),e.prevProps=e.prevState=e.prevContext=e.nextBase=null,e._dirty=!1,!b){x=e.render(i,l,s),e.getChildContext&&(s=n(n({},s),e.getChildContext())),c&&e.getSnapshotBeforeUpdate&&(g=e.getSnapshotBeforeUpdate(a,u));var P=x&&x.nodeName,B=void 0,L=void 0;if("function"==typeof P){var T=p(x);k=_,k&&k.constructor===P&&T.key==k.__key?w(k,T,V,s,!1):(B=k,e._component=k=C(P,T,s),k.nextBase=k.nextBase||f,k._parentComponent=e,w(k,T,D,s,!1),N(k,V,o,!0)),L=k.base;}else U=m,B=_,B&&(U=e._component=null),(m||t===V)&&(U&&(U._component=null),L=h(U,x,s,o||!c,m&&m.parentNode,!0));if(m&&L!==m&&k!==_){var E=m.parentNode;E&&L!==E&&(E.replaceChild(L,m),B||(m._component=null,y(m,!1)));}if(B&&S(B),e.base=L,L&&!r){var W=e,R=e;while(R=R._parentComponent)(W=R).base=L;L._component=W,L._componentConstructor=W.constructor;}}!c||o?F.push(e):b||(e.componentDidUpdate&&e.componentDidUpdate(a,u,g),M.afterUpdate&&M.afterUpdate(e));while(e._renderCallbacks.length)e._renderCallbacks.pop().call(e);I||r||v();}}function k(e,t,n,o){var r=e&&e._component,i=r,l=e,s=r&&e._componentConstructor===t.nodeName,a=s,u=p(t);while(r&&!a&&(r=r._parentComponent))a=r.constructor===t.nodeName;return r&&a&&(!o||r._component)?(w(r,u,R,n,o),e=r.base):(i&&!s&&(S(i),e=l=null),r=C(t.nodeName,u,n),e&&!r.nextBase&&(r.nextBase=e,l=null),w(r,u,V,n,o),e=r.base,l&&e!==l&&(l._component=null,y(l,!1))),e}function S(e){M.beforeUnmount&&M.beforeUnmount(e);var t=e.base;e._disable=!0,e.componentWillUnmount&&e.componentWillUnmount(),e.base=null;var n=e._component;n?S(n):t&&(null!=t[j]&&o(t[j].ref,null),e.nextBase=t,d(t),G.push(e),b(t)),o(e.__ref,null);}function U(e,t){this._dirty=!0,this.context=t,this.props=e,this.state=this.state||{},this._renderCallbacks=[];}function P(e,t,n){return h(n,e,{},!1,t,!1)}function B(){return {}}var L=function(){},M={},T=[],E=[],W="function"==typeof Promise?Promise.resolve().then.bind(Promise.resolve()):setTimeout,D=0,V=1,A=2,R=3,j="__preactattr_",H=/acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i,z=[],F=[],I=0,O=!1,$=!1,G=[];n(U.prototype,{setState:function(e,t){this.prevState||(this.prevState=this.state),this.state=n(n({},this.state),"function"==typeof e?e(this.state,this.props):e),t&&this._renderCallbacks.push(t),i(this);},forceUpdate:function(e){e&&this._renderCallbacks.push(e),N(this,A);},render:function(){}}),e.default={h:t,createElement:t,cloneElement:r,createRef:B,Component:U,render:P,rerender:l,options:M},e.h=t,e.createElement=t,e.cloneElement=r,e.createRef=B,e.Component=U,e.render=P,e.rerender=l,e.options=M,Object.defineProperty(e,"__esModule",{value:!0});});
 });
 
 var Preact = unwrapExports(preact_umd_min);
@@ -44922,6 +39796,69 @@ var Preact = unwrapExports(preact_umd_min);
     el.innerHTML = null;
     _render( obj, el );
   };
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+var v, vl, item, action, actionName, defaultValue;
+var extractKey = function ( actionName ) {
+  if ( actionName.slice( 0, 3 ) !== 'set' ) {
+    throw new Error( 'Action must be called setX' );
+  }
+
+  return actionName.charAt( 3 ).toLowerCase() +
+           actionName.slice( 4 );
+};
+
+function SetterStore ( config ) {
+  // Extract listeners and method names
+  function SetterStore() {
+    var listeners = {};
+
+    // Set defaults
+    for ( v = 0, vl = config.length; v < vl; v++ ) {
+      item = config[ v ];
+      action = item[ 0 ];
+      defaultValue = item[ 1 ];
+      actionName = action.data.name;
+      this[ extractKey( actionName ) ] = defaultValue;
+
+      // Configure binding between action and function
+      listeners[ actionName ] = action;
+    }
+
+    this.bindListeners( listeners );
+  }
+
+  // Define handler functions to set values
+  for ( v = 0, vl = config.length; v < vl; v++ ) {
+    item = config[ v ];
+    action = item[ 0 ];
+    actionName = action.data.name;
+    SetterStore.prototype[ actionName ] = function ( key ) {
+      return function ( value ) { this[ key ] = value; };
+    }( extractKey( actionName ) );
+  }
+
+  return SetterStore;
+}
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+var PlacesStore = SetterStore( [
+  [ UserActions.setCurrentPlace, {} ]
+] );
+PlacesStore.displayName = 'PlacesStore';
+var PlacesStore$1 = alt.createStore( PlacesStore );
 
 /**
  * Copyright 2020 (c) Felix Palmer
@@ -45000,7 +39937,93 @@ EngineStore.prototype.renderedFeatureDisplayed = function ( feature ) {
 };
 
 EngineStore.displayName = 'EngineStore';
-var engine = alt.createStore( EngineStore );
+alt.createStore( EngineStore );
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+var EnvironmentStore = SetterStore( [
+  [ UserActions.setEnvironment, {} ]
+] );
+EnvironmentStore.displayName = 'EnvironmentStore';
+var EnvironmentStore$1 = alt.createStore( EnvironmentStore );
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+var envParams = {};
+
+var distance = 400000; // Sun distance
+envParams.update = function () {
+  // Sky
+  skyUniforms.turbidity.value = envParams.turbidity;
+  skyUniforms.reileigh.value = envParams.reileigh;
+  skyUniforms.luminance.value = envParams.luminance;
+  skyUniforms.mieCoefficient.value = envParams.mieCoefficient;
+  skyUniforms.mieDirectionalG.value = envParams.mieDirectionalG;
+
+  var theta = Math.PI * ( envParams.inclination - 0.5 );
+  var phi = 2 * Math.PI * ( envParams.azimuth - 0.5 );
+
+  skyUniforms.sunPosition.value.set(
+    distance * Math.sin( phi ) * Math.cos( theta ),
+    distance * Math.cos( phi ) * Math.cos( theta ),
+    distance * Math.sin( theta )
+  );
+  skyUniforms.update();
+  fogUniforms.update();
+
+  fogUniforms.uFogDropoff.value = envParams.fogDropoff;
+  fogUniforms.uFogIntensity.value = envParams.fogIntensity;
+
+  tonemapUniforms.exposureBias.value = envParams.exposureBias;
+  tonemapUniforms.whitePoint.value = envParams.whitePoint;
+  tonemapUniforms.update();
+};
+
+envParams.set = function ( params, duration ) {
+  if ( duration === 0 ) {
+    // Skip interpolation
+    Object.assign( envParams, params );
+    envParams.update();
+    setTimeout( function () { RenderActions.needsRender( { env: true } ); } );
+  } else {
+    var oldParams = lodash_min.clone( envParams );
+    var newParams = lodash_min.clone( params );
+    StoreUtils.transition( function ( params ) {
+      Object.assign( envParams, params );
+      envParams.update();
+      setTimeout( function () { RenderActions.needsRender( { env: true } ); } );
+    }, oldParams, newParams, {
+      duration: duration,
+      doNotCancel: true,
+      lerp: StoreUtils.lerp.params,
+      onComplete: function () {
+        RenderActions.needsRender( { env: true } );
+      }
+    } );
+  }
+};
+
+// Sync up to EnvironmentStore
+// TODO, perhaps cleaner to rename this to some sort of Transition class?
+EnvironmentStore$1.listen( function ( state ) {
+  var env = state.environment;
+  envParams.set( env.parameters, env.animationDuration );
+} );
+
+PlacesStore$1.listen( function ( state ) {
+  var place = state.currentPlace;
+  if ( place.env ) { envParams.set( place.env, 0 ); }
+} );
 
 /**
  * Copyright 2020 (c) Felix Palmer
@@ -45042,7 +40065,7 @@ CurrentLocation.prototype.tick = function ( state ) {
   this.sphere.material.uniforms.uTime.value = state.clock.elapsedTime;
 };
 
-var currentLocation = new CurrentLocation();
+new CurrentLocation();
 
 /**
  * Copyright 2020 (c) Felix Palmer
@@ -45528,7 +40551,7 @@ LineGeometry.prototype.dispose = function () {
 // Used for splitting out things like parsing lines
 // Typical startup involves 75 step invocations leading to
 // ~2000 process invocations
-var timeSource$1 = performance || Date;
+var timeSource = performance || Date;
 var WorkQueue = {
   taskCount: 0,
 
@@ -45558,7 +40581,7 @@ var WorkQueue = {
     var complete = false;
     var step = function ( state ) {
       // Bail out instantly if we have no time left
-      now = timeSource$1.now();
+      now = timeSource.now();
       globalTimeout = WorkQueue.workTimeout + state.time;
       if ( now > globalTimeout ) { return }
 
@@ -45575,7 +40598,7 @@ var WorkQueue = {
       }
 
       // Now process our queue until our time is up
-      now = timeSource$1.now();
+      now = timeSource.now();
       if ( highPriority ) {
         localTimeout = globalTimeout;
       } else {
@@ -45586,7 +40609,7 @@ var WorkQueue = {
               now < localTimeout && // Cap this task's running time
               ( item = queue[ i++ ] ) ) {
         process( item );
-        now = timeSource$1.now();
+        now = timeSource.now();
       }
 
       // Once queue is processed, mark this task as completed,
@@ -45848,7 +40871,7 @@ var Lines = function () {
 
 Lines.prototype = Object.create( LinesBase.prototype );
 
-var lines = new Lines();
+new Lines();
 
 /**
  * Copyright 2020 (c) Felix Palmer
@@ -46619,7 +41642,6 @@ Markers.prototype.onNewData = function ( state ) {
       attrs.atlas.push( atlas.x, atlas.y, atlas.z, atlas.w );
     } else if ( props.name !== undefined ||
                 props.icon !== undefined ) {
-      clipping = clippingForName( 'object' );
       text = '';
       if ( props.icon !== undefined ) {
         text += glyphForIcon( props.icon );
@@ -46638,14 +41660,13 @@ Markers.prototype.onNewData = function ( state ) {
       atlas = self.atlas.addText( text, props.fontSize, drawImmediate );
       attrs.atlas.push( atlas.x, atlas.y, atlas.z, atlas.w );
     } else {
-      clipping = clippingForName( 'object' );
       attrs.atlas.pushDefault();
     }
 
     if ( props.clipping ) {
       clipping = clippingForName( props.clipping || 'pixel' );
     } else {
-      clipping = clipping || defaultClipping;
+      clipping = defaultClipping;
     }
 
     attrs.clipping.push( clipping.x, clipping.y );
@@ -46661,7 +41682,7 @@ Markers.prototype.onNewData = function ( state ) {
     layout.z = props.borderRadius || 0;
     attrs.layout.push( layout.x, layout.y, layout.z );
 
-    normal = normalAt( offset );
+    normal = normalAt();
     attrs.normal.push( normal.x, normal.y, normal.z, collapseDistance );
   } );
 
@@ -46732,7 +41753,7 @@ Markers.prototype.onUpdatedData = function ( state ) {
     offsetAttribute.array[ i ] = offset.x;
     offsetAttribute.array[ i + 1 ] = offset.y;
     offsetAttribute.array[ i + 2 ] = offset.z;
-    normal = normalAt( offset );
+    normal = normalAt();
     normalAttribute.array[ i ] = normal.x;
     normalAttribute.array[ i + 1 ] = normal.y;
     normalAttribute.array[ i + 2 ] = normal.z;
@@ -46743,7 +41764,7 @@ Markers.prototype.onUpdatedData = function ( state ) {
   // Should use updateBuffer so bufferSubData is used
 };
 
-var markers = new Markers();
+new Markers();
 
 /**
  * Copyright 2020 (c) Felix Palmer
@@ -46774,138 +41795,17 @@ var skyBoxUniforms = {
   uSkybox: { type: 't', value: null }
 };
 
-var skySpheremapFragment = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-precision highp float;
-
+var skySpheremapFragment = new Shader(`precision highp float;
 #define SUN_DISK
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// Derived uniforms
-uniform vec3 sunDirection;
-uniform vec3 betaRM;
-uniform vec3 betaRnorm;
-uniform vec3 betaMnorm;
-uniform vec4 constants; // sunE, hgPhaseA, hgPhaseB & LinWeight
-uniform float gamma;
-uniform float tonemapScale;
-
-// Safe functions
-float spow( const float x, const float y ) {
-  return pow( abs( x ), y );
-}
-
-vec3 spow( const vec3 x, const vec3 y ) {
-  return pow( abs( x ), y );
-}
-
-vec3 ssqrt( const vec3 x ) {
-  return sqrt( abs( x ) );
-}
-
-/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-const float A = 0.15;
-const float B = 0.50;
-const float C = 0.10;
-const float D = 0.20;
-const float E = 0.02;
-const float F = 0.30;
-
-uniform float uTonemapExposureBias;
-uniform float uTonemapWhiteScale;
-
-vec3 RawTonemap( vec3 x )
-{
-  return ((x*(A*x+C*B)+D*E)/(x*(A*x+B)+D*F))-E/F;
-}
-
-vec3 Tonemap( vec3 color ) {
-  return uTonemapExposureBias * RawTonemap( uTonemapWhiteScale * color );
-}
-
-
-vec3 skyColor( vec3 direction ) {
-  float cosZenithAngle = max( 0.0, direction.y );
-  // Approximate acos( x ) by pi/2 - x
-  // This allows us to simplify and error is only large when looking up
-  float denom = cosZenithAngle + spow( 17.6579343808112 + cosZenithAngle * 260.41830500372932, -1.253 );
-
-  // combined extinction factor	
-  vec3 Fex = exp( -betaRM / denom );
-
-  // in scattering
-  float cosTheta = dot( direction, sunDirection );
-  float rPhase = cosTheta + 1.0;
-  vec3 betaRTheta = betaRnorm * ( 4.0 + rPhase * rPhase );
-  vec3 betaMTheta = betaMnorm * spow( constants.y * cosTheta + constants.z, -1.5 );
-
-  vec3 tmp = betaRTheta + betaMTheta;
-  vec3 Lin = spow( tmp * ( 1.0 - Fex ), vec3( 1.5 ) );
-  Lin *= mix( vec3( 1.0 ), ssqrt( tmp * Fex ), constants.w );
-
-  // nightsky
-  vec3 L0 = 0.1 * Fex;
-
-  #ifdef SUN_DISK
-  L0 += constants.x * Fex * smoothstep( 0.9999566769, 0.9999766769, cosTheta );
-  #endif
-
-  // Combine all components
-  vec3 color = 0.04 * ( Lin + L0 ) + vec3( 0.0, 0.0003, 0.00075 );   
-  color = Tonemap( tonemapScale * color );
-  return spow( color, vec3( gamma ) );
-}
-
-
-// 1 / 2048.0 (texture width)
+uniform vec3 sunDirection;uniform vec3 betaRM;uniform vec3 betaRnorm;uniform vec3 betaMnorm;uniform vec4 constants;uniform float gamma;uniform float tonemapScale;float a(const float b,const float c){return pow(abs(b),c);}vec3 a(const vec3 b,const vec3 c){return pow(abs(b),c);}vec3 d(const vec3 b){return sqrt(abs(b));}const float e=0.15;const float f=0.50;const float g=0.10;const float h=0.20;const float i=0.02;const float j=0.30;uniform float uTonemapExposureBias;uniform float uTonemapWhiteScale;vec3 k(vec3 b){return ((b*(e*b+g*f)+h*i)/(b*(e*b+f)+h*j))-i/j;}vec3 l(vec3 m){return uTonemapExposureBias*k(uTonemapWhiteScale*m);}vec3 n(vec3 o){float p=max(0.0,o.y);float q=p+a(17.6579343808112+p*260.41830500372932,-1.253);vec3 r=exp(-betaRM/q);float s=dot(o,sunDirection);float t=s+1.0;vec3 u=betaRnorm*(4.0+t*t);vec3 v=betaMnorm*a(constants.y*s+constants.z,-1.5);vec3 w=u+v;vec3 x=a(w*(1.0-r),vec3(1.5));x*=mix(vec3(1.0),d(w*r),constants.w);vec3 y=0.1*r;
+#ifdef SUN_DISK
+y+=constants.x*r*smoothstep(0.9999566769,0.9999766769,s);
+#endif
+vec3 m=0.04*(x+y)+vec3(0.0,0.0003,0.00075);m=l(tonemapScale*m);return a(m,vec3(gamma));}
 #define STEP 0.00048828125
+void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0.99999,length(o));A=sin(1.5707963267949*A);o=A*normalize(o);o.z=sqrt(max(0.0,1.0-dot(o,o)));vec3 m=n(normalize(o.xzy));gl_FragColor=vec4(m,1.0);}`);
 
-void main() {
-  // Map to sphere normal direction
-  vec2 uv = gl_FragCoord.xy * STEP;
-  vec3 direction = 2.0 * vec3( uv - 0.5, 0.0 ); // Switch to polar coordaintes
-  float r = min( 0.99999, length( direction ) ); // Limit to unit length
-  r = sin( 1.5707963267949 * r ); // store linear in polar angle
-  direction = r * normalize( direction );
-  direction.z = sqrt( max( 0.0, 1.0 - dot( direction, direction ) ) ); // Get z-coordinate from Pythagorus
-  vec3 color = skyColor( normalize( direction.xzy ) );
-  gl_FragColor = vec4( color, 1.0 );
-}
-`);
-
-var quadVertex$1 = new Shader(`/**
- * Copyright 2020 (c) Felix Palmer
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- */
-// RawShader
-attribute vec3 position;
-
-void main() {
-  // Do not need any matrix multiplications as positions already in clip
-  // space
-  gl_Position = vec4( position, 1.0 );
-}
-`);
+var quadVertex$1 = new Shader(`attribute vec3 position;void main(){gl_Position=vec4(position,1.0);}`);
 
 /**
  * Copyright 2020 (c) Felix Palmer
@@ -47002,12 +41902,10 @@ class MapTileGeometry {
       }
     }
 
-    let addSkirt = true;
-
     // Define faces
     let N = 6 * segments * segments;
 
-    if ( addSkirt ) {
+    {
       N += 4 * 6 * segments;
     }
 
@@ -47054,7 +41952,7 @@ class MapTileGeometry {
       }
     }
 
-    if ( addSkirt ) {
+    {
       for ( let skirt = 0; skirt < 4; skirt++ ) {
         for ( let s = 0; s < segments; s++, n++ ) {
           if ( skirt === 0 ) {
@@ -47432,82 +42330,15 @@ PlacesStore$1.listen( ( { currentPlace } ) => {
 
 let tiles = [];
 
-let framerate, readTime, scanTime, updateTime, tileCount;
-if ( true ) {
-  class Stat {
-    constructor( name, unit, samples ) {
-      this.name = name;
-      this.unit = unit === undefined ? 'ms' : unit;
-      let info = document.getElementById( 'debug-info' );
-      if ( !info ) {
-        info = document.createElement( 'div' );
-        info.id = 'debug-info';
-        info.style = 'position: absolute; bottom: 0; padding: 10px; pointer-events: none;';
-        document.body.appendChild( info );
-      }
-
-      this.element = document.createElement( 'div' );
-      if ( window.location.protocol === 'http:' ) {
-        info.appendChild( this.element );
-      }
-
-      this.values = ( new Array( samples || 100 ) ).fill( 0 );
-    }
-
-    add( v ) {
-      this.values.unshift( v ); this.values.pop();
-      let average = this.values.reduce( ( a, b ) => a + b ) / this.values.length;
-      average = Math.round( 100 * average ) / 100;
-      let max = Math.round( Math.max( ...this.values ) );
-      if ( this.inverse ) { average = Math.round( 1000 / average ); }
-
-      this.element.innerHTML = `${this.name}: ${average}${this.unit} (max: ${max})`;
-    }
-
-    start() {
-      this.startTime = performance.now();
-    }
-
-    stop() {
-      this.add( performance.now() - this.startTime );
-    }
-  }
-
-  framerate = new Stat( 'FPS', '', 60 );
-  framerate.inverse = true;
-  readTime = new Stat( 'readTime' );
-  scanTime = new Stat( 'scanTime' );
-  updateTime = new Stat( 'updateTime' );
-  tileCount = new Stat( 'tiles', '', 10 );
-}
-
 let framesSinceSeen = {};
 let frame = 0;
 let projectedDistance = null;
 
-let debugClick = null;
-if ( true ) {
-  window.addEventListener( 'mousedown', e => {
-    if ( e.altKey ) {
-      const rect = e.target.getBoundingClientRect();
-      debugClick = {
-        x: ( e.clientX - rect.x ) / rect.width,
-        y: ( e.clientY - rect.y ) / rect.height
-      };
-    }
-  }, false );
-}
-
 // At start want to cut up terrain as quickly as possible
 let pipelinePicker = false;
 let projectionMatrix;
-
-true && framerate.start();
 function draw() {
   if ( tiles.length === 0 ) { return }
-
-  true && framerate.stop();
-  true && framerate.start();
   frame++;
 
   let tilesSeen = new Set(); // All tiles we see
@@ -47539,7 +42370,6 @@ function draw() {
   }
 
   if ( doPickerRender ) {
-    true && performance.mark( 'Render-start' );
     renderer.setRenderTarget( tilepicker.target );
     renderer.clear( true, true, true );
     renderer.render( scene.tilepickerScene, camera );
@@ -47547,13 +42377,9 @@ function draw() {
     // Get matrix at point of render so it matches what
     // is in the render target
     projectionMatrix = camera.projectionMatrix.elements;
-    true && performance.mark( 'Render-end' );
-    true && performance.measure( 'Render', 'Render-start', 'Render-end' );
   }
 
   if ( doPickerRead ) {
-    true && performance.mark( 'Read-start' );
-    true && readTime.start();
 
     // Grab pixels
     let slice = pipelinePicker ? ( frameN - 1 - waitFrames ) / skipFrames : 0;
@@ -47565,14 +42391,9 @@ function draw() {
       tilepicker.target.width, tilepicker.target.height / sliceN,
       view );
     renderer.setRenderTarget( null );
-    true && readTime.stop();
-    true && performance.mark( 'Read-end' );
-    true && performance.measure( 'Read', 'Read-start', 'Read-end' );
   }
 
   if ( doPickerProcess ) {
-    true && performance.mark( 'Process-start' );
-    true && scanTime.start();
     let pickedTile, terrainError;
 
     // Get center pixel and extract distance
@@ -47582,24 +42403,6 @@ function draw() {
     fragZ /= 256.0 * 255.0;
     projectedDistance = projectionMatrix[ 14 ] / ( 2 * fragZ - 1.0 + projectionMatrix[ 10 ] );
     CameraStore$1.getState().controls.setDistanceToTarget( projectedDistance );
-
-    // Debug tile
-    if ( true && debugClick ) {
-      let pixel = {};
-      pixel.x = Math.round( debugClick.x * tilepicker.target.width );
-      pixel.y = Math.round( ( 1 - debugClick.y ) * tilepicker.target.height );
-      let p = 4 * ( pixel.x + tilepicker.target.width * pixel.y );
-      pickedTile = 256 * tilepicker.data[ p ] + tilepicker.data[ p + 1 ];
-      terrainError = ( tilepicker.data[ p + 3 ] / 255 ); // range 0-1
-      terrainError = 10 * terrainError - 5; // re-bias to -5 > 5
-      let tile = tiles.find( x => x.id === pickedTile );
-      if ( tile ) {
-        log$1( `[${tile.x},${tile.y},${tile.z}] (${tile.imageryKey})`, terrainError, `${tile.bestImagery.quadkey}(${tile.bestImagery.downsample})` );
-        window.debugTile = tile;
-      }
-
-      debugClick = null;
-    }
 
     let pl = tilepicker.data.length;
     for ( p = 0; p < pl; p += 4 ) {
@@ -47626,11 +42429,6 @@ function draw() {
         tilesSeen.add( tile );
       }
     }
-
-    true && scanTime.stop();
-
-    // Keep track of which tiles we don't see
-    true && updateTime.start();
     tiles.forEach( tile => {
       if ( framesSinceSeen[ tile.imageryKey ] === undefined ) {
         framesSinceSeen[ tile.imageryKey ] = 0;
@@ -47730,9 +42528,6 @@ function draw() {
         tile.onSeen();
       }
     } );
-    true && updateTime.stop();
-    true && performance.mark( 'Process-end' );
-    true && performance.measure( 'Process', 'Process-start', 'Process-end' );
   }
 
   // Update tiles if we have imagery changes
@@ -47743,8 +42538,6 @@ function draw() {
   if ( ElevationDatasource.hasUpdates ) {
     ElevationDatasource.broadcastUpdate();
   }
-
-  true && tileCount.add( tiles.length );
 }
 
 function createScene() {
@@ -47791,9 +42584,6 @@ var app = {
     var raycastFeature = function () {
       return picker.pickFeature( app.mouse );
     };
-
-    // Mouse input
-    var lastFeature = null;
     var updateMouse = function ( e ) {
       var userInput = UserInputStore$1.getState();
       if ( userInput.interacting ) {
@@ -47816,11 +42606,6 @@ var app = {
 
       // Disable raycasting for now
       return; // Get spurious errors with this enabled
-      var feature = raycastFeature();
-      if ( feature !== lastFeature ) {
-        UserActions.featureSelected( feature );
-        lastFeature = feature;
-      }
     };
 
     var isTouchCapable = 'ontouchstart' in window ||
@@ -48410,8 +43195,8 @@ app.init();
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-/*global '1.0.7'*/
-console.log( 'Procedural v' + '1.0.7' );
+/*global '1.0.8'*/
+console.log( 'Procedural v' + '1.0.8' );
 
 // Re-export public API
 const Procedural$9 = {
@@ -48452,4 +43237,3 @@ for ( let l of listeners ) {
 }
 
 export default Procedural$9;
-//# sourceMappingURL=procedural-gl.module.js.map

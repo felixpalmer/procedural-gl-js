@@ -67,7 +67,7 @@ RenderStore.prototype.scheduleRenderAnimated = function () {
   return this.scheduleRender( { animating: true } );
 };
 
-console.warn( 'Need to fix controls&render loop' );
+if ( __dev__ ) { console.warn( 'Need to fix controls&render loop' ) }
 
 // To avoid renders piling up emit changes syncronized by AnimationStore
 RenderStore.prototype.tick = function () {

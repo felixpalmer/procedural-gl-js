@@ -33712,8 +33712,6 @@
 	  return this.scheduleRender( { animating: true } );
 	};
 
-	console.warn( 'Need to fix controls&render loop' );
-
 	// To avoid renders piling up emit changes syncronized by AnimationStore
 	RenderStore.prototype.tick = function () {
 	  if ( this.needsRender ) {
@@ -41650,7 +41648,6 @@ return texture2D(n,s);
 	      attrs.atlas.push( atlas.x, atlas.y, atlas.z, atlas.w );
 	    } else if ( props.name !== undefined ||
 	                props.icon !== undefined ) {
-	      clipping = clippingForName( 'object' );
 	      text = '';
 	      if ( props.icon !== undefined ) {
 	        text += glyphForIcon( props.icon );
@@ -41669,14 +41666,13 @@ return texture2D(n,s);
 	      atlas = self.atlas.addText( text, props.fontSize, drawImmediate );
 	      attrs.atlas.push( atlas.x, atlas.y, atlas.z, atlas.w );
 	    } else {
-	      clipping = clippingForName( 'object' );
 	      attrs.atlas.pushDefault();
 	    }
 
 	    if ( props.clipping ) {
 	      clipping = clippingForName( props.clipping || 'pixel' );
 	    } else {
-	      clipping = clipping || defaultClipping;
+	      clipping = defaultClipping;
 	    }
 
 	    attrs.clipping.push( clipping.x, clipping.y );
@@ -43205,8 +43201,8 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	 * License, v. 2.0. If a copy of the MPL was not distributed with this
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
-	/*global '1.0.7'*/
-	console.log( 'Procedural v' + '1.0.7' );
+	/*global '1.0.8'*/
+	console.log( 'Procedural v' + '1.0.8' );
 
 	// Re-export public API
 	const Procedural$9 = {
@@ -43249,4 +43245,3 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	return Procedural$9;
 
 })));
-//# sourceMappingURL=procedural-gl.js.map
