@@ -65,6 +65,8 @@ const montBlanc = { latitude: 45.8326364, longitude: 6.8564201 };
 Procedural.displayLocation( montBlanc );
 ```
 
+For detailed instructions for setting up the datasource, [see this page in the wiki](https://github.com/felixpalmer/procedural-gl-js/wiki/Data-sources)
+
 Examples
 ========
 
@@ -74,6 +76,7 @@ Examples
 Blog posts / Guides
 ===================
 
+- [Quickstart setup of datasources for Procedural GL JS](https://github.com/felixpalmer/procedural-gl-js/wiki/Data-sources)
 - [Build New Zealand in an afternoon](https://www.pheelicks.com/posts/build-new-zealand-in-an-afternoon/)
 
 
