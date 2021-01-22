@@ -14,8 +14,8 @@ import ContainerStore from '/stores/container';
 var camera = new THREE.PerspectiveCamera(
   45, // fov
   1, // aspect
-  250, // near
-  2500000 // far
+  200, // near
+  2000000 // far
 );
 
 ContainerStore.listen( function ( state ) {
