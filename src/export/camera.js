@@ -147,7 +147,17 @@ CameraExport.prototype.setCamera = function ( state ) {
   this.waitFor( CameraStore );
   if ( typeof Procedural.onCameraChange !== 'function' ) { return }
 
-  Procedural.onCameraChange( state );
+  const target = geoproject.unproject( state.target );
+  const distance = state.target.distanceTo( state.position );
+  const delta = state.target.clone().sub( state.position );
+  const bearing = ( 180 * Math.atan2( delta.x, delta.y ) / Math.PI + 360 ) % 360;
+  const angle = 180 * Math.asin( -delta.z / distance ) / Math.PI;
+  Procedural.onCameraChange( {
+    longitude: target[ 0 ],
+    latitude: target[ 1 ],
+    height: target[ 2 ],
+    angle, bearing, distance
+  } );
 };
 
 CameraExport.displayName = 'CameraExport';
