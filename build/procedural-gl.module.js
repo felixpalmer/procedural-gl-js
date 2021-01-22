@@ -631,8 +631,8 @@ var template = {
     "inclination": 0.6376744186046512,
     "azimuth": 0.881,
     "sun": false,
-    "fogDropoff": 0.000009,
-    "fogIntensity": 1.1,
+    "fogDropoff": 0.0000065,
+    "fogIntensity": 1,
     "exposureBias": 1.25,
     "whitePoint": 2.5,
     "ambientColor": "#2d3034",
@@ -34116,8 +34116,8 @@ var ContainerStore$1 = alt.createStore( ContainerStore );
 var camera = new THREE.PerspectiveCamera(
   45, // fov
   1, // aspect
-  250, // near
-  2500000 // far
+  200, // near
+  2000000 // far
 );
 
 ContainerStore$1.listen( function ( state ) {
@@ -36884,7 +36884,7 @@ function CameraStore() {
   this.minDistance = 100;
   this.minHeight = 200;
   this.maxDistance = 50000;
-  this.maxBounds = 100000;
+  this.maxBounds = 1000000;
 
   camera.position.copy( this.position );
   camera.up.copy( up );
@@ -38628,7 +38628,7 @@ ContainerStore$1.listen( ( { canvasHeight, pixelRatio, canvasWidth } ) => {
   markerUniforms.uPixelRatio.value = pixelRatio;
 } );
 
-var skyVertex = new Shader(`uniform mat4 modelViewMatrix;uniform mat4 projectionMatrix;attribute vec3 position;varying vec3 vPosition;void main(){vPosition=position.xzy;vPosition.y=max(0.0,vPosition.y);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`);
+var skyVertex = new Shader(`uniform mat4 modelViewMatrix;uniform mat4 projectionMatrix;uniform vec3 cameraPosition;attribute vec3 position;varying vec3 vPosition;void main(){vPosition=position.xzy;vPosition.y=max(0.0,vPosition.y);vec3 a=position;a.xy+=cameraPosition.xy;gl_Position=projectionMatrix*modelViewMatrix*vec4(a,1.0);}`);
 
 var skyFragment = new Shader(`precision highp float;varying vec3 vPosition;uniform vec3 sunDirection;uniform vec3 betaRM;uniform vec3 betaRnorm;uniform vec3 betaMnorm;uniform vec4 constants;uniform float gamma;uniform float tonemapScale;float a(const float b,const float c){return pow(abs(b),c);}vec3 a(const vec3 b,const vec3 c){return pow(abs(b),c);}vec3 d(const vec3 b){return sqrt(abs(b));}const float e=0.15;const float f=0.50;const float g=0.10;const float h=0.20;const float i=0.02;const float j=0.30;uniform float uTonemapExposureBias;uniform float uTonemapWhiteScale;vec3 k(vec3 b){return ((b*(e*b+g*f)+h*i)/(b*(e*b+f)+h*j))-i/j;}vec3 l(vec3 m){return uTonemapExposureBias*k(uTonemapWhiteScale*m);}vec3 n(vec3 o){float p=max(0.0,o.y);float q=p+a(17.6579343808112+p*260.41830500372932,-1.253);vec3 r=exp(-betaRM/q);float s=dot(o,sunDirection);float t=s+1.0;vec3 u=betaRnorm*(4.0+t*t);vec3 v=betaMnorm*a(constants.y*s+constants.z,-1.5);vec3 w=u+v;vec3 x=a(w*(1.0-r),vec3(1.5));x*=mix(vec3(1.0),d(w*r),constants.w);vec3 y=0.1*r;
 #ifdef SUN_DISK
@@ -41774,7 +41774,7 @@ new Markers();
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-const hemisphere = new THREE.SphereBufferGeometry( 200000, 32, 6, 0, 2 * Math.PI, 0, 0.6 * Math.PI );
+const hemisphere = new THREE.SphereBufferGeometry( 0.8 * camera.far , 32, 6, 0, 2 * Math.PI, 0, 0.6 * Math.PI );
 const m = new THREE.Matrix4();
 m.makeRotationX( Math.PI / 2 );
 hemisphere.applyMatrix4( m );
@@ -43195,8 +43195,8 @@ app.init();
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-/*global '1.0.8'*/
-console.log( 'Procedural v' + '1.0.8' );
+/*global '1.0.9'*/
+console.log( 'Procedural v' + '1.0.9' );
 
 // Re-export public API
 const Procedural$9 = {
