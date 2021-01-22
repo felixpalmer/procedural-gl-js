@@ -20,12 +20,15 @@
     <script type="module">
         import Procedural from './build/procedural-gl.dev.js';
 
+        // For testing useful to have Procedural API in global scope
+        window.Procedural = Procedural;
+
         // Initialize the engine with a location and inject into page
         const container = document.getElementById( 'container' );
 
         // Define API Keys (replace these with your own!)
-        const NASADEM_APIKEY = '12c27d08882df417c977cf5af64fd84f0';
-        const MAPTILER_APIKEY = 'EIvJ3LPyMVsxeNd3Lyao';
+        const NASADEM_APIKEY = null;
+        const MAPTILER_APIKEY = null;
         if ( !NASADEM_APIKEY || !MAPTILER_APIKEY ) {
           const error = Error( 'Modify index.html to include API keys' );
           container.innerHTML = error; 
