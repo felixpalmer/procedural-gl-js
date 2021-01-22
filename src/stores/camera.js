@@ -31,7 +31,7 @@ function CameraStore() {
   this.minDistance = 100;
   this.minHeight = 200;
   this.maxDistance = 50000;
-  this.maxBounds = 100000;
+  this.maxBounds = 1000000;
 
   camera.position.copy( this.position );
   camera.up.copy( up );
