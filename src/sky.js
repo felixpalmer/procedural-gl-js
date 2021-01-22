@@ -7,10 +7,11 @@
  */
 import THREE from 'three';
 
+import camera from '/camera';
 import material from '/material';
 import scene from '/scene';
 
-const hemisphere = new THREE.SphereBufferGeometry( 200000, 32, 6, 0, 2 * Math.PI, 0, 0.6 * Math.PI );
+const hemisphere = new THREE.SphereBufferGeometry( 0.8 * camera.far , 32, 6, 0, 2 * Math.PI, 0, 0.6 * Math.PI );
 const m = new THREE.Matrix4();
 m.makeRotationX( Math.PI / 2 );
 hemisphere.applyMatrix4( m );
