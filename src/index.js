@@ -46,6 +46,15 @@ for ( let l of listeners ) {
 }
 
 listeners = [
+  'onCameraChange'
+];
+for ( let l of listeners ) {
+  Object.defineProperty( Procedural, l, {
+    set: fn => CameraExport[ l ] = fn
+  } );
+}
+
+listeners = [
   'onBoundsFocused',
   'onLocationError',
   'onLocationFocused',

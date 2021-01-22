@@ -76,857 +76,6 @@
 
 	alt.deserialize = function () { return '' };
 
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-
-	var RenderActions = alt.generateActions(
-	  'containerMounted',
-	  'containerResized',
-	  'fatalError',
-	  'featureCreated',
-	  'fontsLoaded',
-	  'forceHD',
-	  'onBoundsFocused',
-	  'onLocationFocused',
-	  'overlayDisplayed',
-	  'needsRender',
-	  'pause',
-	  'play',
-	  'renderedFeatureDisplayed',
-	  'renderedFeatureRegister',
-	  'setFieldOfView',
-	  'setHD',
-	  'setSize'
-	);
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-
-	var UserActions = alt.generateActions(
-	  'animateAlongFeature',
-	  'doubleTapZoom',
-	  'featureClicked',
-	  'featureSelected',
-	  'focusOnBounds',
-	  'focusOnFeature',
-	  'focusOnLocation',
-	  'focusOnTarget',
-	  'inputEnded',
-	  'inputStarted',
-	  'orbitTarget',
-	  'panToPosition',
-	  'rotateLeft',
-	  'rotateRight',
-	  'selectFeatures',
-	  'setCamera',
-	  'setCameraMode',
-	  'setCameraPosition',
-	  'setCameraTarget',
-	  'setCurrentPlace',
-	  'setEnvironment',
-	  'setGeography',
-	  'setSecondaryParams',
-	  'setTerrainEffectContours',
-	  'setTerrainEffectFlats',
-	  'setTerrainEffectGrade',
-	  'setTerrainEffectHeight',
-	  'setTerrainEffectNone',
-	  'startFlyover',
-	  'toggleWidgets',
-	  'zoomIn',
-	  'zoomOut'
-	);
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-
-	const Procedural = {};
-
-	/**
-	 * @exports Procedural
-	 * @name Camera
-	 * @description Use the Camera API methods to change the user's
-	 * view of the rendered scene.
-	 */
-
-	/**
-	 * @name focusOnBounds
-	 * @memberof module:Camera
-	 * @function
-	 * @description Animates the engine camera to focus on a region
-	 * specified by a bounding box. The engine will calculate the correct
-	 * view such that the bounds are fully displayed.
-	 * @param {Object} bounds An Object specifying a bounding box. Pass the coordinates for the south-west and north-east corners of the box.
-	 * @example
-	 * var bounds = {
-	 *   sw: { latitude: 44.5, longitude: 6.3 },
-	 *   ne: { latitude: 44.4, longitude: 6.4 }
-	 * };
-	 * Procedural.focusOnBounds ( bounds );
-	 *
-	 * // Optionally can also supply:
-	 * // - viewing angle,
-	 * // - a bearing,
-	 * // - animation duration (in seconds)
-	 * var bounds = {
-	 *   sw: { latitude: 44.5, longitude: 6.3 },
-	 *   ne: { latitude: 44.4, longitude: 6.4 },
-	 *   angle: 25, bearing: 180,
-	 *   animationDuration: 0.5
-	 * };
-	 * Procedural.focusOnBounds ( bounds );
-	 */
-	Procedural.focusOnBounds = function ( target ) {
-	  if ( !target.sw || !target.sw.longitude || !target.sw.latitude ||
-	       !target.ne || !target.ne.longitude || !target.ne.latitude ) {
-	    console.log( 'Invalid target passed' );
-	    console.log( 'Please use following format: { sw: { latitude: 44.5, longitude: 6.3 }, ne: { latitude: 44.4, longitude: 6.4 } }' );
-	    console.log( '{ longitude: 1.23, latitude: 4.56 }' );
-	    return;
-	  }
-
-	  var nextTarget = { onComplete: RenderActions.onBoundsFocused };
-	  lodash_min.defaults( nextTarget, target );
-	  setTimeout( function () { UserActions.focusOnBounds( nextTarget ); }, 0 );
-	};
-
-	/**
-	 * @name focusOnLocation
-	 * @memberof module:Camera
-	 * @function
-	 * @description Animates the engine camera to focus on a location
-	 * @param {Object} location An Object specifying a longitude and latitude
-	 * @example
-	 * var target = { latitude: 44.5, longitude: 6.3 };
-	 * Procedural.focusOnLocation ( target );
-	 *
-	 * // Optionally can also supply:
-	 * // - viewing angle,
-	 * // - a bearing,
-	 * // - a distance,
-	 * // - animation duration (in seconds)
-	 * var target = {
-	 *   latitude: 44.5, longitude: 6.3,
-	 *   angle: 20, bearing: 30, distance: 1000
-	 *   animationDuration: 0.5
-	 * };
-	 * Procedural.focusOnLocation ( target );
-	 */
-	Procedural.focusOnLocation = function ( target ) {
-	  if ( !target.longitude || !target.latitude ) {
-	    console.log( 'Invalid target passed' );
-	    console.log( 'Please use following format:' );
-	    console.log( '{ longitude: 1.23, latitude: 4.56 }' );
-	    return;
-	  }
-
-	  var nextTarget = { onComplete: RenderActions.onLocationFocused };
-	  lodash_min.defaults( nextTarget, target );
-	  setTimeout( function () { UserActions.focusOnLocation( nextTarget ); }, 0 );
-	};
-
-	/**
-	 * @name orbitTarget
-	 * @memberof module:Camera
-	 * @function
-	 * @description Animates the engine camera around the current
-	 * camera target
-	 */
-	Procedural.orbitTarget = function () {
-	  setTimeout( function () { UserActions.orbitTarget(); }, 0 );
-	};
-
-	/**
-	 * @name setCameraMode
-	 * @memberof module:Camera
-	 * @function
-	 * @description Selects the current camera mode for the engine
-	 * @param {String} mode An String specifying the camera mode. Currently '2D' and '3D' are supported
-	 * @example
-	 * Procedural.setCameraMode ( '2D' );
-	 */
-	Procedural.setCameraMode = function ( mode ) {
-	  setTimeout( function () { UserActions.setCameraMode( mode ); }, 0 );
-	};
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-
-	var ConfigActions = alt.generateActions(
-	  'configureCamera',
-	  'configureElevationDatasource',
-	  'configureImageryDatasource',
-	  'setAppContainer',
-	  'setCameraModeControlVisible',
-	  'setCompassVisible',
-	  'setDisplayErrors',
-	  'setLayersControlVisible',
-	  'setResourceUrl',
-	  'setRotationControlVisible',
-	  'setSeasonControlVisible',
-	  'setUserLocationControlVisible',
-	  'setZoomControlVisible'
-	);
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-
-	const Procedural$1 = {};
-
-	/**
-	 * @exports Procedural
-	 * @name Controls
-	 * @description Use the Controls API methods to configure
-	 * how the user can interact with the scene
-	 */
-
-	/**
-	 * @name configureControls
-	 * @memberof module:Controls
-	 * @function
-	 * @description Pass configuration to set parameters for controls
-	 * @param {Object} configuration An Object specifying the configuration
-	 * @example
-	 * // All parameters are optional
-	 * var configuration = {
-	 *   // Minimum distance camera can approach scene
-	 *   minDistance: 1000,
-	 *   // Maximum distance camera can move from scene
-	 *   maxDistance: 5000,
-	 *   // Maximum distance camera target can move from scene
-	 *   maxBounds: 7500,
-	 *   // Minimum polar angle of camera
-	 *   minPolarAngle: 0.25 * Math.PI,
-	 *   // Maximum polar angle of camera
-	 *   maxPolarAngle: 0.8 * Math.PI,
-	 *   // Set to true to disable panning
-	 *   noPan: true,
-	 *   // Set to true to disable rotating
-	 *   noRotate: false,
-	 *   // Set to true to disable zooming
-	 *   noZoom: false
-	 * };
-	 * Procedural.configureControls( configuration );
-	 */
-	Procedural$1.configureControls = function ( config ) {
-	  if ( !config ) {
-	    console.log( 'No configuration passed' );
-	    return;
-	  }
-
-	  var filtered = {};
-	  var keys = [
-	    'minDistance', 'maxBounds', 'maxDistance',
-	    'minPolarAngle', 'maxPolarAngle',
-	    'noPan', 'noRotate', 'noZoom'
-	  ];
-	  for ( var k in keys ) {
-	    var key = keys[ k ];
-	    if ( config.hasOwnProperty( key ) ) { filtered[ key ] = config[ key ]; }
-	  }
-
-	  setTimeout( function () { ConfigActions.configureCamera( filtered ); }, 0 );
-	};
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-
-	var GeodataActions = alt.generateActions(
-	  'addBuiltinOverlay',
-	  'addOverlay',
-	  'elevationBigProgress',
-	  'elevationProgress',
-	  'featuresProgress',
-	  'imageryBigProgress',
-	  'imageryProgress',
-	  'removeOverlay',
-	  'setElevation',
-	  'setElevationBig',
-	  'setFeatures',
-	  'setHeightOffset',
-	  'setHeightOffsetBig',
-	  'setImagery',
-	  'setImageryBig',
-	  'setLiabilityUsed',
-	  'setOSMUsed',
-	  'setSRTMUsed',
-	  'setTerrainMesh',
-	  'updateHeightMap',
-	  'updateOverlay'
-	);
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-
-	const Procedural$2 = {};
-
-	// External API to engine, bridges between our code and the
-	// exported `Procedural` object
-	function CoreExport() {
-	  this.appContainer = null;
-	  this.bindListeners( {
-	    onBoundsFocused: RenderActions.onBoundsFocused,
-	    onLocationFocused: RenderActions.onLocationFocused,
-	    fatalError: RenderActions.fatalError,
-	    signalUserInteraction: UserActions.inputStarted,
-	    setElevation: GeodataActions.setElevation,
-	    setElevationBig: GeodataActions.setElevationBig
-	  } );
-	}
-
-	/**
-	 * @exports Procedural
-	 * @name Core
-	 * @description The Procedural JavaScript library enables developers to embed
-	 * the Procedural engine into their web pages. To use this library
-	 * include a script tag on your page like so:
-	 * <pre>&lt;script
-	 *   src="https://unpkg.com/procedural-gl/build/procedural-gl.js"&gt;
-	 * &lt;/script&gt;
-	 * </pre>
-	 * This will create a <tt>Procedural</tt> object that your JavaScript code
-	 * will be able to call. Once you have loaded the Procedural library, you can load in a location and add the visualization to your page. A typical pattern of initialization is as follows:
-	 * @example
-	 * Procedural.init( {
-	 *   container: document.getElementById( 'app' ),
-	 *   datasource: {
-	 *     elevation: {
-	 *       apiKey: 'GET_AN_API_KEY_FROM_www.nasadem.xyz'
-	 *     },
-	 *     imagery: {
-	 *       apiKey: 'GET_AN_API_KEY_FROM_YOUR_IMAGERY_PROVIDER',
-	 *       urlFormat: 'https://imagery.example.com/tiles/{z}/{x}/{y}.jpg?key={apiKey}',
-	 *       attribution: 'Imagery attribution'
-	 *     },
-	 *   }
-	 * } );
-	 * Procedural.displayLocation( { latitude: 47.25, longitude: 13.55 } );
-	 */
-
-	/**
-	 * @name init
-	 * @memberof module:Core
-	 * @function
-	 * @param {HTMLElement} container
-	 * @description Appends a canvas element to the specified container where the
-	 * engine will draw its output.
-	 * @example
-	 * var container = document.getElementById( 'app' );
-	 * Procedural.init( {
-	 *   container: document.getElementById( 'app' ),
-	 *   datasource: {
-	 *     elevation: {
-	 *       apiKey: 'GET_AN_API_KEY_FROM_www.nasadem.xyz'
-	 *     },
-	 *     imagery: {
-	 *       apiKey: 'GET_AN_API_KEY_FROM_YOUR_IMAGERY_PROVIDER',
-	 *       urlFormat: 'https://imagery.example.com/tiles/{z}/{x}/{y}.jpg?key={apiKey}',
-	 *       attribution: 'Imagery attribution'
-	 *     },
-	 *   }
-	 * } );
-	 */
-	Procedural$2.init = function ( { container, datasource } ) {
-	  if ( container === undefined || container === null ) {
-	    console.error( 'Error: tried to init Procedural API with invalid container' );
-	    return;
-	  }
-
-	  if ( datasource === undefined || datasource === null ) {
-	    console.error( 'Error: tried to init Procedural API without datasource definition' );
-	    return;
-	  }
-
-	  const { elevation, imagery } = datasource;
-	  if ( elevation === undefined || elevation.apiKey === undefined ) {
-	    console.error( 'Error: elevation datasource configuration is invalid' );
-	    return;
-	  }
-
-	  if ( imagery === undefined || imagery.urlFormat === undefined ) {
-	    console.error( 'Error: imagery datasource configuration is invalid' );
-	    return;
-	  }
-
-	  ConfigActions.configureElevationDatasource( elevation );
-	  ConfigActions.configureImageryDatasource( imagery );
-	  ConfigActions.setAppContainer( container );
-	};
-
-	/**
-	 * @name onUserInteraction
-	 * @memberof module:Core
-	 * @function
-	 * @description Callback function for when engine recieves input from the
-	 * user. Can be used to hide overlays when the user interacts with
-	 * the map
-	 * @example
-	 * Procedural.onUserInteraction = function () {
-	 *   Procedural.removeOverlay( 'popup' );
-	 * }
-	 */
-
-	/**
-	 * @name onBoundsFocused
-	 * @memberof module:Core
-	 * @function
-	 * @description Callback function for when the transition for `focusOnBounds` completes
-	 * @example
-	 * Procedural.onBoundsFocused = function () {
-	 *   Procedural.orbitTarget();
-	 * };
-	 */
-
-	/**
-	 * @name onLocationError
-	 * @memberof module:Core
-	 * @function
-	 * @description Callback function for when location data failed to downloaded. This could be because the network request failed, or because the region is not available. See also [Core.setDisplayErrors]{@link module:Core.setDisplayErrors}
-	 * @example
-	 * Procedural.onLocationError = function ( message ) {
-	 *   // Handle error
-	 *   console.error( message );
-	 * };
-	 */
-
-	/**
-	 * @name onLocationFocused
-	 * @memberof module:Core
-	 * @function
-	 * @description Callback function for when the transition for `focusOnLocation` completes
-	 * @example
-	 * Procedural.onLocationFocused = function () {
-	 *   console.log( 'Location focused' );
-	 * };
-	 */
-
-	/**
-	 * @name onLocationLoaded
-	 * @memberof module:Core
-	 * @function
-	 * @description Callback function for when location data has been downloaded and displayed
-	 * @example
-	 * Procedural.onLocationLoaded = function () {
-	 *   var container = document.getElementById( 'app' );
-	 *   Procedural.init( container );
-	 * };
-	 */
-	//onLocationLoaded
-
-	// API Listeners
-	CoreExport.prototype.fatalError = function ( message ) {
-	  if ( typeof Procedural$2.onLocationError === 'function' ) { Procedural$2.onLocationError( message ); }
-	};
-
-	CoreExport.prototype.onBoundsFocused = function () {
-	  if ( typeof Procedural$2.onBoundsFocused === 'function' ) { Procedural$2.onBoundsFocused(); }
-	};
-
-	CoreExport.prototype.onLocationFocused = function () {
-	  if ( typeof Procedural$2.onLocationFocused === 'function' ) { Procedural$2.onLocationFocused(); }
-	};
-
-	CoreExport.prototype.setElevation = function () {
-	};
-
-	CoreExport.prototype.setElevationBig = function () {
-	};
-
-	/**
-	 * @name setDisplayErrors
-	 * @memberof module:Core
-	 * @function
-	 * @param {Boolean} value pass true to show errors, false to only report via API
-	 * @description Configure whether errors should be displayed to the user. See also [Core.onLocationError]{@link module:Core.onLocationError}
-	 */
-	Procedural$2.setDisplayErrors = function ( value ) {
-	  setTimeout( function () { ConfigActions.setDisplayErrors( value ); }, 0 );
-	};
-
-	CoreExport.prototype.signalUserInteraction = function () {
-	  if ( typeof Procedural$2.onUserInteraction === 'function' ) { Procedural$2.onUserInteraction(); }
-	};
-
-	CoreExport.displayName = 'CoreExport';
-
-	alt.createStore( CoreExport );
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-	var spacing = 0.05;
-
-	var ApiUtils = {
-	  snap: function ( n ) {
-	    return Math.round( n / spacing ) * spacing;
-	  },
-	  datafileForLocation: function ( lon, lat ) {
-	    lon = ApiUtils.snap( lon );
-	    lat = ApiUtils.snap( lat );
-
-	    // Calculate NS and EW
-	    var ns = lat > 0 ? 'N' : 'S';
-	    var ew = lon > 0 ? 'E' : 'W';
-	    lon = Math.abs( lon );
-	    lat = Math.abs( lat );
-
-	    // Display same number of decimal places as spacing
-	    var decimalPlaces = spacing.toPrecision().split( '.' )[ 1 ];
-	    decimalPlaces = decimalPlaces ? decimalPlaces.length : 0;
-	    lon = lon.toFixed( decimalPlaces );
-	    lat = lat.toFixed( decimalPlaces );
-
-	    // Construct name of datafile
-	    return ns + lat + ew + lon;
-	  }
-	};
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-	var template = {
-	  "env": {
-	    "turbidity": 2.928118393234672,
-	    "reileigh": 0.631430584918957,
-	    "mieCoefficient": 0.006765327695560254,
-	    "mieDirectionalG": 0.9020436927413672,
-	    "luminance": 0.7892882311486963,
-	    "inclination": 0.6376744186046512,
-	    "azimuth": 0.881,
-	    "sun": false,
-	    "fogDropoff": 0.0000065,
-	    "fogIntensity": 1,
-	    "exposureBias": 1.25,
-	    "whitePoint": 2.5,
-	    "ambientColor": "#2d3034",
-	    "diffuseColor": "#aeafa4",
-	    "backscatterColor": "#181d20",
-	    "ambientOcclusion": 1.17
-	  }
-	};
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-
-	const Procedural$3 = {};
-
-	var placeForTarget = function ( target ) {
-	  // Create location definition
-	  var place = template;
-	  place.name = Procedural$3.datafileForLocation( target );
-	  place.location = [ target.longitude, target.latitude ];
-	  if ( target.features ) { place.features = target.features; }
-
-	  return place;
-	};
-
-	/**
-	 * @name datafileForLocation
-	 * @memberof module:Core
-	 * @function
-	 * @param {Object} target An Object specifying a longitude and latitude
-	 * @description Returns the file name for a data file for a given location. Used mostly internally by engine to construct URLs.
-	 */
-	Procedural$3.datafileForLocation = function ( target ) {
-	  if ( !target || isNaN( target.latitude ) || isNaN( target.longitude ) ) {
-	    return null;
-	  }
-
-	  // Snap to nearest data point
-	  var lon = ApiUtils.snap( target.longitude );
-	  var lat = ApiUtils.snap( target.latitude );
-	  return ApiUtils.datafileForLocation( lon, lat );
-	};
-
-	/**
-	 * @name displayLocation
-	 * @memberof module:Core
-	 * @function
-	 * @param {Object} target An Object specifying a longitude and latitude
-	 * @description Instructs engine to download necessary data files for a location and to display it.
-	 * When the data is ready to be displayed [onLocationLoaded]{@link module:Core.onLocationLoaded} is fired.
-	 * @example
-	 * var target = { latitude: 43.21, longitude: 6.133 };
-	 * Procedural.displayLocation( target );
-	 */
-	Procedural$3.displayLocation = function ( target ) {
-	  if ( !target ) {
-	    RenderActions.fatalError( 'No place data passed' );
-	    return;
-	  }
-
-	  if ( isNaN( target.latitude ) || isNaN( target.longitude ) ) {
-	    RenderActions.fatalError( 'Invalid place data passed' );
-	    return;
-	  }
-
-	  setTimeout( function () {
-	    UserActions.setCurrentPlace( placeForTarget( target ) );
-	  }, 0 );
-	};
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-	var gui = null;
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-
-	const Procedural$4 = {};
-
-	/**
-	 * @exports Procedural
-	 * @name Environment
-	 * @description Environments describe how the scene is rendered,
-	 * for example the color of the lighting, or the position of the
-	 * sun.
-	 *
-	 * To interactively adjust the values of the environment
-	 * you can use the editor, launched using:
-	 * [Procedural.environmentEditor]{@link module:Environment.environmentEditor}
-	 */
-
-	/**
-	 * @name setEnvironment
-	 * @memberof module:Environment
-	 * @function
-	 * @param {Object} environment
-	 * @description Update the engine's environment to the environment
-	 * configuration passed.
-	 * @example
-	 * var environment = {
-	 *   title: 'custom',
-	 *   parameters: {
-	 *     inclination: 0.6,
-	 *     fogDropoff: 0.0002
-	 *   }
-	 * };
-	 * Procedural.setEnvironment( environment )
-	 */
-	Procedural$4.setEnvironment = function ( environment ) {
-	  setTimeout( function () { UserActions.setEnvironment( environment ); }, 0 );
-	};
-
-	/**
-	 * @name environmentEditor
-	 * @memberof module:Environment
-	 * @function
-	 * @description Launches the environment editor
-	 */
-	Procedural$4.environmentEditor = function () { gui.initEnv(); };
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-	var queue = [];
-	var processNext = function () { queue.shift()(); };
-
-	var enqueue = function ( fn ) {
-	  if ( typeof fn !== 'function' ) {
-	    console.error( 'Tried to enqueue non-function' );
-	    return;
-	  }
-
-	  queue.push( fn );
-	  setTimeout( processNext, 0 );
-	};
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-	let log;
-	{
-	  log = () => {}; // Disable logging
-	}
-
-	var log$1 = log;
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-	var FeatureUtils = {
-	  // TODO perhaps better to inline these, as we're parsing a lot of data???
-	  isLineString: function ( feature ) {
-	    return feature.geometry.type === 'LineString';
-	  },
-	  isPolygon: function ( feature ) {
-	    return feature.geometry.type === 'Polygon';
-	  },
-	  isMultiPolygon: function ( feature ) {
-	    return feature.geometry.type === 'MultiPolygon';
-	  },
-	  isPoint: function ( feature ) {
-	    return feature.geometry.type === 'Point';
-	  },
-	  tagValue: function ( feature, tag ) {
-	    if ( !feature.properties.tags ) { return null }
-
-	    return feature.properties.tags[ tag ];
-	  },
-	  hasTag: function ( feature, tag ) {
-	    return !!FeatureUtils.tagValue( feature, tag );
-	  },
-	  isPiste: function ( feature ) {
-	    return FeatureUtils.isLineString( feature ) && FeatureUtils.hasTag( feature, 'piste:type' );
-	  },
-	  isAerial: function ( feature ) {
-	    return FeatureUtils.isLineString( feature ) && FeatureUtils.hasTag( feature, 'aerialway' );
-	  },
-	  isHighway: function ( feature ) {
-	    return FeatureUtils.isLineString( feature ) && FeatureUtils.hasTag( feature, 'highway' );
-	  },
-	  isTrack: function ( feature ) {
-	    if ( !FeatureUtils.isLineString( feature ) ) { return false }
-
-	    var highway = FeatureUtils.tagValue( feature, 'highway' );
-	    return ( highway === 'track' ||
-	               highway === 'footway' ||
-	               highway === 'path' ||
-	               highway === 'cycleway' ||
-	               highway === 'bridleway' );
-	  },
-	  isRiver: function ( feature ) {
-	    return FeatureUtils.isLineString( feature ) && FeatureUtils.hasTag( feature, 'waterway' );
-	  },
-	  isBuilding: function ( feature ) {
-	    return FeatureUtils.isPolygon( feature ) && FeatureUtils.hasTag( feature, 'building' );
-	  },
-	  isForest: function ( feature ) {
-	    return ( FeatureUtils.isPolygon( feature ) || FeatureUtils.isMultiPolygon( feature ) ) &&
-	        !FeatureUtils.isBuilding( feature );
-	  },
-	  color: function ( feature ) {
-	    var difficulty = !!feature.properties.tags && feature.properties.tags[ 'piste:difficulty' ];
-	    if ( difficulty ) {
-	      if ( difficulty === 'advanced' || difficulty === 'expert' || difficulty === 'freeride' ) { return '#030512' }
-
-	      if ( difficulty === 'intermediate' ) { return '#ef2415' }
-
-	      if ( difficulty === 'easy' ) { return '#1976d2' }
-
-	      if ( difficulty === 'novice' ) { return '#4caf50' }
-
-	      log$1( 'Unknown piste difficulty', difficulty );
-	      return '#17afef';
-	    }
-
-	    if ( FeatureUtils.isAerial( feature ) ) { return '#0c0c0c' }
-
-	    if ( FeatureUtils.isTrack( feature ) ) { return 'rgba(46, 42, 22, 0.5)' }
-
-	    if ( FeatureUtils.isHighway( feature ) ) { return '#222120' }
-
-	    if ( feature.properties.color ) { return feature.properties.color }
-
-	    if ( FeatureUtils.isRiver( feature ) ) {
-	      // Hack this in to allow memoize to work
-	      return feature.properties.tags.waterway === 'stream' ? 5 : 100;
-	    }
-
-	    log$1( 'Unknown feature color', feature );
-	  },
-	  thickness: function ( feature ) {
-	    if ( feature.properties.thickness ) { return feature.properties.thickness }
-
-	    if ( FeatureUtils.isPiste( feature ) ) { return 2.7 }
-
-	    if ( FeatureUtils.isAerial( feature ) ) { return 3.0 }
-
-	    if ( FeatureUtils.isTrack( feature ) ) { return 3 }
-
-	    if ( FeatureUtils.isHighway( feature ) ) {
-	      var highway = FeatureUtils.tagValue( feature, 'highway' );
-	      if ( highway === 'motorway' ) { return 13 }
-
-	      if ( highway === 'trunk' ) { return 11 }
-
-	      if ( highway === 'primary' ) { return 10 }
-
-	      if ( highway === 'secondary' ) { return 8 }
-
-	      return 5;
-	    }
-
-	    if ( FeatureUtils.isRiver( feature ) ) {
-	      if ( feature.properties.tags.width ) { return feature.properties.tags.width }
-
-	      return feature.properties.tags.waterway === 'stream' ? 2 : 3.7;
-	    }
-
-	    return 2.5;
-	  }
-	};
-
 	// Polyfills
 
 	if ( Number.EPSILON === undefined ) {
@@ -33196,401 +32345,26 @@
 	 * License, v. 2.0. If a copy of the MPL was not distributed with this
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
-	let track;
 
-	{
-	  // Mock out in production build
-	  track = {
-	    event: () => {},
-	    timing: () => {},
-	    onload: null,
-	    now: () => 0
-	  };
-	}
-
-	var track$1 = track;
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-
-	// Have other stores depend on this to get subsets of
-	// OSM data
-	function OSMAdapter() {
-	  this.bindListeners( {
-	    clearFeatures: UserActions.setCurrentPlace,
-	    setFeatures: GeodataActions.setFeatures
-	  } );
-
-	  this.clearFeatures();
-	}
-
-	OSMAdapter.prototype.clearFeatures = function () {
-	  this.buildings = [];
-	  this.forests = [];
-	  this.highways = [];
-	  this.lifts = [];
-	  this.peaks = [];
-	  this.places = [];
-	  this.pistes = [];
-	  this.lakes = [];
-	  this.rivers = [];
-	  this.unknown = [];
-	  return false;
-	};
-
-	// Return collection to place feature into
-	OSMAdapter.prototype.classify = function ( feature ) {
-	  if ( FeatureUtils.isLineString( feature ) ) {
-	    // Give top priority to pistes, so we don't classify as roads
-	    if ( FeatureUtils.hasTag( feature, 'piste:type' ) ) { return this.pistes }
-
-	    if ( FeatureUtils.hasTag( feature, 'highway' ) ) { return this.highways }
-
-	    if ( FeatureUtils.hasTag( feature, 'waterway' ) ) { return this.rivers }
-
-	    if ( FeatureUtils.hasTag( feature, 'aerialway' ) ) {
-	      return this.lifts;
-	    }
-
-	    // Assume this is a piste (or generic trail)
-	    // TODO, create another type?
-	    //if ( FeatureUtils.hasTag( feature, 'piste:type' ) ) {
-	    return this.pistes;
-	    //}
-	  } else if ( FeatureUtils.isPolygon( feature ) ) {
-	    if ( FeatureUtils.hasTag( feature, 'building' ) ) { return this.buildings }
-
-	    var natural = FeatureUtils.tagValue( feature, 'natural' );
-	    if ( natural === 'water' ) { return this.lakes }
-
-	    // For now, treat river areas as lakes, as we don't have flow
-	    // working yet
-	    var waterway = FeatureUtils.tagValue( feature, 'waterway' );
-	    if ( waterway === 'riverbank' ) { return this.lakes }
-
-	    return this.forests;
-	  } else if ( FeatureUtils.isMultiPolygon( feature ) ) {
-	    return this.forests;
-	  } else if ( FeatureUtils.isPoint( feature ) ) {
-	    var tags = feature.properties.tags;
-	    if ( tags.natural === 'peak' && tags.name ) {
-	      return this.peaks;
-	    } else if ( tags.place ) {
-	      return this.places;
-	    } else {
-	      return this.unknown;
-	    }
-	  }
-
-	  return this.unknown;
-	};
-
-
-	// Convert OSM data into something matching our API
-	// TODO should eventually deprecate and generate the
-	// data better, this is all pretty messy
-	OSMAdapter.prototype.normalize = function ( feature ) {
-	  if ( feature.properties.tags === undefined ) { return }
-
-	  var props = feature.properties;
-	  var tags = props.tags;
-	  delete props.tags;
-
-	  // Promote name to real property
-	  if ( tags.name ) { props.name = tags.name; }
-
-	  // Figure out type and add icon
-	  if ( tags.natural === 'peak' ) {
-	    props.icon = 'caret-up';
-	    props.fadeDistance = 10000;
-	    if ( tags.ele && props.name ) {
-	      props.name += ' - ' + tags.ele + 'm';
-	    }
-	  } else if ( tags.place ) {
-	    props.icon = 'dot-circle-o';
-	    props.fadeDistance = 15000;
-	  }
-
-	  // TODO mark builtin features
-	  // TODO extract to default
-	  props.collapseDistance = 0.5 * props.fadeDistance;
-	  props.priority = -10;
-	  props.borderRadius = 20;
-	  props.background = 'rgba(0, 0, 0, 0.6)';
-	  props.color = '#fff';
-	  props.clipping = 'object';
-	  props.anchor = 'left';
-
-	  props.padding = 2;
-	};
-
-	OSMAdapter.prototype.setFeatures = function ( data ) {
-	  // Is data already projected?
-	  var projected = !!data.crs;
-
-	  // Classify features, for now without duplication
-	  var feature, collection;
-	  var startTime = track$1.now();
-	  while ( data.features.length > 0 ) {
-	    feature = data.features.pop();
-	    // Remove 3035 projection
-	    if ( projected ) {
-	      feature.geometry.coordinates =
-	        geoproject.unproject3035( feature.geometry.coordinates );
-	    }
-
-	    if ( feature.projected === undefined ) {
-	      feature.projected = false;
-	    }
-
-	    collection = this.classify( feature );
-	    collection.push( feature );
-	  }
-
-	  this.peaks.forEach( this.normalize.bind( this ) );
-	  this.places.forEach( this.normalize.bind( this ) );
-	  var time = track$1.now() - startTime;
-	  track$1.timing( 'geodata', 'classify', 'osm', time );
-	};
-
-	OSMAdapter.displayName = 'OSMAdapter';
-
-	var OSMAdapter$1 = alt.createStore( OSMAdapter );
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-	var DEFAULT = '____default____';
-	// Have other stores depend on this to get subsets of
-	// overlay data
-	function OverlayAdapter() {
-	  this.bindListeners( {
-	    addBuiltinOverlay: GeodataActions.addBuiltinOverlay,
-	    addOverlay: GeodataActions.addOverlay,
-	    updateOverlay: GeodataActions.updateOverlay,
-	    featureCreated: RenderActions.featureCreated,
-	    removeOverlay: GeodataActions.removeOverlay,
-	    setFeatures: GeodataActions.setFeatures
-	  } );
-
-	  // Hash to keep track of overlays added
-	  this.overlays = {};
-
-	  // Hash to keep track of when overlays are displayed
-	  this.overlayTracker = {};
-
-	  // Builtin overlays are not specified by the user,
-	  // but rather extracted from the OSM data
-	  this.builtinOverlays = [];
-	  this.supportedBuiltinOverlays = [ 'lifts', 'peaks', 'pistes', 'places' ];
-
-	  // Overlays which which don't want to generate new data
-	  // for, just mark whether to show them
-	  this.referenceOnlyBuiltinOverlays = [ 'lifts', 'pistes' ];
-
-	  // Collections to sort elements into
-	  this.lines = [];
-	  this.markers = [];
-	}
-
-	// Return collection to place feature into
-	OverlayAdapter.prototype.classify = function ( feature ) {
-	  if ( FeatureUtils.isLineString( feature ) ) {
-	    return this.lines;
-	  } else if ( FeatureUtils.isPoint( feature ) ) {
-	    return this.markers;
-	  }
-
-	  return null;
-	};
-
-	OverlayAdapter.prototype.removeFeature = function ( feature ) {
-	  var collection = this.classify( feature );
-	  if ( collection === null ) { return }
-
-	  var index = collection.indexOf( feature );
-	  if ( index !== -1 ) { collection.splice( index, 1 ); }
-	};
-
-	OverlayAdapter.prototype.addOverlay = function ( data ) {
-	  var builtin = this.builtinOverlays.indexOf( data.name ) !== -1;
-	  this.removeOverlay( data.name );
-
-	  // removeOverlay clears out the overlay from the builtinOverlays
-	  // list, which we do not want, so add it back
-	  // TODO doesn't work as we modify order of array!!!!
-	  if ( builtin ) { this.builtinOverlays.unshift( data.name ); }
-
-	  if ( data.name === undefined ) { data.name = DEFAULT; }
-
-	  // Cache away overlay so we can later remove it
-	  this.overlays[ data.name ] = data;
-
-	  // Make a copy of the array, to avoid modifying original
-	  var features = data.features.concat();
-
-	  // Classify features, for now without duplication
-	  var feature;
-	  var startTime = track$1.now();
-
-	  while ( features.length > 0 ) {
-	    feature = features.pop();
-
-	    // Copy across default properties
-	    if ( data.defaults && data.defaults.properties ) {
-	      lodash_min.defaults( feature.properties, data.defaults.properties );
-	    }
-
-	    if ( feature.projected === undefined ) {
-	      feature.projected = false;
-	    }
-
-	    var collection = this.classify( feature );
-	    if ( collection ) {
-	      collection.push( feature );
-	      feature.overlayName = data.name;
-	      this.featureClassified( feature );
-	    }
-	  }
-
-	  var time = track$1.now() - startTime;
-	  track$1.timing( 'geodata', 'classify', 'overlay', time );
-	};
-
-	OverlayAdapter.prototype.updateOverlay = function ( data ) {
-	  var exists = this.overlays[ data.name ] !== undefined;
-	  if ( !exists ) {
-	    console.error( name + ' overlay has not been added, so cannot be updated' );
-	    return false;
-	  }
-
-	  var newFeatures = data.features, oldFeatures = this.overlays[ data.name ].features;
-	  var newL = newFeatures.length, oldL = oldFeatures.length;
-	  if ( newL !== oldL ) {
-	    console.error( 'Tried to call updateOverlay on overlay ' + data.name + ', but number of features does not match. Original: ' + oldL + ', new: ' + newL );
-	    return false;
-	  }
-
-	  // Is data already projected?
-	  // Note we do not support multiple different projections
-	  // or projections with different centers
-	  var projected = !!data.crs;
-
-	  var oldFeature, newFeature;
-	  for ( var n = 0; n < newL; n++ ) {
-	    var oldFeature = oldFeatures[ n ];
-	    var newFeature = newFeatures[ n ];
-	    // TODO should we check ids match?
-	    oldFeature.projected = newFeature.projected === undefined ? projected : newFeature.projected;
-	    oldFeature.geometry.coordinates = newFeature.geometry.coordinates;
-	  }
-	};
-
-	OverlayAdapter.prototype.addBuiltinOverlay = function ( overlay ) {
-	  // Support single and array parameters
-	  if ( !Array.isArray( overlay ) ) {
-	    overlay = [ overlay ];
-	  }
-
-	  for ( var n = 0, nl = overlay.length; n < nl; n++ ) {
-	    var name = overlay[ n ];
-	    var index = this.supportedBuiltinOverlays.indexOf( name );
-	    if ( index === -1 ) {
-	      console.error( name + ' is not a supported built-in overlay' );
-	      return false;
-	    }
-
-	    // Just mark that we want to use this overlay and rely
-	    // on updateBuiltinOverlays to populate data
-	    index = this.builtinOverlays.indexOf( name );
-	    if ( index === -1 ) { this.builtinOverlays.push( name ); }
-	  }
-
-	  return this.updateBuiltinOverlays();
-	};
-
-	OverlayAdapter.prototype.updateBuiltinOverlays = function () {
-	  this.waitFor( OSMAdapter$1 );
-	  var osm = OSMAdapter$1.getState();
-	  for ( var o = 0, ol = this.builtinOverlays.length; o < ol; o++ ) {
-	    var name = this.builtinOverlays[ o ];
-	    if ( this.referenceOnlyBuiltinOverlays.indexOf( name ) !== -1 ) {
-	      continue;
-	    }
-
-	    this.addOverlay( {
-	      name: name,
-	      type: 'FeatureCollection',
-	      features: osm[ name ]
-	    } );
-	  }
-	};
-
-	OverlayAdapter.prototype.setFeatures = function () {
-	  return this.updateBuiltinOverlays();
-	};
-
-	OverlayAdapter.prototype.removeOverlay = function ( toRemove ) {
-	  if ( toRemove === undefined ) { toRemove = [ DEFAULT ]; }
-
-	  if ( !Array.isArray( toRemove ) ) { toRemove = [ toRemove ]; }
-
-	  for ( var n = 0, nl = toRemove.length; n < nl; n++ ) {
-	    var name = toRemove[ n ];
-	    var index = this.builtinOverlays.indexOf( name );
-	    if ( index !== -1 ) {
-	      this.builtinOverlays.splice( index, 1 );
-	    }
-
-	    if ( this.overlays[ name ] === undefined ) { continue }
-
-	    var overlay = this.overlays[ name ];
-	    for ( var f = 0, fl = overlay.features.length; f < fl; f++ ) {
-	      this.removeFeature( overlay.features[ f ] );
-	    }
-
-	    delete this.overlays[ name ];
-	  }
-	};
-
-	OverlayAdapter.prototype.featureClassified = function ( feature ) {
-	  if ( this.overlayTracker[ feature.overlayName ] === undefined ) {
-	    this.overlayTracker[ feature.overlayName ] = 1;
-	  } else {
-	    this.overlayTracker[ feature.overlayName ] += 1;
-	  }
-	};
-
-	OverlayAdapter.prototype.featureCreated = function ( feature ) {
-	  if ( this.overlayTracker[ feature.overlayName ] === undefined ) {
-	    return false;
-	  } else {
-	    this.overlayTracker[ feature.overlayName ] -= 1;
-	  }
-
-	  if ( this.overlayTracker[ feature.overlayName ] === 0 ) {
-	    var overlayName = feature.overlayName;
-	    delete this.overlayTracker[ feature.overlayName ];
-	    enqueue( function () {
-	      RenderActions.overlayDisplayed( overlayName );
-	    } );
-	  }
-
-	  delete feature.overlayName;
-	};
-
-	OverlayAdapter.displayName = 'OverlayAdapter';
-
-	var OverlayAdapter$1 = alt.createStore( OverlayAdapter );
+	var RenderActions = alt.generateActions(
+	  'containerMounted',
+	  'containerResized',
+	  'fatalError',
+	  'featureCreated',
+	  'fontsLoaded',
+	  'forceHD',
+	  'onBoundsFocused',
+	  'onLocationFocused',
+	  'overlayDisplayed',
+	  'needsRender',
+	  'pause',
+	  'play',
+	  'renderedFeatureDisplayed',
+	  'renderedFeatureRegister',
+	  'setFieldOfView',
+	  'setHD',
+	  'setSize'
+	);
 
 	/**
 	 * Copyright 2020 (c) Felix Palmer
@@ -33648,6 +32422,81 @@
 	  'panToPosition',
 	  'setPosition',
 	  'toggleTracking'
+	);
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+
+	var GeodataActions = alt.generateActions(
+	  'addBuiltinOverlay',
+	  'addOverlay',
+	  'elevationBigProgress',
+	  'elevationProgress',
+	  'featuresProgress',
+	  'imageryBigProgress',
+	  'imageryProgress',
+	  'removeOverlay',
+	  'setElevation',
+	  'setElevationBig',
+	  'setFeatures',
+	  'setHeightOffset',
+	  'setHeightOffsetBig',
+	  'setImagery',
+	  'setImageryBig',
+	  'setLiabilityUsed',
+	  'setOSMUsed',
+	  'setSRTMUsed',
+	  'setTerrainMesh',
+	  'updateHeightMap',
+	  'updateOverlay'
+	);
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+
+	var UserActions = alt.generateActions(
+	  'animateAlongFeature',
+	  'doubleTapZoom',
+	  'featureClicked',
+	  'featureSelected',
+	  'focusOnBounds',
+	  'focusOnFeature',
+	  'focusOnLocation',
+	  'focusOnTarget',
+	  'inputEnded',
+	  'inputStarted',
+	  'orbitTarget',
+	  'panToPosition',
+	  'rotateLeft',
+	  'rotateRight',
+	  'selectFeatures',
+	  'setCamera',
+	  'setCameraMode',
+	  'setCameraPosition',
+	  'setCameraTarget',
+	  'setCurrentPlace',
+	  'setEnvironment',
+	  'setGeography',
+	  'setSecondaryParams',
+	  'setTerrainEffectContours',
+	  'setTerrainEffectFlats',
+	  'setTerrainEffectGrade',
+	  'setTerrainEffectHeight',
+	  'setTerrainEffectNone',
+	  'startFlyover',
+	  'toggleWidgets',
+	  'zoomIn',
+	  'zoomOut'
 	);
 
 	/**
@@ -33787,6 +32636,41 @@
 	var utils = {
 	  createProgram: createProgram
 	};
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+	let log;
+	{
+	  log = () => {}; // Disable logging
+	}
+
+	var log$1 = log;
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+	let track;
+
+	{
+	  // Mock out in production build
+	  track = {
+	    event: () => {},
+	    timing: () => {},
+	    onload: null,
+	    now: () => 0
+	  };
+	}
+
+	var track$1 = track;
 
 	/**
 	 * Copyright 2020 (c) Felix Palmer
@@ -34130,1100 +33014,6 @@
 	  camera.aspect = state.aspect;
 	  camera.fov = state.fov / Math.max( camera.aspect, 1.0 );
 	  camera.updateProjectionMatrix();
-	} );
-
-	var proj4 = createCommonjsModule(function (module, exports) {
-	!function(t,e){module.exports=e();}(commonjsGlobal,function(){function t(t,e){if(t[e])return t[e];for(var a,r=Object.keys(t),s=e.toLowerCase().replace(ct,""),i=-1;++i<r.length;)if(a=r[i],a.toLowerCase().replace(ct,"")===s)return t[a]}function e(t){if("string"!=typeof t)throw new Error("not a string");this.text=t.trim(),this.level=0,this.place=0,this.root=null,this.stack=[],this.currentObject=null,this.state=ft;}function a(t){return new e(t).output()}function r(t,e,a){Array.isArray(e)&&(a.unshift(e),e=null);var r=e?{}:t,i=a.reduce(function(t,e){return s(e,t),t},r);e&&(t[e]=i);}function s(t,e){if(Array.isArray(t)){var a=t.shift();if("PARAMETER"===a&&(a=t.shift()),1===t.length)return Array.isArray(t[0])?(e[a]={},void s(t[0],e[a])):void(e[a]=t[0]);if(t.length)if("TOWGS84"!==a){if("AXIS"===a)return a in e||(e[a]=[]),void e[a].push(t);Array.isArray(a)||(e[a]={});var i;switch(a){case"UNIT":case"PRIMEM":case"VERT_DATUM":return e[a]={name:t[0].toLowerCase(),convert:t[1]},void(3===t.length&&s(t[2],e[a]));case"SPHEROID":case"ELLIPSOID":return e[a]={name:t[0],a:t[1],rf:t[2]},void(4===t.length&&s(t[3],e[a]));case"PROJECTEDCRS":case"PROJCRS":case"GEOGCS":case"GEOCCS":case"PROJCS":case"LOCAL_CS":case"GEODCRS":case"GEODETICCRS":case"GEODETICDATUM":case"EDATUM":case"ENGINEERINGDATUM":case"VERT_CS":case"VERTCRS":case"VERTICALCRS":case"COMPD_CS":case"COMPOUNDCRS":case"ENGINEERINGCRS":case"ENGCRS":case"FITTED_CS":case"LOCAL_DATUM":case"DATUM":return t[0]=["name",t[0]],void r(e,a,t);default:for(i=-1;++i<t.length;)if(!Array.isArray(t[i]))return s(t,e[a]);return r(e,a,t)}}else e[a]=t;else e[a]=!0;}else e[t]=!0;}function i(t,e){var a=e[0],r=e[1];!(a in t)&&r in t&&(t[a]=t[r],3===e.length&&(t[a]=e[2](t[a])));}function n(t){return t*vt}function o(t){function e(e){return e*(t.to_meter||1)}if("GEOGCS"===t.type?t.projName="longlat":"LOCAL_CS"===t.type?(t.projName="identity",t.local=!0):"object"==typeof t.PROJECTION?t.projName=Object.keys(t.PROJECTION)[0]:t.projName=t.PROJECTION,t.AXIS){for(var a="",r=0,s=t.AXIS.length;r<s;++r){var o=t.AXIS[r][0].toLowerCase();-1!==o.indexOf("north")?a+="n":-1!==o.indexOf("south")?a+="s":-1!==o.indexOf("east")?a+="e":-1!==o.indexOf("west")&&(a+="w");}2===a.length&&(a+="u"),3===a.length&&(t.axis=a);}t.UNIT&&(t.units=t.UNIT.name.toLowerCase(),"metre"===t.units&&(t.units="meter"),t.UNIT.convert&&("GEOGCS"===t.type?t.DATUM&&t.DATUM.SPHEROID&&(t.to_meter=t.UNIT.convert*t.DATUM.SPHEROID.a):t.to_meter=t.UNIT.convert));var h=t.GEOGCS;"GEOGCS"===t.type&&(h=t),h&&(h.DATUM?t.datumCode=h.DATUM.name.toLowerCase():t.datumCode=h.name.toLowerCase(),"d_"===t.datumCode.slice(0,2)&&(t.datumCode=t.datumCode.slice(2)),"new_zealand_geodetic_datum_1949"!==t.datumCode&&"new_zealand_1949"!==t.datumCode||(t.datumCode="nzgd49"),"wgs_1984"!==t.datumCode&&"world_geodetic_system_1984"!==t.datumCode||("Mercator_Auxiliary_Sphere"===t.PROJECTION&&(t.sphere=!0),t.datumCode="wgs84"),"_ferro"===t.datumCode.slice(-6)&&(t.datumCode=t.datumCode.slice(0,-6)),"_jakarta"===t.datumCode.slice(-8)&&(t.datumCode=t.datumCode.slice(0,-8)),~t.datumCode.indexOf("belge")&&(t.datumCode="rnb72"),h.DATUM&&h.DATUM.SPHEROID&&(t.ellps=h.DATUM.SPHEROID.name.replace("_19","").replace(/[Cc]larke\_18/,"clrk"),"international"===t.ellps.toLowerCase().slice(0,13)&&(t.ellps="intl"),t.a=h.DATUM.SPHEROID.a,t.rf=parseFloat(h.DATUM.SPHEROID.rf,10)),h.DATUM&&h.DATUM.TOWGS84&&(t.datum_params=h.DATUM.TOWGS84),~t.datumCode.indexOf("osgb_1936")&&(t.datumCode="osgb36"),~t.datumCode.indexOf("osni_1952")&&(t.datumCode="osni52"),(~t.datumCode.indexOf("tm65")||~t.datumCode.indexOf("geodetic_datum_of_1965"))&&(t.datumCode="ire65"),"ch1903+"===t.datumCode&&(t.datumCode="ch1903"),~t.datumCode.indexOf("israel")&&(t.datumCode="isr93")),t.b&&!isFinite(t.b)&&(t.b=t.a);[["standard_parallel_1","Standard_Parallel_1"],["standard_parallel_2","Standard_Parallel_2"],["false_easting","False_Easting"],["false_northing","False_Northing"],["central_meridian","Central_Meridian"],["latitude_of_origin","Latitude_Of_Origin"],["latitude_of_origin","Central_Parallel"],["scale_factor","Scale_Factor"],["k0","scale_factor"],["latitude_of_center","Latitude_Of_Center"],["latitude_of_center","Latitude_of_center"],["lat0","latitude_of_center",n],["longitude_of_center","Longitude_Of_Center"],["longitude_of_center","Longitude_of_center"],["longc","longitude_of_center",n],["x0","false_easting",e],["y0","false_northing",e],["long0","central_meridian",n],["lat0","latitude_of_origin",n],["lat0","standard_parallel_1",n],["lat1","standard_parallel_1",n],["lat2","standard_parallel_2",n],["azimuth","Azimuth"],["alpha","azimuth",n],["srsCode","name"]].forEach(function(e){return i(t,e)}),t.long0||!t.longc||"Albers_Conic_Equal_Area"!==t.projName&&"Lambert_Azimuthal_Equal_Area"!==t.projName||(t.long0=t.longc),t.lat_ts||!t.lat1||"Stereographic_South_Pole"!==t.projName&&"Polar Stereographic (variant B)"!==t.projName||(t.lat0=n(t.lat1>0?90:-90),t.lat_ts=t.lat1);}function h(t){var e=this;if(2===arguments.length){var a=arguments[1];"string"==typeof a?"+"===a.charAt(0)?h[t]=mt(arguments[1]):h[t]=bt(arguments[1]):h[t]=a;}else if(1===arguments.length){if(Array.isArray(t))return t.map(function(t){Array.isArray(t)?h.apply(e,t):h(t);});if("string"==typeof t){if(t in h)return h[t]}else "EPSG"in t?h["EPSG:"+t.EPSG]=t:"ESRI"in t?h["ESRI:"+t.ESRI]=t:"IAU2000"in t?h["IAU2000:"+t.IAU2000]=t:console.log(t);return}}function u(t){return "string"==typeof t}function l(t){return t in h}function d(t){return St.some(function(e){return t.indexOf(e)>-1})}function c(e){var a=t(e,"authority");if(a){var r=t(a,"epsg");return r&&Nt.indexOf(r)>-1}}function m(e){var a=t(e,"extension");if(a)return t(a,"proj4")}function f(t){return "+"===t[0]}function p(t){if(!u(t))return t;if(l(t))return h[t];if(d(t)){var e=bt(t);if(c(e))return h["EPSG:3857"];var a=m(e);return a?mt(a):e}return f(t)?mt(t):void 0}function _(t){return t}function M(t,e){var a=It.length;return t.names?(It[a]=t,t.names.forEach(function(t){Gt[t.toLowerCase()]=a;}),this):(console.log(e),!0)}function y(t,e,a,r){var s=t*t,i=e*e,n=(s-i)/s,o=0;return r?(s=(t*=1-n*(at+n*(rt+n*st)))*t,n=0):o=Math.sqrt(n),{es:n,e:o,ep2:(s-i)/i}}function g(e,a,r,s,i){if(!e){var n=t(Lt,s);n||(n=zt),e=n.a,a=n.b,r=n.rf;}return r&&!a&&(a=(1-1/r)*e),(0===r||Math.abs(e-a)<it)&&(i=!0,a=e),{a:e,b:a,rf:r,sphere:i}}function v(t,e,a,r,s,i){var n={};return n.datum_type=void 0===t||"none"===t?$:Y,e&&(n.datum_params=e.map(parseFloat),0===n.datum_params[0]&&0===n.datum_params[1]&&0===n.datum_params[2]||(n.datum_type=Z),n.datum_params.length>3&&(0===n.datum_params[3]&&0===n.datum_params[4]&&0===n.datum_params[5]&&0===n.datum_params[6]||(n.datum_type=K,n.datum_params[3]*=tt,n.datum_params[4]*=tt,n.datum_params[5]*=tt,n.datum_params[6]=n.datum_params[6]/1e6+1))),n.a=a,n.b=r,n.es=s,n.ep2=i,n}function Projection(e,a){if(!(this instanceof Projection))return new Projection(e);a=a||function(t){if(t)throw t};var r=p(e);if("object"==typeof r){var s=Projection.projections.get(r.projName);if(s){if(r.datumCode&&"none"!==r.datumCode){var i=t(Rt,r.datumCode);i&&(r.datum_params=i.towgs84?i.towgs84.split(","):null,r.ellps=i.ellipse,r.datumName=i.datumName?i.datumName:r.datumCode);}r.k0=r.k0||1,r.axis=r.axis||"enu",r.ellps=r.ellps||"wgs84";var n=g(r.a,r.b,r.rf,r.ellps,r.sphere),o=y(n.a,n.b,n.rf,r.R_A),h=r.datum||v(r.datumCode,r.datum_params,n.a,n.b,o.es,o.ep2);Et(this,r),Et(this,s),this.a=n.a,this.b=n.b,this.rf=n.rf,this.sphere=n.sphere,this.es=o.es,this.e=o.e,this.ep2=o.ep2,this.datum=h,this.init(),a(null,this);}else a(e);}else a(e);}function b(t,e){return t.datum_type===e.datum_type&&(!(t.a!==e.a||Math.abs(t.es-e.es)>5e-11)&&(t.datum_type===Z?t.datum_params[0]===e.datum_params[0]&&t.datum_params[1]===e.datum_params[1]&&t.datum_params[2]===e.datum_params[2]:t.datum_type!==K||t.datum_params[0]===e.datum_params[0]&&t.datum_params[1]===e.datum_params[1]&&t.datum_params[2]===e.datum_params[2]&&t.datum_params[3]===e.datum_params[3]&&t.datum_params[4]===e.datum_params[4]&&t.datum_params[5]===e.datum_params[5]&&t.datum_params[6]===e.datum_params[6]))}function S(t,e,a){var r,s,i,n,o=t.x,h=t.y,u=t.z?t.z:0;if(h<-et&&h>-1.001*et)h=-et;else if(h>et&&h<1.001*et)h=et;else {if(h<-et)return {x:-1/0,y:-1/0,z:t.z};if(h>et)return {x:1/0,y:1/0,z:t.z}}return o>Math.PI&&(o-=2*Math.PI),s=Math.sin(h),n=Math.cos(h),i=s*s,r=a/Math.sqrt(1-e*i),{x:(r+u)*n*Math.cos(o),y:(r+u)*n*Math.sin(o),z:(r*(1-e)+u)*s}}function N(t,e,a,r){var s,i,n,o,h,u,l,d,c,m,f,p,_,M,y,g,v=t.x,b=t.y,S=t.z?t.z:0;if(s=Math.sqrt(v*v+b*b),i=Math.sqrt(v*v+b*b+S*S),s/a<1e-12){if(M=0,i/a<1e-12)return y=et,g=-r,{x:t.x,y:t.y,z:t.z}}else M=Math.atan2(b,v);n=S/i,d=(o=s/i)*(1-e)*(h=1/Math.sqrt(1-e*(2-e)*o*o)),c=n*h,_=0;do{_++,u=e*(l=a/Math.sqrt(1-e*c*c))/(l+(g=s*d+S*c-l*(1-e*c*c))),p=(f=n*(h=1/Math.sqrt(1-u*(2-u)*o*o)))*d-(m=o*(1-u)*h)*c,d=m,c=f;}while(p*p>1e-24&&_<30);return y=Math.atan(f/Math.abs(m)),{x:M,y:y,z:g}}function E(t,e,a){if(e===Z)return {x:t.x+a[0],y:t.y+a[1],z:t.z+a[2]};if(e===K){var r=a[0],s=a[1],i=a[2],n=a[3],o=a[4],h=a[5],u=a[6];return {x:u*(t.x-h*t.y+o*t.z)+r,y:u*(h*t.x+t.y-n*t.z)+s,z:u*(-o*t.x+n*t.y+t.z)+i}}}function w(t,e,a){if(e===Z)return {x:t.x-a[0],y:t.y-a[1],z:t.z-a[2]};if(e===K){var r=a[0],s=a[1],i=a[2],n=a[3],o=a[4],h=a[5],u=a[6],l=(t.x-r)/u,d=(t.y-s)/u,c=(t.z-i)/u;return {x:l+h*d-o*c,y:-h*l+d+n*c,z:o*l-n*d+c}}}function C(t){return t===Z||t===K}function x(t){if("function"==typeof Number.isFinite){if(Number.isFinite(t))return;throw new TypeError("coordinates must be finite numbers")}if("number"!=typeof t||t!==t||!isFinite(t))throw new TypeError("coordinates must be finite numbers")}function O(t,e){return (t.datum.datum_type===Z||t.datum.datum_type===K)&&"WGS84"!==e.datumCode||(e.datum.datum_type===Z||e.datum.datum_type===K)&&"WGS84"!==t.datumCode}function A(t,e,a){var r;return Array.isArray(a)&&(a=qt(a)),Ut(a),t.datum&&e.datum&&O(t,e)&&(a=A(t,r=new Projection("WGS84"),a),t=r),"enu"!==t.axis&&(a=Dt(t,!1,a)),"longlat"===t.projName?a={x:a.x*nt,y:a.y*nt,z:a.z||0}:(t.to_meter&&(a={x:a.x*t.to_meter,y:a.y*t.to_meter,z:a.z||0}),a=t.inverse(a)),t.from_greenwich&&(a.x+=t.from_greenwich),a=Tt(t.datum,e.datum,a),e.from_greenwich&&(a={x:a.x-e.from_greenwich,y:a.y,z:a.z||0}),"longlat"===e.projName?a={x:a.x*ot,y:a.y*ot,z:a.z||0}:(a=e.forward(a),e.to_meter&&(a={x:a.x/e.to_meter,y:a.y/e.to_meter,z:a.z||0})),"enu"!==e.axis?Dt(e,!0,a):a}function P(t,e,a){var r,s,i;return Array.isArray(a)?(r=A(t,e,a)||{x:NaN,y:NaN},a.length>2?void 0!==t.name&&"geocent"===t.name||void 0!==e.name&&"geocent"===e.name?"number"==typeof r.z?[r.x,r.y,r.z].concat(a.splice(3)):[r.x,r.y,a[2]].concat(a.splice(3)):[r.x,r.y].concat(a.splice(2)):[r.x,r.y]):(s=A(t,e,a),2===(i=Object.keys(a)).length?s:(i.forEach(function(r){if(void 0!==t.name&&"geocent"===t.name||void 0!==e.name&&"geocent"===e.name){if("x"===r||"y"===r||"z"===r)return}else if("x"===r||"y"===r)return;s[r]=a[r];}),s))}function G(t){return t instanceof Projection?t:t.oProj?t.oProj:Projection(t)}function I(t,e,a){t=G(t);var r,s=!1;return void 0===e?(e=t,t=jt,s=!0):(void 0!==e.x||Array.isArray(e))&&(a=e,e=t,t=jt,s=!0),e=G(e),a?P(t,e,a):(r={forward:function(a){return P(t,e,a)},inverse:function(a){return P(e,t,a)}},s&&(r.oProj=e),r)}function k(t,e){return e=e||5,U(T({lat:t[1],lon:t[0]}),e)}function L(t){var e=D(Q(t.toUpperCase()));return e.lat&&e.lon?[e.lon,e.lat]:[(e.left+e.right)/2,(e.top+e.bottom)/2]}function z(t){return t*(Math.PI/180)}function R(t){return t/Math.PI*180}function T(t){var e,a,r,s,i,n,o,h=t.lat,u=t.lon,l=6378137,d=z(h),c=z(u);o=Math.floor((u+180)/6)+1,180===u&&(o=60),h>=56&&h<64&&u>=3&&u<12&&(o=32),h>=72&&h<84&&(u>=0&&u<9?o=31:u>=9&&u<21?o=33:u>=21&&u<33?o=35:u>=33&&u<42&&(o=37)),n=z(6*(o-1)-180+3),e=l/Math.sqrt(1-.00669438*Math.sin(d)*Math.sin(d)),a=Math.tan(d)*Math.tan(d),r=.006739496752268451*Math.cos(d)*Math.cos(d);var m=.9996*e*((s=Math.cos(d)*(c-n))+(1-a+r)*s*s*s/6+(5-18*a+a*a+72*r-.39089081163157013)*s*s*s*s*s/120)+5e5,f=.9996*((i=l*(.9983242984503243*d-.002514607064228144*Math.sin(2*d)+2639046602129982e-21*Math.sin(4*d)-3.418046101696858e-9*Math.sin(6*d)))+e*Math.tan(d)*(s*s/2+(5-a+9*r+4*r*r)*s*s*s*s/24+(61-58*a+a*a+600*r-2.2240339282485886)*s*s*s*s*s*s/720));return h<0&&(f+=1e7),{northing:Math.round(f),easting:Math.round(m),zoneNumber:o,zoneLetter:q(h)}}function D(t){var e=t.northing,a=t.easting,r=t.zoneLetter,s=t.zoneNumber;if(s<0||s>60)return null;var i,n,o,h,u,l,d,c,m=6378137,f=(1-Math.sqrt(.99330562))/(1+Math.sqrt(.99330562)),p=a-5e5,_=e;r<"N"&&(_-=1e7),l=6*(s-1)-180+3,c=(d=_/.9996/6367449.145945056)+(3*f/2-27*f*f*f/32)*Math.sin(2*d)+(21*f*f/16-55*f*f*f*f/32)*Math.sin(4*d)+151*f*f*f/96*Math.sin(6*d),i=m/Math.sqrt(1-.00669438*Math.sin(c)*Math.sin(c)),n=Math.tan(c)*Math.tan(c),o=.006739496752268451*Math.cos(c)*Math.cos(c),h=.99330562*m/Math.pow(1-.00669438*Math.sin(c)*Math.sin(c),1.5),u=p/(.9996*i);var M=c-i*Math.tan(c)/h*(u*u/2-(5+3*n+10*o-4*o*o-.06065547077041606)*u*u*u*u/24+(61+90*n+298*o+45*n*n-1.6983531815716497-3*o*o)*u*u*u*u*u*u/720);M=R(M);var y=(u-(1+2*n+o)*u*u*u/6+(5-2*o+28*n-3*o*o+.05391597401814761+24*n*n)*u*u*u*u*u/120)/Math.cos(c);y=l+R(y);var g;if(t.accuracy){var v=D({northing:t.northing+t.accuracy,easting:t.easting+t.accuracy,zoneLetter:t.zoneLetter,zoneNumber:t.zoneNumber});g={top:v.lat,right:v.lon,bottom:M,left:y};}else g={lat:M,lon:y};return g}function q(t){var e="Z";return 84>=t&&t>=72?e="X":72>t&&t>=64?e="W":64>t&&t>=56?e="V":56>t&&t>=48?e="U":48>t&&t>=40?e="T":40>t&&t>=32?e="S":32>t&&t>=24?e="R":24>t&&t>=16?e="Q":16>t&&t>=8?e="P":8>t&&t>=0?e="N":0>t&&t>=-8?e="M":-8>t&&t>=-16?e="L":-16>t&&t>=-24?e="K":-24>t&&t>=-32?e="J":-32>t&&t>=-40?e="H":-40>t&&t>=-48?e="G":-48>t&&t>=-56?e="F":-56>t&&t>=-64?e="E":-64>t&&t>=-72?e="D":-72>t&&t>=-80&&(e="C"),e}function U(t,e){var a="00000"+t.easting,r="00000"+t.northing;return t.zoneNumber+t.zoneLetter+j(t.easting,t.northing,t.zoneNumber)+a.substr(a.length-5,e)+r.substr(r.length-5,e)}function j(t,e,a){var r=F(a);return W(Math.floor(t/1e5),Math.floor(e/1e5)%20,r)}function F(t){var e=t%Ft;return 0===e&&(e=Ft),e}function W(t,e,a){var r=a-1,s=Wt.charCodeAt(r),i=Qt.charCodeAt(r),n=s+t-1,o=i+e,h=!1;return n>Xt&&(n=n-Xt+Bt-1,h=!0),(n===Jt||s<Jt&&n>Jt||(n>Jt||s<Jt)&&h)&&n++,(n===Ht||s<Ht&&n>Ht||(n>Ht||s<Ht)&&h)&&++n===Jt&&n++,n>Xt&&(n=n-Xt+Bt-1),o>Vt?(o=o-Vt+Bt-1,h=!0):h=!1,(o===Jt||i<Jt&&o>Jt||(o>Jt||i<Jt)&&h)&&o++,(o===Ht||i<Ht&&o>Ht||(o>Ht||i<Ht)&&h)&&++o===Jt&&o++,o>Vt&&(o=o-Vt+Bt-1),String.fromCharCode(n)+String.fromCharCode(o)}function Q(t){if(t&&0===t.length)throw "MGRSPoint coverting from nothing";for(var e,a=t.length,r=null,s="",i=0;!/[A-Z]/.test(e=t.charAt(i));){if(i>=2)throw "MGRSPoint bad conversion from: "+t;s+=e,i++;}var n=parseInt(s,10);if(0===i||i+3>a)throw "MGRSPoint bad conversion from: "+t;var o=t.charAt(i++);if(o<="A"||"B"===o||"Y"===o||o>="Z"||"I"===o||"O"===o)throw "MGRSPoint zone letter "+o+" not handled: "+t;r=t.substring(i,i+=2);for(var h=F(n),u=B(r.charAt(0),h),l=J(r.charAt(1),h);l<H(o);)l+=2e6;var d=a-i;if(d%2!=0)throw "MGRSPoint has to have an even number \nof digits after the zone letter and two 100km letters - front \nhalf for easting meters, second half for \nnorthing meters"+t;var c,m,f,p,_,M=d/2,y=0,g=0;return M>0&&(c=1e5/Math.pow(10,M),m=t.substring(i,i+M),y=parseFloat(m)*c,f=t.substring(i+M),g=parseFloat(f)*c),p=y+u,_=g+l,{easting:p,northing:_,zoneLetter:o,zoneNumber:n,accuracy:c}}function B(t,e){for(var a=Wt.charCodeAt(e-1),r=1e5,s=!1;a!==t.charCodeAt(0);){if(++a===Jt&&a++,a===Ht&&a++,a>Xt){if(s)throw "Bad character: "+t;a=Bt,s=!0;}r+=1e5;}return r}function J(t,e){if(t>"V")throw "MGRSPoint given invalid Northing "+t;for(var a=Qt.charCodeAt(e-1),r=0,s=!1;a!==t.charCodeAt(0);){if(++a===Jt&&a++,a===Ht&&a++,a>Vt){if(s)throw "Bad character: "+t;a=Bt,s=!0;}r+=1e5;}return r}function H(t){var e;switch(t){case"C":e=11e5;break;case"D":e=2e6;break;case"E":e=28e5;break;case"F":e=37e5;break;case"G":e=46e5;break;case"H":e=55e5;break;case"J":e=64e5;break;case"K":e=73e5;break;case"L":e=82e5;break;case"M":e=91e5;break;case"N":e=0;break;case"P":e=8e5;break;case"Q":e=17e5;break;case"R":e=26e5;break;case"S":e=35e5;break;case"T":e=44e5;break;case"U":e=53e5;break;case"V":e=62e5;break;case"W":e=7e6;break;case"X":e=79e5;break;default:e=-1;}if(e>=0)return e;throw "Invalid zone letter: "+t}function Point(t,e,a){if(!(this instanceof Point))return new Point(t,e,a);if(Array.isArray(t))this.x=t[0],this.y=t[1],this.z=t[2]||0;else if("object"==typeof t)this.x=t.x,this.y=t.y,this.z=t.z||0;else if("string"==typeof t&&void 0===e){var r=t.split(",");this.x=parseFloat(r[0],10),this.y=parseFloat(r[1],10),this.z=parseFloat(r[2],10)||0;}else this.x=t,this.y=e,this.z=a||0;console.warn("proj4.Point will be removed in version 3, use proj4.toPoint");}function V(t){var e,a=[];return a[0]=t*Yt,e=t*t,a[0]+=e*$t,a[1]=e*ee,e*=t,a[0]+=e*te,a[1]+=e*ae,a[2]=e*re,a}function X(t,e){var a=t+t;return t+e[0]*Math.sin(a)+e[1]*Math.sin(a+a)+e[2]*Math.sin(a+a+a)}var Z=1,K=2,Y=4,$=5,tt=484813681109536e-20,et=Math.PI/2,at=.16666666666666666,rt=.04722222222222222,st=.022156084656084655,it=1e-10,nt=.017453292519943295,ot=57.29577951308232,ht=Math.PI/4,ut=2*Math.PI,lt={};lt.greenwich=0,lt.lisbon=-9.131906111111,lt.paris=2.337229166667,lt.bogota=-74.080916666667,lt.madrid=-3.687938888889,lt.rome=12.452333333333,lt.bern=7.439583333333,lt.jakarta=106.807719444444,lt.ferro=-17.666666666667,lt.brussels=4.367975,lt.stockholm=18.058277777778,lt.athens=23.7163375,lt.oslo=10.722916666667;var dt={ft:{to_meter:.3048},"us-ft":{to_meter:1200/3937}},ct=/[\s_\-\/\(\)]/g,mt=function(e){var a,r,s,i={},n=e.split("+").map(function(t){return t.trim()}).filter(function(t){return t}).reduce(function(t,e){var a=e.split("=");return a.push(!0),t[a[0].toLowerCase()]=a[1],t},{}),o={proj:"projName",datum:"datumCode",rf:function(t){i.rf=parseFloat(t);},lat_0:function(t){i.lat0=t*nt;},lat_1:function(t){i.lat1=t*nt;},lat_2:function(t){i.lat2=t*nt;},lat_ts:function(t){i.lat_ts=t*nt;},lon_0:function(t){i.long0=t*nt;},lon_1:function(t){i.long1=t*nt;},lon_2:function(t){i.long2=t*nt;},alpha:function(t){i.alpha=parseFloat(t)*nt;},lonc:function(t){i.longc=t*nt;},x_0:function(t){i.x0=parseFloat(t);},y_0:function(t){i.y0=parseFloat(t);},k_0:function(t){i.k0=parseFloat(t);},k:function(t){i.k0=parseFloat(t);},a:function(t){i.a=parseFloat(t);},b:function(t){i.b=parseFloat(t);},r_a:function(){i.R_A=!0;},zone:function(t){i.zone=parseInt(t,10);},south:function(){i.utmSouth=!0;},towgs84:function(t){i.datum_params=t.split(",").map(function(t){return parseFloat(t)});},to_meter:function(t){i.to_meter=parseFloat(t);},units:function(e){i.units=e;var a=t(dt,e);a&&(i.to_meter=a.to_meter);},from_greenwich:function(t){i.from_greenwich=t*nt;},pm:function(e){var a=t(lt,e);i.from_greenwich=(a||parseFloat(e))*nt;},nadgrids:function(t){"@null"===t?i.datumCode="none":i.nadgrids=t;},axis:function(t){3===t.length&&-1!=="ewnsud".indexOf(t.substr(0,1))&&-1!=="ewnsud".indexOf(t.substr(1,1))&&-1!=="ewnsud".indexOf(t.substr(2,1))&&(i.axis=t);}};for(a in n)r=n[a],a in o?"function"==typeof(s=o[a])?s(r):i[s]=r:i[a]=r;return "string"==typeof i.datumCode&&"WGS84"!==i.datumCode&&(i.datumCode=i.datumCode.toLowerCase()),i},ft=1,pt=/\s/,_t=/[A-Za-z]/,Mt=/[A-Za-z84]/,yt=/[,\]]/,gt=/[\d\.E\-\+]/;e.prototype.readCharicter=function(){var t=this.text[this.place++];if(4!==this.state)for(;pt.test(t);){if(this.place>=this.text.length)return;t=this.text[this.place++];}switch(this.state){case ft:return this.neutral(t);case 2:return this.keyword(t);case 4:return this.quoted(t);case 5:return this.afterquote(t);case 3:return this.number(t);case-1:return}},e.prototype.afterquote=function(t){if('"'===t)return this.word+='"',void(this.state=4);if(yt.test(t))return this.word=this.word.trim(),void this.afterItem(t);throw new Error("havn't handled \""+t+'" in afterquote yet, index '+this.place)},e.prototype.afterItem=function(t){return ","===t?(null!==this.word&&this.currentObject.push(this.word),this.word=null,void(this.state=ft)):"]"===t?(this.level--,null!==this.word&&(this.currentObject.push(this.word),this.word=null),this.state=ft,this.currentObject=this.stack.pop(),void(this.currentObject||(this.state=-1))):void 0},e.prototype.number=function(t){if(!gt.test(t)){if(yt.test(t))return this.word=parseFloat(this.word),void this.afterItem(t);throw new Error("havn't handled \""+t+'" in number yet, index '+this.place)}this.word+=t;},e.prototype.quoted=function(t){'"'!==t?this.word+=t:this.state=5;},e.prototype.keyword=function(t){if(Mt.test(t))this.word+=t;else {if("["===t){var e=[];return e.push(this.word),this.level++,null===this.root?this.root=e:this.currentObject.push(e),this.stack.push(this.currentObject),this.currentObject=e,void(this.state=ft)}if(!yt.test(t))throw new Error("havn't handled \""+t+'" in keyword yet, index '+this.place);this.afterItem(t);}},e.prototype.neutral=function(t){if(_t.test(t))return this.word=t,void(this.state=2);if('"'===t)return this.word="",void(this.state=4);if(gt.test(t))return this.word=t,void(this.state=3);{if(!yt.test(t))throw new Error("havn't handled \""+t+'" in neutral yet, index '+this.place);this.afterItem(t);}},e.prototype.output=function(){for(;this.place<this.text.length;)this.readCharicter();if(-1===this.state)return this.root;throw new Error('unable to parse string "'+this.text+'". State is '+this.state)};var vt=.017453292519943295,bt=function(t){var e=a(t),r=e.shift(),i=e.shift();e.unshift(["name",i]),e.unshift(["type",r]);var n={};return s(e,n),o(n),n};!function(t){t("EPSG:4326","+title=WGS 84 (long/lat) +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees"),t("EPSG:4269","+title=NAD83 (long/lat) +proj=longlat +a=6378137.0 +b=6356752.31414036 +ellps=GRS80 +datum=NAD83 +units=degrees"),t("EPSG:3857","+title=WGS 84 / Pseudo-Mercator +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs"),t.WGS84=t["EPSG:4326"],t["EPSG:3785"]=t["EPSG:3857"],t.GOOGLE=t["EPSG:3857"],t["EPSG:900913"]=t["EPSG:3857"],t["EPSG:102113"]=t["EPSG:3857"];}(h);var St=["PROJECTEDCRS","PROJCRS","GEOGCS","GEOCCS","PROJCS","LOCAL_CS","GEODCRS","GEODETICCRS","GEODETICDATUM","ENGCRS","ENGINEERINGCRS"],Nt=["3857","900913","3785","102113"],Et=function(t,e){t=t||{};var a,r;if(!e)return t;for(r in e)void 0!==(a=e[r])&&(t[r]=a);return t},wt=function(t,e,a){var r=t*e;return a/Math.sqrt(1-r*r)},Ct=function(t){return t<0?-1:1},xt=function(t){return Math.abs(t)<=3.14159265359?t:t-Ct(t)*ut},Ot=function(t,e,a){var r=t*a,s=.5*t;return r=Math.pow((1-r)/(1+r),s),Math.tan(.5*(et-e))/r},At=function(t,e){for(var a,r,s=.5*t,i=et-2*Math.atan(e),n=0;n<=15;n++)if(a=t*Math.sin(i),r=et-2*Math.atan(e*Math.pow((1-a)/(1+a),s))-i,i+=r,Math.abs(r)<=1e-10)return i;return -9999},Pt=[{init:function(){var t=this.b/this.a;this.es=1-t*t,"x0"in this||(this.x0=0),"y0"in this||(this.y0=0),this.e=Math.sqrt(this.es),this.lat_ts?this.sphere?this.k0=Math.cos(this.lat_ts):this.k0=wt(this.e,Math.sin(this.lat_ts),Math.cos(this.lat_ts)):this.k0||(this.k?this.k0=this.k:this.k0=1);},forward:function(t){var e=t.x,a=t.y;if(a*ot>90&&a*ot<-90&&e*ot>180&&e*ot<-180)return null;var r,s;if(Math.abs(Math.abs(a)-et)<=it)return null;if(this.sphere)r=this.x0+this.a*this.k0*xt(e-this.long0),s=this.y0+this.a*this.k0*Math.log(Math.tan(ht+.5*a));else {var i=Math.sin(a),n=Ot(this.e,a,i);r=this.x0+this.a*this.k0*xt(e-this.long0),s=this.y0-this.a*this.k0*Math.log(n);}return t.x=r,t.y=s,t},inverse:function(t){var e,a,r=t.x-this.x0,s=t.y-this.y0;if(this.sphere)a=et-2*Math.atan(Math.exp(-s/(this.a*this.k0)));else {var i=Math.exp(-s/(this.a*this.k0));if(-9999===(a=At(this.e,i)))return null}return e=xt(this.long0+r/(this.a*this.k0)),t.x=e,t.y=a,t},names:["Mercator","Popular Visualisation Pseudo Mercator","Mercator_1SP","Mercator_Auxiliary_Sphere","merc"]},{init:function(){},forward:_,inverse:_,names:["longlat","identity"]}],Gt={},It=[],kt={start:function(){Pt.forEach(M);},add:M,get:function(t){if(!t)return !1;var e=t.toLowerCase();return void 0!==Gt[e]&&It[Gt[e]]?It[Gt[e]]:void 0}},Lt={};Lt.MERIT={a:6378137,rf:298.257,ellipseName:"MERIT 1983"},Lt.SGS85={a:6378136,rf:298.257,ellipseName:"Soviet Geodetic System 85"},Lt.GRS80={a:6378137,rf:298.257222101,ellipseName:"GRS 1980(IUGG, 1980)"},Lt.IAU76={a:6378140,rf:298.257,ellipseName:"IAU 1976"},Lt.airy={a:6377563.396,b:6356256.91,ellipseName:"Airy 1830"},Lt.APL4={a:6378137,rf:298.25,ellipseName:"Appl. Physics. 1965"},Lt.NWL9D={a:6378145,rf:298.25,ellipseName:"Naval Weapons Lab., 1965"},Lt.mod_airy={a:6377340.189,b:6356034.446,ellipseName:"Modified Airy"},Lt.andrae={a:6377104.43,rf:300,ellipseName:"Andrae 1876 (Den., Iclnd.)"},Lt.aust_SA={a:6378160,rf:298.25,ellipseName:"Australian Natl & S. Amer. 1969"},Lt.GRS67={a:6378160,rf:298.247167427,ellipseName:"GRS 67(IUGG 1967)"},Lt.bessel={a:6377397.155,rf:299.1528128,ellipseName:"Bessel 1841"},Lt.bess_nam={a:6377483.865,rf:299.1528128,ellipseName:"Bessel 1841 (Namibia)"},Lt.clrk66={a:6378206.4,b:6356583.8,ellipseName:"Clarke 1866"},Lt.clrk80={a:6378249.145,rf:293.4663,ellipseName:"Clarke 1880 mod."},Lt.clrk58={a:6378293.645208759,rf:294.2606763692654,ellipseName:"Clarke 1858"},Lt.CPM={a:6375738.7,rf:334.29,ellipseName:"Comm. des Poids et Mesures 1799"},Lt.delmbr={a:6376428,rf:311.5,ellipseName:"Delambre 1810 (Belgium)"},Lt.engelis={a:6378136.05,rf:298.2566,ellipseName:"Engelis 1985"},Lt.evrst30={a:6377276.345,rf:300.8017,ellipseName:"Everest 1830"},Lt.evrst48={a:6377304.063,rf:300.8017,ellipseName:"Everest 1948"},Lt.evrst56={a:6377301.243,rf:300.8017,ellipseName:"Everest 1956"},Lt.evrst69={a:6377295.664,rf:300.8017,ellipseName:"Everest 1969"},Lt.evrstSS={a:6377298.556,rf:300.8017,ellipseName:"Everest (Sabah & Sarawak)"},Lt.fschr60={a:6378166,rf:298.3,ellipseName:"Fischer (Mercury Datum) 1960"},Lt.fschr60m={a:6378155,rf:298.3,ellipseName:"Fischer 1960"},Lt.fschr68={a:6378150,rf:298.3,ellipseName:"Fischer 1968"},Lt.helmert={a:6378200,rf:298.3,ellipseName:"Helmert 1906"},Lt.hough={a:6378270,rf:297,ellipseName:"Hough"},Lt.intl={a:6378388,rf:297,ellipseName:"International 1909 (Hayford)"},Lt.kaula={a:6378163,rf:298.24,ellipseName:"Kaula 1961"},Lt.lerch={a:6378139,rf:298.257,ellipseName:"Lerch 1979"},Lt.mprts={a:6397300,rf:191,ellipseName:"Maupertius 1738"},Lt.new_intl={a:6378157.5,b:6356772.2,ellipseName:"New International 1967"},Lt.plessis={a:6376523,rf:6355863,ellipseName:"Plessis 1817 (France)"},Lt.krass={a:6378245,rf:298.3,ellipseName:"Krassovsky, 1942"},Lt.SEasia={a:6378155,b:6356773.3205,ellipseName:"Southeast Asia"},Lt.walbeck={a:6376896,b:6355834.8467,ellipseName:"Walbeck"},Lt.WGS60={a:6378165,rf:298.3,ellipseName:"WGS 60"},Lt.WGS66={a:6378145,rf:298.25,ellipseName:"WGS 66"},Lt.WGS7={a:6378135,rf:298.26,ellipseName:"WGS 72"};var zt=Lt.WGS84={a:6378137,rf:298.257223563,ellipseName:"WGS 84"};Lt.sphere={a:6370997,b:6370997,ellipseName:"Normal Sphere (r=6370997)"};var Rt={};Rt.wgs84={towgs84:"0,0,0",ellipse:"WGS84",datumName:"WGS84"},Rt.ch1903={towgs84:"674.374,15.056,405.346",ellipse:"bessel",datumName:"swiss"},Rt.ggrs87={towgs84:"-199.87,74.79,246.62",ellipse:"GRS80",datumName:"Greek_Geodetic_Reference_System_1987"},Rt.nad83={towgs84:"0,0,0",ellipse:"GRS80",datumName:"North_American_Datum_1983"},Rt.nad27={nadgrids:"@conus,@alaska,@ntv2_0.gsb,@ntv1_can.dat",ellipse:"clrk66",datumName:"North_American_Datum_1927"},Rt.potsdam={towgs84:"606.0,23.0,413.0",ellipse:"bessel",datumName:"Potsdam Rauenberg 1950 DHDN"},Rt.carthage={towgs84:"-263.0,6.0,431.0",ellipse:"clark80",datumName:"Carthage 1934 Tunisia"},Rt.hermannskogel={towgs84:"653.0,-212.0,449.0",ellipse:"bessel",datumName:"Hermannskogel"},Rt.osni52={towgs84:"482.530,-130.596,564.557,-1.042,-0.214,-0.631,8.15",ellipse:"airy",datumName:"Irish National"},Rt.ire65={towgs84:"482.530,-130.596,564.557,-1.042,-0.214,-0.631,8.15",ellipse:"mod_airy",datumName:"Ireland 1965"},Rt.rassadiran={towgs84:"-133.63,-157.5,-158.62",ellipse:"intl",datumName:"Rassadiran"},Rt.nzgd49={towgs84:"59.47,-5.04,187.44,0.47,-0.1,1.024,-4.5993",ellipse:"intl",datumName:"New Zealand Geodetic Datum 1949"},Rt.osgb36={towgs84:"446.448,-125.157,542.060,0.1502,0.2470,0.8421,-20.4894",ellipse:"airy",datumName:"Airy 1830"},Rt.s_jtsk={towgs84:"589,76,480",ellipse:"bessel",datumName:"S-JTSK (Ferro)"},Rt.beduaram={towgs84:"-106,-87,188",ellipse:"clrk80",datumName:"Beduaram"},Rt.gunung_segara={towgs84:"-403,684,41",ellipse:"bessel",datumName:"Gunung Segara Jakarta"},Rt.rnb72={towgs84:"106.869,-52.2978,103.724,-0.33657,0.456955,-1.84218,1",ellipse:"intl",datumName:"Reseau National Belge 1972"},Projection.projections=kt,Projection.projections.start();var Tt=function(t,e,a){return b(t,e)?a:t.datum_type===$||e.datum_type===$?a:t.es!==e.es||t.a!==e.a||C(t.datum_type)||C(e.datum_type)?(a=S(a,t.es,t.a),C(t.datum_type)&&(a=E(a,t.datum_type,t.datum_params)),C(e.datum_type)&&(a=w(a,e.datum_type,e.datum_params)),N(a,e.es,e.a,e.b)):a},Dt=function(t,e,a){var r,s,i,n=a.x,o=a.y,h=a.z||0,u={};for(i=0;i<3;i++)if(!e||2!==i||void 0!==a.z)switch(0===i?(r=n,s=-1!=="ew".indexOf(t.axis[i])?"x":"y"):1===i?(r=o,s=-1!=="ns".indexOf(t.axis[i])?"y":"x"):(r=h,s="z"),t.axis[i]){case"e":case"w":case"n":case"s":u[s]=r;break;case"u":void 0!==a[s]&&(u.z=r);break;case"d":void 0!==a[s]&&(u.z=-r);break;default:return null}return u},qt=function(t){var e={x:t[0],y:t[1]};return t.length>2&&(e.z=t[2]),t.length>3&&(e.m=t[3]),e},Ut=function(t){x(t.x),x(t.y);},jt=Projection("WGS84"),Ft=6,Wt="AJSAJS",Qt="AFAFAF",Bt=65,Jt=73,Ht=79,Vt=86,Xt=90,Zt={forward:k,inverse:function(t){var e=D(Q(t.toUpperCase()));return e.lat&&e.lon?[e.lon,e.lat,e.lon,e.lat]:[e.left,e.bottom,e.right,e.top]},toPoint:L};Point.fromMGRS=function(t){return new Point(L(t))},Point.prototype.toMGRS=function(t){return k([this.x,this.y],t)};var Kt=function(t,e){var a;return t>1e-7?(a=t*e,(1-t*t)*(e/(1-a*a)-.5/t*Math.log((1-a)/(1+a)))):2*e},Yt=.3333333333333333,$t=.17222222222222222,te=.10257936507936508,ee=.06388888888888888,ae=.0664021164021164,re=.016415012942191543,se={init:function(){var t=Math.abs(this.lat0);if(Math.abs(t-et)<it?this.mode=this.lat0<0?this.S_POLE:this.N_POLE:Math.abs(t)<it?this.mode=this.EQUIT:this.mode=this.OBLIQ,this.es>0){var e;switch(this.qp=Kt(this.e,1),this.mmf=.5/(1-this.es),this.apa=V(this.es),this.mode){case this.N_POLE:case this.S_POLE:this.dd=1;break;case this.EQUIT:this.rq=Math.sqrt(.5*this.qp),this.dd=1/this.rq,this.xmf=1,this.ymf=.5*this.qp;break;case this.OBLIQ:this.rq=Math.sqrt(.5*this.qp),e=Math.sin(this.lat0),this.sinb1=Kt(this.e,e)/this.qp,this.cosb1=Math.sqrt(1-this.sinb1*this.sinb1),this.dd=Math.cos(this.lat0)/(Math.sqrt(1-this.es*e*e)*this.rq*this.cosb1),this.ymf=(this.xmf=this.rq)/this.dd,this.xmf*=this.dd;}}else this.mode===this.OBLIQ&&(this.sinph0=Math.sin(this.lat0),this.cosph0=Math.cos(this.lat0));},forward:function(t){var e,a,r,s,i,n,o,h,u,l,d=t.x,c=t.y;if(d=xt(d-this.long0),this.sphere){if(i=Math.sin(c),l=Math.cos(c),r=Math.cos(d),this.mode===this.OBLIQ||this.mode===this.EQUIT){if((a=this.mode===this.EQUIT?1+l*r:1+this.sinph0*i+this.cosph0*l*r)<=it)return null;e=(a=Math.sqrt(2/a))*l*Math.sin(d),a*=this.mode===this.EQUIT?i:this.cosph0*i-this.sinph0*l*r;}else if(this.mode===this.N_POLE||this.mode===this.S_POLE){if(this.mode===this.N_POLE&&(r=-r),Math.abs(c+this.phi0)<it)return null;a=ht-.5*c,e=(a=2*(this.mode===this.S_POLE?Math.cos(a):Math.sin(a)))*Math.sin(d),a*=r;}}else {switch(o=0,h=0,u=0,r=Math.cos(d),s=Math.sin(d),i=Math.sin(c),n=Kt(this.e,i),this.mode!==this.OBLIQ&&this.mode!==this.EQUIT||(o=n/this.qp,h=Math.sqrt(1-o*o)),this.mode){case this.OBLIQ:u=1+this.sinb1*o+this.cosb1*h*r;break;case this.EQUIT:u=1+h*r;break;case this.N_POLE:u=et+c,n=this.qp-n;break;case this.S_POLE:u=c-et,n=this.qp+n;}if(Math.abs(u)<it)return null;switch(this.mode){case this.OBLIQ:case this.EQUIT:u=Math.sqrt(2/u),a=this.mode===this.OBLIQ?this.ymf*u*(this.cosb1*o-this.sinb1*h*r):(u=Math.sqrt(2/(1+h*r)))*o*this.ymf,e=this.xmf*u*h*s;break;case this.N_POLE:case this.S_POLE:n>=0?(e=(u=Math.sqrt(n))*s,a=r*(this.mode===this.S_POLE?u:-u)):e=a=0;}}return t.x=this.a*e+this.x0,t.y=this.a*a+this.y0,t},inverse:function(t){t.x-=this.x0,t.y-=this.y0;var e,a,r,s,i,n,o,h=t.x/this.a,u=t.y/this.a;if(this.sphere){var l,d=0,c=0;if(l=Math.sqrt(h*h+u*u),(a=.5*l)>1)return null;switch(a=2*Math.asin(a),this.mode!==this.OBLIQ&&this.mode!==this.EQUIT||(c=Math.sin(a),d=Math.cos(a)),this.mode){case this.EQUIT:a=Math.abs(l)<=it?0:Math.asin(u*c/l),h*=c,u=d*l;break;case this.OBLIQ:a=Math.abs(l)<=it?this.phi0:Math.asin(d*this.sinph0+u*c*this.cosph0/l),h*=c*this.cosph0,u=(d-Math.sin(a)*this.sinph0)*l;break;case this.N_POLE:u=-u,a=et-a;break;case this.S_POLE:a-=et;}e=0!==u||this.mode!==this.EQUIT&&this.mode!==this.OBLIQ?Math.atan2(h,u):0;}else {if(o=0,this.mode===this.OBLIQ||this.mode===this.EQUIT){if(h/=this.dd,u*=this.dd,(n=Math.sqrt(h*h+u*u))<it)return t.x=0,t.y=this.phi0,t;s=2*Math.asin(.5*n/this.rq),r=Math.cos(s),h*=s=Math.sin(s),this.mode===this.OBLIQ?(o=r*this.sinb1+u*s*this.cosb1/n,i=this.qp*o,u=n*this.cosb1*r-u*this.sinb1*s):(o=u*s/n,i=this.qp*o,u=n*r);}else if(this.mode===this.N_POLE||this.mode===this.S_POLE){if(this.mode===this.N_POLE&&(u=-u),!(i=h*h+u*u))return t.x=0,t.y=this.phi0,t;o=1-i/this.qp,this.mode===this.S_POLE&&(o=-o);}e=Math.atan2(h,u),a=X(Math.asin(o),this.apa);}return t.x=xt(this.long0+e),t.y=a,t},names:["Lambert Azimuthal Equal Area","Lambert_Azimuthal_Equal_Area","laea"],S_POLE:1,N_POLE:2,EQUIT:3,OBLIQ:4},ie=function(t){return Math.abs(t)>1&&(t=t>1?1:-1),Math.asin(t)},ne={init:function(){this.sin_p14=Math.sin(this.lat0),this.cos_p14=Math.cos(this.lat0);},forward:function(t){var e,a,r,s,i,n,o,h=t.x,u=t.y;return r=xt(h-this.long0),e=Math.sin(u),a=Math.cos(u),s=Math.cos(r),((i=this.sin_p14*e+this.cos_p14*a*s)>0||Math.abs(i)<=it)&&(n=1*this.a*a*Math.sin(r),o=this.y0+1*this.a*(this.cos_p14*e-this.sin_p14*a*s)),t.x=n,t.y=o,t},inverse:function(t){var e,a,r,s,i,n,o;return t.x-=this.x0,t.y-=this.y0,e=Math.sqrt(t.x*t.x+t.y*t.y),a=ie(e/this.a),r=Math.sin(a),s=Math.cos(a),n=this.long0,Math.abs(e)<=it?(o=this.lat0,t.x=n,t.y=o,t):(o=ie(s*this.sin_p14+t.y*r*this.cos_p14/e),i=Math.abs(this.lat0)-et,Math.abs(i)<=it?(n=xt(this.lat0>=0?this.long0+Math.atan2(t.x,-t.y):this.long0-Math.atan2(-t.x,t.y)),t.x=n,t.y=o,t):(n=xt(this.long0+Math.atan2(t.x*r,e*this.cos_p14*s-t.y*this.sin_p14*r)),t.x=n,t.y=o,t))},names:["ortho"]};return I.defaultDatum="WGS84",I.Proj=Projection,I.WGS84=new I.Proj("WGS84"),I.Point=Point,I.toPoint=qt,I.defs=h,I.transform=A,I.mgrs=Zt,I.version="2.6.2-alpha",function(proj4){proj4.Proj.projections.add(se),proj4.Proj.projections.add(ne);}(I),I});
-	});
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-
-	// Configure useful projections
-	// Use http://spatialreference.org/ref/epsg/24817/proj4js/ to look up
-	// proj4.js was built using: node_modules/.bin/grunt build:laea,ortho
-	proj4.defs( [
-	  [ 'EPSG:3035', '+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs' ],
-	] );
-
-	function GeoprojectStore() {
-	  this.projection = null;
-	  this.location = null;
-	  this.globalOffset = new THREE.Vector2();
-	  this.sceneScale = 1;
-
-	  this.bindListeners( {
-	    setCurrentPlace: UserActions.setCurrentPlace
-	  } );
-
-	  this.exportPublicMethods( {
-	    positionToTileFraction: this.positionToTileFraction.bind( this ),
-	  } );
-	}
-
-	GeoprojectStore.prototype.setCurrentPlace = function ( place ) {
-	  this.location = place.location;
-	  this.projection = 'EPSG:3857';
-
-	  // Setup projectors
-	  const lon = ApiUtils.snap( this.location[ 0 ] );
-	  const lat = ApiUtils.snap( this.location[ 1 ] );
-	  geoproject.projector = proj4( this.projection );
-	  geoproject.center = geoproject.project( [ lon, lat ], true );
-
-	  // For testing new data create temporary projector for 3035
-	  // TODO remove this once we don't use 3035 data
-	  geoproject.projector3035 = proj4( 'EPSG:3035' );
-	  var projected3035 = geoproject.projector3035.forward( [ lon, lat ] );
-	  geoproject.center3035 = { x: projected3035[ 0 ], y: projected3035[ 1 ] };
-
-	  // To make the heights match the projection, we need to obtain the
-	  // scene scale
-	  this.sceneScale = geoproject.calculateSceneScale( lon, lat );
-
-	  // Re-center our THREE Scene coordinate system such that it is 0, 0
-	  // at the location of the place
-	  this.globalOffset = geoproject.calculateGlobalOffset( lon, lat );
-	};
-
-	GeoprojectStore.prototype.positionToTileFraction = function ( position, z ) {
-	  const p = position.clone();
-	  p.x -= this.globalOffset.x;
-	  p.y += this.globalOffset.y;
-	  p.divideScalar( this.sceneScale * Math.pow( 2, 15 - z ) );
-	  return [ p.x, p.y, z ];
-	};
-
-	GeoprojectStore.displayName = 'GeoprojectStore';
-	var GeoprojectStore$1 = alt.createStore( GeoprojectStore );
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-	function AppStore() {
-	  this.appContainer = null;
-	  this.datasource = {};
-	  this.fatalError = false;
-	  this.initialized = false;
-	  this.resourceUrl = null;
-	  this.bindListeners( {
-	    configureElevationDatasource: ConfigActions.configureElevationDatasource,
-	    configureImageryDatasource: ConfigActions.configureImageryDatasource,
-	    setAppContainer: ConfigActions.setAppContainer,
-	    setFatalError: RenderActions.fatalError,
-	    setResourceUrl: ConfigActions.setResourceUrl
-	  } );
-	}
-
-	AppStore.prototype.checkInitialized = function () {
-	  this.initialized = ( this.appContainer !== null ) &&
-	                     ( this.resourceUrl !== null );
-	};
-
-	AppStore.prototype.configureElevationDatasource = function ( elevation ) {
-	  this.datasource.elevation = elevation;
-	};
-
-	AppStore.prototype.configureImageryDatasource = function ( imagery ) {
-	  this.datasource.imagery = imagery;
-	};
-
-	AppStore.prototype.setFatalError = function () {
-	  this.fatalError = true;
-	};
-
-	AppStore.prototype.setAppContainer = function ( container ) {
-	  this.appContainer = container;
-	  this.checkInitialized();
-	};
-
-	AppStore.prototype.setResourceUrl = function ( url ) {
-	  this.resourceUrl = url;
-	  this.checkInitialized();
-	};
-
-	AppStore.displayName = 'AppStore';
-	var AppStore$1 = alt.createStore( AppStore );
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-	let params = new URLSearchParams( window.location.search.slice( 1 ) );
-
-	// TODO could support non-square POT textures also
-	let elevationPoolSize = 4 * 4;
-	let imageryPoolSize = 16 * 16;
-	if ( params.has( 'elevationPoolSize' ) ) {
-	  elevationPoolSize = Number.parseInt( params.get( 'elevationPoolSize' ) );
-	}
-
-	if ( params.has( 'imageryPoolSize' ) ) {
-	  imageryPoolSize = Number.parseInt( params.get( 'imageryPoolSize' ) );
-	}
-
-	const ELEVATION_POOL_SIZE = elevationPoolSize;
-	const ELEVATION_TILE_SIZE = 512;
-	const IMAGERY_POOL_SIZE = imageryPoolSize;
-	const IMAGERY_TILE_SIZE = 256;
-	const INTERPOLATE_FLOAT = params.has( 'interpolateFloat' );
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-	var renderer = new THREE.WebGLRenderer( {
-	  alpha: true,
-	  antialias: false,
-	  clearColor: 0x000000,
-	  logarithmicDepthBuffer: false
-	} );
-	renderer.sortObjects = true;
-
-	// Don't clear buffers we know will be overwritten
-	renderer.autoClear = false;
-	renderer.autoClearColor = false;
-	renderer.autoClearDepth = true;
-	renderer.autoClearStencil = false;
-	renderer.domElement.selectable = false;
-	// We do our own tonemapping, so disable otherwise get shader errors
-	renderer.toneMapping = THREE.NoToneMapping;
-
-	var state = ContainerStore$1.getState();
-	renderer.setPixelRatio( state.pixelRatio );
-	renderer.setSize( state.width, state.height );
-	ContainerStore$1.listen( function ( state ) {
-	  renderer.setPixelRatio( state.pixelRatio );
-	  renderer.setSize( state.width, state.height );
-	} );
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-	// Class for managing a set of indices
-	// `next()` returns a integer
-	class IntegerPool {
-	  constructor( capacity ) {
-	    this.capacity = capacity;
-	    this.index = 0;
-	    this.items = [];
-	  }
-
-	  next() {
-	    let i;
-	    // Once we hit capacity, start re-using stale entries
-	    if ( this.index >= this.capacity ) {
-	      i = this.items.splice( 0, 1 )[ 0 ];
-	    } else {
-	      // ...otherwise allocate sequentially
-	      i = this.index++;
-	    }
-
-	    this.items.push( i );
-	    return i;
-	  }
-
-	  // Method to keep element alive
-	  tap( item ) {
-	    let i = this.items.indexOf( item );
-	    if ( i !== -1 ) {
-	      this.items.splice( i, 1 );
-	      this.items.push( item );
-	    }
-	  }
-	}
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-	const ImageLoader$1 = ( typeof createImageBitmap === 'undefined' ) ?
-	  THREE.ImageLoader : THREE.ImageBitmapLoader;
-
-	var ImageLoader$2 = new ImageLoader$1();
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-
-	const canvas$1 = document.createElement( 'canvas' );
-	const width = ELEVATION_TILE_SIZE;
-	const height = ELEVATION_TILE_SIZE;
-	canvas$1.width = width;
-	canvas$1.height = height;
-	const ctx = canvas$1.getContext( '2d' );
-	const N = width * height;
-
-	const insertIntoTextureArray = ( textureArray, index, image ) => {
-	  const w = textureArray.image.width / textureArray.__blocks;
-	  const h = textureArray.image.height / textureArray.__blocks;
-	  const x = w * ( Math.floor( index ) % textureArray.__blocks );
-	  const y = h * Math.floor( Math.floor( index ) / textureArray.__blocks );
-
-	  if ( textureArray.useFloat ) {
-	    ctx.drawImage( image, 0, 0 );
-	    let imgData = ctx.getImageData( 0, 0, width, height ).data;
-
-	    let data = new Float32Array( N );
-
-	    const baseVal = -32768;
-	    //const interval = 1 / 256;
-	    let dataView = new DataView( imgData.buffer );
-	    for ( let i = 0; i < N; ++i ) {
-	      //let h = interval * (
-	      //  256 * 256 * imgData[ 4 * i ] +
-	      //  256 * imgData[ 4 * i + 1 ] +
-	      //  imgData[ 4 * i + 2 ]
-	      //) + baseVal;
-	      // Read as big-endian data (skipping B channel), equivalent to above
-	      let H = dataView.getUint16( 4 * i, false ) + baseVal;
-
-	      // Handle NODATA value, clamping to 0
-	      data[ i ] = ( H === baseVal ? 0 : H );
-	    }
-
-	    // Do we need float? Perhaps just converting to data is
-	    // enough?
-	    renderer.copyTextureToTexture( { x, y }, {
-	      image: { data, width, height },
-	      isDataTexture: true
-	    }, textureArray );
-	  } else {
-	    renderer.copyTextureToTexture( { x, y }, { image },
-	      textureArray );
-	  }
-	};
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-
-	class BaseDatasource {
-	  constructor( { apiKey, poolSize, textureSize, useFloat, urlFormat } ) {
-	    this.apiKey = apiKey;
-	    this.urlFormat = urlFormat;
-	    this.useFloat = !!useFloat;
-	    this.hasUpdates = false;
-	    this.listeners = [];
-	    this.lookup = {};
-	    this.fetching = {};
-	    this.imgCache = {};
-	    this.indexPool = new IntegerPool( poolSize );
-
-	    // Emulate texture array by cutting up 2D texture
-	    let n = Math.sqrt( poolSize );
-	    if ( n % 1 ) {
-	      console.error( 'poolSize needs to be a power of 2' );
-	    }
-
-	    let virtualTextureSize = textureSize * n;
-
-	    const TextureFilter = ( this.useFloat && !INTERPOLATE_FLOAT ) ?
-	      THREE.NearestFilter : THREE.LinearFilter;
-
-	    this.textureArray = new THREE.DataTexture( null,
-	      virtualTextureSize, virtualTextureSize,
-	      // RGB seems to run *slower* than RGBA on iOS
-	      this.useFloat ? THREE.AlphaFormat : THREE.RGBAFormat,
-	      // HalfFloat doesn't work on iOS :(
-	      this.useFloat ? THREE.FloatType : THREE.UnsignedByteType,
-	      THREE.UVMapping,
-	      THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping,
-	      TextureFilter, TextureFilter,
-	      //THREE.LinearFilter, THREE.LinearFilter,
-	      //THREE.NearestFilter, THREE.NearestFilter,
-	      renderer.capabilities.getMaxAnisotropy()
-	    );
-	    this.textureArray.__blocks = n;
-	    this.textureArray.useFloat = this.useFloat;
-
-	    if ( this.useFloat ) {
-	      const size = 1024; // TODO reduce in future!
-	      this.indirectionTexture = new THREE.DataTexture( null,
-	        size, size,
-	        // TODO Could perhaps use smaller format
-	        THREE.RGBAFormat, // Using RGB led to errors...
-	        // Need to use float type or get glitches on iOS
-	        THREE.FloatType,
-	        THREE.UVMapping,
-	        THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping,
-	        THREE.NearestFilter, THREE.NearestFilter,
-	        1 // anisotropy
-	      );
-	    }
-	  }
-
-	  urlForTile( x, y, z ) {
-	    return this.urlFormat.replace( '{x}', x ).replace( '{y}', y )
-	      .replace( '{z}', z ).replace( '{apiKey}', this.apiKey );
-	  }
-
-	  fetchIfNeeded( quadkey ) {
-	    if ( this.lookup[ quadkey ] !== undefined ||
-	      this.fetching[ quadkey ] !== undefined ) {
-	      // Have data, or download in progress, skip
-	      return;
-	    }
-
-	    // Throttle downloads
-	    let downloadIndices = Object.values( this.fetching );
-	    if ( downloadIndices.length > 32 ) {
-	      log$1( 'throttling...' );
-	      return;
-	    }
-
-	    let newIndex = this.findNewIndex( quadkey );
-
-	    // Mark as download in progress
-	    this.fetching[ quadkey ] = newIndex;
-
-	    // Actually fetch data
-	    let url = this.urlForTile( ...tilebelt.quadkeyToTile( quadkey ) );
-	    ImageLoader$2.load( url, ( image ) => {
-	      // Image loaded OK
-	        this.imgCache[ quadkey ] = image;
-	        insertIntoTextureArray( this.textureArray, newIndex, image );
-
-	        // Remove download and mark image location in lookup
-	        delete this.fetching[ quadkey ];
-	        this.lookup[ quadkey ] = newIndex;
-
-	        // TODO remove, just for demo page
-	        if ( this.useFloat ) {
-	          let el = document.getElementById( 'elevation-tile-count' );
-	          if ( el ) {
-	            let n = parseInt( el.innerHTML );
-	            if ( isNaN( n ) ) { n = 0; }
-
-	            el.innerHTML = ++n;
-	          }
-	        }
-
-	        this.updateIndirectionTexture();
-	        this.notifyUpdate();
-	      }, () => {
-	        console.error( 'Failed to get image', quadkey );
-	        delete this.fetching[ quadkey ];
-	      } );
-	  }
-
-	  findNewIndex( quadkey ) {
-	    // First request a new slot (index) to place image in
-	    let downloadIndices = Object.values( this.fetching );
-	    let newIndex;
-	    let oldQuadKey;
-	    let failed = true;
-	    for ( let i = 32; i > 0; i-- ) {
-	      // Try to obtain new index
-	      newIndex = this.indexPool.next();
-
-	      // Avoid situation where newIndex is used by an
-	      // in-progress download, as it'll get clobbered
-	      let goodIndex = downloadIndices.indexOf( newIndex ) === -1;
-
-	      // Check what data this is pointing at
-	      let oldDataSlot = Object.values( this.lookup ).indexOf( newIndex );
-	      oldQuadKey = Object.keys( this.lookup )[ oldDataSlot ];
-
-	      // Don't release tiles that are below us in
-	      // heirarchy, so that when we zoom out we always have
-	      // some data.
-	      // Without this, we eject the data and then later
-	      // tiles can end up having nothing to load! Resulting
-	      // in a weird glitch where the previous index set in
-	      // the uniform is used and some random tile is plastered
-	      // in its place :(
-	      let isParent = (
-	        oldQuadKey !== undefined &&
-	        quadkey.slice( 0, oldQuadKey.length - 1 ) === oldQuadKey.slice( 0, -1 ) );
-
-	      if ( goodIndex && !isParent ) {
-	        // Index is clean and not assigned being used by a download
-	        failed = false;
-	        break;
-	      }
-	    }
-
-	    if ( failed ) {
-	      log$1( `Failed to find index (${this.indexPool.capacity})` );
-	      log$1( 'Downloads: ', downloadIndices.length );
-	      // Fallback to using lowest resolution tile
-	      oldQuadKey = Object.keys( this.lookup ).sort(
-	        ( x, y ) => x.length - y.length )[ 0 ];
-	      newIndex = this.lookup[ oldQuadKey ];
-	    }
-
-	    // Next, remove any existing lookup entry that references
-	    // this index, as we are about to re-assign it. This should
-	    // be safe to do as the index should have been recycled
-	    // before
-	    if ( oldQuadKey !== undefined ) {
-	      delete this.lookup[ oldQuadKey ];
-	    }
-
-	    return newIndex;
-	  }
-
-	  updateIndirectionTexture() {
-	    // Update indirection texture, loop over all textures
-	    if ( this.indirectionTexture ) {
-	      let quadkeys = Object.keys( this.lookup );
-	      quadkeys.sort( ( a, b ) => Math.sign( a.length - b.length ) );
-	      for ( let q of quadkeys ) {
-	        let [ x, y, z ] = tilebelt.quadkeyToTile( q );
-	        let tileIndex = this.lookup[ q ];
-	        let size = Math.pow( 2, 10 - z );
-	        x *= size; y *= size; // Move to zoom level 10
-	        let data = new Float32Array( 4 * size * size );
-	        let tileSize = Math.pow( 2, z );
-	        let originScale = -tileSize / this.indirectionTexture.image.width;
-	        for ( let i = 0; i < data.length; i++ ) {
-	          // Location of tile in texture array
-	          data[ 4 * i ] = tileIndex;
-	          // Tile size
-	          data[ 4 * i + 1 ] = tileSize;
-	          // Tile origin position (scaled to save GPU instructions)
-	          data[ 4 * i + 2 ] = x * originScale;
-	          data[ 4 * i + 3 ] = y * originScale;
-	        }
-
-	        renderer.copyTextureToTexture( { x, y }, {
-	          image: { data, width: size, height: size },
-	          isDataTexture: true
-	        }, this.indirectionTexture );
-	      }
-	    }
-	  }
-
-	  // Locates the highest resolution data we have for this tile
-	  // return the data index and number of levels we are
-	  // downsampling by
-	  findBestAvailableData( quadkey, silent ) {
-	    for ( let downsample = 0; downsample < 20; downsample++ ) {
-	      // See if we have imagery already...
-	      let index = this.lookup[ quadkey ];
-	      if ( index !== undefined ) {
-	        return { index, downsample, quadkey };
-	      } else {
-	        // Try parent tile...
-	        // Parent key is just our key with last char removed
-	        quadkey = quadkey.slice( 0, -1 );
-	        if ( quadkey.length === 0 ) { break }
-	      }
-	    }
-
-	    if ( !silent ) {
-	      log$1( 'Failed to find data', quadkey );
-	    }
-
-	    return { index: null, downsample: 20, quadkey: null };
-	  }
-
-	  // Reads single point using local lookups
-	  dataAtPoint( p ) {
-	    let tile;
-	    if ( p.longitude ) {
-	      tile = tilebelt.pointToTileFraction( p.longitude, p.latitude, 10 );
-	    } else {
-	      tile = GeoprojectStore$1.positionToTileFraction( p, 10 );
-	    }
-
-	    const q = tilebelt.tileToQuadkey( tile );
-	    const { quadkey } = this.findBestAvailableData( q );
-
-	    if ( !quadkey ) { return null }
-
-	    // Convert to zoom level at which we have data
-	    const scale = Math.pow( 2, quadkey.length - tile[ 2 ] );
-	    tile[ 0 ] *= scale;
-	    tile[ 1 ] *= scale;
-
-	    const img = this.imgCache[ quadkey ];
-	    const canvas = document.createElement( 'canvas' );
-	    canvas.width = 1; canvas.height = 1;
-
-	    tile[ 0 ] = ( tile[ 0 ] % 1 ) * img.width;
-	    tile[ 1 ] = ( tile[ 1 ] % 1 ) * img.height;
-
-	    const ctx = canvas.getContext( '2d' );
-	    ctx.drawImage( img,
-	      tile[ 0 ], tile[ 1 ], 1, 1, // one pixel from src
-	      0, 0, 1, 1 ); // ..to 1x1 canvas
-	    return ctx.getImageData( 0, 0, 1, 1 ).data;
-	  }
-
-	  addListener( fn ) {
-	    this.listeners.push( fn );
-	  }
-
-	  removeListener( fn ) {
-	    let i = this.listeners.indexOf( fn );
-	    if ( i !== -1 ) { this.listeners.splice( i, 1 ); }
-	  }
-
-	  notifyUpdate() {
-	    this.hasUpdates = true;
-	  }
-
-	  broadcastUpdate() {
-	    this.listeners.forEach( l => l() );
-	    this.hasUpdates = false;
-	  }
-	}
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-
-	const ElevationDatasource = new BaseDatasource( {
-	  urlFormat: 'https://www.nasadem.xyz/api/v1/dem/{z}/{x}/{y}.png?key={apiKey}',
-	  textureSize: ELEVATION_TILE_SIZE,
-	  poolSize: ELEVATION_POOL_SIZE,
-	  useFloat: true
-	} );
-
-	AppStore$1.listen( ( { datasource } ) => {
-	  if ( datasource.elevation ) {
-	    ElevationDatasource.apiKey = datasource.elevation.apiKey;
-	  }
-	} );
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-
-	const earthScale = 0.0008176665341588574;
-	function heightScale( p ) {
-	  const sceneScale = GeoprojectStore$1.getState().sceneScale;
-	  let tile;
-	  if ( p.longitude ) {
-	    tile = tilebelt.pointToTile( p.longitude, p.latitude, 10 );
-	  } else {
-	    tile = GeoprojectStore$1.positionToTileFraction( p, 10 );
-	  }
-
-	  const n = 3.141592653589793 - 0.006135923151542565 * tile[ 1 ];
-	  return Math.cosh( n ) / ( earthScale * sceneScale );
-	}
-
-	function dataToHeight( data ) {
-	  if ( data[ 0 ] === 0 && data[ 1 ] === 0 ) {
-	    // NODATA values return 0
-	    return 0;
-	  }
-	  return 256 * data[ 0 ] + data[ 1 ] - 32768;
-	}
-
-	// Simplified height lookup, doesn't interpolate between points
-	// just picks the nearest pixel
-	function heightAt( p, callback ) {
-	  const data = ElevationDatasource.dataAtPoint( p );
-	  if ( !data ) {
-	    if ( typeof callback === 'function' ) {
-	      const listener = () => {
-	        // Now that data has updated, try again to fetch
-	        const data = ElevationDatasource.dataAtPoint( p );
-	        if ( data ) {
-	          ElevationDatasource.removeListener( listener );
-	          callback( dataToHeight( data ) * heightScale( p ) );
-	        }
-	      };
-
-	      // Don't have data yet, but want to register for callback
-	      // once available
-	      ElevationDatasource.addListener( listener );
-	    }
-
-	    return 0;
-	  }
-
-	  const H = dataToHeight( data ) * heightScale( p );
-	  if ( typeof callback === 'function' ) { callback( H ); }
-
-	  return H;
-	}
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-
-	// Uniforms for shaders that lookup height
-	const heightUniforms = {
-	  elevationArray: { value: ElevationDatasource.textureArray },
-	  indirectionTexture: { value: ElevationDatasource.indirectionTexture },
-	  uGlobalOffset: { type: 'v2', value: new THREE.Vector2() },
-	  uSceneScale: { type: 'f', value: 1 }
-	};
-
-	GeoprojectStore$1.listen( ( { globalOffset, sceneScale } ) => {
-	  heightUniforms.uGlobalOffset.value.copy( globalOffset );
-	  heightUniforms.uSceneScale.value = sceneScale;
-	} );
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-	const Shader = function ( value ) {
-	  this.value = value;
-	};
-
-	Shader.prototype.define = function ( define, value ) {
-	  var regexp = new RegExp( "#define " + define + " .*", "g" );
-	  var newDefine = "#define " + define + ( value ? " " + value : "" );
-	  if ( this.value.match( regexp ) ) {
-	    // #define already exists, update its value
-	    this.value = this.value.replace( regexp, newDefine );
-	  } else {
-	    // New #define, prepend to start of file
-	    this.value = newDefine + "\n" + this.value;
-	  }
-	};
-
-	Shader.prototype.clone = function () {
-	  return new Shader( this.value );
-	};
-
-	var beaconVertex = new Shader(`uniform mat4 modelMatrix;uniform mat4 viewMatrix;uniform mat4 projectionMatrix;uniform vec3 cameraPosition;attribute vec3 position;attribute vec3 normal;uniform float uAccuracy;varying vec3 vPosition;varying vec3 vCenter;varying float vRingRadius;
-#define BEACON_RADIUS 50.0
-float a(float b){return clamp(b,0.0,1.0);}vec2 a(vec2 b){return clamp(b,0.0,1.0);}vec3 a(vec3 b){return clamp(b,0.0,1.0);}vec4 a(vec4 b){return clamp(b,0.0,1.0);}
-#define VIRTUAL_TEXTURE_ARRAY_BLOCKS 4.0
-
-#define VIRTUAL_TEXTURE_ARRAY_SIZE 512.0
-
-#define TEX_SIZE (VIRTUAL_TEXTURE_ARRAY_SIZE * VIRTUAL_TEXTURE_ARRAY_BLOCKS)
-const vec2 c=vec2(1.0/TEX_SIZE,0.0);vec4 d(const in sampler2D b,in vec2 e){e-=0.5*c.xx;vec2 f=fract(e*TEX_SIZE);vec2 g=e-c.xx*f+0.5*c.xx;
-#ifdef HEIGHT_LOOKUP_BIAS
-vec4 h=texture2D(b,g,-10.0);vec4 i=texture2D(b,g+c,-10.0);vec4 j=texture2D(b,g+c.yx,-10.0);vec4 k=texture2D(b,g+c.xx,-10.0);
-#else
-vec4 h=texture2D(b,g);vec4 i=texture2D(b,g+c);vec4 j=texture2D(b,g+c.yx);vec4 k=texture2D(b,g+c.xx);
-#endif
-vec4 l=mix(h,i,f.x);vec4 m=mix(j,k,f.x);return mix(l,m,f.y);}vec4 n(in sampler2D o,in vec2 e,in float p){vec2 q=vec2(mod(float(p),VIRTUAL_TEXTURE_ARRAY_BLOCKS),floor(float(p)/VIRTUAL_TEXTURE_ARRAY_BLOCKS));const float r=0.5;vec2 s=vec2(r,VIRTUAL_TEXTURE_ARRAY_SIZE-r)/VIRTUAL_TEXTURE_ARRAY_SIZE;vec2 t=(clamp(e,s.x,s.y)+q)/VIRTUAL_TEXTURE_ARRAY_BLOCKS;
-#ifdef MANUAL_TEXTURE_BILINEAR
-return d(o,t);
-#else
-return texture2D(o,t);
-#endif
-}uniform lowp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform float uSceneScale;const float u=0.0008176665341588574;float v(in float w){float x=3.141592653589793-0.006135923151542565*w;float y=dot(vec2(0.5),exp(vec2(x,-x)));return y/(u*uSceneScale);}uniform lowp sampler2D elevationArray;float z(in vec2 A){const float B=32.0;const float C=1024.0;vec2 D=A.xy-uGlobalOffset;D/=(uSceneScale*B);D*=vec2(1.0,-1.0);vec2 E=D/C;const vec2 F=vec2(0.5);vec2 G=(floor(D-F)+F);G+=step(F,D-G);vec2 H=G/C;vec4 I=texture2D(indirectionTexture,H);float p=I.r;float J=I.g;vec2 K=I.ba;vec2 t=E*J+K;return v(D.y)*n(elevationArray,t,p).a;}void main(){vCenter=position-BEACON_RADIUS*normal;vec4 L=modelMatrix*vec4(vCenter,1.0);vec3 M=L.xyz/L.w;vCenter=M;float N=abs((viewMatrix*vec4(M,1.0)).z);vRingRadius=25.0*clamp(N/1000.0,0.01,10.0);float O=max(vRingRadius,uAccuracy);vPosition=vCenter+O*normal;float P=z(vPosition.xy);float Q=P-vPosition.z+N/1000.0-0.3*O;vPosition.z=P;vec3 R=cameraPosition-vPosition;float S=length(R);R=normalize(R);float T=230.0*smoothstep(50.0,250.0,S);gl_Position=projectionMatrix*viewMatrix*vec4(vPosition+T*R,1.0);}`);
-
-	var beaconFragment = new Shader(`precision highp float;uniform float uTime;varying vec3 vPosition;varying vec3 vCenter;varying float vRingRadius;const vec4 a=vec4(1.0,1.0,1.0,0.9);void main(){float b=distance(vPosition.xy,vCenter.xy)/vRingRadius;vec3 c=mix(vec3(0.0,0.0,1.0),vec3(0.0,0.5,1.0),0.2*b);vec4 d=vec4(c*sin(uTime),0.5);d=mix(d,a,smoothstep(0.75,0.8,b));d=mix(d,vec4(c.rgb,0.15),smoothstep(1.0,1.05,b));d.rgb=pow(abs(d.rgb),vec3(0.4545));gl_FragColor=d;}`);
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 *
-	 * This file incorporates work covered by the following copyright and
-	 * permission notice:
-	 *
-	 *   The MIT License
-	 *
-	 *   Copyright © 2010-2020 three.js authors
-	 *
-	 *   Permission is hereby granted, free of charge, to any person obtaining a copy
-	 *   of this software and associated documentation files (the "Software"), to deal
-	 *   in the Software without restriction, including without limitation the rights
-	 *   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-	 *   copies of the Software, and to permit persons to whom the Software is
-	 *   furnished to do so, subject to the following conditions:
-	 *
-	 *   The above copyright notice and this permission notice shall be included in
-	 *   all copies or substantial portions of the Software.
-	 *
-	 *   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-	 *   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-	 *   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-	 *   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-	 *   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-	 *   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-	 *   THE SOFTWARE.
-	 */
-
-	function Color$1( r, g, b, a ) {
-	  if ( g === undefined && b === undefined ) {
-	    // r is THREE.Color, hex or string
-	    return this.set( r );
-	  }
-
-	  if ( a === undefined ) { a = 1; }
-
-	  return this.setRGB( r, g, b, a );
-	}
-
-	Object.assign( Color$1.prototype, {
-
-	  isColor: true,
-
-	  r: 1, g: 1, b: 1, a: 1,
-
-	  set: function ( value ) {
-	    if ( value && value.isColor ) {
-	      this.copy( value );
-	    } else if ( typeof value === 'number' ) {
-	      this.setHex( value );
-	    } else if ( typeof value === 'string' ) {
-	      this.setStyle( value );
-	    }
-
-	    return this;
-	  },
-
-	  setScalar: function ( scalar ) {
-	    this.r = scalar;
-	    this.g = scalar;
-	    this.b = scalar;
-
-	    return this;
-	  },
-
-	  setHex: function ( hex ) {
-	    hex = Math.floor( hex );
-
-	    this.r = ( hex >> 16 & 255 ) / 255;
-	    this.g = ( hex >> 8 & 255 ) / 255;
-	    this.b = ( hex & 255 ) / 255;
-
-	    return this;
-	  },
-
-	  setRGB: function ( r, g, b, a ) {
-	    this.r = r;
-	    this.g = g;
-	    this.b = b;
-	    this.a = a;
-
-	    return this;
-	  },
-
-
-	  setStyle: function ( style ) {
-	    function handleAlpha( string ) {
-	      if ( string === undefined ) return 1;
-	      return parseFloat( string );
-	    }
-
-
-	    var m;
-
-	    if ( m = /^((?:rgb)a?)\(\s*([^\)]*)\)/.exec( style ) ) {
-	      // rgb / hsl
-
-	      var color;
-	      var name = m[ 1 ];
-	      var components = m[ 2 ];
-
-	      switch ( name ) {
-	      case 'rgb':
-	      case 'rgba':
-
-	        if ( color = /^(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(,\s*([0-9]*\.?[0-9]+)\s*)?$/.exec( components ) ) {
-	          // rgb(255,0,0) rgba(255,0,0,0.5)
-	          this.r = Math.min( 255, parseInt( color[ 1 ], 10 ) ) / 255;
-	          this.g = Math.min( 255, parseInt( color[ 2 ], 10 ) ) / 255;
-	          this.b = Math.min( 255, parseInt( color[ 3 ], 10 ) ) / 255;
-
-	          this.a = handleAlpha( color[ 5 ] );
-
-	          return this;
-	        }
-
-	        if ( color = /^(\d+)\%\s*,\s*(\d+)\%\s*,\s*(\d+)\%\s*(,\s*([0-9]*\.?[0-9]+)\s*)?$/.exec( components ) ) {
-	          // rgb(100%,0%,0%) rgba(100%,0%,0%,0.5)
-	          this.r = Math.min( 100, parseInt( color[ 1 ], 10 ) ) / 100;
-	          this.g = Math.min( 100, parseInt( color[ 2 ], 10 ) ) / 100;
-	          this.b = Math.min( 100, parseInt( color[ 3 ], 10 ) ) / 100;
-
-	          this.a = handleAlpha( color[ 5 ] );
-
-	          return this;
-	        }
-
-	        break;
-	      }
-	    } else if ( m = /^\#([A-Fa-f0-9]+)$/.exec( style ) ) {
-	      // hex color
-
-	      var hex = m[ 1 ];
-	      var size = hex.length;
-
-	      if ( size === 3 ) {
-	        // #ff0
-	        this.r = parseInt( hex.charAt( 0 ) + hex.charAt( 0 ), 16 ) / 255;
-	        this.g = parseInt( hex.charAt( 1 ) + hex.charAt( 1 ), 16 ) / 255;
-	        this.b = parseInt( hex.charAt( 2 ) + hex.charAt( 2 ), 16 ) / 255;
-
-	        return this;
-	      } else if ( size === 6 ) {
-	        // #ff0000
-	        this.r = parseInt( hex.charAt( 0 ) + hex.charAt( 1 ), 16 ) / 255;
-	        this.g = parseInt( hex.charAt( 2 ) + hex.charAt( 3 ), 16 ) / 255;
-	        this.b = parseInt( hex.charAt( 4 ) + hex.charAt( 5 ), 16 ) / 255;
-
-	        return this;
-	      }
-	    }
-
-	    if ( style && style.length > 0 ) {
-	      // color keywords
-	      var hex = THREE.Color.NAMES[ style ];
-
-	      if ( hex !== undefined ) {
-	        // red
-	        this.setHex( hex );
-	      } else {
-	        // unknown color
-	        console.warn( 'THREE.Color: Unknown color ' + style );
-	      }
-	    }
-
-	    return this;
-	  },
-
-	  clone: function () {
-	    return new this.constructor( this.r, this.g, this.b, this.a );
-	  },
-
-	  copy: function ( color ) {
-	    this.r = color.r;
-	    this.g = color.g;
-	    this.b = color.b;
-	    this.a = color.a;
-
-	    return this;
-	  },
-
-	  copyGammaToLinear: function ( color, gammaFactor ) {
-	    if ( gammaFactor === undefined ) gammaFactor = 2.0;
-
-	    this.r = Math.pow( color.r, gammaFactor );
-	    this.g = Math.pow( color.g, gammaFactor );
-	    this.b = Math.pow( color.b, gammaFactor );
-
-	    return this;
-	  },
-
-	  copyLinearToGamma: function ( color, gammaFactor ) {
-	    if ( gammaFactor === undefined ) gammaFactor = 2.0;
-
-	    var safeInverse = ( gammaFactor > 0 ) ? ( 1.0 / gammaFactor ) : 1.0;
-
-	    this.r = Math.pow( color.r, safeInverse );
-	    this.g = Math.pow( color.g, safeInverse );
-	    this.b = Math.pow( color.b, safeInverse );
-
-	    return this;
-	  },
-
-	  convertGammaToLinear: function () {
-	    var r = this.r, g = this.g, b = this.b;
-
-	    this.r = r * r;
-	    this.g = g * g;
-	    this.b = b * b;
-
-	    return this;
-	  },
-
-	  convertLinearToGamma: function () {
-	    this.r = Math.sqrt( this.r );
-	    this.g = Math.sqrt( this.g );
-	    this.b = Math.sqrt( this.b );
-
-	    return this;
-	  },
-
-	  getHex: function () {
-	    return ( this.r * 255 ) << 16 ^ ( this.g * 255 ) << 8 ^ ( this.b * 255 ) << 0;
-	  },
-
-	  getHexString: function () {
-	    return ( '000000' + this.getHex().toString( 16 ) ).slice( -6 );
-	  },
-
-	  getHSL: function ( optionalTarget ) {
-	    // h,s,l ranges are in 0.0 - 1.0
-
-	    var hsl = optionalTarget || { h: 0, s: 0, l: 0 };
-
-	    var r = this.r, g = this.g, b = this.b;
-
-	    var max = Math.max( r, g, b );
-	    var min = Math.min( r, g, b );
-
-	    var hue, saturation;
-	    var lightness = ( min + max ) / 2.0;
-
-	    if ( min === max ) {
-	      hue = 0;
-	      saturation = 0;
-	    } else {
-	      var delta = max - min;
-
-	      saturation = lightness <= 0.5 ? delta / ( max + min ) : delta / ( 2 - max - min );
-
-	      switch ( max ) {
-	      case r: hue = ( g - b ) / delta + ( g < b ? 6 : 0 ); break;
-	      case g: hue = ( b - r ) / delta + 2; break;
-	      case b: hue = ( r - g ) / delta + 4; break;
-	      }
-
-	      hue /= 6;
-	    }
-
-	    hsl.h = hue;
-	    hsl.s = saturation;
-	    hsl.l = lightness;
-
-	    return hsl;
-	  },
-
-	  getStyle: function () {
-	    return 'rgb(' + ( ( this.r * 255 ) | 0 ) + ',' + ( ( this.g * 255 ) | 0 ) + ',' + ( ( this.b * 255 ) | 0 ) + ')';
-	  },
-
-	  offsetHSL: function ( h, s, l ) {
-	    var hsl = this.getHSL();
-
-	    hsl.h += h; hsl.s += s; hsl.l += l;
-
-	    this.setHSL( hsl.h, hsl.s, hsl.l );
-
-	    return this;
-	  },
-
-	  add: function ( color ) {
-	    this.r += color.r;
-	    this.g += color.g;
-	    this.b += color.b;
-
-	    return this;
-	  },
-
-	  addColors: function ( color1, color2 ) {
-	    this.r = color1.r + color2.r;
-	    this.g = color1.g + color2.g;
-	    this.b = color1.b + color2.b;
-
-	    return this;
-	  },
-
-	  addScalar: function ( s ) {
-	    this.r += s;
-	    this.g += s;
-	    this.b += s;
-
-	    return this;
-	  },
-
-	  sub: function ( color ) {
-	    this.r = Math.max( 0, this.r - color.r );
-	    this.g = Math.max( 0, this.g - color.g );
-	    this.b = Math.max( 0, this.b - color.b );
-
-	    return this;
-	  },
-
-	  multiply: function ( color ) {
-	    this.r *= color.r;
-	    this.g *= color.g;
-	    this.b *= color.b;
-
-	    return this;
-	  },
-
-	  multiplyScalar: function ( s ) {
-	    this.r *= s;
-	    this.g *= s;
-	    this.b *= s;
-
-	    return this;
-	  },
-
-	  lerp: function ( color, alpha ) {
-	    this.r += ( color.r - this.r ) * alpha;
-	    this.g += ( color.g - this.g ) * alpha;
-	    this.b += ( color.b - this.b ) * alpha;
-	    this.a += ( color.a - this.a ) * alpha;
-
-	    return this;
-	  },
-
-	  equals: function ( c ) {
-	    return ( c.r === this.r ) && ( c.g === this.g ) && ( c.b === this.b );
-	  },
-
-	  fromArray: function ( array, offset ) {
-	    if ( offset === undefined ) offset = 0;
-
-	    this.r = array[ offset ];
-	    this.g = array[ offset + 1 ];
-	    this.b = array[ offset + 2 ];
-
-	    return this;
-	  },
-
-	  toArray: function ( array, offset ) {
-	    if ( array === undefined ) array = [];
-	    if ( offset === undefined ) offset = 0;
-
-	    array[ offset ] = this.r;
-	    array[ offset + 1 ] = this.g;
-	    array[ offset + 2 ] = this.b;
-
-	    return array;
-	  },
-
-	  toJSON: function () {
-	    return this.getHex();
-	  }
-
 	} );
 
 	/**
@@ -36526,6 +34316,30 @@ return texture2D(o,t);
 	 * License, v. 2.0. If a copy of the MPL was not distributed with this
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
+
+	var ConfigActions = alt.generateActions(
+	  'configureCamera',
+	  'configureElevationDatasource',
+	  'configureImageryDatasource',
+	  'setAppContainer',
+	  'setCameraModeControlVisible',
+	  'setCompassVisible',
+	  'setDisplayErrors',
+	  'setLayersControlVisible',
+	  'setResourceUrl',
+	  'setRotationControlVisible',
+	  'setSeasonControlVisible',
+	  'setUserLocationControlVisible',
+	  'setZoomControlVisible'
+	);
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
 	// Special store to trigger on any user input
 	// Primarily used for cancelling transitions (see `utils/store`)
 	function UserInputStore() {
@@ -36852,6 +34666,689 @@ return texture2D(o,t);
 
 	CurrentLocationStore.displayName = 'CurrentLocationStore';
 	var CurrentLocationStore$1 = alt.createStore( CurrentLocationStore );
+
+	var proj4 = createCommonjsModule(function (module, exports) {
+	!function(t,e){module.exports=e();}(commonjsGlobal,function(){function t(t,e){if(t[e])return t[e];for(var a,r=Object.keys(t),s=e.toLowerCase().replace(ct,""),i=-1;++i<r.length;)if(a=r[i],a.toLowerCase().replace(ct,"")===s)return t[a]}function e(t){if("string"!=typeof t)throw new Error("not a string");this.text=t.trim(),this.level=0,this.place=0,this.root=null,this.stack=[],this.currentObject=null,this.state=ft;}function a(t){return new e(t).output()}function r(t,e,a){Array.isArray(e)&&(a.unshift(e),e=null);var r=e?{}:t,i=a.reduce(function(t,e){return s(e,t),t},r);e&&(t[e]=i);}function s(t,e){if(Array.isArray(t)){var a=t.shift();if("PARAMETER"===a&&(a=t.shift()),1===t.length)return Array.isArray(t[0])?(e[a]={},void s(t[0],e[a])):void(e[a]=t[0]);if(t.length)if("TOWGS84"!==a){if("AXIS"===a)return a in e||(e[a]=[]),void e[a].push(t);Array.isArray(a)||(e[a]={});var i;switch(a){case"UNIT":case"PRIMEM":case"VERT_DATUM":return e[a]={name:t[0].toLowerCase(),convert:t[1]},void(3===t.length&&s(t[2],e[a]));case"SPHEROID":case"ELLIPSOID":return e[a]={name:t[0],a:t[1],rf:t[2]},void(4===t.length&&s(t[3],e[a]));case"PROJECTEDCRS":case"PROJCRS":case"GEOGCS":case"GEOCCS":case"PROJCS":case"LOCAL_CS":case"GEODCRS":case"GEODETICCRS":case"GEODETICDATUM":case"EDATUM":case"ENGINEERINGDATUM":case"VERT_CS":case"VERTCRS":case"VERTICALCRS":case"COMPD_CS":case"COMPOUNDCRS":case"ENGINEERINGCRS":case"ENGCRS":case"FITTED_CS":case"LOCAL_DATUM":case"DATUM":return t[0]=["name",t[0]],void r(e,a,t);default:for(i=-1;++i<t.length;)if(!Array.isArray(t[i]))return s(t,e[a]);return r(e,a,t)}}else e[a]=t;else e[a]=!0;}else e[t]=!0;}function i(t,e){var a=e[0],r=e[1];!(a in t)&&r in t&&(t[a]=t[r],3===e.length&&(t[a]=e[2](t[a])));}function n(t){return t*vt}function o(t){function e(e){return e*(t.to_meter||1)}if("GEOGCS"===t.type?t.projName="longlat":"LOCAL_CS"===t.type?(t.projName="identity",t.local=!0):"object"==typeof t.PROJECTION?t.projName=Object.keys(t.PROJECTION)[0]:t.projName=t.PROJECTION,t.AXIS){for(var a="",r=0,s=t.AXIS.length;r<s;++r){var o=t.AXIS[r][0].toLowerCase();-1!==o.indexOf("north")?a+="n":-1!==o.indexOf("south")?a+="s":-1!==o.indexOf("east")?a+="e":-1!==o.indexOf("west")&&(a+="w");}2===a.length&&(a+="u"),3===a.length&&(t.axis=a);}t.UNIT&&(t.units=t.UNIT.name.toLowerCase(),"metre"===t.units&&(t.units="meter"),t.UNIT.convert&&("GEOGCS"===t.type?t.DATUM&&t.DATUM.SPHEROID&&(t.to_meter=t.UNIT.convert*t.DATUM.SPHEROID.a):t.to_meter=t.UNIT.convert));var h=t.GEOGCS;"GEOGCS"===t.type&&(h=t),h&&(h.DATUM?t.datumCode=h.DATUM.name.toLowerCase():t.datumCode=h.name.toLowerCase(),"d_"===t.datumCode.slice(0,2)&&(t.datumCode=t.datumCode.slice(2)),"new_zealand_geodetic_datum_1949"!==t.datumCode&&"new_zealand_1949"!==t.datumCode||(t.datumCode="nzgd49"),"wgs_1984"!==t.datumCode&&"world_geodetic_system_1984"!==t.datumCode||("Mercator_Auxiliary_Sphere"===t.PROJECTION&&(t.sphere=!0),t.datumCode="wgs84"),"_ferro"===t.datumCode.slice(-6)&&(t.datumCode=t.datumCode.slice(0,-6)),"_jakarta"===t.datumCode.slice(-8)&&(t.datumCode=t.datumCode.slice(0,-8)),~t.datumCode.indexOf("belge")&&(t.datumCode="rnb72"),h.DATUM&&h.DATUM.SPHEROID&&(t.ellps=h.DATUM.SPHEROID.name.replace("_19","").replace(/[Cc]larke\_18/,"clrk"),"international"===t.ellps.toLowerCase().slice(0,13)&&(t.ellps="intl"),t.a=h.DATUM.SPHEROID.a,t.rf=parseFloat(h.DATUM.SPHEROID.rf,10)),h.DATUM&&h.DATUM.TOWGS84&&(t.datum_params=h.DATUM.TOWGS84),~t.datumCode.indexOf("osgb_1936")&&(t.datumCode="osgb36"),~t.datumCode.indexOf("osni_1952")&&(t.datumCode="osni52"),(~t.datumCode.indexOf("tm65")||~t.datumCode.indexOf("geodetic_datum_of_1965"))&&(t.datumCode="ire65"),"ch1903+"===t.datumCode&&(t.datumCode="ch1903"),~t.datumCode.indexOf("israel")&&(t.datumCode="isr93")),t.b&&!isFinite(t.b)&&(t.b=t.a);[["standard_parallel_1","Standard_Parallel_1"],["standard_parallel_2","Standard_Parallel_2"],["false_easting","False_Easting"],["false_northing","False_Northing"],["central_meridian","Central_Meridian"],["latitude_of_origin","Latitude_Of_Origin"],["latitude_of_origin","Central_Parallel"],["scale_factor","Scale_Factor"],["k0","scale_factor"],["latitude_of_center","Latitude_Of_Center"],["latitude_of_center","Latitude_of_center"],["lat0","latitude_of_center",n],["longitude_of_center","Longitude_Of_Center"],["longitude_of_center","Longitude_of_center"],["longc","longitude_of_center",n],["x0","false_easting",e],["y0","false_northing",e],["long0","central_meridian",n],["lat0","latitude_of_origin",n],["lat0","standard_parallel_1",n],["lat1","standard_parallel_1",n],["lat2","standard_parallel_2",n],["azimuth","Azimuth"],["alpha","azimuth",n],["srsCode","name"]].forEach(function(e){return i(t,e)}),t.long0||!t.longc||"Albers_Conic_Equal_Area"!==t.projName&&"Lambert_Azimuthal_Equal_Area"!==t.projName||(t.long0=t.longc),t.lat_ts||!t.lat1||"Stereographic_South_Pole"!==t.projName&&"Polar Stereographic (variant B)"!==t.projName||(t.lat0=n(t.lat1>0?90:-90),t.lat_ts=t.lat1);}function h(t){var e=this;if(2===arguments.length){var a=arguments[1];"string"==typeof a?"+"===a.charAt(0)?h[t]=mt(arguments[1]):h[t]=bt(arguments[1]):h[t]=a;}else if(1===arguments.length){if(Array.isArray(t))return t.map(function(t){Array.isArray(t)?h.apply(e,t):h(t);});if("string"==typeof t){if(t in h)return h[t]}else "EPSG"in t?h["EPSG:"+t.EPSG]=t:"ESRI"in t?h["ESRI:"+t.ESRI]=t:"IAU2000"in t?h["IAU2000:"+t.IAU2000]=t:console.log(t);return}}function u(t){return "string"==typeof t}function l(t){return t in h}function d(t){return St.some(function(e){return t.indexOf(e)>-1})}function c(e){var a=t(e,"authority");if(a){var r=t(a,"epsg");return r&&Nt.indexOf(r)>-1}}function m(e){var a=t(e,"extension");if(a)return t(a,"proj4")}function f(t){return "+"===t[0]}function p(t){if(!u(t))return t;if(l(t))return h[t];if(d(t)){var e=bt(t);if(c(e))return h["EPSG:3857"];var a=m(e);return a?mt(a):e}return f(t)?mt(t):void 0}function _(t){return t}function M(t,e){var a=It.length;return t.names?(It[a]=t,t.names.forEach(function(t){Gt[t.toLowerCase()]=a;}),this):(console.log(e),!0)}function y(t,e,a,r){var s=t*t,i=e*e,n=(s-i)/s,o=0;return r?(s=(t*=1-n*(at+n*(rt+n*st)))*t,n=0):o=Math.sqrt(n),{es:n,e:o,ep2:(s-i)/i}}function g(e,a,r,s,i){if(!e){var n=t(Lt,s);n||(n=zt),e=n.a,a=n.b,r=n.rf;}return r&&!a&&(a=(1-1/r)*e),(0===r||Math.abs(e-a)<it)&&(i=!0,a=e),{a:e,b:a,rf:r,sphere:i}}function v(t,e,a,r,s,i){var n={};return n.datum_type=void 0===t||"none"===t?$:Y,e&&(n.datum_params=e.map(parseFloat),0===n.datum_params[0]&&0===n.datum_params[1]&&0===n.datum_params[2]||(n.datum_type=Z),n.datum_params.length>3&&(0===n.datum_params[3]&&0===n.datum_params[4]&&0===n.datum_params[5]&&0===n.datum_params[6]||(n.datum_type=K,n.datum_params[3]*=tt,n.datum_params[4]*=tt,n.datum_params[5]*=tt,n.datum_params[6]=n.datum_params[6]/1e6+1))),n.a=a,n.b=r,n.es=s,n.ep2=i,n}function Projection(e,a){if(!(this instanceof Projection))return new Projection(e);a=a||function(t){if(t)throw t};var r=p(e);if("object"==typeof r){var s=Projection.projections.get(r.projName);if(s){if(r.datumCode&&"none"!==r.datumCode){var i=t(Rt,r.datumCode);i&&(r.datum_params=i.towgs84?i.towgs84.split(","):null,r.ellps=i.ellipse,r.datumName=i.datumName?i.datumName:r.datumCode);}r.k0=r.k0||1,r.axis=r.axis||"enu",r.ellps=r.ellps||"wgs84";var n=g(r.a,r.b,r.rf,r.ellps,r.sphere),o=y(n.a,n.b,n.rf,r.R_A),h=r.datum||v(r.datumCode,r.datum_params,n.a,n.b,o.es,o.ep2);Et(this,r),Et(this,s),this.a=n.a,this.b=n.b,this.rf=n.rf,this.sphere=n.sphere,this.es=o.es,this.e=o.e,this.ep2=o.ep2,this.datum=h,this.init(),a(null,this);}else a(e);}else a(e);}function b(t,e){return t.datum_type===e.datum_type&&(!(t.a!==e.a||Math.abs(t.es-e.es)>5e-11)&&(t.datum_type===Z?t.datum_params[0]===e.datum_params[0]&&t.datum_params[1]===e.datum_params[1]&&t.datum_params[2]===e.datum_params[2]:t.datum_type!==K||t.datum_params[0]===e.datum_params[0]&&t.datum_params[1]===e.datum_params[1]&&t.datum_params[2]===e.datum_params[2]&&t.datum_params[3]===e.datum_params[3]&&t.datum_params[4]===e.datum_params[4]&&t.datum_params[5]===e.datum_params[5]&&t.datum_params[6]===e.datum_params[6]))}function S(t,e,a){var r,s,i,n,o=t.x,h=t.y,u=t.z?t.z:0;if(h<-et&&h>-1.001*et)h=-et;else if(h>et&&h<1.001*et)h=et;else {if(h<-et)return {x:-1/0,y:-1/0,z:t.z};if(h>et)return {x:1/0,y:1/0,z:t.z}}return o>Math.PI&&(o-=2*Math.PI),s=Math.sin(h),n=Math.cos(h),i=s*s,r=a/Math.sqrt(1-e*i),{x:(r+u)*n*Math.cos(o),y:(r+u)*n*Math.sin(o),z:(r*(1-e)+u)*s}}function N(t,e,a,r){var s,i,n,o,h,u,l,d,c,m,f,p,_,M,y,g,v=t.x,b=t.y,S=t.z?t.z:0;if(s=Math.sqrt(v*v+b*b),i=Math.sqrt(v*v+b*b+S*S),s/a<1e-12){if(M=0,i/a<1e-12)return y=et,g=-r,{x:t.x,y:t.y,z:t.z}}else M=Math.atan2(b,v);n=S/i,d=(o=s/i)*(1-e)*(h=1/Math.sqrt(1-e*(2-e)*o*o)),c=n*h,_=0;do{_++,u=e*(l=a/Math.sqrt(1-e*c*c))/(l+(g=s*d+S*c-l*(1-e*c*c))),p=(f=n*(h=1/Math.sqrt(1-u*(2-u)*o*o)))*d-(m=o*(1-u)*h)*c,d=m,c=f;}while(p*p>1e-24&&_<30);return y=Math.atan(f/Math.abs(m)),{x:M,y:y,z:g}}function E(t,e,a){if(e===Z)return {x:t.x+a[0],y:t.y+a[1],z:t.z+a[2]};if(e===K){var r=a[0],s=a[1],i=a[2],n=a[3],o=a[4],h=a[5],u=a[6];return {x:u*(t.x-h*t.y+o*t.z)+r,y:u*(h*t.x+t.y-n*t.z)+s,z:u*(-o*t.x+n*t.y+t.z)+i}}}function w(t,e,a){if(e===Z)return {x:t.x-a[0],y:t.y-a[1],z:t.z-a[2]};if(e===K){var r=a[0],s=a[1],i=a[2],n=a[3],o=a[4],h=a[5],u=a[6],l=(t.x-r)/u,d=(t.y-s)/u,c=(t.z-i)/u;return {x:l+h*d-o*c,y:-h*l+d+n*c,z:o*l-n*d+c}}}function C(t){return t===Z||t===K}function x(t){if("function"==typeof Number.isFinite){if(Number.isFinite(t))return;throw new TypeError("coordinates must be finite numbers")}if("number"!=typeof t||t!==t||!isFinite(t))throw new TypeError("coordinates must be finite numbers")}function O(t,e){return (t.datum.datum_type===Z||t.datum.datum_type===K)&&"WGS84"!==e.datumCode||(e.datum.datum_type===Z||e.datum.datum_type===K)&&"WGS84"!==t.datumCode}function A(t,e,a){var r;return Array.isArray(a)&&(a=qt(a)),Ut(a),t.datum&&e.datum&&O(t,e)&&(a=A(t,r=new Projection("WGS84"),a),t=r),"enu"!==t.axis&&(a=Dt(t,!1,a)),"longlat"===t.projName?a={x:a.x*nt,y:a.y*nt,z:a.z||0}:(t.to_meter&&(a={x:a.x*t.to_meter,y:a.y*t.to_meter,z:a.z||0}),a=t.inverse(a)),t.from_greenwich&&(a.x+=t.from_greenwich),a=Tt(t.datum,e.datum,a),e.from_greenwich&&(a={x:a.x-e.from_greenwich,y:a.y,z:a.z||0}),"longlat"===e.projName?a={x:a.x*ot,y:a.y*ot,z:a.z||0}:(a=e.forward(a),e.to_meter&&(a={x:a.x/e.to_meter,y:a.y/e.to_meter,z:a.z||0})),"enu"!==e.axis?Dt(e,!0,a):a}function P(t,e,a){var r,s,i;return Array.isArray(a)?(r=A(t,e,a)||{x:NaN,y:NaN},a.length>2?void 0!==t.name&&"geocent"===t.name||void 0!==e.name&&"geocent"===e.name?"number"==typeof r.z?[r.x,r.y,r.z].concat(a.splice(3)):[r.x,r.y,a[2]].concat(a.splice(3)):[r.x,r.y].concat(a.splice(2)):[r.x,r.y]):(s=A(t,e,a),2===(i=Object.keys(a)).length?s:(i.forEach(function(r){if(void 0!==t.name&&"geocent"===t.name||void 0!==e.name&&"geocent"===e.name){if("x"===r||"y"===r||"z"===r)return}else if("x"===r||"y"===r)return;s[r]=a[r];}),s))}function G(t){return t instanceof Projection?t:t.oProj?t.oProj:Projection(t)}function I(t,e,a){t=G(t);var r,s=!1;return void 0===e?(e=t,t=jt,s=!0):(void 0!==e.x||Array.isArray(e))&&(a=e,e=t,t=jt,s=!0),e=G(e),a?P(t,e,a):(r={forward:function(a){return P(t,e,a)},inverse:function(a){return P(e,t,a)}},s&&(r.oProj=e),r)}function k(t,e){return e=e||5,U(T({lat:t[1],lon:t[0]}),e)}function L(t){var e=D(Q(t.toUpperCase()));return e.lat&&e.lon?[e.lon,e.lat]:[(e.left+e.right)/2,(e.top+e.bottom)/2]}function z(t){return t*(Math.PI/180)}function R(t){return t/Math.PI*180}function T(t){var e,a,r,s,i,n,o,h=t.lat,u=t.lon,l=6378137,d=z(h),c=z(u);o=Math.floor((u+180)/6)+1,180===u&&(o=60),h>=56&&h<64&&u>=3&&u<12&&(o=32),h>=72&&h<84&&(u>=0&&u<9?o=31:u>=9&&u<21?o=33:u>=21&&u<33?o=35:u>=33&&u<42&&(o=37)),n=z(6*(o-1)-180+3),e=l/Math.sqrt(1-.00669438*Math.sin(d)*Math.sin(d)),a=Math.tan(d)*Math.tan(d),r=.006739496752268451*Math.cos(d)*Math.cos(d);var m=.9996*e*((s=Math.cos(d)*(c-n))+(1-a+r)*s*s*s/6+(5-18*a+a*a+72*r-.39089081163157013)*s*s*s*s*s/120)+5e5,f=.9996*((i=l*(.9983242984503243*d-.002514607064228144*Math.sin(2*d)+2639046602129982e-21*Math.sin(4*d)-3.418046101696858e-9*Math.sin(6*d)))+e*Math.tan(d)*(s*s/2+(5-a+9*r+4*r*r)*s*s*s*s/24+(61-58*a+a*a+600*r-2.2240339282485886)*s*s*s*s*s*s/720));return h<0&&(f+=1e7),{northing:Math.round(f),easting:Math.round(m),zoneNumber:o,zoneLetter:q(h)}}function D(t){var e=t.northing,a=t.easting,r=t.zoneLetter,s=t.zoneNumber;if(s<0||s>60)return null;var i,n,o,h,u,l,d,c,m=6378137,f=(1-Math.sqrt(.99330562))/(1+Math.sqrt(.99330562)),p=a-5e5,_=e;r<"N"&&(_-=1e7),l=6*(s-1)-180+3,c=(d=_/.9996/6367449.145945056)+(3*f/2-27*f*f*f/32)*Math.sin(2*d)+(21*f*f/16-55*f*f*f*f/32)*Math.sin(4*d)+151*f*f*f/96*Math.sin(6*d),i=m/Math.sqrt(1-.00669438*Math.sin(c)*Math.sin(c)),n=Math.tan(c)*Math.tan(c),o=.006739496752268451*Math.cos(c)*Math.cos(c),h=.99330562*m/Math.pow(1-.00669438*Math.sin(c)*Math.sin(c),1.5),u=p/(.9996*i);var M=c-i*Math.tan(c)/h*(u*u/2-(5+3*n+10*o-4*o*o-.06065547077041606)*u*u*u*u/24+(61+90*n+298*o+45*n*n-1.6983531815716497-3*o*o)*u*u*u*u*u*u/720);M=R(M);var y=(u-(1+2*n+o)*u*u*u/6+(5-2*o+28*n-3*o*o+.05391597401814761+24*n*n)*u*u*u*u*u/120)/Math.cos(c);y=l+R(y);var g;if(t.accuracy){var v=D({northing:t.northing+t.accuracy,easting:t.easting+t.accuracy,zoneLetter:t.zoneLetter,zoneNumber:t.zoneNumber});g={top:v.lat,right:v.lon,bottom:M,left:y};}else g={lat:M,lon:y};return g}function q(t){var e="Z";return 84>=t&&t>=72?e="X":72>t&&t>=64?e="W":64>t&&t>=56?e="V":56>t&&t>=48?e="U":48>t&&t>=40?e="T":40>t&&t>=32?e="S":32>t&&t>=24?e="R":24>t&&t>=16?e="Q":16>t&&t>=8?e="P":8>t&&t>=0?e="N":0>t&&t>=-8?e="M":-8>t&&t>=-16?e="L":-16>t&&t>=-24?e="K":-24>t&&t>=-32?e="J":-32>t&&t>=-40?e="H":-40>t&&t>=-48?e="G":-48>t&&t>=-56?e="F":-56>t&&t>=-64?e="E":-64>t&&t>=-72?e="D":-72>t&&t>=-80&&(e="C"),e}function U(t,e){var a="00000"+t.easting,r="00000"+t.northing;return t.zoneNumber+t.zoneLetter+j(t.easting,t.northing,t.zoneNumber)+a.substr(a.length-5,e)+r.substr(r.length-5,e)}function j(t,e,a){var r=F(a);return W(Math.floor(t/1e5),Math.floor(e/1e5)%20,r)}function F(t){var e=t%Ft;return 0===e&&(e=Ft),e}function W(t,e,a){var r=a-1,s=Wt.charCodeAt(r),i=Qt.charCodeAt(r),n=s+t-1,o=i+e,h=!1;return n>Xt&&(n=n-Xt+Bt-1,h=!0),(n===Jt||s<Jt&&n>Jt||(n>Jt||s<Jt)&&h)&&n++,(n===Ht||s<Ht&&n>Ht||(n>Ht||s<Ht)&&h)&&++n===Jt&&n++,n>Xt&&(n=n-Xt+Bt-1),o>Vt?(o=o-Vt+Bt-1,h=!0):h=!1,(o===Jt||i<Jt&&o>Jt||(o>Jt||i<Jt)&&h)&&o++,(o===Ht||i<Ht&&o>Ht||(o>Ht||i<Ht)&&h)&&++o===Jt&&o++,o>Vt&&(o=o-Vt+Bt-1),String.fromCharCode(n)+String.fromCharCode(o)}function Q(t){if(t&&0===t.length)throw "MGRSPoint coverting from nothing";for(var e,a=t.length,r=null,s="",i=0;!/[A-Z]/.test(e=t.charAt(i));){if(i>=2)throw "MGRSPoint bad conversion from: "+t;s+=e,i++;}var n=parseInt(s,10);if(0===i||i+3>a)throw "MGRSPoint bad conversion from: "+t;var o=t.charAt(i++);if(o<="A"||"B"===o||"Y"===o||o>="Z"||"I"===o||"O"===o)throw "MGRSPoint zone letter "+o+" not handled: "+t;r=t.substring(i,i+=2);for(var h=F(n),u=B(r.charAt(0),h),l=J(r.charAt(1),h);l<H(o);)l+=2e6;var d=a-i;if(d%2!=0)throw "MGRSPoint has to have an even number \nof digits after the zone letter and two 100km letters - front \nhalf for easting meters, second half for \nnorthing meters"+t;var c,m,f,p,_,M=d/2,y=0,g=0;return M>0&&(c=1e5/Math.pow(10,M),m=t.substring(i,i+M),y=parseFloat(m)*c,f=t.substring(i+M),g=parseFloat(f)*c),p=y+u,_=g+l,{easting:p,northing:_,zoneLetter:o,zoneNumber:n,accuracy:c}}function B(t,e){for(var a=Wt.charCodeAt(e-1),r=1e5,s=!1;a!==t.charCodeAt(0);){if(++a===Jt&&a++,a===Ht&&a++,a>Xt){if(s)throw "Bad character: "+t;a=Bt,s=!0;}r+=1e5;}return r}function J(t,e){if(t>"V")throw "MGRSPoint given invalid Northing "+t;for(var a=Qt.charCodeAt(e-1),r=0,s=!1;a!==t.charCodeAt(0);){if(++a===Jt&&a++,a===Ht&&a++,a>Vt){if(s)throw "Bad character: "+t;a=Bt,s=!0;}r+=1e5;}return r}function H(t){var e;switch(t){case"C":e=11e5;break;case"D":e=2e6;break;case"E":e=28e5;break;case"F":e=37e5;break;case"G":e=46e5;break;case"H":e=55e5;break;case"J":e=64e5;break;case"K":e=73e5;break;case"L":e=82e5;break;case"M":e=91e5;break;case"N":e=0;break;case"P":e=8e5;break;case"Q":e=17e5;break;case"R":e=26e5;break;case"S":e=35e5;break;case"T":e=44e5;break;case"U":e=53e5;break;case"V":e=62e5;break;case"W":e=7e6;break;case"X":e=79e5;break;default:e=-1;}if(e>=0)return e;throw "Invalid zone letter: "+t}function Point(t,e,a){if(!(this instanceof Point))return new Point(t,e,a);if(Array.isArray(t))this.x=t[0],this.y=t[1],this.z=t[2]||0;else if("object"==typeof t)this.x=t.x,this.y=t.y,this.z=t.z||0;else if("string"==typeof t&&void 0===e){var r=t.split(",");this.x=parseFloat(r[0],10),this.y=parseFloat(r[1],10),this.z=parseFloat(r[2],10)||0;}else this.x=t,this.y=e,this.z=a||0;console.warn("proj4.Point will be removed in version 3, use proj4.toPoint");}function V(t){var e,a=[];return a[0]=t*Yt,e=t*t,a[0]+=e*$t,a[1]=e*ee,e*=t,a[0]+=e*te,a[1]+=e*ae,a[2]=e*re,a}function X(t,e){var a=t+t;return t+e[0]*Math.sin(a)+e[1]*Math.sin(a+a)+e[2]*Math.sin(a+a+a)}var Z=1,K=2,Y=4,$=5,tt=484813681109536e-20,et=Math.PI/2,at=.16666666666666666,rt=.04722222222222222,st=.022156084656084655,it=1e-10,nt=.017453292519943295,ot=57.29577951308232,ht=Math.PI/4,ut=2*Math.PI,lt={};lt.greenwich=0,lt.lisbon=-9.131906111111,lt.paris=2.337229166667,lt.bogota=-74.080916666667,lt.madrid=-3.687938888889,lt.rome=12.452333333333,lt.bern=7.439583333333,lt.jakarta=106.807719444444,lt.ferro=-17.666666666667,lt.brussels=4.367975,lt.stockholm=18.058277777778,lt.athens=23.7163375,lt.oslo=10.722916666667;var dt={ft:{to_meter:.3048},"us-ft":{to_meter:1200/3937}},ct=/[\s_\-\/\(\)]/g,mt=function(e){var a,r,s,i={},n=e.split("+").map(function(t){return t.trim()}).filter(function(t){return t}).reduce(function(t,e){var a=e.split("=");return a.push(!0),t[a[0].toLowerCase()]=a[1],t},{}),o={proj:"projName",datum:"datumCode",rf:function(t){i.rf=parseFloat(t);},lat_0:function(t){i.lat0=t*nt;},lat_1:function(t){i.lat1=t*nt;},lat_2:function(t){i.lat2=t*nt;},lat_ts:function(t){i.lat_ts=t*nt;},lon_0:function(t){i.long0=t*nt;},lon_1:function(t){i.long1=t*nt;},lon_2:function(t){i.long2=t*nt;},alpha:function(t){i.alpha=parseFloat(t)*nt;},lonc:function(t){i.longc=t*nt;},x_0:function(t){i.x0=parseFloat(t);},y_0:function(t){i.y0=parseFloat(t);},k_0:function(t){i.k0=parseFloat(t);},k:function(t){i.k0=parseFloat(t);},a:function(t){i.a=parseFloat(t);},b:function(t){i.b=parseFloat(t);},r_a:function(){i.R_A=!0;},zone:function(t){i.zone=parseInt(t,10);},south:function(){i.utmSouth=!0;},towgs84:function(t){i.datum_params=t.split(",").map(function(t){return parseFloat(t)});},to_meter:function(t){i.to_meter=parseFloat(t);},units:function(e){i.units=e;var a=t(dt,e);a&&(i.to_meter=a.to_meter);},from_greenwich:function(t){i.from_greenwich=t*nt;},pm:function(e){var a=t(lt,e);i.from_greenwich=(a||parseFloat(e))*nt;},nadgrids:function(t){"@null"===t?i.datumCode="none":i.nadgrids=t;},axis:function(t){3===t.length&&-1!=="ewnsud".indexOf(t.substr(0,1))&&-1!=="ewnsud".indexOf(t.substr(1,1))&&-1!=="ewnsud".indexOf(t.substr(2,1))&&(i.axis=t);}};for(a in n)r=n[a],a in o?"function"==typeof(s=o[a])?s(r):i[s]=r:i[a]=r;return "string"==typeof i.datumCode&&"WGS84"!==i.datumCode&&(i.datumCode=i.datumCode.toLowerCase()),i},ft=1,pt=/\s/,_t=/[A-Za-z]/,Mt=/[A-Za-z84]/,yt=/[,\]]/,gt=/[\d\.E\-\+]/;e.prototype.readCharicter=function(){var t=this.text[this.place++];if(4!==this.state)for(;pt.test(t);){if(this.place>=this.text.length)return;t=this.text[this.place++];}switch(this.state){case ft:return this.neutral(t);case 2:return this.keyword(t);case 4:return this.quoted(t);case 5:return this.afterquote(t);case 3:return this.number(t);case-1:return}},e.prototype.afterquote=function(t){if('"'===t)return this.word+='"',void(this.state=4);if(yt.test(t))return this.word=this.word.trim(),void this.afterItem(t);throw new Error("havn't handled \""+t+'" in afterquote yet, index '+this.place)},e.prototype.afterItem=function(t){return ","===t?(null!==this.word&&this.currentObject.push(this.word),this.word=null,void(this.state=ft)):"]"===t?(this.level--,null!==this.word&&(this.currentObject.push(this.word),this.word=null),this.state=ft,this.currentObject=this.stack.pop(),void(this.currentObject||(this.state=-1))):void 0},e.prototype.number=function(t){if(!gt.test(t)){if(yt.test(t))return this.word=parseFloat(this.word),void this.afterItem(t);throw new Error("havn't handled \""+t+'" in number yet, index '+this.place)}this.word+=t;},e.prototype.quoted=function(t){'"'!==t?this.word+=t:this.state=5;},e.prototype.keyword=function(t){if(Mt.test(t))this.word+=t;else {if("["===t){var e=[];return e.push(this.word),this.level++,null===this.root?this.root=e:this.currentObject.push(e),this.stack.push(this.currentObject),this.currentObject=e,void(this.state=ft)}if(!yt.test(t))throw new Error("havn't handled \""+t+'" in keyword yet, index '+this.place);this.afterItem(t);}},e.prototype.neutral=function(t){if(_t.test(t))return this.word=t,void(this.state=2);if('"'===t)return this.word="",void(this.state=4);if(gt.test(t))return this.word=t,void(this.state=3);{if(!yt.test(t))throw new Error("havn't handled \""+t+'" in neutral yet, index '+this.place);this.afterItem(t);}},e.prototype.output=function(){for(;this.place<this.text.length;)this.readCharicter();if(-1===this.state)return this.root;throw new Error('unable to parse string "'+this.text+'". State is '+this.state)};var vt=.017453292519943295,bt=function(t){var e=a(t),r=e.shift(),i=e.shift();e.unshift(["name",i]),e.unshift(["type",r]);var n={};return s(e,n),o(n),n};!function(t){t("EPSG:4326","+title=WGS 84 (long/lat) +proj=longlat +ellps=WGS84 +datum=WGS84 +units=degrees"),t("EPSG:4269","+title=NAD83 (long/lat) +proj=longlat +a=6378137.0 +b=6356752.31414036 +ellps=GRS80 +datum=NAD83 +units=degrees"),t("EPSG:3857","+title=WGS 84 / Pseudo-Mercator +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs"),t.WGS84=t["EPSG:4326"],t["EPSG:3785"]=t["EPSG:3857"],t.GOOGLE=t["EPSG:3857"],t["EPSG:900913"]=t["EPSG:3857"],t["EPSG:102113"]=t["EPSG:3857"];}(h);var St=["PROJECTEDCRS","PROJCRS","GEOGCS","GEOCCS","PROJCS","LOCAL_CS","GEODCRS","GEODETICCRS","GEODETICDATUM","ENGCRS","ENGINEERINGCRS"],Nt=["3857","900913","3785","102113"],Et=function(t,e){t=t||{};var a,r;if(!e)return t;for(r in e)void 0!==(a=e[r])&&(t[r]=a);return t},wt=function(t,e,a){var r=t*e;return a/Math.sqrt(1-r*r)},Ct=function(t){return t<0?-1:1},xt=function(t){return Math.abs(t)<=3.14159265359?t:t-Ct(t)*ut},Ot=function(t,e,a){var r=t*a,s=.5*t;return r=Math.pow((1-r)/(1+r),s),Math.tan(.5*(et-e))/r},At=function(t,e){for(var a,r,s=.5*t,i=et-2*Math.atan(e),n=0;n<=15;n++)if(a=t*Math.sin(i),r=et-2*Math.atan(e*Math.pow((1-a)/(1+a),s))-i,i+=r,Math.abs(r)<=1e-10)return i;return -9999},Pt=[{init:function(){var t=this.b/this.a;this.es=1-t*t,"x0"in this||(this.x0=0),"y0"in this||(this.y0=0),this.e=Math.sqrt(this.es),this.lat_ts?this.sphere?this.k0=Math.cos(this.lat_ts):this.k0=wt(this.e,Math.sin(this.lat_ts),Math.cos(this.lat_ts)):this.k0||(this.k?this.k0=this.k:this.k0=1);},forward:function(t){var e=t.x,a=t.y;if(a*ot>90&&a*ot<-90&&e*ot>180&&e*ot<-180)return null;var r,s;if(Math.abs(Math.abs(a)-et)<=it)return null;if(this.sphere)r=this.x0+this.a*this.k0*xt(e-this.long0),s=this.y0+this.a*this.k0*Math.log(Math.tan(ht+.5*a));else {var i=Math.sin(a),n=Ot(this.e,a,i);r=this.x0+this.a*this.k0*xt(e-this.long0),s=this.y0-this.a*this.k0*Math.log(n);}return t.x=r,t.y=s,t},inverse:function(t){var e,a,r=t.x-this.x0,s=t.y-this.y0;if(this.sphere)a=et-2*Math.atan(Math.exp(-s/(this.a*this.k0)));else {var i=Math.exp(-s/(this.a*this.k0));if(-9999===(a=At(this.e,i)))return null}return e=xt(this.long0+r/(this.a*this.k0)),t.x=e,t.y=a,t},names:["Mercator","Popular Visualisation Pseudo Mercator","Mercator_1SP","Mercator_Auxiliary_Sphere","merc"]},{init:function(){},forward:_,inverse:_,names:["longlat","identity"]}],Gt={},It=[],kt={start:function(){Pt.forEach(M);},add:M,get:function(t){if(!t)return !1;var e=t.toLowerCase();return void 0!==Gt[e]&&It[Gt[e]]?It[Gt[e]]:void 0}},Lt={};Lt.MERIT={a:6378137,rf:298.257,ellipseName:"MERIT 1983"},Lt.SGS85={a:6378136,rf:298.257,ellipseName:"Soviet Geodetic System 85"},Lt.GRS80={a:6378137,rf:298.257222101,ellipseName:"GRS 1980(IUGG, 1980)"},Lt.IAU76={a:6378140,rf:298.257,ellipseName:"IAU 1976"},Lt.airy={a:6377563.396,b:6356256.91,ellipseName:"Airy 1830"},Lt.APL4={a:6378137,rf:298.25,ellipseName:"Appl. Physics. 1965"},Lt.NWL9D={a:6378145,rf:298.25,ellipseName:"Naval Weapons Lab., 1965"},Lt.mod_airy={a:6377340.189,b:6356034.446,ellipseName:"Modified Airy"},Lt.andrae={a:6377104.43,rf:300,ellipseName:"Andrae 1876 (Den., Iclnd.)"},Lt.aust_SA={a:6378160,rf:298.25,ellipseName:"Australian Natl & S. Amer. 1969"},Lt.GRS67={a:6378160,rf:298.247167427,ellipseName:"GRS 67(IUGG 1967)"},Lt.bessel={a:6377397.155,rf:299.1528128,ellipseName:"Bessel 1841"},Lt.bess_nam={a:6377483.865,rf:299.1528128,ellipseName:"Bessel 1841 (Namibia)"},Lt.clrk66={a:6378206.4,b:6356583.8,ellipseName:"Clarke 1866"},Lt.clrk80={a:6378249.145,rf:293.4663,ellipseName:"Clarke 1880 mod."},Lt.clrk58={a:6378293.645208759,rf:294.2606763692654,ellipseName:"Clarke 1858"},Lt.CPM={a:6375738.7,rf:334.29,ellipseName:"Comm. des Poids et Mesures 1799"},Lt.delmbr={a:6376428,rf:311.5,ellipseName:"Delambre 1810 (Belgium)"},Lt.engelis={a:6378136.05,rf:298.2566,ellipseName:"Engelis 1985"},Lt.evrst30={a:6377276.345,rf:300.8017,ellipseName:"Everest 1830"},Lt.evrst48={a:6377304.063,rf:300.8017,ellipseName:"Everest 1948"},Lt.evrst56={a:6377301.243,rf:300.8017,ellipseName:"Everest 1956"},Lt.evrst69={a:6377295.664,rf:300.8017,ellipseName:"Everest 1969"},Lt.evrstSS={a:6377298.556,rf:300.8017,ellipseName:"Everest (Sabah & Sarawak)"},Lt.fschr60={a:6378166,rf:298.3,ellipseName:"Fischer (Mercury Datum) 1960"},Lt.fschr60m={a:6378155,rf:298.3,ellipseName:"Fischer 1960"},Lt.fschr68={a:6378150,rf:298.3,ellipseName:"Fischer 1968"},Lt.helmert={a:6378200,rf:298.3,ellipseName:"Helmert 1906"},Lt.hough={a:6378270,rf:297,ellipseName:"Hough"},Lt.intl={a:6378388,rf:297,ellipseName:"International 1909 (Hayford)"},Lt.kaula={a:6378163,rf:298.24,ellipseName:"Kaula 1961"},Lt.lerch={a:6378139,rf:298.257,ellipseName:"Lerch 1979"},Lt.mprts={a:6397300,rf:191,ellipseName:"Maupertius 1738"},Lt.new_intl={a:6378157.5,b:6356772.2,ellipseName:"New International 1967"},Lt.plessis={a:6376523,rf:6355863,ellipseName:"Plessis 1817 (France)"},Lt.krass={a:6378245,rf:298.3,ellipseName:"Krassovsky, 1942"},Lt.SEasia={a:6378155,b:6356773.3205,ellipseName:"Southeast Asia"},Lt.walbeck={a:6376896,b:6355834.8467,ellipseName:"Walbeck"},Lt.WGS60={a:6378165,rf:298.3,ellipseName:"WGS 60"},Lt.WGS66={a:6378145,rf:298.25,ellipseName:"WGS 66"},Lt.WGS7={a:6378135,rf:298.26,ellipseName:"WGS 72"};var zt=Lt.WGS84={a:6378137,rf:298.257223563,ellipseName:"WGS 84"};Lt.sphere={a:6370997,b:6370997,ellipseName:"Normal Sphere (r=6370997)"};var Rt={};Rt.wgs84={towgs84:"0,0,0",ellipse:"WGS84",datumName:"WGS84"},Rt.ch1903={towgs84:"674.374,15.056,405.346",ellipse:"bessel",datumName:"swiss"},Rt.ggrs87={towgs84:"-199.87,74.79,246.62",ellipse:"GRS80",datumName:"Greek_Geodetic_Reference_System_1987"},Rt.nad83={towgs84:"0,0,0",ellipse:"GRS80",datumName:"North_American_Datum_1983"},Rt.nad27={nadgrids:"@conus,@alaska,@ntv2_0.gsb,@ntv1_can.dat",ellipse:"clrk66",datumName:"North_American_Datum_1927"},Rt.potsdam={towgs84:"606.0,23.0,413.0",ellipse:"bessel",datumName:"Potsdam Rauenberg 1950 DHDN"},Rt.carthage={towgs84:"-263.0,6.0,431.0",ellipse:"clark80",datumName:"Carthage 1934 Tunisia"},Rt.hermannskogel={towgs84:"653.0,-212.0,449.0",ellipse:"bessel",datumName:"Hermannskogel"},Rt.osni52={towgs84:"482.530,-130.596,564.557,-1.042,-0.214,-0.631,8.15",ellipse:"airy",datumName:"Irish National"},Rt.ire65={towgs84:"482.530,-130.596,564.557,-1.042,-0.214,-0.631,8.15",ellipse:"mod_airy",datumName:"Ireland 1965"},Rt.rassadiran={towgs84:"-133.63,-157.5,-158.62",ellipse:"intl",datumName:"Rassadiran"},Rt.nzgd49={towgs84:"59.47,-5.04,187.44,0.47,-0.1,1.024,-4.5993",ellipse:"intl",datumName:"New Zealand Geodetic Datum 1949"},Rt.osgb36={towgs84:"446.448,-125.157,542.060,0.1502,0.2470,0.8421,-20.4894",ellipse:"airy",datumName:"Airy 1830"},Rt.s_jtsk={towgs84:"589,76,480",ellipse:"bessel",datumName:"S-JTSK (Ferro)"},Rt.beduaram={towgs84:"-106,-87,188",ellipse:"clrk80",datumName:"Beduaram"},Rt.gunung_segara={towgs84:"-403,684,41",ellipse:"bessel",datumName:"Gunung Segara Jakarta"},Rt.rnb72={towgs84:"106.869,-52.2978,103.724,-0.33657,0.456955,-1.84218,1",ellipse:"intl",datumName:"Reseau National Belge 1972"},Projection.projections=kt,Projection.projections.start();var Tt=function(t,e,a){return b(t,e)?a:t.datum_type===$||e.datum_type===$?a:t.es!==e.es||t.a!==e.a||C(t.datum_type)||C(e.datum_type)?(a=S(a,t.es,t.a),C(t.datum_type)&&(a=E(a,t.datum_type,t.datum_params)),C(e.datum_type)&&(a=w(a,e.datum_type,e.datum_params)),N(a,e.es,e.a,e.b)):a},Dt=function(t,e,a){var r,s,i,n=a.x,o=a.y,h=a.z||0,u={};for(i=0;i<3;i++)if(!e||2!==i||void 0!==a.z)switch(0===i?(r=n,s=-1!=="ew".indexOf(t.axis[i])?"x":"y"):1===i?(r=o,s=-1!=="ns".indexOf(t.axis[i])?"y":"x"):(r=h,s="z"),t.axis[i]){case"e":case"w":case"n":case"s":u[s]=r;break;case"u":void 0!==a[s]&&(u.z=r);break;case"d":void 0!==a[s]&&(u.z=-r);break;default:return null}return u},qt=function(t){var e={x:t[0],y:t[1]};return t.length>2&&(e.z=t[2]),t.length>3&&(e.m=t[3]),e},Ut=function(t){x(t.x),x(t.y);},jt=Projection("WGS84"),Ft=6,Wt="AJSAJS",Qt="AFAFAF",Bt=65,Jt=73,Ht=79,Vt=86,Xt=90,Zt={forward:k,inverse:function(t){var e=D(Q(t.toUpperCase()));return e.lat&&e.lon?[e.lon,e.lat,e.lon,e.lat]:[e.left,e.bottom,e.right,e.top]},toPoint:L};Point.fromMGRS=function(t){return new Point(L(t))},Point.prototype.toMGRS=function(t){return k([this.x,this.y],t)};var Kt=function(t,e){var a;return t>1e-7?(a=t*e,(1-t*t)*(e/(1-a*a)-.5/t*Math.log((1-a)/(1+a)))):2*e},Yt=.3333333333333333,$t=.17222222222222222,te=.10257936507936508,ee=.06388888888888888,ae=.0664021164021164,re=.016415012942191543,se={init:function(){var t=Math.abs(this.lat0);if(Math.abs(t-et)<it?this.mode=this.lat0<0?this.S_POLE:this.N_POLE:Math.abs(t)<it?this.mode=this.EQUIT:this.mode=this.OBLIQ,this.es>0){var e;switch(this.qp=Kt(this.e,1),this.mmf=.5/(1-this.es),this.apa=V(this.es),this.mode){case this.N_POLE:case this.S_POLE:this.dd=1;break;case this.EQUIT:this.rq=Math.sqrt(.5*this.qp),this.dd=1/this.rq,this.xmf=1,this.ymf=.5*this.qp;break;case this.OBLIQ:this.rq=Math.sqrt(.5*this.qp),e=Math.sin(this.lat0),this.sinb1=Kt(this.e,e)/this.qp,this.cosb1=Math.sqrt(1-this.sinb1*this.sinb1),this.dd=Math.cos(this.lat0)/(Math.sqrt(1-this.es*e*e)*this.rq*this.cosb1),this.ymf=(this.xmf=this.rq)/this.dd,this.xmf*=this.dd;}}else this.mode===this.OBLIQ&&(this.sinph0=Math.sin(this.lat0),this.cosph0=Math.cos(this.lat0));},forward:function(t){var e,a,r,s,i,n,o,h,u,l,d=t.x,c=t.y;if(d=xt(d-this.long0),this.sphere){if(i=Math.sin(c),l=Math.cos(c),r=Math.cos(d),this.mode===this.OBLIQ||this.mode===this.EQUIT){if((a=this.mode===this.EQUIT?1+l*r:1+this.sinph0*i+this.cosph0*l*r)<=it)return null;e=(a=Math.sqrt(2/a))*l*Math.sin(d),a*=this.mode===this.EQUIT?i:this.cosph0*i-this.sinph0*l*r;}else if(this.mode===this.N_POLE||this.mode===this.S_POLE){if(this.mode===this.N_POLE&&(r=-r),Math.abs(c+this.phi0)<it)return null;a=ht-.5*c,e=(a=2*(this.mode===this.S_POLE?Math.cos(a):Math.sin(a)))*Math.sin(d),a*=r;}}else {switch(o=0,h=0,u=0,r=Math.cos(d),s=Math.sin(d),i=Math.sin(c),n=Kt(this.e,i),this.mode!==this.OBLIQ&&this.mode!==this.EQUIT||(o=n/this.qp,h=Math.sqrt(1-o*o)),this.mode){case this.OBLIQ:u=1+this.sinb1*o+this.cosb1*h*r;break;case this.EQUIT:u=1+h*r;break;case this.N_POLE:u=et+c,n=this.qp-n;break;case this.S_POLE:u=c-et,n=this.qp+n;}if(Math.abs(u)<it)return null;switch(this.mode){case this.OBLIQ:case this.EQUIT:u=Math.sqrt(2/u),a=this.mode===this.OBLIQ?this.ymf*u*(this.cosb1*o-this.sinb1*h*r):(u=Math.sqrt(2/(1+h*r)))*o*this.ymf,e=this.xmf*u*h*s;break;case this.N_POLE:case this.S_POLE:n>=0?(e=(u=Math.sqrt(n))*s,a=r*(this.mode===this.S_POLE?u:-u)):e=a=0;}}return t.x=this.a*e+this.x0,t.y=this.a*a+this.y0,t},inverse:function(t){t.x-=this.x0,t.y-=this.y0;var e,a,r,s,i,n,o,h=t.x/this.a,u=t.y/this.a;if(this.sphere){var l,d=0,c=0;if(l=Math.sqrt(h*h+u*u),(a=.5*l)>1)return null;switch(a=2*Math.asin(a),this.mode!==this.OBLIQ&&this.mode!==this.EQUIT||(c=Math.sin(a),d=Math.cos(a)),this.mode){case this.EQUIT:a=Math.abs(l)<=it?0:Math.asin(u*c/l),h*=c,u=d*l;break;case this.OBLIQ:a=Math.abs(l)<=it?this.phi0:Math.asin(d*this.sinph0+u*c*this.cosph0/l),h*=c*this.cosph0,u=(d-Math.sin(a)*this.sinph0)*l;break;case this.N_POLE:u=-u,a=et-a;break;case this.S_POLE:a-=et;}e=0!==u||this.mode!==this.EQUIT&&this.mode!==this.OBLIQ?Math.atan2(h,u):0;}else {if(o=0,this.mode===this.OBLIQ||this.mode===this.EQUIT){if(h/=this.dd,u*=this.dd,(n=Math.sqrt(h*h+u*u))<it)return t.x=0,t.y=this.phi0,t;s=2*Math.asin(.5*n/this.rq),r=Math.cos(s),h*=s=Math.sin(s),this.mode===this.OBLIQ?(o=r*this.sinb1+u*s*this.cosb1/n,i=this.qp*o,u=n*this.cosb1*r-u*this.sinb1*s):(o=u*s/n,i=this.qp*o,u=n*r);}else if(this.mode===this.N_POLE||this.mode===this.S_POLE){if(this.mode===this.N_POLE&&(u=-u),!(i=h*h+u*u))return t.x=0,t.y=this.phi0,t;o=1-i/this.qp,this.mode===this.S_POLE&&(o=-o);}e=Math.atan2(h,u),a=X(Math.asin(o),this.apa);}return t.x=xt(this.long0+e),t.y=a,t},names:["Lambert Azimuthal Equal Area","Lambert_Azimuthal_Equal_Area","laea"],S_POLE:1,N_POLE:2,EQUIT:3,OBLIQ:4},ie=function(t){return Math.abs(t)>1&&(t=t>1?1:-1),Math.asin(t)},ne={init:function(){this.sin_p14=Math.sin(this.lat0),this.cos_p14=Math.cos(this.lat0);},forward:function(t){var e,a,r,s,i,n,o,h=t.x,u=t.y;return r=xt(h-this.long0),e=Math.sin(u),a=Math.cos(u),s=Math.cos(r),((i=this.sin_p14*e+this.cos_p14*a*s)>0||Math.abs(i)<=it)&&(n=1*this.a*a*Math.sin(r),o=this.y0+1*this.a*(this.cos_p14*e-this.sin_p14*a*s)),t.x=n,t.y=o,t},inverse:function(t){var e,a,r,s,i,n,o;return t.x-=this.x0,t.y-=this.y0,e=Math.sqrt(t.x*t.x+t.y*t.y),a=ie(e/this.a),r=Math.sin(a),s=Math.cos(a),n=this.long0,Math.abs(e)<=it?(o=this.lat0,t.x=n,t.y=o,t):(o=ie(s*this.sin_p14+t.y*r*this.cos_p14/e),i=Math.abs(this.lat0)-et,Math.abs(i)<=it?(n=xt(this.lat0>=0?this.long0+Math.atan2(t.x,-t.y):this.long0-Math.atan2(-t.x,t.y)),t.x=n,t.y=o,t):(n=xt(this.long0+Math.atan2(t.x*r,e*this.cos_p14*s-t.y*this.sin_p14*r)),t.x=n,t.y=o,t))},names:["ortho"]};return I.defaultDatum="WGS84",I.Proj=Projection,I.WGS84=new I.Proj("WGS84"),I.Point=Point,I.toPoint=qt,I.defs=h,I.transform=A,I.mgrs=Zt,I.version="2.6.2-alpha",function(proj4){proj4.Proj.projections.add(se),proj4.Proj.projections.add(ne);}(I),I});
+	});
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+	var spacing = 0.05;
+
+	var ApiUtils = {
+	  snap: function ( n ) {
+	    return Math.round( n / spacing ) * spacing;
+	  },
+	  datafileForLocation: function ( lon, lat ) {
+	    lon = ApiUtils.snap( lon );
+	    lat = ApiUtils.snap( lat );
+
+	    // Calculate NS and EW
+	    var ns = lat > 0 ? 'N' : 'S';
+	    var ew = lon > 0 ? 'E' : 'W';
+	    lon = Math.abs( lon );
+	    lat = Math.abs( lat );
+
+	    // Display same number of decimal places as spacing
+	    var decimalPlaces = spacing.toPrecision().split( '.' )[ 1 ];
+	    decimalPlaces = decimalPlaces ? decimalPlaces.length : 0;
+	    lon = lon.toFixed( decimalPlaces );
+	    lat = lat.toFixed( decimalPlaces );
+
+	    // Construct name of datafile
+	    return ns + lat + ew + lon;
+	  }
+	};
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+
+	// Configure useful projections
+	// Use http://spatialreference.org/ref/epsg/24817/proj4js/ to look up
+	// proj4.js was built using: node_modules/.bin/grunt build:laea,ortho
+	proj4.defs( [
+	  [ 'EPSG:3035', '+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs' ],
+	] );
+
+	function GeoprojectStore() {
+	  this.projection = null;
+	  this.location = null;
+	  this.globalOffset = new THREE.Vector2();
+	  this.sceneScale = 1;
+
+	  this.bindListeners( {
+	    setCurrentPlace: UserActions.setCurrentPlace
+	  } );
+
+	  this.exportPublicMethods( {
+	    positionToTileFraction: this.positionToTileFraction.bind( this ),
+	  } );
+	}
+
+	GeoprojectStore.prototype.setCurrentPlace = function ( place ) {
+	  this.location = place.location;
+	  this.projection = 'EPSG:3857';
+
+	  // Setup projectors
+	  const lon = ApiUtils.snap( this.location[ 0 ] );
+	  const lat = ApiUtils.snap( this.location[ 1 ] );
+	  geoproject.projector = proj4( this.projection );
+	  geoproject.center = geoproject.project( [ lon, lat ], true );
+
+	  // For testing new data create temporary projector for 3035
+	  // TODO remove this once we don't use 3035 data
+	  geoproject.projector3035 = proj4( 'EPSG:3035' );
+	  var projected3035 = geoproject.projector3035.forward( [ lon, lat ] );
+	  geoproject.center3035 = { x: projected3035[ 0 ], y: projected3035[ 1 ] };
+
+	  // To make the heights match the projection, we need to obtain the
+	  // scene scale
+	  this.sceneScale = geoproject.calculateSceneScale( lon, lat );
+
+	  // Re-center our THREE Scene coordinate system such that it is 0, 0
+	  // at the location of the place
+	  this.globalOffset = geoproject.calculateGlobalOffset( lon, lat );
+	};
+
+	GeoprojectStore.prototype.positionToTileFraction = function ( position, z ) {
+	  const p = position.clone();
+	  p.x -= this.globalOffset.x;
+	  p.y += this.globalOffset.y;
+	  p.divideScalar( this.sceneScale * Math.pow( 2, 15 - z ) );
+	  return [ p.x, p.y, z ];
+	};
+
+	GeoprojectStore.displayName = 'GeoprojectStore';
+	var GeoprojectStore$1 = alt.createStore( GeoprojectStore );
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+	function AppStore() {
+	  this.appContainer = null;
+	  this.datasource = {};
+	  this.fatalError = false;
+	  this.initialized = false;
+	  this.resourceUrl = null;
+	  this.bindListeners( {
+	    configureElevationDatasource: ConfigActions.configureElevationDatasource,
+	    configureImageryDatasource: ConfigActions.configureImageryDatasource,
+	    setAppContainer: ConfigActions.setAppContainer,
+	    setFatalError: RenderActions.fatalError,
+	    setResourceUrl: ConfigActions.setResourceUrl
+	  } );
+	}
+
+	AppStore.prototype.checkInitialized = function () {
+	  this.initialized = ( this.appContainer !== null ) &&
+	                     ( this.resourceUrl !== null );
+	};
+
+	AppStore.prototype.configureElevationDatasource = function ( elevation ) {
+	  this.datasource.elevation = elevation;
+	};
+
+	AppStore.prototype.configureImageryDatasource = function ( imagery ) {
+	  this.datasource.imagery = imagery;
+	};
+
+	AppStore.prototype.setFatalError = function () {
+	  this.fatalError = true;
+	};
+
+	AppStore.prototype.setAppContainer = function ( container ) {
+	  this.appContainer = container;
+	  this.checkInitialized();
+	};
+
+	AppStore.prototype.setResourceUrl = function ( url ) {
+	  this.resourceUrl = url;
+	  this.checkInitialized();
+	};
+
+	AppStore.displayName = 'AppStore';
+	var AppStore$1 = alt.createStore( AppStore );
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+	let params = new URLSearchParams( window.location.search.slice( 1 ) );
+
+	// TODO could support non-square POT textures also
+	let elevationPoolSize = 4 * 4;
+	let imageryPoolSize = 16 * 16;
+	if ( params.has( 'elevationPoolSize' ) ) {
+	  elevationPoolSize = Number.parseInt( params.get( 'elevationPoolSize' ) );
+	}
+
+	if ( params.has( 'imageryPoolSize' ) ) {
+	  imageryPoolSize = Number.parseInt( params.get( 'imageryPoolSize' ) );
+	}
+
+	const ELEVATION_POOL_SIZE = elevationPoolSize;
+	const ELEVATION_TILE_SIZE = 512;
+	const IMAGERY_POOL_SIZE = imageryPoolSize;
+	const IMAGERY_TILE_SIZE = 256;
+	const INTERPOLATE_FLOAT = params.has( 'interpolateFloat' );
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+	var renderer = new THREE.WebGLRenderer( {
+	  alpha: true,
+	  antialias: false,
+	  clearColor: 0x000000,
+	  logarithmicDepthBuffer: false
+	} );
+	renderer.sortObjects = true;
+
+	// Don't clear buffers we know will be overwritten
+	renderer.autoClear = false;
+	renderer.autoClearColor = false;
+	renderer.autoClearDepth = true;
+	renderer.autoClearStencil = false;
+	renderer.domElement.selectable = false;
+	// We do our own tonemapping, so disable otherwise get shader errors
+	renderer.toneMapping = THREE.NoToneMapping;
+
+	var state = ContainerStore$1.getState();
+	renderer.setPixelRatio( state.pixelRatio );
+	renderer.setSize( state.width, state.height );
+	ContainerStore$1.listen( function ( state ) {
+	  renderer.setPixelRatio( state.pixelRatio );
+	  renderer.setSize( state.width, state.height );
+	} );
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+	// Class for managing a set of indices
+	// `next()` returns a integer
+	class IntegerPool {
+	  constructor( capacity ) {
+	    this.capacity = capacity;
+	    this.index = 0;
+	    this.items = [];
+	  }
+
+	  next() {
+	    let i;
+	    // Once we hit capacity, start re-using stale entries
+	    if ( this.index >= this.capacity ) {
+	      i = this.items.splice( 0, 1 )[ 0 ];
+	    } else {
+	      // ...otherwise allocate sequentially
+	      i = this.index++;
+	    }
+
+	    this.items.push( i );
+	    return i;
+	  }
+
+	  // Method to keep element alive
+	  tap( item ) {
+	    let i = this.items.indexOf( item );
+	    if ( i !== -1 ) {
+	      this.items.splice( i, 1 );
+	      this.items.push( item );
+	    }
+	  }
+	}
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+	const ImageLoader$1 = ( typeof createImageBitmap === 'undefined' ) ?
+	  THREE.ImageLoader : THREE.ImageBitmapLoader;
+
+	var ImageLoader$2 = new ImageLoader$1();
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+
+	const canvas$1 = document.createElement( 'canvas' );
+	const width = ELEVATION_TILE_SIZE;
+	const height = ELEVATION_TILE_SIZE;
+	canvas$1.width = width;
+	canvas$1.height = height;
+	const ctx = canvas$1.getContext( '2d' );
+	const N = width * height;
+
+	const insertIntoTextureArray = ( textureArray, index, image ) => {
+	  const w = textureArray.image.width / textureArray.__blocks;
+	  const h = textureArray.image.height / textureArray.__blocks;
+	  const x = w * ( Math.floor( index ) % textureArray.__blocks );
+	  const y = h * Math.floor( Math.floor( index ) / textureArray.__blocks );
+
+	  if ( textureArray.useFloat ) {
+	    ctx.drawImage( image, 0, 0 );
+	    let imgData = ctx.getImageData( 0, 0, width, height ).data;
+
+	    let data = new Float32Array( N );
+
+	    const baseVal = -32768;
+	    //const interval = 1 / 256;
+	    let dataView = new DataView( imgData.buffer );
+	    for ( let i = 0; i < N; ++i ) {
+	      //let h = interval * (
+	      //  256 * 256 * imgData[ 4 * i ] +
+	      //  256 * imgData[ 4 * i + 1 ] +
+	      //  imgData[ 4 * i + 2 ]
+	      //) + baseVal;
+	      // Read as big-endian data (skipping B channel), equivalent to above
+	      let H = dataView.getUint16( 4 * i, false ) + baseVal;
+
+	      // Handle NODATA value, clamping to 0
+	      data[ i ] = ( H === baseVal ? 0 : H );
+	    }
+
+	    // Do we need float? Perhaps just converting to data is
+	    // enough?
+	    renderer.copyTextureToTexture( { x, y }, {
+	      image: { data, width, height },
+	      isDataTexture: true
+	    }, textureArray );
+	  } else {
+	    renderer.copyTextureToTexture( { x, y }, { image },
+	      textureArray );
+	  }
+	};
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+
+	class BaseDatasource {
+	  constructor( { apiKey, poolSize, textureSize, useFloat, urlFormat } ) {
+	    this.apiKey = apiKey;
+	    this.urlFormat = urlFormat;
+	    this.useFloat = !!useFloat;
+	    this.hasUpdates = false;
+	    this.listeners = [];
+	    this.lookup = {};
+	    this.fetching = {};
+	    this.imgCache = {};
+	    this.indexPool = new IntegerPool( poolSize );
+
+	    // Emulate texture array by cutting up 2D texture
+	    let n = Math.sqrt( poolSize );
+	    if ( n % 1 ) {
+	      console.error( 'poolSize needs to be a power of 2' );
+	    }
+
+	    let virtualTextureSize = textureSize * n;
+
+	    const TextureFilter = ( this.useFloat && !INTERPOLATE_FLOAT ) ?
+	      THREE.NearestFilter : THREE.LinearFilter;
+
+	    this.textureArray = new THREE.DataTexture( null,
+	      virtualTextureSize, virtualTextureSize,
+	      // RGB seems to run *slower* than RGBA on iOS
+	      this.useFloat ? THREE.AlphaFormat : THREE.RGBAFormat,
+	      // HalfFloat doesn't work on iOS :(
+	      this.useFloat ? THREE.FloatType : THREE.UnsignedByteType,
+	      THREE.UVMapping,
+	      THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping,
+	      TextureFilter, TextureFilter,
+	      //THREE.LinearFilter, THREE.LinearFilter,
+	      //THREE.NearestFilter, THREE.NearestFilter,
+	      renderer.capabilities.getMaxAnisotropy()
+	    );
+	    this.textureArray.__blocks = n;
+	    this.textureArray.useFloat = this.useFloat;
+
+	    if ( this.useFloat ) {
+	      const size = 1024; // TODO reduce in future!
+	      this.indirectionTexture = new THREE.DataTexture( null,
+	        size, size,
+	        // TODO Could perhaps use smaller format
+	        THREE.RGBAFormat, // Using RGB led to errors...
+	        // Need to use float type or get glitches on iOS
+	        THREE.FloatType,
+	        THREE.UVMapping,
+	        THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping,
+	        THREE.NearestFilter, THREE.NearestFilter,
+	        1 // anisotropy
+	      );
+	    }
+	  }
+
+	  urlForTile( x, y, z ) {
+	    return this.urlFormat.replace( '{x}', x ).replace( '{y}', y )
+	      .replace( '{z}', z ).replace( '{apiKey}', this.apiKey );
+	  }
+
+	  fetchIfNeeded( quadkey ) {
+	    if ( this.lookup[ quadkey ] !== undefined ||
+	      this.fetching[ quadkey ] !== undefined ) {
+	      // Have data, or download in progress, skip
+	      return;
+	    }
+
+	    // Throttle downloads
+	    let downloadIndices = Object.values( this.fetching );
+	    if ( downloadIndices.length > 32 ) {
+	      log$1( 'throttling...' );
+	      return;
+	    }
+
+	    let newIndex = this.findNewIndex( quadkey );
+
+	    // Mark as download in progress
+	    this.fetching[ quadkey ] = newIndex;
+
+	    // Actually fetch data
+	    let url = this.urlForTile( ...tilebelt.quadkeyToTile( quadkey ) );
+	    ImageLoader$2.load( url, ( image ) => {
+	      // Image loaded OK
+	        this.imgCache[ quadkey ] = image;
+	        insertIntoTextureArray( this.textureArray, newIndex, image );
+
+	        // Remove download and mark image location in lookup
+	        delete this.fetching[ quadkey ];
+	        this.lookup[ quadkey ] = newIndex;
+
+	        // TODO remove, just for demo page
+	        if ( this.useFloat ) {
+	          let el = document.getElementById( 'elevation-tile-count' );
+	          if ( el ) {
+	            let n = parseInt( el.innerHTML );
+	            if ( isNaN( n ) ) { n = 0; }
+
+	            el.innerHTML = ++n;
+	          }
+	        }
+
+	        this.updateIndirectionTexture();
+	        this.notifyUpdate();
+	      }, () => {
+	        console.error( 'Failed to get image', quadkey );
+	        delete this.fetching[ quadkey ];
+	      } );
+	  }
+
+	  findNewIndex( quadkey ) {
+	    // First request a new slot (index) to place image in
+	    let downloadIndices = Object.values( this.fetching );
+	    let newIndex;
+	    let oldQuadKey;
+	    let failed = true;
+	    for ( let i = 32; i > 0; i-- ) {
+	      // Try to obtain new index
+	      newIndex = this.indexPool.next();
+
+	      // Avoid situation where newIndex is used by an
+	      // in-progress download, as it'll get clobbered
+	      let goodIndex = downloadIndices.indexOf( newIndex ) === -1;
+
+	      // Check what data this is pointing at
+	      let oldDataSlot = Object.values( this.lookup ).indexOf( newIndex );
+	      oldQuadKey = Object.keys( this.lookup )[ oldDataSlot ];
+
+	      // Don't release tiles that are below us in
+	      // heirarchy, so that when we zoom out we always have
+	      // some data.
+	      // Without this, we eject the data and then later
+	      // tiles can end up having nothing to load! Resulting
+	      // in a weird glitch where the previous index set in
+	      // the uniform is used and some random tile is plastered
+	      // in its place :(
+	      let isParent = (
+	        oldQuadKey !== undefined &&
+	        quadkey.slice( 0, oldQuadKey.length - 1 ) === oldQuadKey.slice( 0, -1 ) );
+
+	      if ( goodIndex && !isParent ) {
+	        // Index is clean and not assigned being used by a download
+	        failed = false;
+	        break;
+	      }
+	    }
+
+	    if ( failed ) {
+	      log$1( `Failed to find index (${this.indexPool.capacity})` );
+	      log$1( 'Downloads: ', downloadIndices.length );
+	      // Fallback to using lowest resolution tile
+	      oldQuadKey = Object.keys( this.lookup ).sort(
+	        ( x, y ) => x.length - y.length )[ 0 ];
+	      newIndex = this.lookup[ oldQuadKey ];
+	    }
+
+	    // Next, remove any existing lookup entry that references
+	    // this index, as we are about to re-assign it. This should
+	    // be safe to do as the index should have been recycled
+	    // before
+	    if ( oldQuadKey !== undefined ) {
+	      delete this.lookup[ oldQuadKey ];
+	    }
+
+	    return newIndex;
+	  }
+
+	  updateIndirectionTexture() {
+	    // Update indirection texture, loop over all textures
+	    if ( this.indirectionTexture ) {
+	      let quadkeys = Object.keys( this.lookup );
+	      quadkeys.sort( ( a, b ) => Math.sign( a.length - b.length ) );
+	      for ( let q of quadkeys ) {
+	        let [ x, y, z ] = tilebelt.quadkeyToTile( q );
+	        let tileIndex = this.lookup[ q ];
+	        let size = Math.pow( 2, 10 - z );
+	        x *= size; y *= size; // Move to zoom level 10
+	        let data = new Float32Array( 4 * size * size );
+	        let tileSize = Math.pow( 2, z );
+	        let originScale = -tileSize / this.indirectionTexture.image.width;
+	        for ( let i = 0; i < data.length; i++ ) {
+	          // Location of tile in texture array
+	          data[ 4 * i ] = tileIndex;
+	          // Tile size
+	          data[ 4 * i + 1 ] = tileSize;
+	          // Tile origin position (scaled to save GPU instructions)
+	          data[ 4 * i + 2 ] = x * originScale;
+	          data[ 4 * i + 3 ] = y * originScale;
+	        }
+
+	        renderer.copyTextureToTexture( { x, y }, {
+	          image: { data, width: size, height: size },
+	          isDataTexture: true
+	        }, this.indirectionTexture );
+	      }
+	    }
+	  }
+
+	  // Locates the highest resolution data we have for this tile
+	  // return the data index and number of levels we are
+	  // downsampling by
+	  findBestAvailableData( quadkey, silent ) {
+	    for ( let downsample = 0; downsample < 20; downsample++ ) {
+	      // See if we have imagery already...
+	      let index = this.lookup[ quadkey ];
+	      if ( index !== undefined ) {
+	        return { index, downsample, quadkey };
+	      } else {
+	        // Try parent tile...
+	        // Parent key is just our key with last char removed
+	        quadkey = quadkey.slice( 0, -1 );
+	        if ( quadkey.length === 0 ) { break }
+	      }
+	    }
+
+	    if ( !silent ) {
+	      log$1( 'Failed to find data', quadkey );
+	    }
+
+	    return { index: null, downsample: 20, quadkey: null };
+	  }
+
+	  // Reads single point using local lookups
+	  dataAtPoint( p ) {
+	    let tile;
+	    if ( p.longitude ) {
+	      tile = tilebelt.pointToTileFraction( p.longitude, p.latitude, 10 );
+	    } else {
+	      tile = GeoprojectStore$1.positionToTileFraction( p, 10 );
+	    }
+
+	    const q = tilebelt.tileToQuadkey( tile );
+	    const { quadkey } = this.findBestAvailableData( q );
+
+	    if ( !quadkey ) { return null }
+
+	    // Convert to zoom level at which we have data
+	    const scale = Math.pow( 2, quadkey.length - tile[ 2 ] );
+	    tile[ 0 ] *= scale;
+	    tile[ 1 ] *= scale;
+
+	    const img = this.imgCache[ quadkey ];
+	    const canvas = document.createElement( 'canvas' );
+	    canvas.width = 1; canvas.height = 1;
+
+	    tile[ 0 ] = ( tile[ 0 ] % 1 ) * img.width;
+	    tile[ 1 ] = ( tile[ 1 ] % 1 ) * img.height;
+
+	    const ctx = canvas.getContext( '2d' );
+	    ctx.drawImage( img,
+	      tile[ 0 ], tile[ 1 ], 1, 1, // one pixel from src
+	      0, 0, 1, 1 ); // ..to 1x1 canvas
+	    return ctx.getImageData( 0, 0, 1, 1 ).data;
+	  }
+
+	  addListener( fn ) {
+	    this.listeners.push( fn );
+	  }
+
+	  removeListener( fn ) {
+	    let i = this.listeners.indexOf( fn );
+	    if ( i !== -1 ) { this.listeners.splice( i, 1 ); }
+	  }
+
+	  notifyUpdate() {
+	    this.hasUpdates = true;
+	  }
+
+	  broadcastUpdate() {
+	    this.listeners.forEach( l => l() );
+	    this.hasUpdates = false;
+	  }
+	}
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+
+	const ElevationDatasource = new BaseDatasource( {
+	  urlFormat: 'https://www.nasadem.xyz/api/v1/dem/{z}/{x}/{y}.png?key={apiKey}',
+	  textureSize: ELEVATION_TILE_SIZE,
+	  poolSize: ELEVATION_POOL_SIZE,
+	  useFloat: true
+	} );
+
+	AppStore$1.listen( ( { datasource } ) => {
+	  if ( datasource.elevation ) {
+	    ElevationDatasource.apiKey = datasource.elevation.apiKey;
+	  }
+	} );
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+
+	const earthScale = 0.0008176665341588574;
+	function heightScale( p ) {
+	  const sceneScale = GeoprojectStore$1.getState().sceneScale;
+	  let tile;
+	  if ( p.longitude ) {
+	    tile = tilebelt.pointToTile( p.longitude, p.latitude, 10 );
+	  } else {
+	    tile = GeoprojectStore$1.positionToTileFraction( p, 10 );
+	  }
+
+	  const n = 3.141592653589793 - 0.006135923151542565 * tile[ 1 ];
+	  return Math.cosh( n ) / ( earthScale * sceneScale );
+	}
+
+	function dataToHeight( data ) {
+	  if ( data[ 0 ] === 0 && data[ 1 ] === 0 ) {
+	    // NODATA values return 0
+	    return 0;
+	  }
+	  return 256 * data[ 0 ] + data[ 1 ] - 32768;
+	}
+
+	// Simplified height lookup, doesn't interpolate between points
+	// just picks the nearest pixel
+	function heightAt( p, callback ) {
+	  const data = ElevationDatasource.dataAtPoint( p );
+	  if ( !data ) {
+	    if ( typeof callback === 'function' ) {
+	      const listener = () => {
+	        // Now that data has updated, try again to fetch
+	        const data = ElevationDatasource.dataAtPoint( p );
+	        if ( data ) {
+	          ElevationDatasource.removeListener( listener );
+	          callback( dataToHeight( data ) * heightScale( p ) );
+	        }
+	      };
+
+	      // Don't have data yet, but want to register for callback
+	      // once available
+	      ElevationDatasource.addListener( listener );
+	    }
+
+	    return 0;
+	  }
+
+	  const H = dataToHeight( data ) * heightScale( p );
+	  if ( typeof callback === 'function' ) { callback( H ); }
+
+	  return H;
+	}
 
 	/**
 	 * Copyright 2020 (c) Felix Palmer
@@ -37410,6 +35907,1551 @@ return texture2D(o,t);
 
 	CameraStore.displayName = 'CameraStore';
 	var CameraStore$1 = alt.createStore( CameraStore );
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+
+	const Procedural = {};
+
+	function CameraExport() {
+	  this.bindListeners( {
+	    setCamera: UserActions.setCamera
+	  } );
+	}
+
+	/**
+	 * @exports Procedural
+	 * @name Camera
+	 * @description Use the Camera API methods to change the user's
+	 * view of the rendered scene.
+	 */
+
+	/**
+	 * @name focusOnBounds
+	 * @memberof module:Camera
+	 * @function
+	 * @description Animates the engine camera to focus on a region
+	 * specified by a bounding box. The engine will calculate the correct
+	 * view such that the bounds are fully displayed.
+	 * @param {Object} bounds An Object specifying a bounding box. Pass the coordinates for the south-west and north-east corners of the box.
+	 * @example
+	 * var bounds = {
+	 *   sw: { latitude: 44.5, longitude: 6.3 },
+	 *   ne: { latitude: 44.4, longitude: 6.4 }
+	 * };
+	 * Procedural.focusOnBounds ( bounds );
+	 *
+	 * // Optionally can also supply:
+	 * // - viewing angle,
+	 * // - a bearing,
+	 * // - animation duration (in seconds)
+	 * var bounds = {
+	 *   sw: { latitude: 44.5, longitude: 6.3 },
+	 *   ne: { latitude: 44.4, longitude: 6.4 },
+	 *   angle: 25, bearing: 180,
+	 *   animationDuration: 0.5
+	 * };
+	 * Procedural.focusOnBounds ( bounds );
+	 */
+	Procedural.focusOnBounds = function ( target ) {
+	  if ( !target.sw || !target.sw.longitude || !target.sw.latitude ||
+	       !target.ne || !target.ne.longitude || !target.ne.latitude ) {
+	    console.log( 'Invalid target passed' );
+	    console.log( 'Please use following format: { sw: { latitude: 44.5, longitude: 6.3 }, ne: { latitude: 44.4, longitude: 6.4 } }' );
+	    console.log( '{ longitude: 1.23, latitude: 4.56 }' );
+	    return;
+	  }
+
+	  var nextTarget = { onComplete: RenderActions.onBoundsFocused };
+	  lodash_min.defaults( nextTarget, target );
+	  setTimeout( function () { UserActions.focusOnBounds( nextTarget ); }, 0 );
+	};
+
+	/**
+	 * @name focusOnLocation
+	 * @memberof module:Camera
+	 * @function
+	 * @description Animates the engine camera to focus on a location
+	 * @param {Object} location An Object specifying a longitude and latitude
+	 * @example
+	 * var target = { latitude: 44.5, longitude: 6.3 };
+	 * Procedural.focusOnLocation ( target );
+	 *
+	 * // Optionally can also supply:
+	 * // - viewing angle,
+	 * // - a bearing,
+	 * // - a distance,
+	 * // - animation duration (in seconds)
+	 * var target = {
+	 *   latitude: 44.5, longitude: 6.3,
+	 *   angle: 20, bearing: 30, distance: 1000
+	 *   animationDuration: 0.5
+	 * };
+	 * Procedural.focusOnLocation ( target );
+	 */
+	Procedural.focusOnLocation = function ( target ) {
+	  if ( !target.longitude || !target.latitude ) {
+	    console.log( 'Invalid target passed' );
+	    console.log( 'Please use following format:' );
+	    console.log( '{ longitude: 1.23, latitude: 4.56 }' );
+	    return;
+	  }
+
+	  var nextTarget = { onComplete: RenderActions.onLocationFocused };
+	  lodash_min.defaults( nextTarget, target );
+	  setTimeout( function () { UserActions.focusOnLocation( nextTarget ); }, 0 );
+	};
+
+	/**
+	 * @name orbitTarget
+	 * @memberof module:Camera
+	 * @function
+	 * @description Animates the engine camera around the current
+	 * camera target
+	 */
+	Procedural.orbitTarget = function () {
+	  setTimeout( function () { UserActions.orbitTarget(); }, 0 );
+	};
+
+	/**
+	 * @name onCameraChange
+	 * @memberof module:Camera
+	 * @function
+	 * @description Callback function for when the camera position
+	 * changes. Note this method will fire very often, so you
+	 * may want to throttle updates. Performing significant work
+	 * every time this method fires will negatively impact performance
+	 * @example
+	 * Procedural.onCameraChange = function ( ) {
+	 *   console.log( 'Location changed' );
+	 * };
+	 */
+
+	/**
+	 * @name setCameraMode
+	 * @memberof module:Camera
+	 * @function
+	 * @description Selects the current camera mode for the engine
+	 * @param {String} mode An String specifying the camera mode. Currently '2D' and '3D' are supported
+	 * @example
+	 * Procedural.setCameraMode ( '2D' );
+	 */
+	Procedural.setCameraMode = function ( mode ) {
+	  setTimeout( function () { UserActions.setCameraMode( mode ); }, 0 );
+	};
+
+	// API Listeners
+	CameraExport.prototype.setCamera = function ( state ) {
+	  this.waitFor( CameraStore$1 );
+	  if ( typeof Procedural.onCameraChange !== 'function' ) { return }
+
+	  const target = geoproject.unproject( state.target );
+	  const distance = state.target.distanceTo( state.position );
+	  const delta = state.target.clone().sub( state.position );
+	  const bearing = ( 180 * Math.atan2( delta.x, delta.y ) / Math.PI + 360 ) % 360;
+	  const angle = 180 * Math.asin( -delta.z / distance ) / Math.PI;
+	  Procedural.onCameraChange( {
+	    longitude: target[ 0 ],
+	    latitude: target[ 1 ],
+	    height: target[ 2 ],
+	    angle, bearing, distance
+	  } );
+	};
+
+	CameraExport.displayName = 'CameraExport';
+
+	alt.createStore( CameraExport );
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+
+	const Procedural$1 = {};
+
+	/**
+	 * @exports Procedural
+	 * @name Controls
+	 * @description Use the Controls API methods to configure
+	 * how the user can interact with the scene
+	 */
+
+	/**
+	 * @name configureControls
+	 * @memberof module:Controls
+	 * @function
+	 * @description Pass configuration to set parameters for controls
+	 * @param {Object} configuration An Object specifying the configuration
+	 * @example
+	 * // All parameters are optional
+	 * var configuration = {
+	 *   // Minimum distance camera can approach scene
+	 *   minDistance: 1000,
+	 *   // Maximum distance camera can move from scene
+	 *   maxDistance: 5000,
+	 *   // Maximum distance camera target can move from scene
+	 *   maxBounds: 7500,
+	 *   // Minimum polar angle of camera
+	 *   minPolarAngle: 0.25 * Math.PI,
+	 *   // Maximum polar angle of camera
+	 *   maxPolarAngle: 0.8 * Math.PI,
+	 *   // Set to true to disable panning
+	 *   noPan: true,
+	 *   // Set to true to disable rotating
+	 *   noRotate: false,
+	 *   // Set to true to disable zooming
+	 *   noZoom: false
+	 * };
+	 * Procedural.configureControls( configuration );
+	 */
+	Procedural$1.configureControls = function ( config ) {
+	  if ( !config ) {
+	    console.log( 'No configuration passed' );
+	    return;
+	  }
+
+	  var filtered = {};
+	  var keys = [
+	    'minDistance', 'maxBounds', 'maxDistance',
+	    'minPolarAngle', 'maxPolarAngle',
+	    'noPan', 'noRotate', 'noZoom'
+	  ];
+	  for ( var k in keys ) {
+	    var key = keys[ k ];
+	    if ( config.hasOwnProperty( key ) ) { filtered[ key ] = config[ key ]; }
+	  }
+
+	  setTimeout( function () { ConfigActions.configureCamera( filtered ); }, 0 );
+	};
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+
+	const Procedural$2 = {};
+
+	// External API to engine, bridges between our code and the
+	// exported `Procedural` object
+	function CoreExport() {
+	  this.appContainer = null;
+	  this.bindListeners( {
+	    onBoundsFocused: RenderActions.onBoundsFocused,
+	    onLocationFocused: RenderActions.onLocationFocused,
+	    fatalError: RenderActions.fatalError,
+	    signalUserInteraction: UserActions.inputStarted,
+	    setElevation: GeodataActions.setElevation,
+	    setElevationBig: GeodataActions.setElevationBig
+	  } );
+	}
+
+	/**
+	 * @exports Procedural
+	 * @name Core
+	 * @description The Procedural JavaScript library enables developers to embed
+	 * the Procedural engine into their web pages. To use this library
+	 * include a script tag on your page like so:
+	 * <pre>&lt;script
+	 *   src="https://unpkg.com/procedural-gl/build/procedural-gl.js"&gt;
+	 * &lt;/script&gt;
+	 * </pre>
+	 * This will create a <tt>Procedural</tt> object that your JavaScript code
+	 * will be able to call. Once you have loaded the Procedural library, you can load in a location and add the visualization to your page. A typical pattern of initialization is as follows:
+	 * @example
+	 * Procedural.init( {
+	 *   container: document.getElementById( 'app' ),
+	 *   datasource: {
+	 *     elevation: {
+	 *       apiKey: 'GET_AN_API_KEY_FROM_www.nasadem.xyz'
+	 *     },
+	 *     imagery: {
+	 *       apiKey: 'GET_AN_API_KEY_FROM_YOUR_IMAGERY_PROVIDER',
+	 *       urlFormat: 'https://imagery.example.com/tiles/{z}/{x}/{y}.jpg?key={apiKey}',
+	 *       attribution: 'Imagery attribution'
+	 *     },
+	 *   }
+	 * } );
+	 * Procedural.displayLocation( { latitude: 47.25, longitude: 13.55 } );
+	 */
+
+	/**
+	 * @name init
+	 * @memberof module:Core
+	 * @function
+	 * @param {HTMLElement} container
+	 * @description Appends a canvas element to the specified container where the
+	 * engine will draw its output.
+	 * @example
+	 * var container = document.getElementById( 'app' );
+	 * Procedural.init( {
+	 *   container: document.getElementById( 'app' ),
+	 *   datasource: {
+	 *     elevation: {
+	 *       apiKey: 'GET_AN_API_KEY_FROM_www.nasadem.xyz'
+	 *     },
+	 *     imagery: {
+	 *       apiKey: 'GET_AN_API_KEY_FROM_YOUR_IMAGERY_PROVIDER',
+	 *       urlFormat: 'https://imagery.example.com/tiles/{z}/{x}/{y}.jpg?key={apiKey}',
+	 *       attribution: 'Imagery attribution'
+	 *     },
+	 *   }
+	 * } );
+	 */
+	Procedural$2.init = function ( { container, datasource } ) {
+	  if ( container === undefined || container === null ) {
+	    console.error( 'Error: tried to init Procedural API with invalid container' );
+	    return;
+	  }
+
+	  if ( datasource === undefined || datasource === null ) {
+	    console.error( 'Error: tried to init Procedural API without datasource definition' );
+	    return;
+	  }
+
+	  const { elevation, imagery } = datasource;
+	  if ( elevation === undefined || elevation.apiKey === undefined ) {
+	    console.error( 'Error: elevation datasource configuration is invalid' );
+	    return;
+	  }
+
+	  if ( imagery === undefined || imagery.urlFormat === undefined ) {
+	    console.error( 'Error: imagery datasource configuration is invalid' );
+	    return;
+	  }
+
+	  ConfigActions.configureElevationDatasource( elevation );
+	  ConfigActions.configureImageryDatasource( imagery );
+	  ConfigActions.setAppContainer( container );
+	};
+
+	/**
+	 * @name onUserInteraction
+	 * @memberof module:Core
+	 * @function
+	 * @description Callback function for when engine recieves input from the
+	 * user. Can be used to hide overlays when the user interacts with
+	 * the map
+	 * @example
+	 * Procedural.onUserInteraction = function () {
+	 *   Procedural.removeOverlay( 'popup' );
+	 * }
+	 */
+
+	/**
+	 * @name onBoundsFocused
+	 * @memberof module:Core
+	 * @function
+	 * @description Callback function for when the transition for `focusOnBounds` completes
+	 * @example
+	 * Procedural.onBoundsFocused = function () {
+	 *   Procedural.orbitTarget();
+	 * };
+	 */
+
+	/**
+	 * @name onLocationError
+	 * @memberof module:Core
+	 * @function
+	 * @description Callback function for when location data failed to downloaded. This could be because the network request failed, or because the region is not available. See also [Core.setDisplayErrors]{@link module:Core.setDisplayErrors}
+	 * @example
+	 * Procedural.onLocationError = function ( message ) {
+	 *   // Handle error
+	 *   console.error( message );
+	 * };
+	 */
+
+	/**
+	 * @name onLocationFocused
+	 * @memberof module:Core
+	 * @function
+	 * @description Callback function for when the transition for `focusOnLocation` completes
+	 * @example
+	 * Procedural.onLocationFocused = function () {
+	 *   console.log( 'Location focused' );
+	 * };
+	 */
+
+	/**
+	 * @name onLocationLoaded
+	 * @memberof module:Core
+	 * @function
+	 * @description Callback function for when location data has been downloaded and displayed
+	 * @example
+	 * Procedural.onLocationLoaded = function () {
+	 *   var container = document.getElementById( 'app' );
+	 *   Procedural.init( container );
+	 * };
+	 */
+	//onLocationLoaded
+
+	// API Listeners
+	CoreExport.prototype.fatalError = function ( message ) {
+	  if ( typeof Procedural$2.onLocationError === 'function' ) { Procedural$2.onLocationError( message ); }
+	};
+
+	CoreExport.prototype.onBoundsFocused = function () {
+	  if ( typeof Procedural$2.onBoundsFocused === 'function' ) { Procedural$2.onBoundsFocused(); }
+	};
+
+	CoreExport.prototype.onLocationFocused = function () {
+	  if ( typeof Procedural$2.onLocationFocused === 'function' ) { Procedural$2.onLocationFocused(); }
+	};
+
+	CoreExport.prototype.setElevation = function () {
+	};
+
+	CoreExport.prototype.setElevationBig = function () {
+	};
+
+	/**
+	 * @name setDisplayErrors
+	 * @memberof module:Core
+	 * @function
+	 * @param {Boolean} value pass true to show errors, false to only report via API
+	 * @description Configure whether errors should be displayed to the user. See also [Core.onLocationError]{@link module:Core.onLocationError}
+	 */
+	Procedural$2.setDisplayErrors = function ( value ) {
+	  setTimeout( function () { ConfigActions.setDisplayErrors( value ); }, 0 );
+	};
+
+	CoreExport.prototype.signalUserInteraction = function () {
+	  if ( typeof Procedural$2.onUserInteraction === 'function' ) { Procedural$2.onUserInteraction(); }
+	};
+
+	CoreExport.displayName = 'CoreExport';
+
+	alt.createStore( CoreExport );
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+	var template = {
+	  "env": {
+	    "turbidity": 2.928118393234672,
+	    "reileigh": 0.631430584918957,
+	    "mieCoefficient": 0.006765327695560254,
+	    "mieDirectionalG": 0.9020436927413672,
+	    "luminance": 0.7892882311486963,
+	    "inclination": 0.6376744186046512,
+	    "azimuth": 0.881,
+	    "sun": false,
+	    "fogDropoff": 0.0000065,
+	    "fogIntensity": 1,
+	    "exposureBias": 1.25,
+	    "whitePoint": 2.5,
+	    "ambientColor": "#2d3034",
+	    "diffuseColor": "#aeafa4",
+	    "backscatterColor": "#181d20",
+	    "ambientOcclusion": 1.17
+	  }
+	};
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+
+	const Procedural$3 = {};
+
+	var placeForTarget = function ( target ) {
+	  // Create location definition
+	  var place = template;
+	  place.name = Procedural$3.datafileForLocation( target );
+	  place.location = [ target.longitude, target.latitude ];
+	  if ( target.features ) { place.features = target.features; }
+
+	  return place;
+	};
+
+	/**
+	 * @name datafileForLocation
+	 * @memberof module:Core
+	 * @function
+	 * @param {Object} target An Object specifying a longitude and latitude
+	 * @description Returns the file name for a data file for a given location. Used mostly internally by engine to construct URLs.
+	 */
+	Procedural$3.datafileForLocation = function ( target ) {
+	  if ( !target || isNaN( target.latitude ) || isNaN( target.longitude ) ) {
+	    return null;
+	  }
+
+	  // Snap to nearest data point
+	  var lon = ApiUtils.snap( target.longitude );
+	  var lat = ApiUtils.snap( target.latitude );
+	  return ApiUtils.datafileForLocation( lon, lat );
+	};
+
+	/**
+	 * @name displayLocation
+	 * @memberof module:Core
+	 * @function
+	 * @param {Object} target An Object specifying a longitude and latitude
+	 * @description Instructs engine to download necessary data files for a location and to display it.
+	 * When the data is ready to be displayed [onLocationLoaded]{@link module:Core.onLocationLoaded} is fired.
+	 * @example
+	 * var target = { latitude: 43.21, longitude: 6.133 };
+	 * Procedural.displayLocation( target );
+	 */
+	Procedural$3.displayLocation = function ( target ) {
+	  if ( !target ) {
+	    RenderActions.fatalError( 'No place data passed' );
+	    return;
+	  }
+
+	  if ( isNaN( target.latitude ) || isNaN( target.longitude ) ) {
+	    RenderActions.fatalError( 'Invalid place data passed' );
+	    return;
+	  }
+
+	  setTimeout( function () {
+	    UserActions.setCurrentPlace( placeForTarget( target ) );
+	  }, 0 );
+	};
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+	var gui = null;
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+
+	const Procedural$4 = {};
+
+	/**
+	 * @exports Procedural
+	 * @name Environment
+	 * @description Environments describe how the scene is rendered,
+	 * for example the color of the lighting, or the position of the
+	 * sun.
+	 *
+	 * To interactively adjust the values of the environment
+	 * you can use the editor, launched using:
+	 * [Procedural.environmentEditor]{@link module:Environment.environmentEditor}
+	 */
+
+	/**
+	 * @name setEnvironment
+	 * @memberof module:Environment
+	 * @function
+	 * @param {Object} environment
+	 * @description Update the engine's environment to the environment
+	 * configuration passed.
+	 * @example
+	 * var environment = {
+	 *   title: 'custom',
+	 *   parameters: {
+	 *     inclination: 0.6,
+	 *     fogDropoff: 0.0002
+	 *   }
+	 * };
+	 * Procedural.setEnvironment( environment )
+	 */
+	Procedural$4.setEnvironment = function ( environment ) {
+	  setTimeout( function () { UserActions.setEnvironment( environment ); }, 0 );
+	};
+
+	/**
+	 * @name environmentEditor
+	 * @memberof module:Environment
+	 * @function
+	 * @description Launches the environment editor
+	 */
+	Procedural$4.environmentEditor = function () { gui.initEnv(); };
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+	var queue = [];
+	var processNext = function () { queue.shift()(); };
+
+	var enqueue = function ( fn ) {
+	  if ( typeof fn !== 'function' ) {
+	    console.error( 'Tried to enqueue non-function' );
+	    return;
+	  }
+
+	  queue.push( fn );
+	  setTimeout( processNext, 0 );
+	};
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+	var FeatureUtils = {
+	  // TODO perhaps better to inline these, as we're parsing a lot of data???
+	  isLineString: function ( feature ) {
+	    return feature.geometry.type === 'LineString';
+	  },
+	  isPolygon: function ( feature ) {
+	    return feature.geometry.type === 'Polygon';
+	  },
+	  isMultiPolygon: function ( feature ) {
+	    return feature.geometry.type === 'MultiPolygon';
+	  },
+	  isPoint: function ( feature ) {
+	    return feature.geometry.type === 'Point';
+	  },
+	  tagValue: function ( feature, tag ) {
+	    if ( !feature.properties.tags ) { return null }
+
+	    return feature.properties.tags[ tag ];
+	  },
+	  hasTag: function ( feature, tag ) {
+	    return !!FeatureUtils.tagValue( feature, tag );
+	  },
+	  isPiste: function ( feature ) {
+	    return FeatureUtils.isLineString( feature ) && FeatureUtils.hasTag( feature, 'piste:type' );
+	  },
+	  isAerial: function ( feature ) {
+	    return FeatureUtils.isLineString( feature ) && FeatureUtils.hasTag( feature, 'aerialway' );
+	  },
+	  isHighway: function ( feature ) {
+	    return FeatureUtils.isLineString( feature ) && FeatureUtils.hasTag( feature, 'highway' );
+	  },
+	  isTrack: function ( feature ) {
+	    if ( !FeatureUtils.isLineString( feature ) ) { return false }
+
+	    var highway = FeatureUtils.tagValue( feature, 'highway' );
+	    return ( highway === 'track' ||
+	               highway === 'footway' ||
+	               highway === 'path' ||
+	               highway === 'cycleway' ||
+	               highway === 'bridleway' );
+	  },
+	  isRiver: function ( feature ) {
+	    return FeatureUtils.isLineString( feature ) && FeatureUtils.hasTag( feature, 'waterway' );
+	  },
+	  isBuilding: function ( feature ) {
+	    return FeatureUtils.isPolygon( feature ) && FeatureUtils.hasTag( feature, 'building' );
+	  },
+	  isForest: function ( feature ) {
+	    return ( FeatureUtils.isPolygon( feature ) || FeatureUtils.isMultiPolygon( feature ) ) &&
+	        !FeatureUtils.isBuilding( feature );
+	  },
+	  color: function ( feature ) {
+	    var difficulty = !!feature.properties.tags && feature.properties.tags[ 'piste:difficulty' ];
+	    if ( difficulty ) {
+	      if ( difficulty === 'advanced' || difficulty === 'expert' || difficulty === 'freeride' ) { return '#030512' }
+
+	      if ( difficulty === 'intermediate' ) { return '#ef2415' }
+
+	      if ( difficulty === 'easy' ) { return '#1976d2' }
+
+	      if ( difficulty === 'novice' ) { return '#4caf50' }
+
+	      log$1( 'Unknown piste difficulty', difficulty );
+	      return '#17afef';
+	    }
+
+	    if ( FeatureUtils.isAerial( feature ) ) { return '#0c0c0c' }
+
+	    if ( FeatureUtils.isTrack( feature ) ) { return 'rgba(46, 42, 22, 0.5)' }
+
+	    if ( FeatureUtils.isHighway( feature ) ) { return '#222120' }
+
+	    if ( feature.properties.color ) { return feature.properties.color }
+
+	    if ( FeatureUtils.isRiver( feature ) ) {
+	      // Hack this in to allow memoize to work
+	      return feature.properties.tags.waterway === 'stream' ? 5 : 100;
+	    }
+
+	    log$1( 'Unknown feature color', feature );
+	  },
+	  thickness: function ( feature ) {
+	    if ( feature.properties.thickness ) { return feature.properties.thickness }
+
+	    if ( FeatureUtils.isPiste( feature ) ) { return 2.7 }
+
+	    if ( FeatureUtils.isAerial( feature ) ) { return 3.0 }
+
+	    if ( FeatureUtils.isTrack( feature ) ) { return 3 }
+
+	    if ( FeatureUtils.isHighway( feature ) ) {
+	      var highway = FeatureUtils.tagValue( feature, 'highway' );
+	      if ( highway === 'motorway' ) { return 13 }
+
+	      if ( highway === 'trunk' ) { return 11 }
+
+	      if ( highway === 'primary' ) { return 10 }
+
+	      if ( highway === 'secondary' ) { return 8 }
+
+	      return 5;
+	    }
+
+	    if ( FeatureUtils.isRiver( feature ) ) {
+	      if ( feature.properties.tags.width ) { return feature.properties.tags.width }
+
+	      return feature.properties.tags.waterway === 'stream' ? 2 : 3.7;
+	    }
+
+	    return 2.5;
+	  }
+	};
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+
+	// Have other stores depend on this to get subsets of
+	// OSM data
+	function OSMAdapter() {
+	  this.bindListeners( {
+	    clearFeatures: UserActions.setCurrentPlace,
+	    setFeatures: GeodataActions.setFeatures
+	  } );
+
+	  this.clearFeatures();
+	}
+
+	OSMAdapter.prototype.clearFeatures = function () {
+	  this.buildings = [];
+	  this.forests = [];
+	  this.highways = [];
+	  this.lifts = [];
+	  this.peaks = [];
+	  this.places = [];
+	  this.pistes = [];
+	  this.lakes = [];
+	  this.rivers = [];
+	  this.unknown = [];
+	  return false;
+	};
+
+	// Return collection to place feature into
+	OSMAdapter.prototype.classify = function ( feature ) {
+	  if ( FeatureUtils.isLineString( feature ) ) {
+	    // Give top priority to pistes, so we don't classify as roads
+	    if ( FeatureUtils.hasTag( feature, 'piste:type' ) ) { return this.pistes }
+
+	    if ( FeatureUtils.hasTag( feature, 'highway' ) ) { return this.highways }
+
+	    if ( FeatureUtils.hasTag( feature, 'waterway' ) ) { return this.rivers }
+
+	    if ( FeatureUtils.hasTag( feature, 'aerialway' ) ) {
+	      return this.lifts;
+	    }
+
+	    // Assume this is a piste (or generic trail)
+	    // TODO, create another type?
+	    //if ( FeatureUtils.hasTag( feature, 'piste:type' ) ) {
+	    return this.pistes;
+	    //}
+	  } else if ( FeatureUtils.isPolygon( feature ) ) {
+	    if ( FeatureUtils.hasTag( feature, 'building' ) ) { return this.buildings }
+
+	    var natural = FeatureUtils.tagValue( feature, 'natural' );
+	    if ( natural === 'water' ) { return this.lakes }
+
+	    // For now, treat river areas as lakes, as we don't have flow
+	    // working yet
+	    var waterway = FeatureUtils.tagValue( feature, 'waterway' );
+	    if ( waterway === 'riverbank' ) { return this.lakes }
+
+	    return this.forests;
+	  } else if ( FeatureUtils.isMultiPolygon( feature ) ) {
+	    return this.forests;
+	  } else if ( FeatureUtils.isPoint( feature ) ) {
+	    var tags = feature.properties.tags;
+	    if ( tags.natural === 'peak' && tags.name ) {
+	      return this.peaks;
+	    } else if ( tags.place ) {
+	      return this.places;
+	    } else {
+	      return this.unknown;
+	    }
+	  }
+
+	  return this.unknown;
+	};
+
+
+	// Convert OSM data into something matching our API
+	// TODO should eventually deprecate and generate the
+	// data better, this is all pretty messy
+	OSMAdapter.prototype.normalize = function ( feature ) {
+	  if ( feature.properties.tags === undefined ) { return }
+
+	  var props = feature.properties;
+	  var tags = props.tags;
+	  delete props.tags;
+
+	  // Promote name to real property
+	  if ( tags.name ) { props.name = tags.name; }
+
+	  // Figure out type and add icon
+	  if ( tags.natural === 'peak' ) {
+	    props.icon = 'caret-up';
+	    props.fadeDistance = 10000;
+	    if ( tags.ele && props.name ) {
+	      props.name += ' - ' + tags.ele + 'm';
+	    }
+	  } else if ( tags.place ) {
+	    props.icon = 'dot-circle-o';
+	    props.fadeDistance = 15000;
+	  }
+
+	  // TODO mark builtin features
+	  // TODO extract to default
+	  props.collapseDistance = 0.5 * props.fadeDistance;
+	  props.priority = -10;
+	  props.borderRadius = 20;
+	  props.background = 'rgba(0, 0, 0, 0.6)';
+	  props.color = '#fff';
+	  props.clipping = 'object';
+	  props.anchor = 'left';
+
+	  props.padding = 2;
+	};
+
+	OSMAdapter.prototype.setFeatures = function ( data ) {
+	  // Is data already projected?
+	  var projected = !!data.crs;
+
+	  // Classify features, for now without duplication
+	  var feature, collection;
+	  var startTime = track$1.now();
+	  while ( data.features.length > 0 ) {
+	    feature = data.features.pop();
+	    // Remove 3035 projection
+	    if ( projected ) {
+	      feature.geometry.coordinates =
+	        geoproject.unproject3035( feature.geometry.coordinates );
+	    }
+
+	    if ( feature.projected === undefined ) {
+	      feature.projected = false;
+	    }
+
+	    collection = this.classify( feature );
+	    collection.push( feature );
+	  }
+
+	  this.peaks.forEach( this.normalize.bind( this ) );
+	  this.places.forEach( this.normalize.bind( this ) );
+	  var time = track$1.now() - startTime;
+	  track$1.timing( 'geodata', 'classify', 'osm', time );
+	};
+
+	OSMAdapter.displayName = 'OSMAdapter';
+
+	var OSMAdapter$1 = alt.createStore( OSMAdapter );
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+	var DEFAULT = '____default____';
+	// Have other stores depend on this to get subsets of
+	// overlay data
+	function OverlayAdapter() {
+	  this.bindListeners( {
+	    addBuiltinOverlay: GeodataActions.addBuiltinOverlay,
+	    addOverlay: GeodataActions.addOverlay,
+	    updateOverlay: GeodataActions.updateOverlay,
+	    featureCreated: RenderActions.featureCreated,
+	    removeOverlay: GeodataActions.removeOverlay,
+	    setFeatures: GeodataActions.setFeatures
+	  } );
+
+	  // Hash to keep track of overlays added
+	  this.overlays = {};
+
+	  // Hash to keep track of when overlays are displayed
+	  this.overlayTracker = {};
+
+	  // Builtin overlays are not specified by the user,
+	  // but rather extracted from the OSM data
+	  this.builtinOverlays = [];
+	  this.supportedBuiltinOverlays = [ 'lifts', 'peaks', 'pistes', 'places' ];
+
+	  // Overlays which which don't want to generate new data
+	  // for, just mark whether to show them
+	  this.referenceOnlyBuiltinOverlays = [ 'lifts', 'pistes' ];
+
+	  // Collections to sort elements into
+	  this.lines = [];
+	  this.markers = [];
+	}
+
+	// Return collection to place feature into
+	OverlayAdapter.prototype.classify = function ( feature ) {
+	  if ( FeatureUtils.isLineString( feature ) ) {
+	    return this.lines;
+	  } else if ( FeatureUtils.isPoint( feature ) ) {
+	    return this.markers;
+	  }
+
+	  return null;
+	};
+
+	OverlayAdapter.prototype.removeFeature = function ( feature ) {
+	  var collection = this.classify( feature );
+	  if ( collection === null ) { return }
+
+	  var index = collection.indexOf( feature );
+	  if ( index !== -1 ) { collection.splice( index, 1 ); }
+	};
+
+	OverlayAdapter.prototype.addOverlay = function ( data ) {
+	  var builtin = this.builtinOverlays.indexOf( data.name ) !== -1;
+	  this.removeOverlay( data.name );
+
+	  // removeOverlay clears out the overlay from the builtinOverlays
+	  // list, which we do not want, so add it back
+	  // TODO doesn't work as we modify order of array!!!!
+	  if ( builtin ) { this.builtinOverlays.unshift( data.name ); }
+
+	  if ( data.name === undefined ) { data.name = DEFAULT; }
+
+	  // Cache away overlay so we can later remove it
+	  this.overlays[ data.name ] = data;
+
+	  // Make a copy of the array, to avoid modifying original
+	  var features = data.features.concat();
+
+	  // Classify features, for now without duplication
+	  var feature;
+	  var startTime = track$1.now();
+
+	  while ( features.length > 0 ) {
+	    feature = features.pop();
+
+	    // Copy across default properties
+	    if ( data.defaults && data.defaults.properties ) {
+	      lodash_min.defaults( feature.properties, data.defaults.properties );
+	    }
+
+	    if ( feature.projected === undefined ) {
+	      feature.projected = false;
+	    }
+
+	    var collection = this.classify( feature );
+	    if ( collection ) {
+	      collection.push( feature );
+	      feature.overlayName = data.name;
+	      this.featureClassified( feature );
+	    }
+	  }
+
+	  var time = track$1.now() - startTime;
+	  track$1.timing( 'geodata', 'classify', 'overlay', time );
+	};
+
+	OverlayAdapter.prototype.updateOverlay = function ( data ) {
+	  var exists = this.overlays[ data.name ] !== undefined;
+	  if ( !exists ) {
+	    console.error( name + ' overlay has not been added, so cannot be updated' );
+	    return false;
+	  }
+
+	  var newFeatures = data.features, oldFeatures = this.overlays[ data.name ].features;
+	  var newL = newFeatures.length, oldL = oldFeatures.length;
+	  if ( newL !== oldL ) {
+	    console.error( 'Tried to call updateOverlay on overlay ' + data.name + ', but number of features does not match. Original: ' + oldL + ', new: ' + newL );
+	    return false;
+	  }
+
+	  // Is data already projected?
+	  // Note we do not support multiple different projections
+	  // or projections with different centers
+	  var projected = !!data.crs;
+
+	  var oldFeature, newFeature;
+	  for ( var n = 0; n < newL; n++ ) {
+	    var oldFeature = oldFeatures[ n ];
+	    var newFeature = newFeatures[ n ];
+	    // TODO should we check ids match?
+	    oldFeature.projected = newFeature.projected === undefined ? projected : newFeature.projected;
+	    oldFeature.geometry.coordinates = newFeature.geometry.coordinates;
+	  }
+	};
+
+	OverlayAdapter.prototype.addBuiltinOverlay = function ( overlay ) {
+	  // Support single and array parameters
+	  if ( !Array.isArray( overlay ) ) {
+	    overlay = [ overlay ];
+	  }
+
+	  for ( var n = 0, nl = overlay.length; n < nl; n++ ) {
+	    var name = overlay[ n ];
+	    var index = this.supportedBuiltinOverlays.indexOf( name );
+	    if ( index === -1 ) {
+	      console.error( name + ' is not a supported built-in overlay' );
+	      return false;
+	    }
+
+	    // Just mark that we want to use this overlay and rely
+	    // on updateBuiltinOverlays to populate data
+	    index = this.builtinOverlays.indexOf( name );
+	    if ( index === -1 ) { this.builtinOverlays.push( name ); }
+	  }
+
+	  return this.updateBuiltinOverlays();
+	};
+
+	OverlayAdapter.prototype.updateBuiltinOverlays = function () {
+	  this.waitFor( OSMAdapter$1 );
+	  var osm = OSMAdapter$1.getState();
+	  for ( var o = 0, ol = this.builtinOverlays.length; o < ol; o++ ) {
+	    var name = this.builtinOverlays[ o ];
+	    if ( this.referenceOnlyBuiltinOverlays.indexOf( name ) !== -1 ) {
+	      continue;
+	    }
+
+	    this.addOverlay( {
+	      name: name,
+	      type: 'FeatureCollection',
+	      features: osm[ name ]
+	    } );
+	  }
+	};
+
+	OverlayAdapter.prototype.setFeatures = function () {
+	  return this.updateBuiltinOverlays();
+	};
+
+	OverlayAdapter.prototype.removeOverlay = function ( toRemove ) {
+	  if ( toRemove === undefined ) { toRemove = [ DEFAULT ]; }
+
+	  if ( !Array.isArray( toRemove ) ) { toRemove = [ toRemove ]; }
+
+	  for ( var n = 0, nl = toRemove.length; n < nl; n++ ) {
+	    var name = toRemove[ n ];
+	    var index = this.builtinOverlays.indexOf( name );
+	    if ( index !== -1 ) {
+	      this.builtinOverlays.splice( index, 1 );
+	    }
+
+	    if ( this.overlays[ name ] === undefined ) { continue }
+
+	    var overlay = this.overlays[ name ];
+	    for ( var f = 0, fl = overlay.features.length; f < fl; f++ ) {
+	      this.removeFeature( overlay.features[ f ] );
+	    }
+
+	    delete this.overlays[ name ];
+	  }
+	};
+
+	OverlayAdapter.prototype.featureClassified = function ( feature ) {
+	  if ( this.overlayTracker[ feature.overlayName ] === undefined ) {
+	    this.overlayTracker[ feature.overlayName ] = 1;
+	  } else {
+	    this.overlayTracker[ feature.overlayName ] += 1;
+	  }
+	};
+
+	OverlayAdapter.prototype.featureCreated = function ( feature ) {
+	  if ( this.overlayTracker[ feature.overlayName ] === undefined ) {
+	    return false;
+	  } else {
+	    this.overlayTracker[ feature.overlayName ] -= 1;
+	  }
+
+	  if ( this.overlayTracker[ feature.overlayName ] === 0 ) {
+	    var overlayName = feature.overlayName;
+	    delete this.overlayTracker[ feature.overlayName ];
+	    enqueue( function () {
+	      RenderActions.overlayDisplayed( overlayName );
+	    } );
+	  }
+
+	  delete feature.overlayName;
+	};
+
+	OverlayAdapter.displayName = 'OverlayAdapter';
+
+	var OverlayAdapter$1 = alt.createStore( OverlayAdapter );
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+
+	// Uniforms for shaders that lookup height
+	const heightUniforms = {
+	  elevationArray: { value: ElevationDatasource.textureArray },
+	  indirectionTexture: { value: ElevationDatasource.indirectionTexture },
+	  uGlobalOffset: { type: 'v2', value: new THREE.Vector2() },
+	  uSceneScale: { type: 'f', value: 1 }
+	};
+
+	GeoprojectStore$1.listen( ( { globalOffset, sceneScale } ) => {
+	  heightUniforms.uGlobalOffset.value.copy( globalOffset );
+	  heightUniforms.uSceneScale.value = sceneScale;
+	} );
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+	const Shader = function ( value ) {
+	  this.value = value;
+	};
+
+	Shader.prototype.define = function ( define, value ) {
+	  var regexp = new RegExp( "#define " + define + " .*", "g" );
+	  var newDefine = "#define " + define + ( value ? " " + value : "" );
+	  if ( this.value.match( regexp ) ) {
+	    // #define already exists, update its value
+	    this.value = this.value.replace( regexp, newDefine );
+	  } else {
+	    // New #define, prepend to start of file
+	    this.value = newDefine + "\n" + this.value;
+	  }
+	};
+
+	Shader.prototype.clone = function () {
+	  return new Shader( this.value );
+	};
+
+	var beaconVertex = new Shader(`uniform mat4 modelMatrix;uniform mat4 viewMatrix;uniform mat4 projectionMatrix;uniform vec3 cameraPosition;attribute vec3 position;attribute vec3 normal;uniform float uAccuracy;varying vec3 vPosition;varying vec3 vCenter;varying float vRingRadius;
+#define BEACON_RADIUS 50.0
+float a(float b){return clamp(b,0.0,1.0);}vec2 a(vec2 b){return clamp(b,0.0,1.0);}vec3 a(vec3 b){return clamp(b,0.0,1.0);}vec4 a(vec4 b){return clamp(b,0.0,1.0);}
+#define VIRTUAL_TEXTURE_ARRAY_BLOCKS 4.0
+
+#define VIRTUAL_TEXTURE_ARRAY_SIZE 512.0
+
+#define TEX_SIZE (VIRTUAL_TEXTURE_ARRAY_SIZE * VIRTUAL_TEXTURE_ARRAY_BLOCKS)
+const vec2 c=vec2(1.0/TEX_SIZE,0.0);vec4 d(const in sampler2D b,in vec2 e){e-=0.5*c.xx;vec2 f=fract(e*TEX_SIZE);vec2 g=e-c.xx*f+0.5*c.xx;
+#ifdef HEIGHT_LOOKUP_BIAS
+vec4 h=texture2D(b,g,-10.0);vec4 i=texture2D(b,g+c,-10.0);vec4 j=texture2D(b,g+c.yx,-10.0);vec4 k=texture2D(b,g+c.xx,-10.0);
+#else
+vec4 h=texture2D(b,g);vec4 i=texture2D(b,g+c);vec4 j=texture2D(b,g+c.yx);vec4 k=texture2D(b,g+c.xx);
+#endif
+vec4 l=mix(h,i,f.x);vec4 m=mix(j,k,f.x);return mix(l,m,f.y);}vec4 n(in sampler2D o,in vec2 e,in float p){vec2 q=vec2(mod(float(p),VIRTUAL_TEXTURE_ARRAY_BLOCKS),floor(float(p)/VIRTUAL_TEXTURE_ARRAY_BLOCKS));const float r=0.5;vec2 s=vec2(r,VIRTUAL_TEXTURE_ARRAY_SIZE-r)/VIRTUAL_TEXTURE_ARRAY_SIZE;vec2 t=(clamp(e,s.x,s.y)+q)/VIRTUAL_TEXTURE_ARRAY_BLOCKS;
+#ifdef MANUAL_TEXTURE_BILINEAR
+return d(o,t);
+#else
+return texture2D(o,t);
+#endif
+}uniform lowp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform float uSceneScale;const float u=0.0008176665341588574;float v(in float w){float x=3.141592653589793-0.006135923151542565*w;float y=dot(vec2(0.5),exp(vec2(x,-x)));return y/(u*uSceneScale);}uniform lowp sampler2D elevationArray;float z(in vec2 A){const float B=32.0;const float C=1024.0;vec2 D=A.xy-uGlobalOffset;D/=(uSceneScale*B);D*=vec2(1.0,-1.0);vec2 E=D/C;const vec2 F=vec2(0.5);vec2 G=(floor(D-F)+F);G+=step(F,D-G);vec2 H=G/C;vec4 I=texture2D(indirectionTexture,H);float p=I.r;float J=I.g;vec2 K=I.ba;vec2 t=E*J+K;return v(D.y)*n(elevationArray,t,p).a;}void main(){vCenter=position-BEACON_RADIUS*normal;vec4 L=modelMatrix*vec4(vCenter,1.0);vec3 M=L.xyz/L.w;vCenter=M;float N=abs((viewMatrix*vec4(M,1.0)).z);vRingRadius=25.0*clamp(N/1000.0,0.01,10.0);float O=max(vRingRadius,uAccuracy);vPosition=vCenter+O*normal;float P=z(vPosition.xy);float Q=P-vPosition.z+N/1000.0-0.3*O;vPosition.z=P;vec3 R=cameraPosition-vPosition;float S=length(R);R=normalize(R);float T=230.0*smoothstep(50.0,250.0,S);gl_Position=projectionMatrix*viewMatrix*vec4(vPosition+T*R,1.0);}`);
+
+	var beaconFragment = new Shader(`precision highp float;uniform float uTime;varying vec3 vPosition;varying vec3 vCenter;varying float vRingRadius;const vec4 a=vec4(1.0,1.0,1.0,0.9);void main(){float b=distance(vPosition.xy,vCenter.xy)/vRingRadius;vec3 c=mix(vec3(0.0,0.0,1.0),vec3(0.0,0.5,1.0),0.2*b);vec4 d=vec4(c*sin(uTime),0.5);d=mix(d,a,smoothstep(0.75,0.8,b));d=mix(d,vec4(c.rgb,0.15),smoothstep(1.0,1.05,b));d.rgb=pow(abs(d.rgb),vec3(0.4545));gl_FragColor=d;}`);
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 *
+	 * This file incorporates work covered by the following copyright and
+	 * permission notice:
+	 *
+	 *   The MIT License
+	 *
+	 *   Copyright © 2010-2020 three.js authors
+	 *
+	 *   Permission is hereby granted, free of charge, to any person obtaining a copy
+	 *   of this software and associated documentation files (the "Software"), to deal
+	 *   in the Software without restriction, including without limitation the rights
+	 *   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	 *   copies of the Software, and to permit persons to whom the Software is
+	 *   furnished to do so, subject to the following conditions:
+	 *
+	 *   The above copyright notice and this permission notice shall be included in
+	 *   all copies or substantial portions of the Software.
+	 *
+	 *   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	 *   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	 *   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	 *   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	 *   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	 *   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+	 *   THE SOFTWARE.
+	 */
+
+	function Color$1( r, g, b, a ) {
+	  if ( g === undefined && b === undefined ) {
+	    // r is THREE.Color, hex or string
+	    return this.set( r );
+	  }
+
+	  if ( a === undefined ) { a = 1; }
+
+	  return this.setRGB( r, g, b, a );
+	}
+
+	Object.assign( Color$1.prototype, {
+
+	  isColor: true,
+
+	  r: 1, g: 1, b: 1, a: 1,
+
+	  set: function ( value ) {
+	    if ( value && value.isColor ) {
+	      this.copy( value );
+	    } else if ( typeof value === 'number' ) {
+	      this.setHex( value );
+	    } else if ( typeof value === 'string' ) {
+	      this.setStyle( value );
+	    }
+
+	    return this;
+	  },
+
+	  setScalar: function ( scalar ) {
+	    this.r = scalar;
+	    this.g = scalar;
+	    this.b = scalar;
+
+	    return this;
+	  },
+
+	  setHex: function ( hex ) {
+	    hex = Math.floor( hex );
+
+	    this.r = ( hex >> 16 & 255 ) / 255;
+	    this.g = ( hex >> 8 & 255 ) / 255;
+	    this.b = ( hex & 255 ) / 255;
+
+	    return this;
+	  },
+
+	  setRGB: function ( r, g, b, a ) {
+	    this.r = r;
+	    this.g = g;
+	    this.b = b;
+	    this.a = a;
+
+	    return this;
+	  },
+
+
+	  setStyle: function ( style ) {
+	    function handleAlpha( string ) {
+	      if ( string === undefined ) return 1;
+	      return parseFloat( string );
+	    }
+
+
+	    var m;
+
+	    if ( m = /^((?:rgb)a?)\(\s*([^\)]*)\)/.exec( style ) ) {
+	      // rgb / hsl
+
+	      var color;
+	      var name = m[ 1 ];
+	      var components = m[ 2 ];
+
+	      switch ( name ) {
+	      case 'rgb':
+	      case 'rgba':
+
+	        if ( color = /^(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(,\s*([0-9]*\.?[0-9]+)\s*)?$/.exec( components ) ) {
+	          // rgb(255,0,0) rgba(255,0,0,0.5)
+	          this.r = Math.min( 255, parseInt( color[ 1 ], 10 ) ) / 255;
+	          this.g = Math.min( 255, parseInt( color[ 2 ], 10 ) ) / 255;
+	          this.b = Math.min( 255, parseInt( color[ 3 ], 10 ) ) / 255;
+
+	          this.a = handleAlpha( color[ 5 ] );
+
+	          return this;
+	        }
+
+	        if ( color = /^(\d+)\%\s*,\s*(\d+)\%\s*,\s*(\d+)\%\s*(,\s*([0-9]*\.?[0-9]+)\s*)?$/.exec( components ) ) {
+	          // rgb(100%,0%,0%) rgba(100%,0%,0%,0.5)
+	          this.r = Math.min( 100, parseInt( color[ 1 ], 10 ) ) / 100;
+	          this.g = Math.min( 100, parseInt( color[ 2 ], 10 ) ) / 100;
+	          this.b = Math.min( 100, parseInt( color[ 3 ], 10 ) ) / 100;
+
+	          this.a = handleAlpha( color[ 5 ] );
+
+	          return this;
+	        }
+
+	        break;
+	      }
+	    } else if ( m = /^\#([A-Fa-f0-9]+)$/.exec( style ) ) {
+	      // hex color
+
+	      var hex = m[ 1 ];
+	      var size = hex.length;
+
+	      if ( size === 3 ) {
+	        // #ff0
+	        this.r = parseInt( hex.charAt( 0 ) + hex.charAt( 0 ), 16 ) / 255;
+	        this.g = parseInt( hex.charAt( 1 ) + hex.charAt( 1 ), 16 ) / 255;
+	        this.b = parseInt( hex.charAt( 2 ) + hex.charAt( 2 ), 16 ) / 255;
+
+	        return this;
+	      } else if ( size === 6 ) {
+	        // #ff0000
+	        this.r = parseInt( hex.charAt( 0 ) + hex.charAt( 1 ), 16 ) / 255;
+	        this.g = parseInt( hex.charAt( 2 ) + hex.charAt( 3 ), 16 ) / 255;
+	        this.b = parseInt( hex.charAt( 4 ) + hex.charAt( 5 ), 16 ) / 255;
+
+	        return this;
+	      }
+	    }
+
+	    if ( style && style.length > 0 ) {
+	      // color keywords
+	      var hex = THREE.Color.NAMES[ style ];
+
+	      if ( hex !== undefined ) {
+	        // red
+	        this.setHex( hex );
+	      } else {
+	        // unknown color
+	        console.warn( 'THREE.Color: Unknown color ' + style );
+	      }
+	    }
+
+	    return this;
+	  },
+
+	  clone: function () {
+	    return new this.constructor( this.r, this.g, this.b, this.a );
+	  },
+
+	  copy: function ( color ) {
+	    this.r = color.r;
+	    this.g = color.g;
+	    this.b = color.b;
+	    this.a = color.a;
+
+	    return this;
+	  },
+
+	  copyGammaToLinear: function ( color, gammaFactor ) {
+	    if ( gammaFactor === undefined ) gammaFactor = 2.0;
+
+	    this.r = Math.pow( color.r, gammaFactor );
+	    this.g = Math.pow( color.g, gammaFactor );
+	    this.b = Math.pow( color.b, gammaFactor );
+
+	    return this;
+	  },
+
+	  copyLinearToGamma: function ( color, gammaFactor ) {
+	    if ( gammaFactor === undefined ) gammaFactor = 2.0;
+
+	    var safeInverse = ( gammaFactor > 0 ) ? ( 1.0 / gammaFactor ) : 1.0;
+
+	    this.r = Math.pow( color.r, safeInverse );
+	    this.g = Math.pow( color.g, safeInverse );
+	    this.b = Math.pow( color.b, safeInverse );
+
+	    return this;
+	  },
+
+	  convertGammaToLinear: function () {
+	    var r = this.r, g = this.g, b = this.b;
+
+	    this.r = r * r;
+	    this.g = g * g;
+	    this.b = b * b;
+
+	    return this;
+	  },
+
+	  convertLinearToGamma: function () {
+	    this.r = Math.sqrt( this.r );
+	    this.g = Math.sqrt( this.g );
+	    this.b = Math.sqrt( this.b );
+
+	    return this;
+	  },
+
+	  getHex: function () {
+	    return ( this.r * 255 ) << 16 ^ ( this.g * 255 ) << 8 ^ ( this.b * 255 ) << 0;
+	  },
+
+	  getHexString: function () {
+	    return ( '000000' + this.getHex().toString( 16 ) ).slice( -6 );
+	  },
+
+	  getHSL: function ( optionalTarget ) {
+	    // h,s,l ranges are in 0.0 - 1.0
+
+	    var hsl = optionalTarget || { h: 0, s: 0, l: 0 };
+
+	    var r = this.r, g = this.g, b = this.b;
+
+	    var max = Math.max( r, g, b );
+	    var min = Math.min( r, g, b );
+
+	    var hue, saturation;
+	    var lightness = ( min + max ) / 2.0;
+
+	    if ( min === max ) {
+	      hue = 0;
+	      saturation = 0;
+	    } else {
+	      var delta = max - min;
+
+	      saturation = lightness <= 0.5 ? delta / ( max + min ) : delta / ( 2 - max - min );
+
+	      switch ( max ) {
+	      case r: hue = ( g - b ) / delta + ( g < b ? 6 : 0 ); break;
+	      case g: hue = ( b - r ) / delta + 2; break;
+	      case b: hue = ( r - g ) / delta + 4; break;
+	      }
+
+	      hue /= 6;
+	    }
+
+	    hsl.h = hue;
+	    hsl.s = saturation;
+	    hsl.l = lightness;
+
+	    return hsl;
+	  },
+
+	  getStyle: function () {
+	    return 'rgb(' + ( ( this.r * 255 ) | 0 ) + ',' + ( ( this.g * 255 ) | 0 ) + ',' + ( ( this.b * 255 ) | 0 ) + ')';
+	  },
+
+	  offsetHSL: function ( h, s, l ) {
+	    var hsl = this.getHSL();
+
+	    hsl.h += h; hsl.s += s; hsl.l += l;
+
+	    this.setHSL( hsl.h, hsl.s, hsl.l );
+
+	    return this;
+	  },
+
+	  add: function ( color ) {
+	    this.r += color.r;
+	    this.g += color.g;
+	    this.b += color.b;
+
+	    return this;
+	  },
+
+	  addColors: function ( color1, color2 ) {
+	    this.r = color1.r + color2.r;
+	    this.g = color1.g + color2.g;
+	    this.b = color1.b + color2.b;
+
+	    return this;
+	  },
+
+	  addScalar: function ( s ) {
+	    this.r += s;
+	    this.g += s;
+	    this.b += s;
+
+	    return this;
+	  },
+
+	  sub: function ( color ) {
+	    this.r = Math.max( 0, this.r - color.r );
+	    this.g = Math.max( 0, this.g - color.g );
+	    this.b = Math.max( 0, this.b - color.b );
+
+	    return this;
+	  },
+
+	  multiply: function ( color ) {
+	    this.r *= color.r;
+	    this.g *= color.g;
+	    this.b *= color.b;
+
+	    return this;
+	  },
+
+	  multiplyScalar: function ( s ) {
+	    this.r *= s;
+	    this.g *= s;
+	    this.b *= s;
+
+	    return this;
+	  },
+
+	  lerp: function ( color, alpha ) {
+	    this.r += ( color.r - this.r ) * alpha;
+	    this.g += ( color.g - this.g ) * alpha;
+	    this.b += ( color.b - this.b ) * alpha;
+	    this.a += ( color.a - this.a ) * alpha;
+
+	    return this;
+	  },
+
+	  equals: function ( c ) {
+	    return ( c.r === this.r ) && ( c.g === this.g ) && ( c.b === this.b );
+	  },
+
+	  fromArray: function ( array, offset ) {
+	    if ( offset === undefined ) offset = 0;
+
+	    this.r = array[ offset ];
+	    this.g = array[ offset + 1 ];
+	    this.b = array[ offset + 2 ];
+
+	    return this;
+	  },
+
+	  toArray: function ( array, offset ) {
+	    if ( array === undefined ) array = [];
+	    if ( offset === undefined ) offset = 0;
+
+	    array[ offset ] = this.r;
+	    array[ offset + 1 ] = this.g;
+	    array[ offset + 2 ] = this.b;
+
+	    return array;
+	  },
+
+	  toJSON: function () {
+	    return this.getHex();
+	  }
+
+	} );
 
 	/**
 	 * @author alteredq / http://alteredqualia.com/
@@ -43201,8 +43243,8 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	 * License, v. 2.0. If a copy of the MPL was not distributed with this
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
-	/*global '1.0.9'*/
-	console.log( 'Procedural v' + '1.0.9' );
+	/*global '1.0.10'*/
+	console.log( 'Procedural v' + '1.0.10' );
 
 	// Re-export public API
 	const Procedural$9 = {
@@ -43226,6 +43268,15 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	for ( let l of listeners ) {
 	  Object.defineProperty( Procedural$9, l, {
 	    set: fn => Procedural$5[ l ] = fn
+	  } );
+	}
+
+	listeners = [
+	  'onCameraChange'
+	];
+	for ( let l of listeners ) {
+	  Object.defineProperty( Procedural$9, l, {
+	    set: fn => Procedural[ l ] = fn
 	  } );
 	}
 

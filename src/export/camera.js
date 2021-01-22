@@ -6,10 +6,20 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 import _ from 'lodash';
+import alt from '/alt';
+
+import geoproject from '/geoproject';
+import CameraStore from '/stores/camera';
 import RenderActions from '/actions/render';
 import UserActions from '/actions/user';
 
 const Procedural = {};
+
+function CameraExport() {
+  this.bindListeners( {
+    setCamera: UserActions.setCamera
+  } );
+}
 
 /**
  * @exports Procedural
@@ -106,6 +116,20 @@ Procedural.orbitTarget = function () {
 };
 
 /**
+ * @name onCameraChange
+ * @memberof module:Camera
+ * @function
+ * @description Callback function for when the camera position
+ * changes. Note this method will fire very often, so you
+ * may want to throttle updates. Performing significant work
+ * every time this method fires will negatively impact performance
+ * @example
+ * Procedural.onCameraChange = function ( ) {
+ *   console.log( 'Location changed' );
+ * };
+ */
+
+/**
  * @name setCameraMode
  * @memberof module:Camera
  * @function
@@ -117,5 +141,27 @@ Procedural.orbitTarget = function () {
 Procedural.setCameraMode = function ( mode ) {
   setTimeout( function () { UserActions.setCameraMode( mode ) }, 0 );
 };
+
+// API Listeners
+CameraExport.prototype.setCamera = function ( state ) {
+  this.waitFor( CameraStore );
+  if ( typeof Procedural.onCameraChange !== 'function' ) { return }
+
+  const target = geoproject.unproject( state.target );
+  const distance = state.target.distanceTo( state.position );
+  const delta = state.target.clone().sub( state.position );
+  const bearing = ( 180 * Math.atan2( delta.x, delta.y ) / Math.PI + 360 ) % 360;
+  const angle = 180 * Math.asin( -delta.z / distance ) / Math.PI;
+  Procedural.onCameraChange( {
+    longitude: target[ 0 ],
+    latitude: target[ 1 ],
+    height: target[ 2 ],
+    angle, bearing, distance
+  } );
+};
+
+CameraExport.displayName = 'CameraExport';
+
+alt.createStore( CameraExport );
 
 export default Procedural;
