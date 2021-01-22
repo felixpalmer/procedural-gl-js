@@ -124,8 +124,15 @@ Procedural.orbitTarget = function () {
  * may want to throttle updates. Performing significant work
  * every time this method fires will negatively impact performance
  * @example
- * Procedural.onCameraChange = function ( ) {
- *   console.log( 'Location changed' );
+ * Procedural.onCameraChange = function ( location ) {
+ *   // `location` will contain:
+ *   // - longitude
+ *   // - latitude
+ *   // - height
+ *   // - angle
+ *   // - bearing
+ *   // - distance
+ *   console.log( 'Location changed': location );
  * };
  */
 
