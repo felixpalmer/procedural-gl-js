@@ -39,12 +39,25 @@ EngineStore.prototype.setCurrentPlace = function () {
 
   this.waitFor( PlacesStore );
   var place = PlacesStore.getState().currentPlace;
+
+  // TODO: Move default camera parameters to globally configurable location
+  let CAMERA_ANGLE = 40;
+  let CAMERA_DISTANCE = 5000;
+  let CAMERA_BEARING = 0;
+  let CAMERA_ANIMATION_DURATION = 0.5;
+
+  // Use values in place object if they exist, otherwise default camera parameters
+  let _angle = place.angle ? place.angle : CAMERA_ANGLE;
+  let _distance = place.distance ? place.distance : CAMERA_DISTANCE;
+  let _bearing = place.bearing ? place.bearing : CAMERA_BEARING;
+  let _animationDuration = place.animationDuration ? place.animationDuration : CAMERA_ANIMATION_DURATION;
+
   setTimeout( function () {
     const loc = {
       longitude: place.location[ 0 ],
       latitude: place.location[ 1 ],
-      angle: 40, distance: 5000,
-      bearing: 0, animationDuration: 0.5
+      angle: _angle, distance: _distance,
+      bearing: _bearing, animationDuration: _animationDuration
     };
     heightAt( loc, H => {
       loc.height = H;

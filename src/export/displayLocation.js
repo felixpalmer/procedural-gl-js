@@ -17,6 +17,13 @@ var placeForTarget = function ( target ) {
   var place = template;
   place.name = Procedural.datafileForLocation( target );
   place.location = [ target.longitude, target.latitude ];
+
+  // Add additional (optional) camera parameters
+  place.angle = target.angle;
+  place.bearing = target.bearing;
+  place.distance = target.distance;
+  place.animationDuration = target.animationDuration;  
+
   if ( target.features ) { place.features = target.features }
 
   return place;
