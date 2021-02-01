@@ -36027,8 +36027,15 @@
 	 * may want to throttle updates. Performing significant work
 	 * every time this method fires will negatively impact performance
 	 * @example
-	 * Procedural.onCameraChange = function ( ) {
-	 *   console.log( 'Location changed' );
+	 * Procedural.onCameraChange = function ( location ) {
+	 *   // `location` will contain:
+	 *   // - longitude
+	 *   // - latitude
+	 *   // - height
+	 *   // - angle
+	 *   // - bearing
+	 *   // - distance
+	 *   console.log( 'Location changed': location );
 	 * };
 	 */
 
@@ -38612,7 +38619,7 @@ return texture2D(v,A);
 	  lineUniforms.uViewportInverse.value.set( 1.0 / width, 1.0 / height );
 	} );
 
-	var markerVertex = new Shader(`precision highp float;uniform mat4 viewMatrix;uniform mat4 projectionMatrix;uniform mat4 uOrthoTransform;uniform vec3 cameraPosition;uniform float uLodScale;uniform vec3 uSelectedTag;uniform float uPixelRatio;uniform vec2 uViewportInverse;uniform float uReadDepthOverride;
+	var markerVertex = new Shader(`precision highp float;uniform mat4 viewMatrix;uniform mat4 projectionMatrix;uniform mat4 uOrthoTransform;uniform vec3 cameraPosition;uniform float uLodScale;uniform vec3 uSelectedTag;uniform float uPixelRatio;uniform vec2 uViewportCanvasInverse;uniform float uReadDepthOverride;
 #ifdef READ_DEPTH
 uniform sampler2D uDepth;
 #endif
@@ -38636,21 +38643,21 @@ return texture2D(r,w);
 #endif
 }uniform lowp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform float uSceneScale;const float x=0.0008176665341588574;float y(in float z){float A=3.141592653589793-0.006135923151542565*z;float B=dot(vec2(0.5),exp(vec2(A,-A)));return B/(x*uSceneScale);}uniform lowp sampler2D elevationArray;float C(in vec2 D){const float E=32.0;const float F=1024.0;vec2 G=D.xy-uGlobalOffset;G/=(uSceneScale*E);G*=vec2(1.0,-1.0);vec2 H=G/F;const vec2 I=vec2(0.5);vec2 J=(floor(G-I)+I);J+=step(I,G-J);vec2 K=J/F;vec4 L=texture2D(indirectionTexture,K);float s=L.r;float M=L.g;vec2 N=L.ba;vec2 w=H*M+N;return y(G.y)*q(elevationArray,w,s).a;}
 #define SIZE vec2( 512.0, 1024.0 )
-void main(){vec3 O=offset.xyz;O.z=C(O.xy);vBackground=background;vColor=color;vLayout=uPixelRatio*layout;vReadDepth=clipping.y*uReadDepthOverride;vec3 P=cameraPosition-O;float Q=a(P);vec2 R=vec2(1.0,-1.0)*position;vec2 S=0.5*R+vec2(0.5);vUv.z=step(distance(tag.xyz,uSelectedTag),0.0);vec2 T=vec2(normal.w,offset.w)+1000000.0*vUv.zz;T=smoothstep(T,vec2(0.95,0.9)*T,vec2(Q));vUv.w=(0.6*T.x+0.4)*T.y;vUv.z*=tag.w;vec2 U=mix(atlas.ww*vec2(SIZE.y/SIZE.x,1.0),atlas.zw,T.x);vUv.xy=atlas.xy+U*S;vUv.w*=smoothstep(0.0,0.15,clipping.y+dot(P,normal.xyz));vUv.w*=step(0.3,vUv.w);vec2 u=layout.xx+layout.yy;vUv.xy+=(u*R)/SIZE;vec2 V=SIZE*U+2.0*u;V*=uPixelRatio;float W=min(0.5*Q,100.0+200.0*clipping.x);vec4 D=vec4(O+W*P,1.0);gl_Position=projectionMatrix*viewMatrix*D;vec2 X=2.0*gl_Position.w*uViewportInverse;
+void main(){vec3 O=offset.xyz;O.z=C(O.xy);vBackground=background;vColor=color;vLayout=uPixelRatio*layout;vReadDepth=clipping.y*uReadDepthOverride;vec3 P=cameraPosition-O;float Q=a(P);vec2 R=vec2(1.0,-1.0)*position;vec2 S=0.5*R+vec2(0.5);vUv.z=step(distance(tag.xyz,uSelectedTag),0.0);vec2 T=vec2(normal.w,offset.w)+1000000.0*vUv.zz;T=smoothstep(T,vec2(0.95,0.9)*T,vec2(Q));vUv.w=(0.6*T.x+0.4)*T.y;vUv.z*=tag.w;vec2 U=mix(atlas.ww*vec2(SIZE.y/SIZE.x,1.0),atlas.zw,T.x);vUv.xy=atlas.xy+U*S;vUv.w*=smoothstep(0.0,0.15,clipping.y+dot(P,normal.xyz));vUv.w*=step(0.3,vUv.w);vec2 u=layout.xx+layout.yy;vUv.xy+=(u*R)/SIZE;vec2 V=SIZE*U+2.0*u;V*=uPixelRatio;float W=min(0.5*Q,100.0+200.0*clipping.x);vec4 D=vec4(O+W*P,1.0);gl_Position=projectionMatrix*viewMatrix*D;vec2 X=2.0*gl_Position.w*uViewportCanvasInverse;
 #ifdef READ_DEPTH
 vec3 Y=0.5*gl_Position.xyz/gl_Position.w+vec3(0.5);float Z=texture2D(uDepth,Y.xy).x;float ba=projectionMatrix[3][2];Z/=1.0+0.02*Z/ba;vUv.w*=step(clipping.x*Y.z,Z);
 #endif
-gl_Position.xy=X*floor(gl_Position.xy/X+vec2(0.5));vec2 bb=0.5*X*V;gl_Position.xy+=X*(0.5*anchor.xy*V+anchor.zw);gl_Position.xy-=bb;const vec2 bc=vec2(0.5);vBox.xy=(gl_Position.xy+bb-bc)/X+vec2(0.5)/uViewportInverse;vBox.zw=V;vec2 bd=(position+vec2(1.0))*bb;bd-=bc;gl_Position.xy+=step(0.0001,vUv.w)*bd;vLayout.z=min(vLayout.z,0.5*vBox.w-vLayout.y);vLayout.z=max(0.0001,vLayout.z);}`);
+gl_Position.xy=X*floor(gl_Position.xy/X+vec2(0.5));vec2 bb=0.5*X*V;gl_Position.xy+=X*(0.5*anchor.xy*V+anchor.zw);gl_Position.xy-=bb;const vec2 bc=vec2(0.5);vBox.xy=(gl_Position.xy+bb-bc)/X+vec2(0.5)/uViewportCanvasInverse;vBox.zw=V;vec2 bd=(position+vec2(1.0))*bb;bd-=bc;gl_Position.xy+=step(0.0001,vUv.w)*bd;vLayout.z=min(vLayout.z,0.5*vBox.w-vLayout.y);vLayout.z=max(0.0001,vLayout.z);}`);
 
 	var markerFragment = new Shader(`precision highp float;
 #ifdef READ_DEPTH
-uniform sampler2D uDepth;uniform vec2 uViewportInverse;
+uniform sampler2D uDepth;uniform vec2 uViewportCanvasInverse;
 #endif
 uniform sampler2D uMap;varying vec4 vUv;varying vec4 vBox;varying vec4 vBackground;varying vec4 vColor;varying float vReadDepth;varying vec3 vLayout;
 #define SIZE 512.0
 void main(){
 #ifdef READ_DEPTH
-float a=texture2D(uDepth,uViewportInverse*gl_FragCoord.xy).x;float b=vUv.w*step(vReadDepth*gl_FragCoord.z,a);
+float a=texture2D(uDepth,uViewportCanvasInverse*gl_FragCoord.xy).x;float b=vUv.w*step(vReadDepth*gl_FragCoord.z,a);
 #else
 float b=vUv.w;
 #endif
@@ -38667,11 +38674,11 @@ gl_FragColor=vBackground;vec2 c=0.5*vBox.zw-vec2(vLayout.x+vLayout.y);vec2 d=cla
 	const markerUniforms = {
 	  uMap: { type: 't', value: null },
 	  uPixelRatio: { type: 'f', value: 1.0 },
-	  uViewportInverse: { type: 'v2', value: new THREE.Vector2( 1.0, 1.0 ) },
+	  uViewportCanvasInverse: { type: 'v2', value: new THREE.Vector2( 1.0, 1.0 ) }
 	};
 
 	ContainerStore$1.listen( ( { canvasHeight, pixelRatio, canvasWidth } ) => {
-	  markerUniforms.uViewportInverse.value.set(
+	  markerUniforms.uViewportCanvasInverse.value.set(
 	    1.0 / canvasWidth, 1.0 / canvasHeight );
 	  markerUniforms.uPixelRatio.value = pixelRatio;
 	} );
@@ -38991,7 +38998,7 @@ return texture2D(r,w);
 #define TUBE_RADIUS 20.0
 
 #define SIZE vec2( 512.0, 1024.0 )
-uniform vec2 uViewportInverse;vec4 O(const in vec3 P,const in float Q){vec4 D=vec4(P,1.0);vec4 R=projectionMatrix*viewMatrix*D;D.xyz+=tangent.xyz;vec4 S=projectionMatrix*viewMatrix*D;vec2 T=S.xy/S.w-R.xy/R.w;vec2 U=T.yx*vec2(1.0,-1.0);U=Q*R.w*normalize(U)*uViewportInverse;R.xy+=U;return R;}void main(){vTag.rgb=tag;float V=1.0-step(length(tag),0.0);float W=length(position.x);float X=step(W,1.00001);X*=step(0.99999,W);vec3 Y=mix(position,offset.xyz,X);Y.z=C(Y.xy);vec4 Z=O(Y,TUBE_RADIUS);vec3 ba=cameraPosition-Y;float bb=a(ba);vec2 bc=vec2(1.0,-1.0)*position.xy;vec2 bd=0.5*bc+vec2(0.5);vec4 be;vec2 bf=vec2(normal.w,offset.w);bf=smoothstep(bf,vec2(0.95,0.9)*bf,vec2(bb));be.w=(0.6*bf.x+0.4)*bf.y;vec2 bg=mix(atlas.ww*vec2(SIZE.y/SIZE.x,1.0),atlas.zw,bf.x);be.xy=atlas.xy+bg*bd;be.w*=smoothstep(0.0,0.15,clipping.y+dot(ba,normal.xyz));be.w*=step(0.3,be.w);vec2 u=layout.xx+layout.yy;be.xy+=(u*bc)/SIZE;vec2 bh=SIZE*bg+2.0*u;bh*=uPixelRatio;float bi=min(0.5*bb,100.0+200.0*clipping.x);vec4 D=vec4(Y+bi*ba,1.0);vec4 bj=projectionMatrix*viewMatrix*D;vec2 bk=uPixelRatio*bj.w*uViewportCanvasInverse;
+uniform vec2 uViewportInverse;vec4 O(const in vec3 P,const in float Q){vec4 D=vec4(P,1.0);vec4 R=projectionMatrix*viewMatrix*D;D.xyz+=tangent.xyz;vec4 S=projectionMatrix*viewMatrix*D;vec2 T=S.xy/S.w-R.xy/R.w;vec2 U=T.yx*vec2(1.0,-1.0);U=Q*R.w*normalize(U)*uViewportInverse;R.xy+=U;return R;}void main(){vTag.rgb=tag;float V=1.0-step(length(tag),0.0);float W=length(position.x);float X=step(W,1.00001);X*=step(0.99999,W);vec3 Y=mix(position,offset.xyz,X);Y.z=C(Y.xy);vec4 Z=O(Y,TUBE_RADIUS);vec3 ba=cameraPosition-Y;float bb=a(ba);vec2 bc=vec2(1.0,-1.0)*position.xy;vec2 bd=0.5*bc+vec2(0.5);vec4 be;vec2 bf=vec2(normal.w,offset.w);bf=smoothstep(bf,vec2(0.95,0.9)*bf,vec2(bb));be.w=(0.6*bf.x+0.4)*bf.y;vec2 bg=mix(atlas.ww*vec2(SIZE.y/SIZE.x,1.0),atlas.zw,bf.x);be.xy=atlas.xy+bg*bd;be.w*=smoothstep(0.0,0.15,clipping.y+dot(ba,normal.xyz));be.w*=step(0.3,be.w);vec2 u=layout.xx+layout.yy;be.xy+=(u*bc)/SIZE;vec2 bh=SIZE*bg+2.0*u;bh*=uPixelRatio;float bi=min(0.5*bb,100.0+200.0*clipping.x);vec4 D=vec4(Y+bi*ba,1.0);vec4 bj=projectionMatrix*viewMatrix*D;vec2 bk=2.0*bj.w*uViewportCanvasInverse;
 #ifdef READ_DEPTH
 vec3 bl=0.5*bj.xyz/bj.w+vec3(0.5);float bm=texture2D(uDepth,bl.xy).x;float bn=projectionMatrix[3][2];bm/=1.0+0.02*bm/bn;be.w*=step(clipping.x*bl.z,bm);
 #endif
@@ -43243,8 +43250,8 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	 * License, v. 2.0. If a copy of the MPL was not distributed with this
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
-	/*global '1.0.10'*/
-	console.log( 'Procedural v' + '1.0.10' );
+	/*global '1.0.11'*/
+	console.log( 'Procedural v' + '1.0.11' );
 
 	// Re-export public API
 	const Procedural$9 = {
