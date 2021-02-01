@@ -10,7 +10,7 @@ precision highp float;
 
 #ifdef READ_DEPTH
 uniform sampler2D uDepth;
-uniform vec2 uViewportInverse;
+uniform vec2 uViewportCanvasInverse;
 #endif
 uniform sampler2D uMap;
 
@@ -28,7 +28,7 @@ void main() {
   //return;
   // Partially hide label (per-pixel depth check)
   #ifdef READ_DEPTH
-  float fragCoordZ = texture2D(uDepth, uViewportInverse * gl_FragCoord.xy).x;
+  float fragCoordZ = texture2D(uDepth, uViewportCanvasInverse * gl_FragCoord.xy).x;
 
   float visibility = vUv.w * step( vReadDepth * gl_FragCoord.z, fragCoordZ );
   #else
