@@ -16,7 +16,7 @@ uniform float uLodScale;
 
 uniform vec3 uSelectedTag;
 uniform float uPixelRatio;
-uniform vec2 uViewportInverse;
+uniform vec2 uViewportCanvasInverse;
 uniform float uReadDepthOverride;
 
 #ifdef READ_DEPTH
@@ -108,7 +108,7 @@ void main() {
   gl_Position = projectionMatrix * viewMatrix * p;
 
   // Convert between gl_Position.xy clip-space to pixels
-  vec2 pixelScale = 2.0 * gl_Position.w * uViewportInverse; 
+  vec2 pixelScale = 2.0 * gl_Position.w * uViewportCanvasInverse;
 
   #ifdef READ_DEPTH
   // Hide entire label if anchor obscured
@@ -141,7 +141,7 @@ void main() {
 
   // box in fragCoord space, xy: center, zw: width/height
   const vec2 halfPixel = vec2( 0.5 );
-  vBox.xy = ( gl_Position.xy + halfSize - halfPixel ) / pixelScale + vec2( 0.5 ) / uViewportInverse;
+  vBox.xy = ( gl_Position.xy + halfSize - halfPixel ) / pixelScale + vec2( 0.5 ) / uViewportCanvasInverse;
   vBox.zw = aspect;
 
   // Now calculate other vertices (relative to top-left)

@@ -111,7 +111,7 @@ void main() {
   vec4 marker = projectionMatrix * viewMatrix * p;
 
   // Pixel-snapping (means we can use nearest filtering on texture)
-  vec2 pixelScale = uPixelRatio * marker.w * uViewportCanvasInverse; 
+  vec2 pixelScale = 2.0 * marker.w * uViewportCanvasInverse;
 
   #ifdef READ_DEPTH
   // Hide entire label if anchor obscured
