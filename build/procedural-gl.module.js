@@ -33340,6 +33340,7 @@ var OrbitControls = function ( object ) {
 
 		scope.domElement.removeEventListener( 'touchstart', onTouchStart, false );
 		scope.domElement.removeEventListener( 'touchend', onTouchEnd, false );
+		scope.domElement.removeEventListener( 'touchcancel', onTouchCancel, false );
 		scope.domElement.removeEventListener( 'touchmove', onTouchMove, false );
 
 		scope.domElement.ownerDocument.removeEventListener( 'mousemove', onMouseMove, false );
@@ -33624,14 +33625,21 @@ var OrbitControls = function ( object ) {
   function dispatchClickEvent ( event ) {
     // A bit messy way to re-dispatch the event
     // bit it works
+
+
+    // TODO this workaround fixes behavior on Android
+    // however we should migrate to pointer events in
+    // the future, like THREE.js has
+    let useTouches = ( event.clientX === undefined );
+    let coords = useTouches ? event.touches[ 0 ] : event;
+
     scope.dispatchEvent( {
       type: 'click',
       srcElement: event.srcElement || event.target,
-      clientX: event.clientX,
-      clientY: event.clientY,
-      pageX: event.pageX,
-      pageY: event.pageY,
-      pageY: event.pageY,
+      clientX: coords.clientX,
+      clientY: coords.clientY,
+      pageX: coords.pageX,
+      pageY: coords.pageY,
       altKey: event.altKey,
       detail: event.clickCount
     } );
@@ -33876,9 +33884,14 @@ var OrbitControls = function ( object ) {
 	function handleTouchEnd( event ) {
 
     const time = RenderStore$1.getState().clock.getElapsedTime();
+
+    let useTouches = ( event.clientX === undefined );
+    let coords0 = useTouches ? event0.touches[ 0 ] : event0;
+    let coords = useTouches ? event.changedTouches[ 0 ] : event;
+
     if ( event0.touches.length === 1 &&
-         Math.abs( event0.pageX - event.pageX ) < tapDeltaThreshold &&
-         Math.abs( event0.pageY - event.pageY ) < tapDeltaThreshold &&
+         Math.abs( coords0.pageX - coords.pageX ) < tapDeltaThreshold &&
+         Math.abs( coords0.pageY - coords.pageY ) < tapDeltaThreshold &&
          time - event0.time < clickTimeout ) {
       dispatchClickEvent( event0 );
     }
@@ -34228,6 +34241,10 @@ var OrbitControls = function ( object ) {
 
 	}
 
+	function onTouchCancel( event ) {
+		return;
+	}
+
 	function onTouchEnd( event ) {
 
 		if ( scope.enabled === false ) return;
@@ -34256,6 +34273,7 @@ var OrbitControls = function ( object ) {
 
 	scope.domElement.addEventListener( 'touchstart', onTouchStart, false );
 	scope.domElement.addEventListener( 'touchend', onTouchEnd, false );
+	scope.domElement.addEventListener( 'touchcancel', onTouchCancel, false );
 	scope.domElement.addEventListener( 'touchmove', onTouchMove, false );
 
 	scope.domElement.addEventListener( 'keydown', onKeyDown, false );
@@ -43244,8 +43262,8 @@ app.init();
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-/*global '1.0.11'*/
-console.log( 'Procedural v' + '1.0.11' );
+/*global '1.0.12'*/
+console.log( 'Procedural v' + '1.0.12' );
 
 // Re-export public API
 const Procedural$9 = {
