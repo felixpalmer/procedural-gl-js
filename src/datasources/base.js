@@ -17,9 +17,10 @@ import ImageLoader from '/utils/ImageLoader';
 import { insertIntoTextureArray } from '/utils/TextureArray';
 
 class BaseDatasource {
-  constructor( { apiKey, poolSize, textureSize, useFloat, urlFormat } ) {
+  constructor( { apiKey, pixelEncoding, poolSize, textureSize, useFloat, urlFormat } ) {
     this.apiKey = apiKey;
     this.urlFormat = urlFormat;
+    this.pixelEncoding = pixelEncoding;
     this.useFloat = !!useFloat;
     this.hasUpdates = false;
     this.listeners = [];
@@ -54,6 +55,7 @@ class BaseDatasource {
     );
     this.textureArray.__blocks = n;
     this.textureArray.useFloat = this.useFloat;
+    this.textureArray.pixelEncoding = this.pixelEncoding;
 
     if ( this.useFloat ) {
       const size = 1024; // TODO reduce in future!

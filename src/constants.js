@@ -23,3 +23,8 @@ export const ELEVATION_TILE_SIZE = 512;
 export const IMAGERY_POOL_SIZE = imageryPoolSize;
 export const IMAGERY_TILE_SIZE = 256;
 export const INTERPOLATE_FLOAT = params.has( 'interpolateFloat' );
+
+// Different formats for encoding pixel data in elevation PNGs
+export const PIXEL_ENCODING_NASADEM = 'PIXEL_ENCODING_NASADEM';
+export const PIXEL_ENCODING_TERRARIUM = 'PIXEL_ENCODING_TERRARIUM';
+export const PIXEL_ENCODING_TERRAIN_RGB = 'PIXEL_ENCODING_TERRAIN_RGB';
