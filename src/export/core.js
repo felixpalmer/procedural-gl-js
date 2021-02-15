@@ -7,7 +7,8 @@
  */
 import alt from '/alt';
 
-import { PIXEL_ENCODING_NASADEM, PIXEL_ENCODING_TERRAIN_RGB } from '/constants';
+import { PIXEL_ENCODING_NASADEM, PIXEL_ENCODING_TERRAIN_RGB,
+  PIXEL_ENCODING_TERRARIUM } from '/constants';
 import ConfigActions from '/actions/config';
 import GeodataActions from '/actions/geodata';
 import RenderActions from '/actions/render';
@@ -134,6 +135,12 @@ Procedural.init = function ( { container, datasource } ) {
   }
 
   const { elevation, imagery } = datasource;
+
+  // Upgrade pixelEncoding to constants
+  if ( [ PIXEL_ENCODING_NASADEM, PIXEL_ENCODING_TERRAIN_RGB,
+         PIXEL_ENCODING_TERRARIUM ].indexOf( elevation.pixelEncoding ) === -1 ) {
+    console.error( 'Error: invalid pixelEncoding passed in elevation datasource' );
+  }
 
   if ( elevation === undefined || elevation.urlFormat === undefined ) {
     console.error( 'Error: elevation datasource configuration is invalid' );
