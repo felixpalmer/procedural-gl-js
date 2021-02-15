@@ -20,7 +20,9 @@ const ElevationDatasource = new BaseDatasource( {
 
 AppStore.listen( ( { datasource } ) => {
   if ( datasource.elevation ) {
-    ElevationDatasource.apiKey = datasource.elevation.apiKey;
+    for ( let key of [ 'apiKey', 'pixelEncoding', 'urlFormat' ] ) {
+      ElevationDatasource[ key ] = datasource.elevation[ key ];
+    }
   }
 } );
 
