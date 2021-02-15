@@ -40,6 +40,18 @@ Procedural.datafileForLocation = function ( target ) {
  * @example
  * var target = { latitude: 43.21, longitude: 6.133 };
  * Procedural.displayLocation( target );
+ *
+ * // Optionally can also supply:
+ * // - viewing angle,
+ * // - a bearing,
+ * // - a distance,
+ * // - animation duration (in seconds)
+ * var target = {
+ *   latitude: 44.5, longitude: 6.3,
+ *   angle: 20, bearing: 30, distance: 1000
+ *   animationDuration: 0.5
+ * };
+ * Procedural.displayLocation( target );
  */
 Procedural.displayLocation = function ( target ) {
   if ( !target ) {
