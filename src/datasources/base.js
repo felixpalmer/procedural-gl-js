@@ -54,8 +54,12 @@ class BaseDatasource {
       renderer.capabilities.getMaxAnisotropy()
     );
     this.textureArray.__blocks = n;
-    this.textureArray.useFloat = this.useFloat;
-    this.textureArray.pixelEncoding = this.pixelEncoding;
+
+    for ( let prop of [ 'pixelEncoding', 'useFloat' ] ) {
+      Object.defineProperty( this.textureArray, prop, {
+        get: () => this[ prop ]
+      } );
+    }
 
     if ( this.useFloat ) {
       const size = 1024; // TODO reduce in future!
