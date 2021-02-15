@@ -41,10 +41,9 @@ EngineStore.prototype.setCurrentPlace = function () {
   var place = PlacesStore.getState().currentPlace;
   setTimeout( function () {
     const loc = {
-      longitude: place.location[ 0 ],
-      latitude: place.location[ 1 ],
       angle: 40, distance: 5000,
-      bearing: 0, animationDuration: 0.5
+      bearing: 0, animationDuration: 0.5,
+      ...place
     };
     heightAt( loc, H => {
       loc.height = H;

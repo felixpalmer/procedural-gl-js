@@ -12,16 +12,6 @@ import UserActions from '/actions/user';
 
 const Procedural = {};
 
-var placeForTarget = function ( target ) {
-  // Create location definition
-  var place = template;
-  place.name = Procedural.datafileForLocation( target );
-  place.location = [ target.longitude, target.latitude ];
-  if ( target.features ) { place.features = target.features }
-
-  return place;
-};
-
 /**
  * @name datafileForLocation
  * @memberof module:Core
@@ -63,7 +53,7 @@ Procedural.displayLocation = function ( target ) {
   }
 
   setTimeout( function () {
-    UserActions.setCurrentPlace( placeForTarget( target ) );
+    UserActions.setCurrentPlace( { ...template, ...target } );
   }, 0 );
 };
 

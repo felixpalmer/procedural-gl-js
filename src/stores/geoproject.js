@@ -35,7 +35,7 @@ function GeoprojectStore() {
 }
 
 GeoprojectStore.prototype.setCurrentPlace = function ( place ) {
-  this.location = place.location;
+  this.location = [ place.longitude, place.latitude ];
   this.projection = 'EPSG:3857';
 
   // Setup projectors
