@@ -11,6 +11,8 @@ import tilebelt from "@mapbox/tilebelt";
 import GeoprojectStore from '/stores/geoproject';
 import ElevationDatasource from '/datasources/elevation';
 
+import dataToHeight from '/utils/dataToHeight';
+
 const earthScale = 0.0008176665341588574;
 function heightScale( p ) {
   const sceneScale = GeoprojectStore.getState().sceneScale;
@@ -25,14 +27,6 @@ function heightScale( p ) {
   return Math.cosh( n ) / ( earthScale * sceneScale );
 }
 
-function dataToHeight( data ) {
-  if ( data[ 0 ] === 0 && data[ 1 ] === 0 ) {
-    // NODATA values return 0
-    return 0;
-  }
-  return 256 * data[ 0 ] + data[ 1 ] - 32768;
-}
-
 // Simplified height lookup, doesn't interpolate between points
 // just picks the nearest pixel
 function heightAt( p, callback ) {
@@ -44,7 +38,7 @@ function heightAt( p, callback ) {
         const data = ElevationDatasource.dataAtPoint( p );
         if ( data ) {
           ElevationDatasource.removeListener( listener );
-          callback( dataToHeight( data ) * heightScale( p ) );
+          callback( dataToHeight( data, ElevationDatasource.pixelEncoding ) * heightScale( p ) );
         }
       };
 
@@ -56,7 +50,7 @@ function heightAt( p, callback ) {
     return 0;
   }
 
-  const H = dataToHeight( data ) * heightScale( p );
+  const H = dataToHeight( data, ElevationDatasource.pixelEncoding ) * heightScale( p );
   if ( typeof callback === 'function' ) { callback( H ) }
 
   return H;

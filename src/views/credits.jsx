@@ -19,9 +19,6 @@ const style = {
   background: 'rgba( 255, 255, 255, 0.1 )'
 };
 const pStyle = { color: 'white', fontSize : '6pt', margin: 0 };
-const BASE_CREDIT = [
-  '&copy;<a href="https://www.nasadem.xyz">nasadem.XYZ</a>'
-];
 
 const Credits = React.createClass( {
   getInitialState: () => AppStore.getState().datasource,
@@ -33,8 +30,11 @@ const Credits = React.createClass( {
     this.setState( datasource );
   },
   render: function () {
-    let credits = [...BASE_CREDIT];
-    if ( this.state.imagery ) {
+    let credits = [];
+    if ( this.state.elevation && this.state.elevation.attribution ) {
+      credits.push( this.state.elevation.attribution );
+    }
+    if ( this.state.imagery && this.state.imagery.attribution ) {
       credits.push( this.state.imagery.attribution );
     }
 

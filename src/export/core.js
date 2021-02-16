@@ -7,6 +7,8 @@
  */
 import alt from '/alt';
 
+import { PIXEL_ENCODING_NASADEM, PIXEL_ENCODING_TERRAIN_RGB,
+  PIXEL_ENCODING_TERRARIUM } from '/constants';
 import ConfigActions from '/actions/config';
 import GeodataActions from '/actions/geodata';
 import RenderActions from '/actions/render';
@@ -43,9 +45,13 @@ function CoreExport() {
  * @example
  * Procedural.init( {
  *   container: document.getElementById( 'app' ),
+ *   // For further details see:
+ *   // github.com/felixpalmer/procedural-gl-js/wiki/Data-sources
  *   datasource: {
  *     elevation: {
- *       apiKey: 'GET_AN_API_KEY_FROM_www.nasadem.xyz'
+ *       apiKey: 'GET_AN_API_KEY_FROM_YOUR_ELEVATION_PROVIDER',
+ *       pixelFormat: 'nasadem', // or 'terrain-rgb', 'terrarium'
+ *       urlFormat: 'https://elevation.example.com/tiles/{z}/{x}/{y}.jpg?key={apiKey}',
  *     },
  *     imagery: {
  *       apiKey: 'GET_AN_API_KEY_FROM_YOUR_IMAGERY_PROVIDER',
@@ -68,9 +74,14 @@ function CoreExport() {
  * var container = document.getElementById( 'app' );
  * Procedural.init( {
  *   container: document.getElementById( 'app' ),
+ *   // For further details see:
+ *   // github.com/felixpalmer/procedural-gl-js/wiki/Data-sources
  *   datasource: {
  *     elevation: {
- *       apiKey: 'GET_AN_API_KEY_FROM_www.nasadem.xyz'
+ *       apiKey: 'GET_AN_API_KEY_FROM_YOUR_ELEVATION_PROVIDER',
+ *       pixelFormat: 'nasadem', // or 'terrain-rgb', 'terrarium'
+ *       urlFormat: 'https://elevation.example.com/tiles/{z}/{x}/{y}.jpg?key={apiKey}',
+ *       attribution: 'Elevation attribution'
  *     },
  *     imagery: {
  *       apiKey: 'GET_AN_API_KEY_FROM_YOUR_IMAGERY_PROVIDER',
@@ -90,9 +101,52 @@ Procedural.init = function ( { container, datasource } ) {
     console.error( 'Error: tried to init Procedural API without datasource definition' );
     return;
   }
+  
+  // Allow shorthand definitions for compatible providers
+  if ( datasource.provider === 'maptiler' ) {
+    if ( !datasource.apiKey ) {
+      console.error( 'Error: `${datasource.provider} `datasource configuration is invalid. Must provide `apiKey`' );
+    }
+
+    datasource = {
+      elevation: {
+        apiKey: datasource.apiKey,
+        pixelEncoding: PIXEL_ENCODING_TERRAIN_RGB,
+        urlFormat: 'https://api.maptiler.com/tiles/terrain-rgb/{z}/{x}/{y}.png?key={apiKey}'
+      },
+      imagery: {
+        apiKey: datasource.apiKey,
+        attribution: '<a href="https://www.maptiler.com/copyright/">Maptiler</a> <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        urlFormat: 'https://api.maptiler.com/tiles/satellite/{z}/{x}/{y}.jpg?key={apiKey}'
+      }
+    }
+  }
+
+  if ( ( datasource.elevation.provider === 'nasadem' ) ||
+       // For back-compatibility with old NASADEM definition
+       ( Object.keys( datasource.elevation ).length === 1 && 
+         Object.keys( datasource.elevation )[ 0 ] === 'apiKey' ) ) {
+    if ( !datasource.elevation.apiKey ) {
+      console.error( 'Error: `${datasource.elevation.provider} `datasource configuration is invalid. Must provide `apiKey`' );
+    }
+
+    datasource.elevation = {
+      apiKey: datasource.elevation.apiKey,
+      attribution: '&copy;<a href="https://www.nasadem.xyz">nasadem.XYZ</a>',
+      pixelEncoding: PIXEL_ENCODING_NASADEM,
+      urlFormat: 'https://www.nasadem.xyz/api/v1/dem/{z}/{x}/{y}.png?key={apiKey}'
+    }
+  }
 
   const { elevation, imagery } = datasource;
-  if ( elevation === undefined || elevation.apiKey === undefined ) {
+
+  // Upgrade pixelEncoding to constants
+  if ( [ PIXEL_ENCODING_NASADEM, PIXEL_ENCODING_TERRAIN_RGB,
+         PIXEL_ENCODING_TERRARIUM ].indexOf( elevation.pixelEncoding ) === -1 ) {
+    console.error( 'Error: invalid pixelEncoding passed in elevation datasource' );
+  }
+
+  if ( elevation === undefined || elevation.urlFormat === undefined ) {
     console.error( 'Error: elevation datasource configuration is invalid' );
     return;
   }

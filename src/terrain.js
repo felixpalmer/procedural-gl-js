@@ -30,8 +30,8 @@ const tileDelta = new THREE.Vector2();
 let shiftThreshold = Infinity;
 PlacesStore.listen( ( { currentPlace } ) => {
   [ x, y, z ] = tilebelt.pointToTileFraction(
-    ApiUtils.snap( currentPlace.location[ 0 ] ),
-    ApiUtils.snap( currentPlace.location[ 1 ] ),
+    ApiUtils.snap( currentPlace.longitude ),
+    ApiUtils.snap( currentPlace.latitude ),
     baseZ );
   const W = GeoprojectStore.getState().sceneScale;
   shiftThreshold = 0.6 * W * Math.pow( 2, 15 - baseZ );

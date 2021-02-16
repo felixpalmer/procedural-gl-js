@@ -16,8 +16,9 @@ const ImageryDatasource = new BaseDatasource( {
 
 AppStore.listen( ( { datasource } ) => {
   if ( datasource.imagery ) {
-    ImageryDatasource.apiKey = datasource.imagery.apiKey;
-    ImageryDatasource.urlFormat = datasource.imagery.urlFormat;
+    for ( let key of [ 'apiKey', 'urlFormat' ] ) {
+      ImageryDatasource[ key ] = datasource.imagery[ key ];
+    }
   }
 } );
 
