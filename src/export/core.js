@@ -132,6 +132,7 @@ Procedural.init = function ( { container, datasource } ) {
 
     datasource.elevation = {
       apiKey: datasource.elevation.apiKey,
+      attribution: '&copy;<a href="https://www.nasadem.xyz">nasadem.XYZ</a>',
       pixelEncoding: PIXEL_ENCODING_NASADEM,
       urlFormat: 'https://www.nasadem.xyz/api/v1/dem/{z}/{x}/{y}.png?key={apiKey}'
     }
