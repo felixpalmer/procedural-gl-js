@@ -24,24 +24,34 @@
         const container = document.getElementById( 'container' );
 
         // Define API Keys (replace these with your own!)
-        const NASADEM_APIKEY = null;
+        // To obtain an API key go to:
+        // https://cloud.maptiler.com/account/?subscribe=flex&ref=procedural
         const MAPTILER_APIKEY = null;
-        if ( !NASADEM_APIKEY || !MAPTILER_APIKEY ) {
-          const error = Error( 'Modify index.html to include API keys' );
-          container.innerHTML = error; 
+        if ( !MAPTILER_APIKEY ) {
+          const error = Error( 'Modify index.module.html to include API keys' );
+          container.innerHTML = 'Modify datasource definition to contain a valid API key. <a href="https://cloud.maptiler.com/account/?subscribe=flex&ref=procedural">Click here to get an API key</a>'; 
           throw error;
         }
 
         const datasource = {
-          elevation: {
-            apiKey: NASADEM_APIKEY
-          },
-          imagery: {
-            apiKey: MAPTILER_APIKEY,
-            urlFormat: 'https://api.maptiler.com/tiles/satellite/{z}/{x}/{y}.jpg?key={apiKey}',
-            attribution: '<a href="https://www.maptiler.com/copyright/">Maptiler</a> <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          }
+          provider: 'maptiler',
+          apiKey: MAPTILER_APIKEY,
         }
+
+        // Custom datasource definition
+        //const datasource = {
+        //  elevation: {
+        //    apiKey: 'GET_AN_API_KEY_FROM_YOUR_ELEVATION_PROVIDER',
+        //    attribution: 'Elevation attribution',
+        //    pixelEncoding: 'nasadem', // or 'terrain-rgb', 'terrarium'
+        //    urlFormat: 'https://elevation.example.com/tiles/{z}/{x}/{y}.jpg?key={apiKey}'
+        //  },
+        //  imagery: {
+        //    apiKey: 'GET_AN_API_KEY_FROM_YOUR_IMAGERY_PROVIDER',
+        //    attribution: 'Imagery attribution',
+        //    urlFormat: 'https://imagery.example.com/tiles/{z}/{x}/{y}.jpg?key={apiKey}'
+        //  }
+        //}
         Procedural.init( { container, datasource } );
         Procedural.setCameraModeControlVisible( true );
         Procedural.setCompassVisible( true );

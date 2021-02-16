@@ -27,10 +27,12 @@
         const container = document.getElementById( 'container' );
 
         // Define API Keys (replace these with your own!)
+        // To obtain an API key go to:
+        // https://cloud.maptiler.com/account/?subscribe=flex&ref=procedural
         const MAPTILER_APIKEY = null;
         if ( !MAPTILER_APIKEY ) {
-          const error = Error( 'Modify index.html to include API keys' );
-          container.innerHTML = error; 
+          const error = Error( 'Modify index.dev.html to include API keys' );
+          container.innerHTML = 'Modify datasource definition to contain a valid API key. <a href="https://cloud.maptiler.com/account/?subscribe=flex&ref=procedural">Click here to get an API key</a>'; 
           throw error;
         }
 
