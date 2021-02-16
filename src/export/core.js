@@ -122,13 +122,16 @@ Procedural.init = function ( { container, datasource } ) {
     }
   }
 
-  if ( datasource.elevation.provider === 'nasadem' ) {
-    if ( !datasource.apiKey ) {
+  if ( ( datasource.elevation.provider === 'nasadem' ) ||
+       // For back-compatibility with old NASADEM definition
+       ( Object.keys( datasource.elevation ).length === 1 && 
+         Object.keys( datasource.elevation )[ 0 ] === 'apiKey' ) ) {
+    if ( !datasource.elevation.apiKey ) {
       console.error( 'Error: `${datasource.elevation.provider} `datasource configuration is invalid. Must provide `apiKey`' );
     }
 
     datasource.elevation = {
-      apiKey: datasource.apiKey,
+      apiKey: datasource.elevation.apiKey,
       pixelEncoding: PIXEL_ENCODING_NASADEM,
       urlFormat: 'https://www.nasadem.xyz/api/v1/dem/{z}/{x}/{y}.png?key={apiKey}'
     }
