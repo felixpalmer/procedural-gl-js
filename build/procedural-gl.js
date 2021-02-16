@@ -34754,7 +34754,7 @@
 	}
 
 	GeoprojectStore.prototype.setCurrentPlace = function ( place ) {
-	  this.location = place.location;
+	  this.location = [ place.longitude, place.latitude ];
 	  this.projection = 'EPSG:3857';
 
 	  // Setup projectors
@@ -34866,6 +34866,11 @@
 	const IMAGERY_POOL_SIZE = imageryPoolSize;
 	const IMAGERY_TILE_SIZE = 256;
 	const INTERPOLATE_FLOAT = params.has( 'interpolateFloat' );
+
+	// Different formats for encoding pixel data in elevation PNGs
+	const PIXEL_ENCODING_NASADEM = 'nasadem';
+	const PIXEL_ENCODING_TERRARIUM = 'terrarium';
+	const PIXEL_ENCODING_TERRAIN_RGB = 'terrain-rgb';
 
 	/**
 	 * Copyright 2020 (c) Felix Palmer
@@ -34979,20 +34984,33 @@
 
 	    let data = new Float32Array( N );
 
-	    const baseVal = -32768;
-	    //const interval = 1 / 256;
-	    let dataView = new DataView( imgData.buffer );
-	    for ( let i = 0; i < N; ++i ) {
-	      //let h = interval * (
-	      //  256 * 256 * imgData[ 4 * i ] +
-	      //  256 * imgData[ 4 * i + 1 ] +
-	      //  imgData[ 4 * i + 2 ]
-	      //) + baseVal;
-	      // Read as big-endian data (skipping B channel), equivalent to above
-	      let H = dataView.getUint16( 4 * i, false ) + baseVal;
+	    if ( textureArray.pixelEncoding === PIXEL_ENCODING_NASADEM ) {
+	      // NASADEM only uses two channels so we can use a DataView
+	      // to efficiently convert it to floating point
+	      const baseVal = -32768;
+	      let dataView = new DataView( imgData.buffer );
+	      for ( let i = 0; i < N; ++i ) {
+	        let H = dataView.getUint16( 4 * i, false ) + baseVal;
 
-	      // Handle NODATA value, clamping to 0
-	      data[ i ] = ( H === baseVal ? 0 : H );
+	        // Handle NODATA value, clamping to 0
+	        data[ i ] = ( H === baseVal ? 0 : H );
+	      }
+	    } else {
+	      let scale;
+	      if ( textureArray.pixelEncoding === PIXEL_ENCODING_TERRARIUM ) {
+	        scale = [ 256, 1, 1 / 256, -32768 ];
+	      } else if ( textureArray.pixelEncoding === PIXEL_ENCODING_TERRAIN_RGB ) {
+	        scale = [ 0.1 * 256 * 256, 0.1 * 256, 0.1, -10000 ];
+	      }
+	      for ( let i = 0; i < N; ++i ) {
+	        let H = scale[ 0 ] * imgData[ 4 * i ] +
+	                scale[ 1 ] * imgData[ 4 * i + 1 ] +
+	                scale[ 2 ] * imgData[ 4 * i + 2 ] +
+	                scale[ 3 ];
+
+	        // Handle NODATA value, clamping to 0
+	        data[ i ] = ( H === scale[ 3 ] ? 0 : H );
+	      }
 	    }
 
 	    // Do we need float? Perhaps just converting to data is
@@ -35016,9 +35034,10 @@
 	 */
 
 	class BaseDatasource {
-	  constructor( { apiKey, poolSize, textureSize, useFloat, urlFormat } ) {
+	  constructor( { apiKey, pixelEncoding, poolSize, textureSize, useFloat, urlFormat } ) {
 	    this.apiKey = apiKey;
 	    this.urlFormat = urlFormat;
+	    this.pixelEncoding = pixelEncoding;
 	    this.useFloat = !!useFloat;
 	    this.hasUpdates = false;
 	    this.listeners = [];
@@ -35052,7 +35071,12 @@
 	      renderer.capabilities.getMaxAnisotropy()
 	    );
 	    this.textureArray.__blocks = n;
-	    this.textureArray.useFloat = this.useFloat;
+
+	    for ( let prop of [ 'pixelEncoding', 'useFloat' ] ) {
+	      Object.defineProperty( this.textureArray, prop, {
+	        get: () => this[ prop ]
+	      } );
+	    }
 
 	    if ( this.useFloat ) {
 	      const size = 1024; // TODO reduce in future!
@@ -35299,15 +35323,42 @@
 	const ElevationDatasource = new BaseDatasource( {
 	  urlFormat: 'https://www.nasadem.xyz/api/v1/dem/{z}/{x}/{y}.png?key={apiKey}',
 	  textureSize: ELEVATION_TILE_SIZE,
+	  pixelEncoding: PIXEL_ENCODING_NASADEM,
 	  poolSize: ELEVATION_POOL_SIZE,
 	  useFloat: true
 	} );
 
 	AppStore$1.listen( ( { datasource } ) => {
 	  if ( datasource.elevation ) {
-	    ElevationDatasource.apiKey = datasource.elevation.apiKey;
+	    for ( let key of [ 'apiKey', 'pixelEncoding', 'urlFormat' ] ) {
+	      ElevationDatasource[ key ] = datasource.elevation[ key ];
+	    }
 	  }
 	} );
+
+	const MULTIPLIER_TERRARIUM = [ 256, 1, 1 / 256, -32768 ];
+	const MULTIPLIER_TERRAIN_RGB = [ 0.1 * 256 * 256, 0.1 * 256, 0.1, -10000 ];
+
+	function dataToHeight( data, pixelEncoding ) {
+	  if ( data[ 0 ] === 0 && data[ 1 ] === 0 ) {
+	    // NODATA values return 0
+	    return 0;
+	  }
+
+	  let m;
+	  if ( pixelEncoding === PIXEL_ENCODING_TERRARIUM || 
+	       pixelEncoding === PIXEL_ENCODING_NASADEM ) {
+	    m = MULTIPLIER_TERRARIUM;
+	  } else if ( pixelEncoding === PIXEL_ENCODING_TERRAIN_RGB ) {
+	    m = MULTIPLIER_TERRAIN_RGB;
+	  }
+
+	  return m[ 0 ] * data[ 0 ] +
+	         m[ 1 ] * data[ 1 ] +
+	         m[ 2 ] * data[ 2 ] +
+	         // This is correct, we don't want to multiply by data[ 3 ]
+	         m[ 3 ];
+	}
 
 	/**
 	 * Copyright 2020 (c) Felix Palmer
@@ -35331,14 +35382,6 @@
 	  return Math.cosh( n ) / ( earthScale * sceneScale );
 	}
 
-	function dataToHeight( data ) {
-	  if ( data[ 0 ] === 0 && data[ 1 ] === 0 ) {
-	    // NODATA values return 0
-	    return 0;
-	  }
-	  return 256 * data[ 0 ] + data[ 1 ] - 32768;
-	}
-
 	// Simplified height lookup, doesn't interpolate between points
 	// just picks the nearest pixel
 	function heightAt( p, callback ) {
@@ -35350,7 +35393,7 @@
 	        const data = ElevationDatasource.dataAtPoint( p );
 	        if ( data ) {
 	          ElevationDatasource.removeListener( listener );
-	          callback( dataToHeight( data ) * heightScale( p ) );
+	          callback( dataToHeight( data, ElevationDatasource.pixelEncoding ) * heightScale( p ) );
 	        }
 	      };
 
@@ -35362,7 +35405,7 @@
 	    return 0;
 	  }
 
-	  const H = dataToHeight( data ) * heightScale( p );
+	  const H = dataToHeight( data, ElevationDatasource.pixelEncoding ) * heightScale( p );
 	  if ( typeof callback === 'function' ) { callback( H ); }
 
 	  return H;
@@ -36196,9 +36239,13 @@
 	 * @example
 	 * Procedural.init( {
 	 *   container: document.getElementById( 'app' ),
+	 *   // For further details see:
+	 *   // github.com/felixpalmer/procedural-gl-js/wiki/Data-sources
 	 *   datasource: {
 	 *     elevation: {
-	 *       apiKey: 'GET_AN_API_KEY_FROM_www.nasadem.xyz'
+	 *       apiKey: 'GET_AN_API_KEY_FROM_YOUR_ELEVATION_PROVIDER',
+	 *       pixelFormat: 'nasadem', // or 'terrain-rgb', 'terrarium'
+	 *       urlFormat: 'https://elevation.example.com/tiles/{z}/{x}/{y}.jpg?key={apiKey}',
 	 *     },
 	 *     imagery: {
 	 *       apiKey: 'GET_AN_API_KEY_FROM_YOUR_IMAGERY_PROVIDER',
@@ -36221,9 +36268,14 @@
 	 * var container = document.getElementById( 'app' );
 	 * Procedural.init( {
 	 *   container: document.getElementById( 'app' ),
+	 *   // For further details see:
+	 *   // github.com/felixpalmer/procedural-gl-js/wiki/Data-sources
 	 *   datasource: {
 	 *     elevation: {
-	 *       apiKey: 'GET_AN_API_KEY_FROM_www.nasadem.xyz'
+	 *       apiKey: 'GET_AN_API_KEY_FROM_YOUR_ELEVATION_PROVIDER',
+	 *       pixelFormat: 'nasadem', // or 'terrain-rgb', 'terrarium'
+	 *       urlFormat: 'https://elevation.example.com/tiles/{z}/{x}/{y}.jpg?key={apiKey}',
+	 *       attribution: 'Elevation attribution'
 	 *     },
 	 *     imagery: {
 	 *       apiKey: 'GET_AN_API_KEY_FROM_YOUR_IMAGERY_PROVIDER',
@@ -36243,9 +36295,52 @@
 	    console.error( 'Error: tried to init Procedural API without datasource definition' );
 	    return;
 	  }
+	  
+	  // Allow shorthand definitions for compatible providers
+	  if ( datasource.provider === 'maptiler' ) {
+	    if ( !datasource.apiKey ) {
+	      console.error( 'Error: `${datasource.provider} `datasource configuration is invalid. Must provide `apiKey`' );
+	    }
+
+	    datasource = {
+	      elevation: {
+	        apiKey: datasource.apiKey,
+	        pixelEncoding: PIXEL_ENCODING_TERRAIN_RGB,
+	        urlFormat: 'https://api.maptiler.com/tiles/terrain-rgb/{z}/{x}/{y}.png?key={apiKey}'
+	      },
+	      imagery: {
+	        apiKey: datasource.apiKey,
+	        attribution: '<a href="https://www.maptiler.com/copyright/">Maptiler</a> <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	        urlFormat: 'https://api.maptiler.com/tiles/satellite/{z}/{x}/{y}.jpg?key={apiKey}'
+	      }
+	    };
+	  }
+
+	  if ( ( datasource.elevation.provider === 'nasadem' ) ||
+	       // For back-compatibility with old NASADEM definition
+	       ( Object.keys( datasource.elevation ).length === 1 && 
+	         Object.keys( datasource.elevation )[ 0 ] === 'apiKey' ) ) {
+	    if ( !datasource.elevation.apiKey ) {
+	      console.error( 'Error: `${datasource.elevation.provider} `datasource configuration is invalid. Must provide `apiKey`' );
+	    }
+
+	    datasource.elevation = {
+	      apiKey: datasource.elevation.apiKey,
+	      attribution: '&copy;<a href="https://www.nasadem.xyz">nasadem.XYZ</a>',
+	      pixelEncoding: PIXEL_ENCODING_NASADEM,
+	      urlFormat: 'https://www.nasadem.xyz/api/v1/dem/{z}/{x}/{y}.png?key={apiKey}'
+	    };
+	  }
 
 	  const { elevation, imagery } = datasource;
-	  if ( elevation === undefined || elevation.apiKey === undefined ) {
+
+	  // Upgrade pixelEncoding to constants
+	  if ( [ PIXEL_ENCODING_NASADEM, PIXEL_ENCODING_TERRAIN_RGB,
+	         PIXEL_ENCODING_TERRARIUM ].indexOf( elevation.pixelEncoding ) === -1 ) {
+	    console.error( 'Error: invalid pixelEncoding passed in elevation datasource' );
+	  }
+
+	  if ( elevation === undefined || elevation.urlFormat === undefined ) {
 	    console.error( 'Error: elevation datasource configuration is invalid' );
 	    return;
 	  }
@@ -36396,16 +36491,6 @@
 
 	const Procedural$3 = {};
 
-	var placeForTarget = function ( target ) {
-	  // Create location definition
-	  var place = template;
-	  place.name = Procedural$3.datafileForLocation( target );
-	  place.location = [ target.longitude, target.latitude ];
-	  if ( target.features ) { place.features = target.features; }
-
-	  return place;
-	};
-
 	/**
 	 * @name datafileForLocation
 	 * @memberof module:Core
@@ -36434,6 +36519,18 @@
 	 * @example
 	 * var target = { latitude: 43.21, longitude: 6.133 };
 	 * Procedural.displayLocation( target );
+	 *
+	 * // Optionally can also supply:
+	 * // - viewing angle,
+	 * // - a bearing,
+	 * // - a distance,
+	 * // - animation duration (in seconds)
+	 * var target = {
+	 *   latitude: 44.5, longitude: 6.3,
+	 *   angle: 20, bearing: 30, distance: 1000
+	 *   animationDuration: 0.5
+	 * };
+	 * Procedural.displayLocation( target );
 	 */
 	Procedural$3.displayLocation = function ( target ) {
 	  if ( !target ) {
@@ -36447,7 +36544,7 @@
 	  }
 
 	  setTimeout( function () {
-	    UserActions.setCurrentPlace( placeForTarget( target ) );
+	    UserActions.setCurrentPlace( { ...template, ...target } );
 	  }, 0 );
 	};
 
@@ -38594,8 +38691,9 @@ const vec3 a=vec3(0.299,0.587,0.114);const vec2 b=vec2(FXAA_SPAN_MAX);void main(
 
 	AppStore$1.listen( ( { datasource } ) => {
 	  if ( datasource.imagery ) {
-	    ImageryDatasource.apiKey = datasource.imagery.apiKey;
-	    ImageryDatasource.urlFormat = datasource.imagery.urlFormat;
+	    for ( let key of [ 'apiKey', 'urlFormat' ] ) {
+	      ImageryDatasource[ key ] = datasource.imagery[ key ];
+	    }
 	  }
 	} );
 
@@ -39969,10 +40067,9 @@ return texture2D(n,s);
 	  var place = PlacesStore$1.getState().currentPlace;
 	  setTimeout( function () {
 	    const loc = {
-	      longitude: place.location[ 0 ],
-	      latitude: place.location[ 1 ],
 	      angle: 40, distance: 5000,
-	      bearing: 0, animationDuration: 0.5
+	      bearing: 0, animationDuration: 0.5,
+	      ...place
 	    };
 	    heightAt( loc, H => {
 	      loc.height = H;
@@ -42390,8 +42487,8 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	let shiftThreshold = Infinity;
 	PlacesStore$1.listen( ( { currentPlace } ) => {
 	  [ x, y, z ] = tilebelt.pointToTileFraction(
-	    ApiUtils.snap( currentPlace.location[ 0 ] ),
-	    ApiUtils.snap( currentPlace.location[ 1 ] ),
+	    ApiUtils.snap( currentPlace.longitude ),
+	    ApiUtils.snap( currentPlace.latitude ),
 	    baseZ );
 	  const W = GeoprojectStore$1.getState().sceneScale;
 	  shiftThreshold = 0.6 * W * Math.pow( 2, 15 - baseZ );
@@ -42863,9 +42960,6 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	  background: 'rgba( 255, 255, 255, 0.1 )'
 	};
 	const pStyle = { color: 'white', fontSize : '6pt', margin: 0 };
-	const BASE_CREDIT = [
-	  '&copy;<a href="https://www.nasadem.xyz">nasadem.XYZ</a>'
-	];
 
 	const Credits = React.createClass( {displayName: 'Credits',
 	  getInitialState: () => AppStore$1.getState().datasource,
@@ -42877,8 +42971,11 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	    this.setState( datasource );
 	  },
 	  render: function () {
-	    let credits = [...BASE_CREDIT];
-	    if ( this.state.imagery ) {
+	    let credits = [];
+	    if ( this.state.elevation && this.state.elevation.attribution ) {
+	      credits.push( this.state.elevation.attribution );
+	    }
+	    if ( this.state.imagery && this.state.imagery.attribution ) {
 	      credits.push( this.state.imagery.attribution );
 	    }
 
@@ -43268,8 +43365,8 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	 * License, v. 2.0. If a copy of the MPL was not distributed with this
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
-	/*global '1.0.12'*/
-	console.log( 'Procedural v' + '1.0.12' );
+	/*global '1.0.13'*/
+	console.log( 'Procedural v' + '1.0.13' );
 
 	// Re-export public API
 	const Procedural$9 = {
