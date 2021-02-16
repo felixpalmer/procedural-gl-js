@@ -14,7 +14,7 @@ Key features
 
 - Novel GPU powered level-of-detail system gives butter-smooth rendering, including on mobile
 - Stream in standard raster imagery tiles. Supports map tiles from a variety of providers
-- Easily include elevation data. Global 3D data integration via [nasadem.XYZ](https://www.nasadem.xyz)
+- Easily include elevation data for 3D terrain
 - Powerful overlay capabilities. Draw crisp markers and lines
 - Well-thought-out API, complex applications can be built without needing to deal with 3D concepts
 - Great UX and intuitive controls, mouse-based on desktop & touch-based on mobile
@@ -46,14 +46,9 @@ const container = document.getElementById( 'container' );
 
 // Configure datasources
 const datasource = {
-  elevation: {
-    apiKey: 'GET_AN_API_KEY_FROM_www.nasadem.xyz'
-  },
-  imagery: {
-    apiKey: 'GET_AN_API_KEY_FROM_YOUR_IMAGERY_PROVIDER',
-    urlFormat: 'https://imagery.example.com/tiles/{z}/{x}/{y}.jpg?key={apiKey}',
-    attribution: 'Imagery attribution'
-  },
+  provider: 'maptiler',
+  // To get a free key, use https://cloud.maptiler.com/account/?ref=procedural
+  apiKey: 'GET_AN_API_KEY_FROM_MAPTILER'
 };
 
 // Initialize library and optionally add UI controls
