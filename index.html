@@ -127,27 +127,50 @@
         // demo
         var latitude = 42 + 8 * Math.random();
         var longitude = 6 + 8 * Math.random();
-        if ( !!location.search.match( 'ober' ) ) {
-            latitude = 47.23; longitude = 13.547;
-        }
-        if ( !!location.search.match( 'last' ) ) {
-            latitude = parseFloat( localStorage.getItem( 'latitude' ) );
-            longitude = parseFloat( localStorage.getItem( 'longitude' ) );
-        } else {
-            localStorage.setItem( 'latitude', latitude );
-            localStorage.setItem( 'longitude', longitude );
-        }
         var params = new URLSearchParams(window.location.search.slice(1));
-        if ( params.has( 'lat' ) && params.has( 'lon' ) ) {
-            latitude = parseFloat( params.get( 'lat' ) );
-            longitude = parseFloat( params.get( 'lon' ) );
+
+        // Extract location from URL params
+        var loc = { latitude, longitude };
+        if ( params.has( 'latitude' ) && params.has( 'longitude' ) ) {
+            loc.latitude = parseFloat( params.get( 'latitude' ) );
+            loc.longitude = parseFloat( params.get( 'longitude' ) );
+
+            var options = [ 'angle', 'bearing', 'distance', 'height' ];
+            for ( var opt of options ) {
+                if ( params.has( opt ) ) {
+                    loc[ opt ] = parseFloat( params.get( opt ) );
+                }
+            }
         }
 
-        Procedural.displayLocation( {
-          latitude:latitude, longitude:longitude
-        } );
-        Procedural.addBuiltinOverlay(['peaks', 'places']);
-        Procedural.onLocationLoaded = undefined;
+        Procedural.displayLocation( loc );
+
+        // Update URL when location changes
+        var wait = false;
+        var lastLoc;
+        Procedural.onCameraChange = function ( loc ) {
+            lastLoc = { ...loc };
+
+            var updateURLParams = function () {
+                var params = new URLSearchParams();
+                for ( var opt of Object.keys( lastLoc ) ) {
+                    var v = lastLoc[ opt ];
+                    v = Number.parseFloat( v ).toPrecision( 6 );
+                    params.set( opt, v );
+                }
+                window.history.replaceState(
+                    {}, '', `${location.pathname}?${params}` );
+            }
+
+            // Throttle updates to URL
+            if ( !wait ) {
+                wait = true;
+                setTimeout( function () {
+                    updateURLParams();
+                    wait = false;
+                }, 500 );
+            }
+        }
 
         window.Procedural = Procedural;
     </script>
