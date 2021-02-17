@@ -118,9 +118,13 @@ will be able to call. Once you have loaded the Procedural library, you can load 
     
     <pre class="prettyprint"><code>Procedural.init( {
   container: document.getElementById( 'app' ),
+  // For further details see:
+  // github.com/felixpalmer/procedural-gl-js/wiki/Data-sources
   datasource: {
     elevation: {
-      apiKey: 'GET_AN_API_KEY_FROM_www.nasadem.xyz'
+      apiKey: 'GET_AN_API_KEY_FROM_YOUR_ELEVATION_PROVIDER',
+      pixelFormat: 'nasadem', // or 'terrain-rgb', 'terrarium'
+      urlFormat: 'https://elevation.example.com/tiles/{z}/{x}/{y}.jpg?key={apiKey}',
     },
     imagery: {
       apiKey: 'GET_AN_API_KEY_FROM_YOUR_IMAGERY_PROVIDER',
@@ -362,6 +366,18 @@ When the data is ready to be displayed <a href="module-Core.html#.onLocationLoad
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>var target = { latitude: 43.21, longitude: 6.133 };
+Procedural.displayLocation( target );
+
+// Optionally can also supply:
+// - viewing angle,
+// - a bearing,
+// - a distance,
+// - animation duration (in seconds)
+var target = {
+  latitude: 44.5, longitude: 6.3,
+  angle: 20, bearing: 30, distance: 1000
+  animationDuration: 0.5
+};
 Procedural.displayLocation( target );</code></pre>
 
 
@@ -499,9 +515,14 @@ engine will draw its output.
     <pre class="prettyprint"><code>var container = document.getElementById( 'app' );
 Procedural.init( {
   container: document.getElementById( 'app' ),
+  // For further details see:
+  // github.com/felixpalmer/procedural-gl-js/wiki/Data-sources
   datasource: {
     elevation: {
-      apiKey: 'GET_AN_API_KEY_FROM_www.nasadem.xyz'
+      apiKey: 'GET_AN_API_KEY_FROM_YOUR_ELEVATION_PROVIDER',
+      pixelFormat: 'nasadem', // or 'terrain-rgb', 'terrarium'
+      urlFormat: 'https://elevation.example.com/tiles/{z}/{x}/{y}.jpg?key={apiKey}',
+      attribution: 'Elevation attribution'
     },
     imagery: {
       apiKey: 'GET_AN_API_KEY_FROM_YOUR_IMAGERY_PROVIDER',
