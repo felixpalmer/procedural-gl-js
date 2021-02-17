@@ -67,6 +67,7 @@ Examples
 
 - [🏞️ New Zealand National Parks](https://github.com/felixpalmer/new-zealand-3d/)
 - [🏔️ Peaks of Austria](https://github.com/felixpalmer/peaks-of-austria/)
+- [🌋 Volcanoes of Japan](https://github.com/felixpalmer/volcanoes-of-japan)
 
 Blog posts / Guides
 ===================
