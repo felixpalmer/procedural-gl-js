@@ -7,7 +7,7 @@ Procedural GL JS is a library for creating 3D map experiences on the web, writte
 
 It provides an easy-to-use, but powerful framework to allow beautiful landscapes of the outdoors to be embedded into web pages. It loads super-fast and is optimized for mobile devices.
 
-[Demo](https://felixpalmer.github.io/procedural-gl-js/) | [Docs](https://felixpalmer.github.io/procedural-gl-js/docs/) | [Overlay playground](https://felixpalmer.github.io/procedural-gl-js/docs/overlays.html) | [Elevation data](https://www.nasadem.xyz) | [Source](https://github.com/felixpalmer/procedural-gl-js)
+[Demo](https://www.procedural.eu/map/) | [Docs](https://www.procedural.eu/) | [Overlay playground](https://www.procedural.eu/overlays.html) | [Elevation data](https://www.nasadem.xyz) | [Source](https://github.com/felixpalmer/procedural-gl-js)
 
 Key features
 ============
