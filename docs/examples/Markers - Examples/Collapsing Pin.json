@@ -1,0 +1,63 @@
+{
+  "type": "FeatureCollection",
+  "features": [ {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.544, 47.25343 ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "name": "Hotel",
+        "borderRadius": 25,
+        "padding": 10,
+        "borderWidth": 2,
+        "background": "blue",
+        "anchorOffset": {
+          "y": 70,
+          "x": 0
+        },
+        "icon": "hotel"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.544, 47.25343 ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "color": "#ddd",
+        "fontSize": 11,
+        "anchor": "center",
+        "icon": "circle-o"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.544, 47.25343 ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "color": "#ddd",
+        "fontSize": 40,
+        "name": "|",
+        "anchor": "bottom",
+        "anchorOffset": {
+          "y": 3,
+          "x": 0
+        }
+      }
+    }
+  ],
+  "defaults": {
+    "properties": {
+      "color": "white",
+      "collapseDistance": 3000,
+      "fadeDistance": 5000
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "FeatureCollection",
+  "features": [ {
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [ 13.545, 47.255 ],
+          [ 13.55, 47.255 ],
+          [ 13.55, 47.25 ],
+          [ 13.545, 47.25 ],
+          [ 13.545, 47.253 ],
+          [ 13.548, 47.253 ],
+          [ 13.548, 47.252 ],
+          [ 13.547, 47.251 ]
+        ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+      }
+    }
+  ],
+  "defaults": {
+    "properties": {
+      "color": "crimson",
+      "outlineColor": "white",
+      "thickness": 6
+    }
+  }
+}

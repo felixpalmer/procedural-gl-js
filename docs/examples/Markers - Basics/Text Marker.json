@@ -1,0 +1,22 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.54,
+          47.27
+        ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "color": "white",
+        "padding": 10,
+        "background": "black",
+        "name": "Example"
+      }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "type": "FeatureCollection",
+  "features": [ {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.55, 47.24 ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "highlightOpacity": 0,
+        "name": "highlightOpacity 0"
+      }
+    }, {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.55, 47.241 ]
+      },
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "name": "highlightOpacity 0.2 (default)"
+      }
+    }, {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.55, 47.242 ]
+      },
+      "type": "Feature",
+      "id": 2,
+      "properties": {
+        "highlightOpacity": 0.5,
+        "name": "highlightOpacity 0.5"
+      }
+    }, {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.55, 47.243 ]
+      },
+      "type": "Feature",
+      "id": 3,
+      "properties": {
+        "highlightOpacity": 1,
+        "name": "highlightOpacity 1"
+      }
+    }
+  ],
+  "defaults": {
+    "properties": {
+      "color": "white",
+      "background": "crimson",
+      "borderRadius": 25,
+      "padding": 10,
+      "icon": "star",
+      "anchor": "left",
+      "fadeDistance": 5000
+    }
+  }
+}

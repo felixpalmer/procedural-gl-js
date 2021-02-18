@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Overlay Editor</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/blackboard.css">
+    <link type="text/css" rel="stylesheet" href="styles/codemirror.css">
+
+    <link type="text/css" rel="stylesheet" href="styles/overlays.css">
+    <link type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+    <label for="nav-trigger" class="navicon-button x">
+        <div class="navicon"></div>
+    </label>
+    <label for="nav-trigger" class="overlay"></label>
+
+    <nav>
+        <h2><a href="index.html">Docs Home</a></h2>
+        <h1>Overlay editor</h1>
+        <h3>Examples</h3>
+        <ul id="example-list">
+        </ul>
+    </nav>
+
+    <div id="main">
+        <div id="app">
+            <div id="preloader-container"> 
+                <p class="preloader-label"><i class="fa fa-circle-o-notch fa-spin"></i></p>
+            </div>
+        </div>
+        <div id="editor-container">
+            <ul id="top-bar">
+                <li id='update-button'>Update</li>
+                <li id='clear-button'>Clear</li>
+            </ul>
+            <div id="editor"></div>
+        </div>
+    </div>
+
+    <script src="scripts/turf-bbox.js"></script>
+    <script src="https://unpkg.com/procedural-gl/build/procedural-gl.js"></script>
+    <script src="scripts/overlays.js"></script>
+    <script src="scripts/codemirror.js"></script>
+    <script src="scripts/javascript.js"></script>
+    <script src="scripts/geojsonhint.js"></script>
+</body>
+</html>

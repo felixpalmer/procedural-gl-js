@@ -1,0 +1,12 @@
+{
+  "templates": {
+    "default": {
+      "outputSourceFiles": false,
+      "includeDate": false
+    }
+  },
+  "docdash": {
+    "static": true,
+    "sort": true
+  }
+}

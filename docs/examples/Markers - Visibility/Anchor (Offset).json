@@ -1,0 +1,111 @@
+{
+  "type": "FeatureCollection",
+  "features": [ {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.53, 47.2715 ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "anchor": "bottom",
+        "name": "No anchorOffset"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.53, 47.2715 ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "anchor": "bottom",
+        "anchorOffset": {
+          "y": 100,
+          "x": 0
+        },
+        "name": "anchorOffset: {x: 0, y:100}"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.53, 47.2715 ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "padding": 0,
+        "borderWidth": 0,
+        "icon": "circle"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.52, 47.2715 ]
+      },
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "anchor": "left",
+        "name": "No anchorOffset"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.52, 47.2715 ]
+      },
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "anchor": "left",
+        "anchorOffset": {
+          "y": 0,
+          "x": 250
+        },
+        "name": "anchorOffset: {x: 250, y:0}"
+      }
+    },
+     {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.52, 47.2715 ]
+      },
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "anchor": "left",
+        "anchorOffset": {
+          "y": 100,
+          "x": 0
+        },
+        "name": "anchorOffset: {x: 0, y:100}"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.52, 47.2715 ]
+      },
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "padding": 0,
+        "borderWidth": 0,
+        "icon": "circle"
+      }
+    }
+  ],
+  "defaults": {
+    "properties": {
+      "color": "white",
+      "padding": 10,
+      "clipping": "object",
+      "anchor": "center",
+      "borderWidth": 2
+    }
+  }
+}

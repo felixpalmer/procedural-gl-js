@@ -1,0 +1,107 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.53,
+          47.2715
+        ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "anchor": {"x": 1, "y": 0},
+        "name": "{x: 1, y:0}"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.54,
+          47.2515
+        ]
+      },
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "anchor": {"x": 0, "y": 1},
+        "name": "{x: 0, y: 1}"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.56,
+          47.2615
+        ]
+      },
+      "type": "Feature",
+      "id": 2,
+      "properties": {
+        "anchor": {"x": 0, "y": 1.5},
+        "name": "{x: 0, y: 1.5}"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.53,
+          47.2715
+        ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "padding": 0,
+        "borderWidth": 0,
+        "icon": "circle"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.54,
+          47.2515
+        ]
+      },
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "padding": 0,
+        "borderWidth": 0,
+        "icon": "circle"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.56,
+          47.2615
+        ]
+      },
+      "type": "Feature",
+      "id": 2,
+      "properties": {
+        "padding": 0,
+        "borderWidth": 0,
+        "icon": "circle"
+      }
+    }
+  ],
+  "defaults": {
+    "properties": {
+      "anchor": "center",
+      "color": "white",
+      "padding": 30,
+      "clipping": "object",
+      "borderWidth": 2
+    }
+  }
+}

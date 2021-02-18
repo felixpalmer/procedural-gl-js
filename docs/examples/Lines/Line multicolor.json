@@ -1,0 +1,27 @@
+{
+  "type": "FeatureCollection",
+  "features": [ {
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [ 13.457, 47.2315 ],
+          [ 13.47, 47.22 ],
+          [ 13.481, 47.23 ],
+          [ 13.4901, 47.227 ]
+        ],
+        "colors": [
+          "#ff3121",
+          "#ef2161",
+          "#df0191",
+          "#bf01d1"
+        ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "color": "#f30e32",
+        "thickness": 4
+      }
+    }
+  ]
+}

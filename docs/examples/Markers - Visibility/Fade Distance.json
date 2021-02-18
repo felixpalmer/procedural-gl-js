@@ -1,0 +1,64 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.55,
+          47.25
+        ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "fadeDistance": 1000,
+        "name": "fades at 1km",
+        "background": "blue"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.55,
+          47.251
+        ]
+      },
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "fadeDistance": 2000,
+        "name": "fades at 2km",
+        "background": "green"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.55,
+          47.252
+        ]
+      },
+      "type": "Feature",
+      "id": 2,
+      "properties": {
+        "fadeDistance": 5000,
+        "name": "fades at 5km",
+        "background": "red"
+      }
+    }
+  ],
+  "defaults": {
+    "properties": {
+      "clipping": "object",
+      "color": "white",
+      "padding": 10,
+      "borderRadius": 10,
+      "borderWidth": 1,
+      "anchor": "left",
+      "icon": "eye"
+    }
+  }
+}

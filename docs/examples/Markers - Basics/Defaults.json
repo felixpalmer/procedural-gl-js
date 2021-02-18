@@ -1,0 +1,57 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.567,
+          47.25
+        ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "name": "Default color and background"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.567,
+          47.249
+        ]
+      },
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "name": "Color overridden",
+        "color": "blue"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.567,
+          47.248
+        ]
+      },
+      "type": "Feature",
+      "id": 2,
+      "properties": {
+        "name": "Background overridden",
+        "background": "green"
+      }
+    }
+  ],
+  "defaults": {
+    "properties": {
+      "color": "white",
+      "background": "black",
+      "padding": 10,
+      "clipping": "object"
+    }
+  }
+}

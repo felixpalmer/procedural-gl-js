@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <title>Procedural GL JS</title>
+        <meta name="viewport" content="user-scalable=no, width=device-width, height=device-height, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/css/autoComplete.min.css">
+        <style>
+            html, body {
+                margin: 0;
+            }
+
+            #autoComplete {
+                top: 10px;
+                left: 60px;
+                border: 1px solid white;
+                background-color: #333542;
+                background-size: 1rem;
+                background-position: left 0.65rem top 0.6rem;
+                caret-color: white;
+                padding: 0 0 0 2.1rem;
+                height: 2.1rem;
+                width: 0;
+            }
+
+            #autoComplete:hover {
+                color: white;
+                background-size: 1rem;
+                background-position: left 0.65rem top 0.6rem;
+                padding: 0 0 0 2.1rem;
+                height: 2.1rem;
+                width: 9rem;
+            }
+
+            #autoComplete:focus {
+                background-size: 1rem;
+                background-position: left 0.65rem top 0.6rem;
+                padding: 0 0 0 2.1rem;
+                height: 2.1rem;
+                width: 9rem;
+                border: 1px solid white;
+                color: white;
+                box-shadow: rgba(255, 255, 255, 0.3) 0px 0px 3px 3px;
+            }
+
+            #autoComplete::placeholder {
+                color: rgba(255, 255, 255, 0);
+            }
+
+            #autoComplete:hover::placeholder {
+                color: rgba(255, 255, 255, 0.5);
+            }
+
+            #autoComplete:focus::placeholder {
+                color: rgba(255, 255, 255, 0.5);
+            }
+
+            #autoComplete_list {
+                margin: 0;
+                left: 11px;
+                top: 55px;
+            }
+
+            .autoComplete_result {
+                margin: 0;
+                border: 1px solid #e3e3e3;
+            }
+
+            .autoComplete_result:hover {
+                border-top: 1px solid transparent;
+                border-bottom: 1px solid transparent;
+            }
+            
+            .autoComplete_result:last-child {
+                border-radius: inherit;
+            }
+        </style>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div style="position: absolute; width: 100%; height: 100%;" id="container">
+        </div>
+        <input id="autoComplete" tabindex="1" type="text"/>
+    </body>
+    <script type="text/javascript" src="https://unpkg.com/procedural-gl/build/procedural-gl.js"></script>
+    <script type="text/javascript"> 
+        // Initialize the engine with a location and inject into page
+        const container = document.getElementById( 'container' );
+
+        // Define API Keys (replace these with your own!)
+        // To obtain an API key go to:
+        // https://cloud.maptiler.com/account/?ref=procedural
+        const MAPTILER_APIKEY = 'A1il36Bj6WWSVSzxxuig'; // Do not try to use this key, it is domain-locked anyway
+        if ( !MAPTILER_APIKEY ) {
+          const error = Error( 'Modify index.html to include API keys' );
+          container.innerHTML = 'Modify datasource definition to contain a valid API key. <a href="https://cloud.maptiler.com/account/?ref=procedural">Click here to get a free API key</a>'; 
+          throw error;
+        }
+
+        const datasource = {
+          provider: 'maptiler',
+          apiKey: MAPTILER_APIKEY,
+        }
+
+        // Custom datasource definition
+        //const datasource = {
+        //  elevation: {
+        //    apiKey: 'GET_AN_API_KEY_FROM_YOUR_ELEVATION_PROVIDER',
+        //    attribution: 'Elevation attribution',
+        //    pixelEncoding: 'nasadem', // or 'terrain-rgb', 'terrarium'
+        //    urlFormat: 'https://elevation.example.com/tiles/{z}/{x}/{y}.jpg?key={apiKey}'
+        //  },
+        //  imagery: {
+        //    apiKey: 'GET_AN_API_KEY_FROM_YOUR_IMAGERY_PROVIDER',
+        //    attribution: 'Imagery attribution',
+        //    urlFormat: 'https://imagery.example.com/tiles/{z}/{x}/{y}.jpg?key={apiKey}'
+        //  }
+        //}
+        Procedural.init( { container, datasource } );
+        Procedural.setCameraModeControlVisible( true );
+        Procedural.setCompassVisible( true );
+        Procedural.setUserLocationControlVisible( true );
+        Procedural.setRotationControlVisible( true );
+        Procedural.setZoomControlVisible( true );
+
+        // demo
+        var latitude = 42 + 8 * Math.random();
+        var longitude = 6 + 8 * Math.random();
+        var params = new URLSearchParams(window.location.search.slice(1));
+
+        // Extract location from URL params
+        var loc = { latitude, longitude };
+        if ( params.has( 'latitude' ) && params.has( 'longitude' ) ) {
+            loc.latitude = parseFloat( params.get( 'latitude' ) );
+            loc.longitude = parseFloat( params.get( 'longitude' ) );
+
+            var options = [ 'angle', 'bearing', 'distance', 'height' ];
+            for ( var opt of options ) {
+                if ( params.has( opt ) ) {
+                    loc[ opt ] = parseFloat( params.get( opt ) );
+                }
+            }
+        }
+
+        Procedural.displayLocation( loc );
+
+        // Update URL when location changes
+        var wait = false;
+        var lastLoc;
+        Procedural.onCameraChange = function ( loc ) {
+            lastLoc = { ...loc };
+
+            var updateURLParams = function () {
+                var params = new URLSearchParams();
+                for ( var opt of Object.keys( lastLoc ) ) {
+                    var v = lastLoc[ opt ];
+                    v = Number.parseFloat( v ).toPrecision( 6 );
+                    params.set( opt, v );
+                }
+                window.history.replaceState(
+                    {}, '', `${location.pathname}?${params}` );
+            }
+
+            // Throttle updates to URL
+            if ( !wait ) {
+                wait = true;
+                setTimeout( function () {
+                    updateURLParams();
+                    wait = false;
+                }, 500 );
+            }
+        }
+
+        window.Procedural = Procedural;
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/js/autoComplete.min.js"></script>
+    <script>
+        new autoComplete({
+            selector: '#autoComplete', 
+            data: {                              // Data src [Array, Function, Async] | (REQUIRED)
+                src: async () => {
+                    // API key token
+                    const token = "53f70e3617d84a74b1102933f2f2880b";
+                    // User search query
+                    const query = document.querySelector("#autoComplete").value;
+                    // Fetch External Data Source
+                    const source = await fetch( `https://api.opencagedata.com/geocode/v1/json?q=${query}&key=${token}` );
+                    // Format data into JSON
+                    const data = await source.json();
+                    // Return Fetched data
+                    return data.results;
+                },
+                key: ["formatted"],
+                cache: false
+            },
+			placeHolder: "Enter location",
+			selector: "#autoComplete",
+			threshold: 3,
+			debounce: 200,
+			searchEngine: "loose",
+			highlight: true,
+			maxResults: 5,
+			resultsList: {
+				render: true,
+				container: source => {
+					source.setAttribute("id", "autoComplete_list");
+				},
+				destination: document.querySelector("#autoComplete"),
+				position: "afterend",
+				element: "ul"
+			},
+			resultItem: {
+				content: (data, source) => {
+					source.innerHTML = data.match;
+				},
+				element: "li"
+			},
+			noResults: () => {
+				const result = document.createElement("li");
+				result.setAttribute("class", "no_result");
+				result.setAttribute("tabindex", "1");
+				result.innerHTML = "No Results";
+				document.querySelector("#autoComplete_list").appendChild(result);
+			},
+			onSelection: feedback => {
+				const geometry = feedback.selection.value.geometry;
+				document.querySelector("#autoComplete").value = "";
+				Procedural.displayLocation( {
+					longitude: geometry.lng, latitude: geometry.lat
+				} );
+            }
+        });
+    </script>
+</html>

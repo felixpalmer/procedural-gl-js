@@ -1,0 +1,108 @@
+{
+  "type": "FeatureCollection",
+  "features": [ {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.56, 47.25 ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "borderRadius": 32,
+        "image": "img/sun.jpg",
+        "height": 60,
+        "width": 60,
+        "borderWidth": 2,
+        "background": "#ccc",
+        "anchorOffset": {
+          "y": 70,
+          "x": 0
+        }
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.56, 47.25 ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "fontSize": 20,
+        "anchorOffset": {
+          "y": 45,
+          "x": 0
+        },
+        "icon": "caret-down"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.56, 47.25 ]
+      },
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "name": "3",
+        "borderRadius": 23,
+        "padding": 5,
+        "fontSize": 13,
+        "background": "#44b6f7",
+        "anchor": "bottom"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.54, 47.261 ]
+      },
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "borderRadius": 32,
+        "image": "img/rock.jpg",
+        "height": 60,
+        "width": 60,
+        "borderWidth": 2,
+        "background": "#ccc",
+        "anchorOffset": {
+          "y": 70,
+          "x": 0
+        }
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.54, 47.261 ]
+      },
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "fontSize": 20,
+        "anchorOffset": {
+          "y": 45,
+          "x": 0
+        },
+        "icon": "caret-down"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 13.54, 47.261 ]
+      },
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "name": "5",
+        "borderRadius": 23,
+        "padding": 5,
+        "fontSize": 13,
+        "background": "#44b6f7",
+        "anchor": "bottom"
+      }
+    }
+  ]
+}
