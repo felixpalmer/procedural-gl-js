@@ -60,6 +60,11 @@ const montBlanc = { latitude: 45.8326364, longitude: 6.8564201 };
 Procedural.displayLocation( montBlanc );
 ```
 
+Connecting to a datasource
+--------------------------
+
+To actually load data using a library you will need to connect to a source of data. The quickest way to get setup is to register for a [free account with MapTiler](https://cloud.maptiler.com/account/?ref=procedural) and then use the API key as shown above.
+
 For detailed instructions for setting up the datasource, [see this page in the wiki](https://github.com/felixpalmer/procedural-gl-js/wiki/Data-sources)
 
 Examples
@@ -68,6 +73,11 @@ Examples
 - [🏞️ New Zealand National Parks](https://github.com/felixpalmer/new-zealand-3d/)
 - [🏔️ Peaks of Austria](https://github.com/felixpalmer/peaks-of-austria/)
 - [🌋 Volcanoes of Japan](https://github.com/felixpalmer/volcanoes-of-japan)
+
+Sponsor
+=======
+
+If this library is useful to you, please consider [sponsoring](https://github.com/sponsors/felixpalmer) the project.
 
 Blog posts / Guides
 ===================
