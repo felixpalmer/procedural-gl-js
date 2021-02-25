@@ -13,12 +13,14 @@ import renderer from '/renderer';
 import GeoprojectStore from '/stores/geoproject';
 import log from '/log';
 import IntegerPool from '/utils/IntegerPool';
+import RGBABuffer from '/utils/RGBABuffer';
 import ImageLoader from '/utils/ImageLoader';
 import { insertIntoTextureArray } from '/utils/TextureArray';
 
 class BaseDatasource {
-  constructor( { apiKey, pixelEncoding, poolSize, textureSize, useFloat, urlFormat } ) {
+  constructor( { apiKey, maxZoom, pixelEncoding, poolSize, textureSize, useFloat, urlFormat } ) {
     this.apiKey = apiKey;
+    this.maxZoom = maxZoom;
     this.urlFormat = urlFormat;
     this.pixelEncoding = pixelEncoding;
     this.useFloat = !!useFloat;
@@ -63,6 +65,7 @@ class BaseDatasource {
 
     if ( this.useFloat ) {
       const size = 1024; // TODO reduce in future!
+      this.indirectionData = new RGBABuffer( size );
       this.indirectionTexture = new THREE.DataTexture( null,
         size, size,
         // TODO Could perhaps use smaller format
@@ -188,34 +191,100 @@ class BaseDatasource {
     return newIndex;
   }
 
+  // Would be nice if we could do this in a shader, but
+  // unfortunately many mobile devices do not support
+  // writing to a floating point target
   updateIndirectionTexture() {
     // Update indirection texture, loop over all textures
     if ( this.indirectionTexture ) {
+      const W = this.indirectionData.size;
       let quadkeys = Object.keys( this.lookup );
       quadkeys.sort( ( a, b ) => Math.sign( a.length - b.length ) );
+
+      // Calculate range which has been changed
+      let changed;
+      let dirty = { startX: W, endX: 0, startY: W, endY: 0 }
+      if ( this.lastQuadkeys ) {
+        changed = [
+          ...quadkeys.filter( q => !this.lastQuadkeys.includes( q ) ),
+          ...this.lastQuadkeys.filter( q => !quadkeys.includes( q ) )
+        ];
+      } else {
+        changed = quadkeys;
+      }
+      this.lastQuadkeys = [...quadkeys];
+
+      // Compute dirty area which we need to write to
+      for ( let q of changed ) {
+        // Calculate area occupied by tile
+        let [ x, y, z ] = tilebelt.quadkeyToTile( q );
+        let size = Math.pow( 2, this.maxZoom - z );
+        x *= size; y *= size;
+        let startX = x % W; let startY = y % W;
+        let endX = startX + size; let endY = startY + size;
+
+        // Expand dirty region
+        dirty.startX = Math.min( dirty.startX, startX );
+        dirty.endX = Math.max( dirty.endX, endX );
+        dirty.startY = Math.min( dirty.startY, startY );
+        dirty.endY = Math.max( dirty.endY, endY );
+      }
+
+      // Write regions into RGBA buffer
       for ( let q of quadkeys ) {
         let [ x, y, z ] = tilebelt.quadkeyToTile( q );
         let tileIndex = this.lookup[ q ];
-        let size = Math.pow( 2, 10 - z );
-        x *= size; y *= size; // Move to zoom level 10
-        let data = new Float32Array( 4 * size * size );
-        let tileSize = Math.pow( 2, z );
-        let originScale = -tileSize / this.indirectionTexture.image.width;
-        for ( let i = 0; i < data.length; i++ ) {
-          // Location of tile in texture array
-          data[ 4 * i ] = tileIndex;
-          // Tile size
-          data[ 4 * i + 1 ] = tileSize;
-          // Tile origin position (scaled to save GPU instructions)
-          data[ 4 * i + 2 ] = x * originScale;
-          data[ 4 * i + 3 ] = y * originScale;
-        }
 
-        renderer.copyTextureToTexture( { x, y }, {
-          image: { data, width: size, height: size },
-          isDataTexture: true
-        }, this.indirectionTexture );
+        // Get width of patch we will need to occupy in
+        // indirection texture
+        let size = Math.pow( 2, this.maxZoom - z );
+
+        // Get position of where patch will be
+        x *= size; y *= size; // Move to max zoom
+
+        // tileSize is ratio between the width of area this
+        // tile occupies in the the indirection texture and 1
+        let minZoom = this.maxZoom - 10; // Can fit 10 levels into 1024
+        let tileSize = Math.pow( 2, z - minZoom );
+
+        // Pass through origin of patch to GPU
+        let originScale = -tileSize / W;
+
+        // Calculate region to fill
+        let fillStartX = ( x % W ); let fillStartY = ( y % W );
+        let fillEndX = fillStartX + size; let fillEndY = fillStartY + size;
+
+        // Crop by dirty region
+        fillStartX = Math.max( fillStartX, dirty.startX );
+        fillStartY = Math.max( fillStartY, dirty.startY );
+        fillEndX = Math.min( fillEndX, dirty.endX );
+        fillEndY = Math.min( fillEndY, dirty.endY );
+        let p = fillStartX + W * fillStartY;
+        let w = fillEndX - fillStartX;
+        let h = fillEndY - fillStartY;
+
+        // Write data for this tile
+        this.indirectionData.fillRect( p, w, h,
+          // Location of tile in texture array
+          tileIndex,
+          // Tile size
+          tileSize,
+          // Tile origin position (scaled to save GPU instructions)
+          x * originScale, y * originScale
+        );
       }
+
+      // Write only region updated to GPU
+      // It has to be full width as we can't take a subarray
+      // efficiently otherwise
+      const rows = dirty.endY - dirty.startY;
+      let subArray = this.indirectionData.data.subarray(
+        4 * W * dirty.startY,
+        4 * W * dirty.endY );
+      renderer.copyTextureToTexture( { x: 0, y: dirty.startY }, {
+        image: { data: subArray, width: W, height: rows },
+        isDataTexture: true
+      }, this.indirectionTexture );
     }
   }
 

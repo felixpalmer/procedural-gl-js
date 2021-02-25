@@ -231,7 +231,7 @@ function draw() {
       if ( tile === undefined ) { continue }
 
       // terrainError of 0 is 1:1 pixel:texel
-      if ( terrainError < ( window.minError || -1.5 ) && tile.z < 18 ) {
+      if ( terrainError < ( window.minError || -1.5 ) && tile.z < ImageryDatasource.maxZoom ) {
         toSplit.add( tile );
         tilesSeen.add( tile );
       } else if ( terrainError > ( window.maxError || 0 ) && tile.z > 7 ) {

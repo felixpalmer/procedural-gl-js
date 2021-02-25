@@ -8,7 +8,7 @@
 let params = new URLSearchParams( window.location.search.slice( 1 ) );
 
 // TODO could support non-square POT textures also
-let elevationPoolSize = 4 * 4;
+let elevationPoolSize = 8 * 8;
 let imageryPoolSize = 16 * 16;
 if ( params.has( 'elevationPoolSize' ) ) {
   elevationPoolSize = Number.parseInt( params.get( 'elevationPoolSize' ) );

@@ -13,6 +13,7 @@ import { ELEVATION_TILE_SIZE, ELEVATION_POOL_SIZE,
 const ElevationDatasource = new BaseDatasource( {
   urlFormat: 'https://www.nasadem.xyz/api/v1/dem/{z}/{x}/{y}.png?key={apiKey}',
   textureSize: ELEVATION_TILE_SIZE,
+  maxZoom: 12,
   pixelEncoding: PIXEL_ENCODING_NASADEM,
   poolSize: ELEVATION_POOL_SIZE,
   useFloat: true
@@ -20,8 +21,9 @@ const ElevationDatasource = new BaseDatasource( {
 
 AppStore.listen( ( { datasource } ) => {
   if ( datasource.elevation ) {
-    for ( let key of [ 'apiKey', 'pixelEncoding', 'urlFormat' ] ) {
-      ElevationDatasource[ key ] = datasource.elevation[ key ];
+    for ( let key of [ 'apiKey', 'maxZoom', 'pixelEncoding', 'urlFormat' ] ) {
+      const value = datasource.elevation[ key ];
+      if ( value ) { ElevationDatasource[ key ] = value }
     }
   }
 } );

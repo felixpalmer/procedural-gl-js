@@ -10,14 +10,16 @@ import BaseDatasource from './base';
 import { IMAGERY_TILE_SIZE, IMAGERY_POOL_SIZE } from '/constants';
 
 const ImageryDatasource = new BaseDatasource( {
+  maxZoom: 18,
   textureSize: IMAGERY_TILE_SIZE,
   poolSize: IMAGERY_POOL_SIZE
 } );
 
 AppStore.listen( ( { datasource } ) => {
   if ( datasource.imagery ) {
-    for ( let key of [ 'apiKey', 'urlFormat' ] ) {
-      ImageryDatasource[ key ] = datasource.imagery[ key ];
+    for ( let key of [ 'apiKey', 'maxZoom', 'urlFormat' ] ) {
+      const value = datasource.imagery[ key ];
+      if ( value ) { ImageryDatasource[ key ] = value }
     }
   }
 } );

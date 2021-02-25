@@ -34845,7 +34845,7 @@ var AppStore$1 = alt.createStore( AppStore );
 let params = new URLSearchParams( window.location.search.slice( 1 ) );
 
 // TODO could support non-square POT textures also
-let elevationPoolSize = 4 * 4;
+let elevationPoolSize = 8 * 8;
 let imageryPoolSize = 16 * 16;
 if ( params.has( 'elevationPoolSize' ) ) {
   elevationPoolSize = Number.parseInt( params.get( 'elevationPoolSize' ) );
@@ -34945,6 +34945,81 @@ class IntegerPool {
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
+// Class for managing a Float32Array which is expected to be
+// read torioidally - that is data which is written beyond
+// one edge, appears on the other.
+// This class is useful for preparing an buffer for writing
+// to an RGBA square floating point texture.
+// It expects that values are to be set in groups of 4,
+// corresponding to the 4 channels
+// The main benefit it offers is quickly filling square
+// regions with the same value
+class RGBABuffer {
+  constructor( size ) {
+    this.size = size;
+    this.data = new Float32Array( 4 * size * size );
+  }
+
+  // Sets a single RGBA "pixel"
+  set( p, r, g, b, a ) {
+    this.data[ 4 * p ] = r;
+    this.data[ 4 * p + 1 ] = g;
+    this.data[ 4 * p + 2 ] = b;
+    this.data[ 4 * p + 3 ] = a;
+  }
+
+  // Fills a region with a RGBA "pixel" value
+  fillRect( p, width, height, r, g, b, a ) {
+    if ( ( width <= 0 ) || ( height <= 0 ) ) {
+      return;
+    }
+
+    if ( ( width === this.size ) || ( height === this.size ) ) {
+      this.fill( r, g, b, a );
+      return;
+    }
+
+    // First set top-left pixel to correct value
+    this.set( p, r, g, b, a );
+
+    // Next copy across row, doubling up each time
+    // As we are copying within the same Float32Array
+    // this is fast
+    for ( let i = 1; i < width; i *= 2 ) {
+      let offset = p + i; // Destination pixel
+
+      // Number of pixels to copy (cap at width for non-POT copy)
+      let count = Math.min( i, width - i );
+      this.data.set(
+        this.data.subarray( 4 * p, 4 * ( p + count ) ),
+        4 * offset );
+    }
+
+    // Now copy row itself
+    const row = this.data.subarray( 4 * p, 4 * ( p + width ) );
+    for ( let j = 1; j < height; j++ ) {
+      let offset = p + this.size * j; // Destination row
+      this.data.set( row, 4 * offset );
+    }
+  }
+
+  // Fills entire buffer
+  // Allows even faster copying than `fillRect`
+  fill( r, g, b, a ) {
+    this.set( 0, r, g, b, a );
+    for ( let i = 1, il = this.size * this.size; i < il; i *= 2 ) {
+      this.data.set( this.data.subarray( 0, 4 * i ), 4 * i );
+    }
+  }
+}
+
+/**
+ * Copyright 2020 (c) Felix Palmer
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
 const ImageLoader$1 = ( typeof createImageBitmap === 'undefined' ) ?
   THREE.ImageLoader : THREE.ImageBitmapLoader;
 
@@ -35028,8 +35103,9 @@ const insertIntoTextureArray = ( textureArray, index, image ) => {
  */
 
 class BaseDatasource {
-  constructor( { apiKey, pixelEncoding, poolSize, textureSize, useFloat, urlFormat } ) {
+  constructor( { apiKey, maxZoom, pixelEncoding, poolSize, textureSize, useFloat, urlFormat } ) {
     this.apiKey = apiKey;
+    this.maxZoom = maxZoom;
     this.urlFormat = urlFormat;
     this.pixelEncoding = pixelEncoding;
     this.useFloat = !!useFloat;
@@ -35074,6 +35150,7 @@ class BaseDatasource {
 
     if ( this.useFloat ) {
       const size = 1024; // TODO reduce in future!
+      this.indirectionData = new RGBABuffer( size );
       this.indirectionTexture = new THREE.DataTexture( null,
         size, size,
         // TODO Could perhaps use smaller format
@@ -35199,34 +35276,100 @@ class BaseDatasource {
     return newIndex;
   }
 
+  // Would be nice if we could do this in a shader, but
+  // unfortunately many mobile devices do not support
+  // writing to a floating point target
   updateIndirectionTexture() {
     // Update indirection texture, loop over all textures
     if ( this.indirectionTexture ) {
+      const W = this.indirectionData.size;
       let quadkeys = Object.keys( this.lookup );
       quadkeys.sort( ( a, b ) => Math.sign( a.length - b.length ) );
+
+      // Calculate range which has been changed
+      let changed;
+      let dirty = { startX: W, endX: 0, startY: W, endY: 0 };
+      if ( this.lastQuadkeys ) {
+        changed = [
+          ...quadkeys.filter( q => !this.lastQuadkeys.includes( q ) ),
+          ...this.lastQuadkeys.filter( q => !quadkeys.includes( q ) )
+        ];
+      } else {
+        changed = quadkeys;
+      }
+      this.lastQuadkeys = [...quadkeys];
+
+      // Compute dirty area which we need to write to
+      for ( let q of changed ) {
+        // Calculate area occupied by tile
+        let [ x, y, z ] = tilebelt.quadkeyToTile( q );
+        let size = Math.pow( 2, this.maxZoom - z );
+        x *= size; y *= size;
+        let startX = x % W; let startY = y % W;
+        let endX = startX + size; let endY = startY + size;
+
+        // Expand dirty region
+        dirty.startX = Math.min( dirty.startX, startX );
+        dirty.endX = Math.max( dirty.endX, endX );
+        dirty.startY = Math.min( dirty.startY, startY );
+        dirty.endY = Math.max( dirty.endY, endY );
+      }
+
+      // Write regions into RGBA buffer
       for ( let q of quadkeys ) {
         let [ x, y, z ] = tilebelt.quadkeyToTile( q );
         let tileIndex = this.lookup[ q ];
-        let size = Math.pow( 2, 10 - z );
-        x *= size; y *= size; // Move to zoom level 10
-        let data = new Float32Array( 4 * size * size );
-        let tileSize = Math.pow( 2, z );
-        let originScale = -tileSize / this.indirectionTexture.image.width;
-        for ( let i = 0; i < data.length; i++ ) {
-          // Location of tile in texture array
-          data[ 4 * i ] = tileIndex;
-          // Tile size
-          data[ 4 * i + 1 ] = tileSize;
-          // Tile origin position (scaled to save GPU instructions)
-          data[ 4 * i + 2 ] = x * originScale;
-          data[ 4 * i + 3 ] = y * originScale;
-        }
 
-        renderer.copyTextureToTexture( { x, y }, {
-          image: { data, width: size, height: size },
-          isDataTexture: true
-        }, this.indirectionTexture );
+        // Get width of patch we will need to occupy in
+        // indirection texture
+        let size = Math.pow( 2, this.maxZoom - z );
+
+        // Get position of where patch will be
+        x *= size; y *= size; // Move to max zoom
+
+        // tileSize is ratio between the width of area this
+        // tile occupies in the the indirection texture and 1
+        let minZoom = this.maxZoom - 10; // Can fit 10 levels into 1024
+        let tileSize = Math.pow( 2, z - minZoom );
+
+        // Pass through origin of patch to GPU
+        let originScale = -tileSize / W;
+
+        // Calculate region to fill
+        let fillStartX = ( x % W ); let fillStartY = ( y % W );
+        let fillEndX = fillStartX + size; let fillEndY = fillStartY + size;
+
+        // Crop by dirty region
+        fillStartX = Math.max( fillStartX, dirty.startX );
+        fillStartY = Math.max( fillStartY, dirty.startY );
+        fillEndX = Math.min( fillEndX, dirty.endX );
+        fillEndY = Math.min( fillEndY, dirty.endY );
+        let p = fillStartX + W * fillStartY;
+        let w = fillEndX - fillStartX;
+        let h = fillEndY - fillStartY;
+
+        // Write data for this tile
+        this.indirectionData.fillRect( p, w, h,
+          // Location of tile in texture array
+          tileIndex,
+          // Tile size
+          tileSize,
+          // Tile origin position (scaled to save GPU instructions)
+          x * originScale, y * originScale
+        );
       }
+
+      // Write only region updated to GPU
+      // It has to be full width as we can't take a subarray
+      // efficiently otherwise
+      const rows = dirty.endY - dirty.startY;
+      let subArray = this.indirectionData.data.subarray(
+        4 * W * dirty.startY,
+        4 * W * dirty.endY );
+      renderer.copyTextureToTexture( { x: 0, y: dirty.startY }, {
+        image: { data: subArray, width: W, height: rows },
+        isDataTexture: true
+      }, this.indirectionTexture );
     }
   }
 
@@ -35317,6 +35460,7 @@ class BaseDatasource {
 const ElevationDatasource = new BaseDatasource( {
   urlFormat: 'https://www.nasadem.xyz/api/v1/dem/{z}/{x}/{y}.png?key={apiKey}',
   textureSize: ELEVATION_TILE_SIZE,
+  maxZoom: 12,
   pixelEncoding: PIXEL_ENCODING_NASADEM,
   poolSize: ELEVATION_POOL_SIZE,
   useFloat: true
@@ -35324,8 +35468,9 @@ const ElevationDatasource = new BaseDatasource( {
 
 AppStore$1.listen( ( { datasource } ) => {
   if ( datasource.elevation ) {
-    for ( let key of [ 'apiKey', 'pixelEncoding', 'urlFormat' ] ) {
-      ElevationDatasource[ key ] = datasource.elevation[ key ];
+    for ( let key of [ 'apiKey', 'maxZoom', 'pixelEncoding', 'urlFormat' ] ) {
+      const value = datasource.elevation[ key ];
+      if ( value ) { ElevationDatasource[ key ] = value; }
     }
   }
 } );
@@ -36321,7 +36466,7 @@ Procedural$2.init = function ( { container, datasource } ) {
     return;
   }
   
-  // Allow shorthand definitions for compatible providers
+  // Provide shorthand definitions for compatible providers
   if ( datasource.provider === 'maptiler' ) {
     if ( !datasource.apiKey ) {
       console.error( 'Error: `${datasource.provider} `datasource configuration is invalid. Must provide `apiKey`' );
@@ -36330,6 +36475,7 @@ Procedural$2.init = function ( { container, datasource } ) {
     datasource = {
       elevation: {
         apiKey: datasource.apiKey,
+        maxZoom: 12,
         pixelEncoding: PIXEL_ENCODING_TERRAIN_RGB,
         urlFormat: 'https://api.maptiler.com/tiles/terrain-rgb/{z}/{x}/{y}.png?key={apiKey}'
       },
@@ -36337,6 +36483,25 @@ Procedural$2.init = function ( { container, datasource } ) {
         apiKey: datasource.apiKey,
         attribution: '<a href="https://www.maptiler.com/copyright/">Maptiler</a> <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         urlFormat: 'https://api.maptiler.com/tiles/satellite/{z}/{x}/{y}.jpg?key={apiKey}'
+      }
+    };
+  }
+  if ( datasource.provider === 'mapbox' ) {
+    if ( !datasource.apiKey ) {
+      console.error( 'Error: `${datasource.provider} `datasource configuration is invalid. Must provide `apiKey`' );
+    }
+
+    datasource = {
+      elevation: {
+        apiKey: datasource.apiKey,
+        maxZoom: 14,
+        pixelEncoding: PIXEL_ENCODING_TERRAIN_RGB,
+        urlFormat: 'https://api.mapbox.com/v4/mapbox.terrain-rgb/{z}/{x}/{y}@2x.pngraw?access_token={apiKey}'
+      },
+      imagery: {
+        apiKey: datasource.apiKey,
+        attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
+        urlFormat: 'https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.jpg?access_token={apiKey}'
       }
     };
   }
@@ -36353,6 +36518,7 @@ Procedural$2.init = function ( { container, datasource } ) {
       apiKey: datasource.elevation.apiKey,
       attribution: '&copy;<a href="https://www.nasadem.xyz">nasadem.XYZ</a>',
       pixelEncoding: PIXEL_ENCODING_NASADEM,
+      maxZoom: 10,
       urlFormat: 'https://www.nasadem.xyz/api/v1/dem/{z}/{x}/{y}.png?key={apiKey}'
     };
   }
@@ -37186,12 +37352,32 @@ const heightUniforms = {
   elevationArray: { value: ElevationDatasource.textureArray },
   indirectionTexture: { value: ElevationDatasource.indirectionTexture },
   uGlobalOffset: { type: 'v2', value: new THREE.Vector2() },
-  uSceneScale: { type: 'f', value: 1 }
+  uSceneScale: { type: 'v3', value: new THREE.Vector3(
+    1, // sceneScale
+    1, // earthScale
+    1 // tileScale
+  ) }
 };
+
+function updateSceneScale () {
+  const sceneScale = GeoprojectStore$1.getState()[ 'sceneScale' ];
+  const maxZoom = ElevationDatasource.maxZoom;
+
+  // Compute compound values to ease work in shader and improve
+  // accuracy
+  const zoomScale = Math.pow( 2, 15 - maxZoom );
+  const earthScale = 40075016.686 / ( sceneScale * Math.pow( 2, 15 ) );
+  const earthShift = -6.283185307179586 / Math.pow( 2.0, maxZoom );
+  const tileScale = 1 / ( sceneScale * zoomScale );
+  heightUniforms.uSceneScale.value.set(
+    earthShift, earthScale, tileScale );
+}
+
+AppStore$1.listen( () => { updateSceneScale(); } );
 
 GeoprojectStore$1.listen( ( { globalOffset, sceneScale } ) => {
   heightUniforms.uGlobalOffset.value.copy( globalOffset );
-  heightUniforms.uSceneScale.value = sceneScale;
+  updateSceneScale();
 } );
 
 /**
@@ -37241,7 +37427,7 @@ return d(o,t);
 #else
 return texture2D(o,t);
 #endif
-}uniform lowp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform float uSceneScale;const float u=0.0008176665341588574;float v(in float w){float x=3.141592653589793-0.006135923151542565*w;float y=dot(vec2(0.5),exp(vec2(x,-x)));return y/(u*uSceneScale);}uniform lowp sampler2D elevationArray;float z(in vec2 A){const float B=32.0;const float C=1024.0;vec2 D=A.xy-uGlobalOffset;D/=(uSceneScale*B);D*=vec2(1.0,-1.0);vec2 E=D/C;const vec2 F=vec2(0.5);vec2 G=(floor(D-F)+F);G+=step(F,D-G);vec2 H=G/C;vec4 I=texture2D(indirectionTexture,H);float p=I.r;float J=I.g;vec2 K=I.ba;vec2 t=E*J+K;return v(D.y)*n(elevationArray,t,p).a;}void main(){vCenter=position-BEACON_RADIUS*normal;vec4 L=modelMatrix*vec4(vCenter,1.0);vec3 M=L.xyz/L.w;vCenter=M;float N=abs((viewMatrix*vec4(M,1.0)).z);vRingRadius=25.0*clamp(N/1000.0,0.01,10.0);float O=max(vRingRadius,uAccuracy);vPosition=vCenter+O*normal;float P=z(vPosition.xy);float Q=P-vPosition.z+N/1000.0-0.3*O;vPosition.z=P;vec3 R=cameraPosition-vPosition;float S=length(R);R=normalize(R);float T=230.0*smoothstep(50.0,250.0,S);gl_Position=projectionMatrix*viewMatrix*vec4(vPosition+T*R,1.0);}`);
+}uniform highp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform vec3 uSceneScale;float u(in float v){float w=3.141592653589793+uSceneScale.x*v;float x=dot(vec2(0.5),exp(vec2(w,-w)));return uSceneScale.y*x;}uniform lowp sampler2D elevationArray;float y(in vec2 z){const float A=1024.0;vec2 B=z.xy-uGlobalOffset;B*=uSceneScale.z;B*=vec2(1.0,-1.0);vec2 C=B/A;const vec2 D=vec2(0.5);vec2 E=(floor(B-D)+D);E+=step(D,B-E);vec2 F=E/A;vec4 G=texture2D(indirectionTexture,fract(F));float p=G.r;float H=G.g;vec2 I=G.ba;vec2 t=C*H+I;return u(B.y)*n(elevationArray,t,p).a;}void main(){vCenter=position-BEACON_RADIUS*normal;vec4 J=modelMatrix*vec4(vCenter,1.0);vec3 K=J.xyz/J.w;vCenter=K;float L=abs((viewMatrix*vec4(K,1.0)).z);vRingRadius=25.0*clamp(L/1000.0,0.01,10.0);float M=max(vRingRadius,uAccuracy);vPosition=vCenter+M*normal;float N=y(vPosition.xy);float O=N-vPosition.z+L/1000.0-0.3*M;vPosition.z=N;vec3 P=cameraPosition-vPosition;float Q=length(P);P=normalize(P);float R=230.0*smoothstep(50.0,250.0,Q);gl_Position=projectionMatrix*viewMatrix*vec4(vPosition+R*P,1.0);}`);
 
 var beaconFragment = new Shader(`precision highp float;uniform float uTime;varying vec3 vPosition;varying vec3 vCenter;varying float vRingRadius;const vec4 a=vec4(1.0,1.0,1.0,0.9);void main(){float b=distance(vPosition.xy,vCenter.xy)/vRingRadius;vec3 c=mix(vec3(0.0,0.0,1.0),vec3(0.0,0.5,1.0),0.2*b);vec4 d=vec4(c*sin(uTime),0.5);d=mix(d,a,smoothstep(0.75,0.8,b));d=mix(d,vec4(c.rgb,0.15),smoothstep(1.0,1.05,b));d.rgb=pow(abs(d.rgb),vec3(0.4545));gl_FragColor=d;}`);
 
@@ -38729,14 +38915,16 @@ CameraStore$1.listen( fogUniforms.update );
  */
 
 const ImageryDatasource = new BaseDatasource( {
+  maxZoom: 18,
   textureSize: IMAGERY_TILE_SIZE,
   poolSize: IMAGERY_POOL_SIZE
 } );
 
 AppStore$1.listen( ( { datasource } ) => {
   if ( datasource.imagery ) {
-    for ( let key of [ 'apiKey', 'urlFormat' ] ) {
-      ImageryDatasource[ key ] = datasource.imagery[ key ];
+    for ( let key of [ 'apiKey', 'maxZoom', 'urlFormat' ] ) {
+      const value = datasource.imagery[ key ];
+      if ( value ) { ImageryDatasource[ key ] = value; }
     }
   }
 } );
@@ -38759,7 +38947,7 @@ return j(v,A);
 #else
 return texture2D(v,A);
 #endif
-}uniform lowp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform float uSceneScale;const float B=0.0008176665341588574;float C(in float D){float E=3.141592653589793-0.006135923151542565*D;float F=dot(vec2(0.5),exp(vec2(E,-E)));return F/(B*uSceneScale);}uniform lowp sampler2D elevationArray;float G(in vec2 d){const float H=32.0;const float I=1024.0;vec2 J=d.xy-uGlobalOffset;J/=(uSceneScale*H);J*=vec2(1.0,-1.0);vec2 K=J/I;const vec2 L=vec2(0.5);vec2 M=(floor(J-L)+L);M+=step(L,J-M);vec2 N=M/I;vec4 O=texture2D(indirectionTexture,N);float w=O.r;float P=O.g;vec2 Q=O.ba;vec2 A=K*P+Q;return C(J.y)*u(elevationArray,A,w).a;}void main(){vec3 b=position;b.z+=G(b.xy);gl_Position=a(b,uThickness);vColor=color;float R=step(distance(tag,uSelectedTag),0.0);gl_Position.z-=0.5+0.01*R;vColor.rgb=mix(vColor.rgb,vec3(1.0),0.8*R);vAlpha=sign(tangent.w);}`);
+}uniform highp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform vec3 uSceneScale;float B(in float C){float D=3.141592653589793+uSceneScale.x*C;float E=dot(vec2(0.5),exp(vec2(D,-D)));return uSceneScale.y*E;}uniform lowp sampler2D elevationArray;float F(in vec2 d){const float G=1024.0;vec2 H=d.xy-uGlobalOffset;H*=uSceneScale.z;H*=vec2(1.0,-1.0);vec2 I=H/G;const vec2 J=vec2(0.5);vec2 K=(floor(H-J)+J);K+=step(J,H-K);vec2 L=K/G;vec4 M=texture2D(indirectionTexture,fract(L));float w=M.r;float N=M.g;vec2 O=M.ba;vec2 A=I*N+O;return B(H.y)*u(elevationArray,A,w).a;}void main(){vec3 b=position;b.z+=F(b.xy);gl_Position=a(b,uThickness);vColor=color;float P=step(distance(tag,uSelectedTag),0.0);gl_Position.z-=0.5+0.01*P;vColor.rgb=mix(vColor.rgb,vec3(1.0),0.8*P);vAlpha=sign(tangent.w);}`);
 
 var lineFragment = new Shader(`precision highp float;uniform float uCutoff;uniform vec4 uOutlineColor;varying vec4 vColor;varying float vAlpha;void main(){vec2 a=smoothstep(vec2(0.4,1.0)*uCutoff,vec2(0.5,1.0),abs(vec2(vAlpha)));a.x*=uOutlineColor.a;gl_FragColor=mix(vColor,vec4(uOutlineColor.rgb,0.0),a.xxxy);}`);
 
@@ -38801,13 +38989,13 @@ return f(r,w);
 #else
 return texture2D(r,w);
 #endif
-}uniform lowp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform float uSceneScale;const float x=0.0008176665341588574;float y(in float z){float A=3.141592653589793-0.006135923151542565*z;float B=dot(vec2(0.5),exp(vec2(A,-A)));return B/(x*uSceneScale);}uniform lowp sampler2D elevationArray;float C(in vec2 D){const float E=32.0;const float F=1024.0;vec2 G=D.xy-uGlobalOffset;G/=(uSceneScale*E);G*=vec2(1.0,-1.0);vec2 H=G/F;const vec2 I=vec2(0.5);vec2 J=(floor(G-I)+I);J+=step(I,G-J);vec2 K=J/F;vec4 L=texture2D(indirectionTexture,K);float s=L.r;float M=L.g;vec2 N=L.ba;vec2 w=H*M+N;return y(G.y)*q(elevationArray,w,s).a;}
+}uniform highp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform vec3 uSceneScale;float x(in float y){float z=3.141592653589793+uSceneScale.x*y;float A=dot(vec2(0.5),exp(vec2(z,-z)));return uSceneScale.y*A;}uniform lowp sampler2D elevationArray;float B(in vec2 C){const float D=1024.0;vec2 E=C.xy-uGlobalOffset;E*=uSceneScale.z;E*=vec2(1.0,-1.0);vec2 F=E/D;const vec2 G=vec2(0.5);vec2 H=(floor(E-G)+G);H+=step(G,E-H);vec2 I=H/D;vec4 J=texture2D(indirectionTexture,fract(I));float s=J.r;float K=J.g;vec2 L=J.ba;vec2 w=F*K+L;return x(E.y)*q(elevationArray,w,s).a;}
 #define SIZE vec2( 512.0, 1024.0 )
-void main(){vec3 O=offset.xyz;O.z=C(O.xy);vBackground=background;vColor=color;vLayout=uPixelRatio*layout;vReadDepth=clipping.y*uReadDepthOverride;vec3 P=cameraPosition-O;float Q=a(P);vec2 R=vec2(1.0,-1.0)*position;vec2 S=0.5*R+vec2(0.5);vUv.z=step(distance(tag.xyz,uSelectedTag),0.0);vec2 T=vec2(normal.w,offset.w)+1000000.0*vUv.zz;T=smoothstep(T,vec2(0.95,0.9)*T,vec2(Q));vUv.w=(0.6*T.x+0.4)*T.y;vUv.z*=tag.w;vec2 U=mix(atlas.ww*vec2(SIZE.y/SIZE.x,1.0),atlas.zw,T.x);vUv.xy=atlas.xy+U*S;vUv.w*=smoothstep(0.0,0.15,clipping.y+dot(P,normal.xyz));vUv.w*=step(0.3,vUv.w);vec2 u=layout.xx+layout.yy;vUv.xy+=(u*R)/SIZE;vec2 V=SIZE*U+2.0*u;V*=uPixelRatio;float W=min(0.5*Q,100.0+200.0*clipping.x);vec4 D=vec4(O+W*P,1.0);gl_Position=projectionMatrix*viewMatrix*D;vec2 X=2.0*gl_Position.w*uViewportCanvasInverse;
+void main(){vec3 M=offset.xyz;M.z=B(M.xy);vBackground=background;vColor=color;vLayout=uPixelRatio*layout;vReadDepth=clipping.y*uReadDepthOverride;vec3 N=cameraPosition-M;float O=a(N);vec2 P=vec2(1.0,-1.0)*position;vec2 Q=0.5*P+vec2(0.5);vUv.z=step(distance(tag.xyz,uSelectedTag),0.0);vec2 R=vec2(normal.w,offset.w)+1000000.0*vUv.zz;R=smoothstep(R,vec2(0.95,0.9)*R,vec2(O));vUv.w=(0.6*R.x+0.4)*R.y;vUv.z*=tag.w;vec2 S=mix(atlas.ww*vec2(SIZE.y/SIZE.x,1.0),atlas.zw,R.x);vUv.xy=atlas.xy+S*Q;vUv.w*=smoothstep(0.0,0.15,clipping.y+dot(N,normal.xyz));vUv.w*=step(0.3,vUv.w);vec2 u=layout.xx+layout.yy;vUv.xy+=(u*P)/SIZE;vec2 T=SIZE*S+2.0*u;T*=uPixelRatio;float U=min(0.5*O,100.0+200.0*clipping.x);vec4 C=vec4(M+U*N,1.0);gl_Position=projectionMatrix*viewMatrix*C;vec2 V=2.0*gl_Position.w*uViewportCanvasInverse;
 #ifdef READ_DEPTH
-vec3 Y=0.5*gl_Position.xyz/gl_Position.w+vec3(0.5);float Z=texture2D(uDepth,Y.xy).x;float ba=projectionMatrix[3][2];Z/=1.0+0.02*Z/ba;vUv.w*=step(clipping.x*Y.z,Z);
+vec3 W=0.5*gl_Position.xyz/gl_Position.w+vec3(0.5);float X=texture2D(uDepth,W.xy).x;float Y=projectionMatrix[3][2];X/=1.0+0.02*X/Y;vUv.w*=step(clipping.x*W.z,X);
 #endif
-gl_Position.xy=X*floor(gl_Position.xy/X+vec2(0.5));vec2 bb=0.5*X*V;gl_Position.xy+=X*(0.5*anchor.xy*V+anchor.zw);gl_Position.xy-=bb;const vec2 bc=vec2(0.5);vBox.xy=(gl_Position.xy+bb-bc)/X+vec2(0.5)/uViewportCanvasInverse;vBox.zw=V;vec2 bd=(position+vec2(1.0))*bb;bd-=bc;gl_Position.xy+=step(0.0001,vUv.w)*bd;vLayout.z=min(vLayout.z,0.5*vBox.w-vLayout.y);vLayout.z=max(0.0001,vLayout.z);}`);
+gl_Position.xy=V*floor(gl_Position.xy/V+vec2(0.5));vec2 Z=0.5*V*T;gl_Position.xy+=V*(0.5*anchor.xy*T+anchor.zw);gl_Position.xy-=Z;const vec2 ba=vec2(0.5);vBox.xy=(gl_Position.xy+Z-ba)/V+vec2(0.5)/uViewportCanvasInverse;vBox.zw=T;vec2 bb=(position+vec2(1.0))*Z;bb-=ba;gl_Position.xy+=step(0.0001,vUv.w)*bb;vLayout.z=min(vLayout.z,0.5*vBox.w-vLayout.y);vLayout.z=max(0.0001,vLayout.z);}`);
 
 var markerFragment = new Shader(`precision highp float;
 #ifdef READ_DEPTH
@@ -38915,7 +39103,7 @@ return b(n,s);
 #else
 return texture2D(n,s);
 #endif
-}uniform lowp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform float uSceneScale;const float t=0.0008176665341588574;float u(in float v){float w=3.141592653589793-0.006135923151542565*v;float x=dot(vec2(0.5),exp(vec2(w,-w)));return x/(t*uSceneScale);}uniform lowp sampler2D elevationArray;float y(in vec2 z){const float A=32.0;const float B=1024.0;vec2 C=z.xy-uGlobalOffset;C/=(uSceneScale*A);C*=vec2(1.0,-1.0);vec2 D=C/B;const vec2 E=vec2(0.5);vec2 F=(floor(C-E)+E);F+=step(E,C-F);vec2 G=F/B;vec4 H=texture2D(indirectionTexture,G);float o=H.r;float I=H.g;vec2 J=H.ba;vec2 s=D*I+J;return u(C.y)*m(elevationArray,s,o).a;}void main(){vec4 z=vec4(position.xy,0.0,1.0);z.xy*=uOffset.z;z.xy+=uOffset.xy;vec2 K=10.0*floor(position.zw/10.0);vec2 d=position.zw-K;z.z=y(z.xy);z.z-=0.01*uOffset.z*K.x;vUV.xy=uImageryUvOffset.z*d.xy+uImageryUvOffset.xy;vUV.zw=d.xy;D=distance(cameraPosition,z.xyz);gl_Position=projectionMatrix*viewMatrix*z;}`);
+}uniform highp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform vec3 uSceneScale;float t(in float u){float v=3.141592653589793+uSceneScale.x*u;float w=dot(vec2(0.5),exp(vec2(v,-v)));return uSceneScale.y*w;}uniform lowp sampler2D elevationArray;float x(in vec2 y){const float z=1024.0;vec2 A=y.xy-uGlobalOffset;A*=uSceneScale.z;A*=vec2(1.0,-1.0);vec2 B=A/z;const vec2 C=vec2(0.5);vec2 D=(floor(A-C)+C);D+=step(C,A-D);vec2 E=D/z;vec4 F=texture2D(indirectionTexture,fract(E));float o=F.r;float G=F.g;vec2 H=F.ba;vec2 s=B*G+H;return t(A.y)*m(elevationArray,s,o).a;}void main(){vec4 y=vec4(position.xy,0.0,1.0);y.xy*=uOffset.z;y.xy+=uOffset.xy;vec2 I=10.0*floor(position.zw/10.0);vec2 d=position.zw-I;y.z=x(y.xy);y.z-=0.01*uOffset.z*I.x;vUV.xy=uImageryUvOffset.z*d.xy+uImageryUvOffset.xy;vUV.zw=d.xy;D=distance(cameraPosition,y.xyz);gl_Position=projectionMatrix*viewMatrix*y;}`);
 
 var terrainFragment = new Shader(`precision highp float;uniform vec4 uImageryUvOffset;varying vec4 vUV;varying float D;uniform lowp sampler2D imageryArray;uniform float uFogDropoff;uniform float uFogIntensity;uniform vec3 uFogColor;float a(in float b){float c=uFogIntensity*(1.0-exp(-b*uFogDropoff));return clamp(c,0.0,1.0);}float a(in vec3 d,in vec3 e){float b=distance(d,e);return a(b);}
 #define VIRTUAL_TEXTURE_ARRAY_BLOCKS 16.0
@@ -38957,7 +39145,7 @@ return b(n,s);
 #else
 return texture2D(n,s);
 #endif
-}uniform lowp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform float uSceneScale;const float t=0.0008176665341588574;float u(in float v){float w=3.141592653589793-0.006135923151542565*v;float x=dot(vec2(0.5),exp(vec2(w,-w)));return x/(t*uSceneScale);}uniform lowp sampler2D elevationArray;float y(in vec2 z){const float A=32.0;const float B=1024.0;vec2 C=z.xy-uGlobalOffset;C/=(uSceneScale*A);C*=vec2(1.0,-1.0);vec2 D=C/B;const vec2 E=vec2(0.5);vec2 F=(floor(C-E)+E);F+=step(E,C-F);vec2 G=F/B;vec4 H=texture2D(indirectionTexture,G);float o=H.r;float I=H.g;vec2 J=H.ba;vec2 s=D*I+J;return u(C.y)*m(elevationArray,s,o).a;}void main(){vec4 z=vec4(position.xy,0.0,1.0);z.xy*=uOffset.z;z.xy+=uOffset.xy;vec2 K=10.0*floor(position.zw/10.0);vec2 d=position.zw-K;z.z=y(z.xy);z.z-=0.01*uOffset.z*K.x;float L=uOffset.w;vec2 M=vec2(floor(L/256.0)/256.0,fract(L/256.0))*(256.0/255.0);vUV.xy=d.xy*uScaling.z;vUV.zw=M;gl_Position=projectionMatrix*viewMatrix*z;}`);
+}uniform highp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform vec3 uSceneScale;float t(in float u){float v=3.141592653589793+uSceneScale.x*u;float w=dot(vec2(0.5),exp(vec2(v,-v)));return uSceneScale.y*w;}uniform lowp sampler2D elevationArray;float x(in vec2 y){const float z=1024.0;vec2 A=y.xy-uGlobalOffset;A*=uSceneScale.z;A*=vec2(1.0,-1.0);vec2 B=A/z;const vec2 C=vec2(0.5);vec2 D=(floor(A-C)+C);D+=step(C,A-D);vec2 E=D/z;vec4 F=texture2D(indirectionTexture,fract(E));float o=F.r;float G=F.g;vec2 H=F.ba;vec2 s=B*G+H;return t(A.y)*m(elevationArray,s,o).a;}void main(){vec4 y=vec4(position.xy,0.0,1.0);y.xy*=uOffset.z;y.xy+=uOffset.xy;vec2 I=10.0*floor(position.zw/10.0);vec2 d=position.zw-I;y.z=x(y.xy);y.z-=0.01*uOffset.z*I.x;float J=uOffset.w;vec2 K=vec2(floor(J/256.0)/256.0,fract(J/256.0))*(256.0/255.0);vUV.xy=d.xy*uScaling.z;vUV.zw=K;gl_Position=projectionMatrix*viewMatrix*y;}`);
 
 var terrainPickerFragment = new Shader(`
 #extension GL_OES_standard_derivatives : enable  
@@ -39154,15 +39342,15 @@ return f(r,w);
 #else
 return texture2D(r,w);
 #endif
-}uniform lowp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform float uSceneScale;const float x=0.0008176665341588574;float y(in float z){float A=3.141592653589793-0.006135923151542565*z;float B=dot(vec2(0.5),exp(vec2(A,-A)));return B/(x*uSceneScale);}uniform lowp sampler2D elevationArray;float C(in vec2 D){const float E=32.0;const float F=1024.0;vec2 G=D.xy-uGlobalOffset;G/=(uSceneScale*E);G*=vec2(1.0,-1.0);vec2 H=G/F;const vec2 I=vec2(0.5);vec2 J=(floor(G-I)+I);J+=step(I,G-J);vec2 K=J/F;vec4 L=texture2D(indirectionTexture,K);float s=L.r;float M=L.g;vec2 N=L.ba;vec2 w=H*M+N;return y(G.y)*q(elevationArray,w,s).a;}
+}uniform highp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform vec3 uSceneScale;float x(in float y){float z=3.141592653589793+uSceneScale.x*y;float A=dot(vec2(0.5),exp(vec2(z,-z)));return uSceneScale.y*A;}uniform lowp sampler2D elevationArray;float B(in vec2 C){const float D=1024.0;vec2 E=C.xy-uGlobalOffset;E*=uSceneScale.z;E*=vec2(1.0,-1.0);vec2 F=E/D;const vec2 G=vec2(0.5);vec2 H=(floor(E-G)+G);H+=step(G,E-H);vec2 I=H/D;vec4 J=texture2D(indirectionTexture,fract(I));float s=J.r;float K=J.g;vec2 L=J.ba;vec2 w=F*K+L;return x(E.y)*q(elevationArray,w,s).a;}
 #define TUBE_RADIUS 20.0
 
 #define SIZE vec2( 512.0, 1024.0 )
-uniform vec2 uViewportInverse;vec4 O(const in vec3 P,const in float Q){vec4 D=vec4(P,1.0);vec4 R=projectionMatrix*viewMatrix*D;D.xyz+=tangent.xyz;vec4 S=projectionMatrix*viewMatrix*D;vec2 T=S.xy/S.w-R.xy/R.w;vec2 U=T.yx*vec2(1.0,-1.0);U=Q*R.w*normalize(U)*uViewportInverse;R.xy+=U;return R;}void main(){vTag.rgb=tag.rgb;float V=1.0-step(length(tag),0.0);float W=length(position.x);float X=step(W,1.00001);X*=step(0.99999,W);vec3 Y=mix(position,offset.xyz,X);Y.z=C(Y.xy);vec4 Z=O(Y,TUBE_RADIUS);vec3 ba=cameraPosition-Y;float bb=a(ba);vec2 bc=vec2(1.0,-1.0)*position.xy;vec2 bd=0.5*bc+vec2(0.5);vec4 be;vec2 bf=vec2(normal.w,offset.w);bf=smoothstep(bf,vec2(0.95,0.9)*bf,vec2(bb));be.w=(0.6*bf.x+0.4)*bf.y;vec2 bg=mix(atlas.ww*vec2(SIZE.y/SIZE.x,1.0),atlas.zw,bf.x);be.xy=atlas.xy+bg*bd;be.w*=smoothstep(0.0,0.15,clipping.y+dot(ba,normal.xyz));be.w*=step(0.3,be.w);vec2 u=layout.xx+layout.yy;be.xy+=(u*bc)/SIZE;vec2 bh=SIZE*bg+2.0*u;bh*=uPixelRatio;float bi=min(0.5*bb,100.0+200.0*clipping.x);vec4 D=vec4(Y+bi*ba,1.0);vec4 bj=projectionMatrix*viewMatrix*D;vec2 bk=2.0*bj.w*uViewportCanvasInverse;
+uniform vec2 uViewportInverse;vec4 M(const in vec3 N,const in float O){vec4 C=vec4(N,1.0);vec4 P=projectionMatrix*viewMatrix*C;C.xyz+=tangent.xyz;vec4 Q=projectionMatrix*viewMatrix*C;vec2 R=Q.xy/Q.w-P.xy/P.w;vec2 S=R.yx*vec2(1.0,-1.0);S=O*P.w*normalize(S)*uViewportInverse;P.xy+=S;return P;}void main(){vTag.rgb=tag.rgb;float T=1.0-step(length(tag),0.0);float U=length(position.x);float V=step(U,1.00001);V*=step(0.99999,U);vec3 W=mix(position,offset.xyz,V);W.z=B(W.xy);vec4 X=M(W,TUBE_RADIUS);vec3 Y=cameraPosition-W;float Z=a(Y);vec2 ba=vec2(1.0,-1.0)*position.xy;vec2 bb=0.5*ba+vec2(0.5);vec4 bc;vec2 bd=vec2(normal.w,offset.w);bd=smoothstep(bd,vec2(0.95,0.9)*bd,vec2(Z));bc.w=(0.6*bd.x+0.4)*bd.y;vec2 be=mix(atlas.ww*vec2(SIZE.y/SIZE.x,1.0),atlas.zw,bd.x);bc.xy=atlas.xy+be*bb;bc.w*=smoothstep(0.0,0.15,clipping.y+dot(Y,normal.xyz));bc.w*=step(0.3,bc.w);vec2 u=layout.xx+layout.yy;bc.xy+=(u*ba)/SIZE;vec2 bf=SIZE*be+2.0*u;bf*=uPixelRatio;float bg=min(0.5*Z,100.0+200.0*clipping.x);vec4 C=vec4(W+bg*Y,1.0);vec4 bh=projectionMatrix*viewMatrix*C;vec2 bi=2.0*bh.w*uViewportCanvasInverse;
 #ifdef READ_DEPTH
-vec3 bl=0.5*bj.xyz/bj.w+vec3(0.5);float bm=texture2D(uDepth,bl.xy).x;float bn=projectionMatrix[3][2];bm/=1.0+0.02*bm/bn;be.w*=step(clipping.x*bl.z,bm);
+vec3 bj=0.5*bh.xyz/bh.w+vec3(0.5);float bk=texture2D(uDepth,bj.xy).x;float bl=projectionMatrix[3][2];bk/=1.0+0.02*bk/bl;bc.w*=step(clipping.x*bj.z,bk);
 #endif
-bj.xy=bk*floor(bj.xy/bk);vec2 bo=0.5*bk*bh;bj.xy+=bk*(0.5*anchor.xy*bh+anchor.zw);bj.xy-=bo;vec2 bp=(position.xy+vec2(1.0))*bo;bj.xy+=bp;gl_Position=V*mix(Z,bj,X);}`);
+bh.xy=bi*floor(bh.xy/bi);vec2 bm=0.5*bi*bf;bh.xy+=bi*(0.5*anchor.xy*bf+anchor.zw);bh.xy-=bm;vec2 bn=(position.xy+vec2(1.0))*bm;bh.xy+=bn;gl_Position=T*mix(X,bh,V);}`);
 
 var pickerFragment = new Shader(`precision highp float;varying vec4 vTag;void main(){gl_FragColor=vTag;}`);
 
@@ -39206,7 +39394,7 @@ return b(n,s);
 #else
 return texture2D(n,s);
 #endif
-}uniform lowp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform float uSceneScale;const float t=0.0008176665341588574;float u(in float v){float w=3.141592653589793-0.006135923151542565*v;float x=dot(vec2(0.5),exp(vec2(w,-w)));return x/(t*uSceneScale);}uniform lowp sampler2D elevationArray;float y(in vec2 z){const float A=32.0;const float B=1024.0;vec2 C=z.xy-uGlobalOffset;C/=(uSceneScale*A);C*=vec2(1.0,-1.0);vec2 D=C/B;const vec2 E=vec2(0.5);vec2 F=(floor(C-E)+E);F+=step(E,C-F);vec2 G=F/B;vec4 H=texture2D(indirectionTexture,G);float o=H.r;float I=H.g;vec2 J=H.ba;vec2 s=D*I+J;return u(C.y)*m(elevationArray,s,o).a;}void main(){vec4 z=vec4(position.xy,0.0,1.0);z.xy*=uOffset.z;z.xy+=uOffset.xy;vPosition=z.xy+vec2(32768.0);z.z=y(z.xy);gl_Position=projectionMatrix*viewMatrix*z;}`);
+}uniform highp sampler2D indirectionTexture;uniform vec2 uGlobalOffset;uniform vec3 uSceneScale;float t(in float u){float v=3.141592653589793+uSceneScale.x*u;float w=dot(vec2(0.5),exp(vec2(v,-v)));return uSceneScale.y*w;}uniform lowp sampler2D elevationArray;float x(in vec2 y){const float z=1024.0;vec2 A=y.xy-uGlobalOffset;A*=uSceneScale.z;A*=vec2(1.0,-1.0);vec2 B=A/z;const vec2 C=vec2(0.5);vec2 D=(floor(A-C)+C);D+=step(C,A-D);vec2 E=D/z;vec4 F=texture2D(indirectionTexture,fract(E));float o=F.r;float G=F.g;vec2 H=F.ba;vec2 s=B*G+H;return t(A.y)*m(elevationArray,s,o).a;}void main(){vec4 y=vec4(position.xy,0.0,1.0);y.xy*=uOffset.z;y.xy+=uOffset.xy;vPosition=y.xy+vec2(32768.0);y.z=x(y.xy);gl_Position=projectionMatrix*viewMatrix*y;}`);
 
 var raycastFragment = new Shader(`precision highp float;varying vec2 vPosition;void main(){gl_FragColor=vec4(mod(vPosition.xy,256.0),floor(vPosition.xy/256.0))/255.0;}`);
 
@@ -42343,7 +42531,7 @@ class Tile {
     this.z = z;
 
     // x, y, z reference to elevation tile
-    let exp = Math.max( exponent, this.z - 10 ); // Cap elevation tile level to 10
+    let exp = Math.max( exponent, this.z - ElevationDatasource.maxZoom ); // Cap elevation tile level to maxZoom
     this.x2 = Math.floor( this.x / Math.pow( 2, exp ) );
     this.y2 = Math.floor( this.y / Math.pow( 2, exp ) );
     this.z2 = this.z - exp;
@@ -42637,7 +42825,7 @@ function draw() {
       if ( tile === undefined ) { continue }
 
       // terrainError of 0 is 1:1 pixel:texel
-      if ( terrainError < ( window.minError || -1.5 ) && tile.z < 18 ) {
+      if ( terrainError < ( window.minError || -1.5 ) && tile.z < ImageryDatasource.maxZoom ) {
         toSplit.add( tile );
         tilesSeen.add( tile );
       } else if ( terrainError > ( window.maxError || 0 ) && tile.z > 7 ) {
@@ -43412,8 +43600,8 @@ app.init();
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-/*global '1.0.18'*/
-console.log( 'Procedural v' + '1.0.18' );
+/*global '1.0.19'*/
+console.log( 'Procedural v' + '1.0.19' );
 
 // Re-export public API
 const Procedural$9 = {

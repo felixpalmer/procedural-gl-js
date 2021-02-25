@@ -71,7 +71,7 @@ class Tile {
     this.z = z;
 
     // x, y, z reference to elevation tile
-    let exp = Math.max( exponent, this.z - 10 ); // Cap elevation tile level to 10
+    let exp = Math.max( exponent, this.z - ElevationDatasource.maxZoom ); // Cap elevation tile level to maxZoom
     this.x2 = Math.floor( this.x / Math.pow( 2, exp ) );
     this.y2 = Math.floor( this.y / Math.pow( 2, exp ) );
     this.z2 = this.z - exp;

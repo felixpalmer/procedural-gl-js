@@ -102,7 +102,7 @@ Procedural.init = function ( { container, datasource } ) {
     return;
   }
   
-  // Allow shorthand definitions for compatible providers
+  // Provide shorthand definitions for compatible providers
   if ( datasource.provider === 'maptiler' ) {
     if ( !datasource.apiKey ) {
       console.error( 'Error: `${datasource.provider} `datasource configuration is invalid. Must provide `apiKey`' );
@@ -111,6 +111,7 @@ Procedural.init = function ( { container, datasource } ) {
     datasource = {
       elevation: {
         apiKey: datasource.apiKey,
+        maxZoom: 12,
         pixelEncoding: PIXEL_ENCODING_TERRAIN_RGB,
         urlFormat: 'https://api.maptiler.com/tiles/terrain-rgb/{z}/{x}/{y}.png?key={apiKey}'
       },
@@ -118,6 +119,25 @@ Procedural.init = function ( { container, datasource } ) {
         apiKey: datasource.apiKey,
         attribution: '<a href="https://www.maptiler.com/copyright/">Maptiler</a> <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         urlFormat: 'https://api.maptiler.com/tiles/satellite/{z}/{x}/{y}.jpg?key={apiKey}'
+      }
+    }
+  }
+  if ( datasource.provider === 'mapbox' ) {
+    if ( !datasource.apiKey ) {
+      console.error( 'Error: `${datasource.provider} `datasource configuration is invalid. Must provide `apiKey`' );
+    }
+
+    datasource = {
+      elevation: {
+        apiKey: datasource.apiKey,
+        maxZoom: 14,
+        pixelEncoding: PIXEL_ENCODING_TERRAIN_RGB,
+        urlFormat: 'https://api.mapbox.com/v4/mapbox.terrain-rgb/{z}/{x}/{y}@2x.pngraw?access_token={apiKey}'
+      },
+      imagery: {
+        apiKey: datasource.apiKey,
+        attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
+        urlFormat: 'https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.jpg?access_token={apiKey}'
       }
     }
   }
@@ -134,6 +154,7 @@ Procedural.init = function ( { container, datasource } ) {
       apiKey: datasource.elevation.apiKey,
       attribution: '&copy;<a href="https://www.nasadem.xyz">nasadem.XYZ</a>',
       pixelEncoding: PIXEL_ENCODING_NASADEM,
+      maxZoom: 10,
       urlFormat: 'https://www.nasadem.xyz/api/v1/dem/{z}/{x}/{y}.png?key={apiKey}'
     }
   }
