@@ -171,6 +171,10 @@ CameraStore.prototype.vantageForTarget = function ( target ) {
   // Direction away from slope, at 30 degree angle
   var angle = ( target.angle !== undefined ) ? target.angle : 30;
   vantage.z = 0;
+  if ( vantage.x === 0 && vantage.y === 0 ) {
+    // Handle singularity in flat terrain (point north)
+    vantage.y = -1;
+  }
   vantage.normalize();
   vantage.z = Math.tan( THREE.Math.degToRad( angle ) );
 
