@@ -25,7 +25,6 @@ function CameraStore() {
   this.position = new THREE.Vector3( 0, 0, 16000 );
   this.target = new THREE.Vector3();
   this.hasZoomedOut = false;
-  this.vantages = [];
 
   this.constrainCamera = true;
   this.minDistance = 100;
