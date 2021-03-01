@@ -19,7 +19,7 @@ import geoproject from '/geoproject';
 import glyphForIcon from '/utils/glyphForIcon';
 import log from '/log';
 import material from '/material';
-import normalAt from '/normalAt';
+//import normalAt from '/normalAt';
 import PlacesStore from '/stores/places';
 import picker from '/picker';
 import PushList from '/utils/pushList';
@@ -211,8 +211,10 @@ Markers.prototype.onNewData = function ( state ) {
     layout.z = props.borderRadius || 0;
     attrs.layout.push( layout.x, layout.y, layout.z );
 
-    normal = normalAt( offset );
-    attrs.normal.push( normal.x, normal.y, normal.z, collapseDistance );
+    // For now, hardcode normal as z = 1
+    //normal = normalAt( offset );
+    //attrs.normal.push( normal.x, normal.y, normal.z, collapseDistance );
+    attrs.normal.push( 0, 0, 1, collapseDistance );
   } );
 
   // Atlas processes text in batches, trigger to complete final
@@ -282,10 +284,13 @@ Markers.prototype.onUpdatedData = function ( state ) {
     offsetAttribute.array[ i ] = offset.x;
     offsetAttribute.array[ i + 1 ] = offset.y;
     offsetAttribute.array[ i + 2 ] = offset.z;
-    normal = normalAt( offset );
-    normalAttribute.array[ i ] = normal.x;
-    normalAttribute.array[ i + 1 ] = normal.y;
-    normalAttribute.array[ i + 2 ] = normal.z;
+    //normal = normalAt( offset );
+    //normalAttribute.array[ i ] = normal.x;
+    //normalAttribute.array[ i + 1 ] = normal.y;
+    //normalAttribute.array[ i + 2 ] = normal.z;
+    normalAttribute.array[ i ] = 0;
+    normalAttribute.array[ i + 1 ] = 0;
+    normalAttribute.array[ i + 2 ] = 1;
     i += 4;
   } );
   offsetAttribute.needsUpdate = true;
