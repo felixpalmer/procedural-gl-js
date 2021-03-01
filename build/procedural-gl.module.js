@@ -35414,12 +35414,40 @@ function heightAt( p, callback ) {
  */
 var p1 = new THREE.Vector3( 0, 0, 0 );
 var p2 = new THREE.Vector3( 0, 0, 0 );
+var addNormal = function ( normal, origin, delta1, delta2 ) {
+  p1.addVectors( origin, delta1 );
+  delta1.z = heightAt( p1 ) - origin.z;
+
+  p2.addVectors( origin, delta2 );
+  delta2.z = heightAt( p2 ) - origin.z;
+
+  delta1.cross( delta2 );
+  delta1.normalize();
+  normal.add( delta1 );
+};
+
+var n = 1, i$1; // Just keep it simple and only compute one normal
+var theta = 2 * Math.PI / n;
 var origin = new THREE.Vector3();
+var defaultStep = 25;
 var normal = new THREE.Vector3( 0, 0, 1 );
 var d1 = new THREE.Vector3( 0, 0, 0 );
 var d2 = new THREE.Vector3( 0, 0, 0 );
 var normalAt = function ( p, step ) {
-  // TODO fix. Hardcoded normal along z-axis everywhere for now
+  step = step ? step : defaultStep;
+
+  origin.copy( p );
+  origin.z = heightAt( origin );
+  normal.set( 0, 0, 0 );
+  for ( i$1 = 0; i$1 < n; i$1++ ) {
+    d1.x = step * Math.cos( i$1 * theta );
+    d1.y = step * Math.sin( i$1 * theta );
+    d2.x = -d1.y;
+    d2.y = d1.x;
+    addNormal( normal, origin, d1, d2 );
+  }
+
+  normal.normalize();
   return normal;
 };
 
@@ -35436,7 +35464,6 @@ function CameraStore() {
   this.position = new THREE.Vector3( 0, 0, 16000 );
   this.target = new THREE.Vector3();
   this.hasZoomedOut = false;
-  this.vantages = [];
 
   this.constrainCamera = true;
   this.minDistance = 100;
@@ -35577,12 +35604,16 @@ CameraStore.prototype.vantageForTarget = function ( target ) {
       -Math.sin( theta ), -Math.cos( theta ), 0 );
   } else {
     // otherwise figure out vantage point from normal
-    vantage = normalAt().clone();
+    vantage = normalAt( target ).clone();
   }
 
   // Direction away from slope, at 30 degree angle
   var angle = ( target.angle !== undefined ) ? target.angle : 30;
   vantage.z = 0;
+  if ( vantage.x === 0 && vantage.y === 0 ) {
+    // Handle singularity in flat terrain (point north)
+    vantage.y = -1;
+  }
   vantage.normalize();
   vantage.z = Math.tan( THREE.Math.degToRad( angle ) );
 
@@ -36503,6 +36534,12 @@ Procedural$3.datafileForLocation = function ( target ) {
   return ApiUtils.datafileForLocation( lon, lat );
 };
 
+// TODO we should remove the displayLocation API as it overlaps
+// with focusOnLocation and confuses people. For now detect
+// when repeated calls are near to last target and forward
+// call to `focusOnLocation` if we are close by
+let _lastTarget = null;
+
 /**
  * @name displayLocation
  * @memberof module:Core
@@ -36537,9 +36574,21 @@ Procedural$3.displayLocation = function ( target ) {
     return;
   }
 
-  setTimeout( function () {
-    UserActions.setCurrentPlace( { ...template, ...target } );
-  }, 0 );
+  function dist( a, b ) { return Math.sqrt( a * a + b * b ) }
+  if ( _lastTarget === null || 
+       dist( _lastTarget.longitude - target.longitude,
+             _lastTarget.latitude - target.latitude ) > 5 ) {
+    // For first invocation or nearby repeat calls, re-init
+    // library (this sets the overall geoprojection
+    setTimeout( function () {
+      UserActions.setCurrentPlace( { ...template, ...target } );
+    }, 0 );
+    _lastTarget = { ...target };
+  } else {
+    // For small movements simply focus on new location
+    setTimeout( function () { UserActions.focusOnLocation( target ); }, 0 );
+  }
+
 };
 
 /**
@@ -41759,7 +41808,7 @@ Markers.prototype.onNewData = function ( state ) {
 
   var anchor, anchorOffset, atlas, background, clipping, color,
     collapseDistance, drawImmediate, fadeDistance, layout = { x: 0, y: 0, z: 0 },
-    highlightOpacity, normal, offset, props, text;
+    highlightOpacity, offset, props, text;
 
   var cameraX = camera.position.x;
   var cameraY = camera.position.y;
@@ -41846,8 +41895,10 @@ Markers.prototype.onNewData = function ( state ) {
     layout.z = props.borderRadius || 0;
     attrs.layout.push( layout.x, layout.y, layout.z );
 
-    normal = normalAt();
-    attrs.normal.push( normal.x, normal.y, normal.z, collapseDistance );
+    // For now, hardcode normal as z = 1
+    //normal = normalAt( offset );
+    //attrs.normal.push( normal.x, normal.y, normal.z, collapseDistance );
+    attrs.normal.push( 0, 0, 1, collapseDistance );
   } );
 
   // Atlas processes text in batches, trigger to complete final
@@ -41911,16 +41962,19 @@ Markers.prototype.onUpdatedData = function ( state ) {
   var normalAttribute = this.geometry.attributes.normal;
   if ( offsetAttribute === undefined ) { return }
 
-  var offset, normal, i = 0;
+  var offset, i = 0;
   state.data.forEach( function ( feature ) {
     offset = geoproject.vectorizeFeature( feature );
     offsetAttribute.array[ i ] = offset.x;
     offsetAttribute.array[ i + 1 ] = offset.y;
     offsetAttribute.array[ i + 2 ] = offset.z;
-    normal = normalAt();
-    normalAttribute.array[ i ] = normal.x;
-    normalAttribute.array[ i + 1 ] = normal.y;
-    normalAttribute.array[ i + 2 ] = normal.z;
+    //normal = normalAt( offset );
+    //normalAttribute.array[ i ] = normal.x;
+    //normalAttribute.array[ i + 1 ] = normal.y;
+    //normalAttribute.array[ i + 2 ] = normal.z;
+    normalAttribute.array[ i ] = 0;
+    normalAttribute.array[ i + 1 ] = 0;
+    normalAttribute.array[ i + 2 ] = 1;
     i += 4;
   } );
   offsetAttribute.needsUpdate = true;
@@ -43359,8 +43413,8 @@ app.init();
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-/*global '1.0.15'*/
-console.log( 'Procedural v' + '1.0.15' );
+/*global '1.0.16'*/
+console.log( 'Procedural v' + '1.0.16' );
 
 // Re-export public API
 const Procedural$9 = {
