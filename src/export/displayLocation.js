@@ -30,6 +30,12 @@ Procedural.datafileForLocation = function ( target ) {
   return ApiUtils.datafileForLocation( lon, lat );
 };
 
+// TODO we should remove the displayLocation API as it overlaps
+// with focusOnLocation and confuses people. For now detect
+// when repeated calls are near to last target and forward
+// call to `focusOnLocation` if we are close by
+let _lastTarget = null;
+
 /**
  * @name displayLocation
  * @memberof module:Core
@@ -64,9 +70,21 @@ Procedural.displayLocation = function ( target ) {
     return;
   }
 
-  setTimeout( function () {
-    UserActions.setCurrentPlace( { ...template, ...target } );
-  }, 0 );
+  function dist( a, b ) { return Math.sqrt( a * a + b * b ) }
+  if ( _lastTarget === null || 
+       dist( _lastTarget.longitude - target.longitude,
+             _lastTarget.latitude - target.latitude ) > 5 ) {
+    // For first invocation or nearby repeat calls, re-init
+    // library (this sets the overall geoprojection
+    setTimeout( function () {
+      UserActions.setCurrentPlace( { ...template, ...target } );
+    }, 0 );
+    _lastTarget = { ...target };
+  } else {
+    // For small movements simply focus on new location
+    setTimeout( function () { UserActions.focusOnLocation( target ) }, 0 );
+  }
+
 };
 
 export default Procedural;
