@@ -24,7 +24,7 @@ var addNormal = function ( normal, origin, delta1, delta2 ) {
   normal.add( delta1 );
 };
 
-var n = 4, i;
+var n = 1, i; // Just keep it simple and only compute one normal
 var theta = 2 * Math.PI / n;
 var origin = new THREE.Vector3();
 var defaultStep = 25;
@@ -32,8 +32,6 @@ var normal = new THREE.Vector3( 0, 0, 1 );
 var d1 = new THREE.Vector3( 0, 0, 0 );
 var d2 = new THREE.Vector3( 0, 0, 0 );
 var normalAt = function ( p, step ) {
-  // TODO fix. Hardcoded normal along z-axis everywhere for now
-  return normal;
   step = step ? step : defaultStep;
 
   origin.copy( p );
