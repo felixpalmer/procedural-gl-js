@@ -38349,6 +38349,7 @@ return texture2D(o,t);
 	var scene = new THREE.Scene();
 	scene.hd = new THREE.Scene();
 	scene.tilepickerScene = new THREE.Scene();
+	scene.pickerScene = new THREE.Scene();
 
 	/**
 	 * Copyright 2020 (c) Felix Palmer
@@ -39223,6 +39224,53 @@ return texture2D(n,s);
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
 
+	// Picking
+	const canvas$2 = renderer.domElement;
+	const TilePicker = {
+	  data: new Uint8Array( 4 * canvas$2.width * canvas$2.height ),
+	  target: new THREE.WebGLRenderTarget( canvas$2.width, canvas$2.height ),
+	};
+
+	// Make independent target for picking to not intefere with terrain
+	const FeaturePicker = {
+	  data: new Uint8Array( 4 * canvas$2.width * canvas$2.height ),
+	  target: new THREE.WebGLRenderTarget( canvas$2.width, canvas$2.height ),
+	};
+
+	function updateSize( { width, height, renderRatio } ) {
+	  // Want to scale down so that resulting canvas is 500 pixels
+	  // This means 500 pixels total not 500 wide!!!
+	  let downScale = Math.sqrt( ( width * height ) / 500 );
+	  let w = 2 * Math.round( 0.5 * width / downScale );
+	  let h = 2 * Math.round( 0.5 * height / downScale );
+	  if ( !TilePicker.target ||
+	       w !== TilePicker.target.width ||
+	       h !== TilePicker.target.height ) {
+	    TilePicker.target = new THREE.WebGLRenderTarget( w, h );
+	    TilePicker.data = new Uint8Array( 4 * TilePicker.target.width * TilePicker.target.height );
+
+	    // 16X picker to be improve click accuracy
+	    FeaturePicker.target = new THREE.WebGLRenderTarget( 16 * w, 16 * h );
+	    FeaturePicker.data = new Uint8Array( 4 * FeaturePicker.target.width * FeaturePicker.target.height );
+
+	    // Update shaders
+	    tilepickerUniforms.uScaling.value.set(
+	      0.5 * w, 0.5 * h, // Location of center pixel
+	      256 / ( renderRatio * downScale ) // Scaling factor for uv error to compensate downScale
+	    );
+	  }
+	}
+
+	ContainerStore$1.listen( updateSize );
+
+	/**
+	 * Copyright 2020 (c) Felix Palmer
+	 *
+	 * This Source Code Form is subject to the terms of the Mozilla Public
+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
+	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+	 */
+
 	var oldAutoClearDepth;
 	var tagId;
 	var id, store, s, sl, feature, f, fl;
@@ -39232,11 +39280,6 @@ return texture2D(n,s);
 	  mouse: { x: 0, y: 0 },
 	  raycastPosition: new THREE.Vector3(),
 	  init: function () {
-	    // Render at smaller size, we don't need pixel perfect accuracy
-	    // and it saves a lot of memory
-	    // Don't want this too low, or the picking is inaccurate
-	    picker.resolution = 0.2;
-
 	    // Create materials for picking and raycasting and create scenes
 	    var pickerMaterial = new THREE.RawShaderMaterial( {
 	      name: 'picker',
@@ -39245,13 +39288,14 @@ return texture2D(n,s);
 	        pickerUniforms
 	      ),
 	      vertexShader: pickerVertex.value,
-	      fragmentShader: pickerFragment.value
+	      fragmentShader: pickerFragment.value,
+	      //transparent: true // causes issues when true (wrong render order)
 	    } );
+	    pickerMaterial.index0AttributeName = 'offset';
 
 	    pickerMaterial.defaultAttributeValues = material.marker.defaultAttributeValues;
-	    picker.pickerScene = new THREE.Scene();
-	    picker.pickerScene.overrideMaterial = pickerMaterial;
-	    picker.pickerScene.lastCameraPosition = camera.position.clone();
+	    scene.pickerScene.overrideMaterial = pickerMaterial;
+	    scene.pickerScene.lastCameraPosition = camera.position.clone();
 
 	    var raycastMaterial = new THREE.RawShaderMaterial( {
 	      name: 'raycast',
@@ -39268,11 +39312,10 @@ return texture2D(n,s);
 	      magFilter: THREE.NearestFilter
 	    };
 
-	    // Downsized renderTarget for GPU picking
-	    picker.renderTarget = new THREE.WebGLRenderTarget( picker.resolution * state.width, picker.resolution * state.height, parameters );
 	    // Single pixel render target, for position raycasting
 	    // we'll set a viewOffset when rendering to crop out
-	    //the correct portion on the view
+	    // the correct portion on the view
+	    // TODO make work again and move to picking.js
 	    picker.renderTarget1px = new THREE.WebGLRenderTarget( 1, 1, parameters );
 	    picker.viewOffsetWidth = state.width;
 	    picker.viewOffsetHeight = state.height;
@@ -39316,34 +39359,49 @@ return texture2D(n,s);
 	      picker.mouse = ContainerStore$1.fromClipSpace( picker.mouse );
 	    }
 
-	    // Transform coordinates
-	    picker.mouse.x = picker.resolution * picker.mouse.x;
-	    picker.mouse.y = picker.renderTarget.height - picker.resolution * picker.mouse.y;
+	    // Convert into 0-1 coordinates
+	    let clickPosition = ContainerStore$1.toClipSpace( picker.mouse );
+	    clickPosition.add( { x: 1, y: 1 } ).multiplyScalar( 0.5 );
+
+	    if ( clickPosition.x < 0 || clickPosition.x > 1 ||
+	         clickPosition.y < 0 || clickPosition.y > 1 ) {
+	      console.error( 'Click outside valid bounds:', clickPosition.x, clickPosition.y );
+	    }
+
+	    // Convert into target coordinates
+	    clickPosition.x = Math.round( clickPosition.x * FeaturePicker.target.width );
+	    clickPosition.y = Math.round( clickPosition.y * FeaturePicker.target.height );
+
+	    // Enable render target we want to work with
+	    renderer.setRenderTarget( FeaturePicker.target );
 
 	    // Cache camera location to avoid unnecessary re-renders
-	    if ( !picker.pickerScene.lastCameraPosition.equals( camera.position ) ) {
-	      picker.pickerScene.lastCameraPosition.copy( camera.position );
+	    if ( !scene.pickerScene.lastCameraPosition.equals( camera.position ) ) {
+	      scene.pickerScene.lastCameraPosition.copy( camera.position );
 	      // In the case of picking, we have to render the terrain
 	      // first, to make sure the picker scene is correctly
 	      // obscured
 	      // TODO would be nice if we could re-use the depthTexture
 	      // for this, but it doesn't seem to work...
-	      renderer.setRenderTarget( picker.renderTarget );
 
 	      // Important to clear otherwise old pick targets remain
 	      renderer.clear( true, true, true );
-	      renderer.render( picker.raycastScene, camera );
+
+	      // TODO re-enable rendering of terrain
+	      //renderer.render( picker.raycastScene, camera );
 
 	      oldAutoClearDepth = renderer.autoClearDepth;
 	      renderer.autoClearDepth = false;
-	      renderer.render( picker.pickerScene, camera );
+	      renderer.render( scene.pickerScene, camera );
 	      renderer.autoClearDepth = oldAutoClearDepth;
 	      // TODO don't execute when performing tex copy
 	    }
 
-	    renderer.readRenderTargetPixels( picker.renderTarget,
-	      picker.mouse.x, picker.mouse.y,
+	    // Read single pixel from target at mouse location
+	    renderer.readRenderTargetPixels( FeaturePicker.target,
+	      clickPosition.x, clickPosition.y,
 	      1, 1, picker.buffer );
+	    renderer.setRenderTarget( null );
 
 	    // Interpret as id
 	    /*jslint bitwise: true */
@@ -39398,36 +39456,10 @@ return texture2D(n,s);
 
 	    picker.raycastPosition.z = heightAt( picker.raycastPosition );
 	    return picker.raycastPosition;
-	  },
-	  render: function () {
-	    // Testing, render to screen
-	    renderer.setScissorTest( true );
-	    var w = 50;
-
-	    // Transfrom coordinates back again
-	    var x = picker.mouse.x / picker.resolution;
-	    var y = ( picker.renderTarget.height - picker.mouse.y ) / picker.resolution;
-	    renderer.setScissor( x - w, y - w, 2 * w, 2 * w );
-
-	    //renderer.render( picker.pickerScene, camera );
-	    // Testing picker
-	    renderer.render( picker.raycastScene, camera );
-	    oldAutoClearDepth = renderer.autoClearDepth;
-	    renderer.autoClearDepth = false;
-	    renderer.setClearColor( '#ff0000', 1.0 );
-
-	    renderer.render( picker.pickerScene, camera );
-	    renderer.autoClearDepth = oldAutoClearDepth;
-
-	    // Testing raycast
-	    //renderer.render( picker.raycastScene, camera );
-	    renderer.setScissorTest( false );
 	  }
 	};
 
 	ContainerStore$1.listen( function ( state ) {
-	  picker.renderTarget.setSize( picker.resolution * state.width,
-	    picker.resolution * state.height );
 	  picker.viewOffsetWidth = state.width;
 	  picker.viewOffsetHeight = state.height;
 	} );
@@ -39435,7 +39467,7 @@ return texture2D(n,s);
 	RenderStore$1.listen( function ( state ) {
 	  if ( state.animating ) {
 	    // Move last camera to force re-render
-	    picker.pickerScene.lastCameraPosition.x += 1000000;
+	    scene.pickerScene.lastCameraPosition.x += 1000000;
 	  }
 	} );
 
@@ -41079,7 +41111,7 @@ return texture2D(n,s);
 	  LinesBase.call( this );
 
 	  LineData$1.listen( this.onNewData.bind( this ) );
-	  picker.pickerScene.add( this );
+	  scene.pickerScene.add( this );
 
 	  this.material = material.line;
 	  this.name = 'lines';
@@ -41730,15 +41762,13 @@ return texture2D(n,s);
 	  RenderActions.renderedFeatureRegister( this.name );
 	  this.renderOrder = 1000;
 	  this.atlas = new Atlas();
-	  //this.material.uniforms.uMap.value = this.atlas.renderTarget.texture;
 	  this.material.uniforms.uMap.value = this.atlas.texture;
-	  //this.material = picker.pickerScene.overrideMaterial;
 
 	  MarkerData$1.listen( this.onNewData.bind( this ) );
 
 	  scene.hd.add( this );
 	  this.parent = null; // To let us have markers in two scenes, remove first scene as parent
-	  picker.pickerScene.add( this );
+	  scene.pickerScene.add( this );
 	  this.parent = null;
 	  this.visible = false;
 
@@ -42499,42 +42529,6 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
 
-	// Picking
-	const canvas$2 = renderer.domElement;
-	const tilepicker = {
-	  data: new Uint8Array( 4 * canvas$2.width * canvas$2.height ),
-	  target: new THREE.WebGLRenderTarget( canvas$2.width, canvas$2.height )
-	};
-
-	function updateSize( { width, height, renderRatio } ) {
-	  // Want to scale down so that resulting canvas is 500 pixels
-	  let downScale = Math.sqrt( ( width * height ) / 500 );
-	  let w = 2 * Math.round( 0.5 * width / downScale );
-	  let h = 2 * Math.round( 0.5 * height / downScale );
-	  if ( !tilepicker.target ||
-	       w !== tilepicker.target.width ||
-	       h !== tilepicker.target.height ) {
-	    tilepicker.target = new THREE.WebGLRenderTarget( w, h );
-	    tilepicker.data = new Uint8Array( 4 * tilepicker.target.width * tilepicker.target.height );
-
-	    // Update shaders
-	    tilepickerUniforms.uScaling.value.set(
-	      0.5 * w, 0.5 * h, // Location of center pixel
-	      256 / ( renderRatio * downScale ) // Scaling factor for uv error to compensate downScale
-	    );
-	  }
-	}
-
-	ContainerStore$1.listen( updateSize );
-
-	/**
-	 * Copyright 2020 (c) Felix Palmer
-	 *
-	 * This Source Code Form is subject to the terms of the Mozilla Public
-	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-	 */
-
 	let x, y, z;
 	const baseZ = 5;
 	const tileDelta = new THREE.Vector2();
@@ -42594,9 +42588,12 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	  }
 
 	  if ( doPickerRender ) {
-	    renderer.setRenderTarget( tilepicker.target );
+
+	    // Normal render
+	    renderer.setRenderTarget( TilePicker.target );
 	    renderer.clear( true, true, true );
 	    renderer.render( scene.tilepickerScene, camera );
+	    renderer.setRenderTarget( null );
 
 	    // Get matrix at point of render so it matches what
 	    // is in the render target
@@ -42607,12 +42604,12 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 
 	    // Grab pixels
 	    let slice = pipelinePicker ? ( frameN - 1 - waitFrames ) / skipFrames : 0;
-	    let bytesPerSlice = 4 * tilepicker.target.width * tilepicker.target.height / sliceN;
-	    let view = new Uint8Array( tilepicker.data.buffer,
+	    let bytesPerSlice = 4 * TilePicker.target.width * TilePicker.target.height / sliceN;
+	    let view = new Uint8Array( TilePicker.data.buffer,
 	      slice * bytesPerSlice, bytesPerSlice );
-	    renderer.readRenderTargetPixels( tilepicker.target,
-	      0, slice * tilepicker.target.height / sliceN,
-	      tilepicker.target.width, tilepicker.target.height / sliceN,
+	    renderer.readRenderTargetPixels( TilePicker.target,
+	      0, slice * TilePicker.target.height / sliceN,
+	      TilePicker.target.width, TilePicker.target.height / sliceN,
 	      view );
 	    renderer.setRenderTarget( null );
 	  }
@@ -42621,17 +42618,17 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	    let pickedTile, terrainError;
 
 	    // Get center pixel and extract distance
-	    let p = 2 * ( tilepicker.target.width + tilepicker.target.width * tilepicker.target.height );
+	    let p = 2 * ( TilePicker.target.width + TilePicker.target.width * TilePicker.target.height );
 	    p = Math.round( p );
-	    let fragZ = 256 * tilepicker.data[ p + 2 ] + tilepicker.data[ p + 3 ];
+	    let fragZ = 256 * TilePicker.data[ p + 2 ] + TilePicker.data[ p + 3 ];
 	    fragZ /= 256.0 * 255.0;
 	    projectedDistance = projectionMatrix[ 14 ] / ( 2 * fragZ - 1.0 + projectionMatrix[ 10 ] );
 	    CameraStore$1.getState().controls.setDistanceToTarget( projectedDistance );
 
-	    let pl = tilepicker.data.length;
+	    let pl = TilePicker.data.length;
 	    for ( p = 0; p < pl; p += 4 ) {
-	      pickedTile = 256 * tilepicker.data[ p ] + tilepicker.data[ p + 1 ];
-	      terrainError = ( tilepicker.data[ p + 3 ] / 255 ); // range 0-1
+	      pickedTile = 256 * TilePicker.data[ p ] + TilePicker.data[ p + 1 ];
+	      terrainError = ( TilePicker.data[ p + 3 ] / 255 ); // range 0-1
 	      terrainError = 10 * terrainError - 5; // re-bias to -5 > 5
 
 	      if ( pickedTile === 0 ) {
@@ -43419,8 +43416,8 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	 * License, v. 2.0. If a copy of the MPL was not distributed with this
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
-	/*global '1.0.16'*/
-	console.log( 'Procedural v' + '1.0.16' );
+	/*global '1.0.17'*/
+	console.log( 'Procedural v' + '1.0.17' );
 
 	// Re-export public API
 	const Procedural$9 = {

@@ -43,7 +43,7 @@ var picker = {
       fragmentShader: pickerFragment.value,
       //transparent: true // causes issues when true (wrong render order)
     } );
-    //pickerMaterial.index0AttributeName = 'offset';
+    pickerMaterial.index0AttributeName = 'offset';
 
     pickerMaterial.defaultAttributeValues = material.marker.defaultAttributeValues;
     scene.pickerScene.overrideMaterial = pickerMaterial;
