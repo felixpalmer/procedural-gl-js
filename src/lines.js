@@ -7,14 +7,14 @@
  */
 import LinesBase from '/linesBase';
 import material from '/material';
-import picker from '/picker';
 import LineData from '/data/line';
 import RenderActions from '/actions/render';
+import scene from '/scene';
 var Lines = function () {
   LinesBase.call( this );
 
   LineData.listen( this.onNewData.bind( this ) );
-  picker.pickerScene.add( this );
+  scene.pickerScene.add( this );
 
   this.material = material.line;
   this.name = 'lines';

@@ -21,7 +21,6 @@ import log from '/log';
 import material from '/material';
 //import normalAt from '/normalAt';
 import PlacesStore from '/stores/places';
-import picker from '/picker';
 import PushList from '/utils/pushList';
 import RenderActions from '/actions/render';
 import scene from '/scene';
@@ -40,15 +39,13 @@ var Markers = function () {
   RenderActions.renderedFeatureRegister( this.name );
   this.renderOrder = 1000;
   this.atlas = new Atlas();
-  //this.material.uniforms.uMap.value = this.atlas.renderTarget.texture;
   this.material.uniforms.uMap.value = this.atlas.texture;
-  //this.material = picker.pickerScene.overrideMaterial;
 
   MarkerData.listen( this.onNewData.bind( this ) );
 
   scene.hd.add( this );
   this.parent = null; // To let us have markers in two scenes, remove first scene as parent
-  picker.pickerScene.add( this );
+  scene.pickerScene.add( this );
   this.parent = null;
   this.visible = false;
 

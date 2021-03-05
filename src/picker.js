@@ -20,6 +20,8 @@ import raycastFragment from 'shader/raycast.frag';
 import RenderStore from '/stores/render';
 import renderer from '/renderer';
 import tagUniforms from '/uniforms/tag';
+import scene from '/scene';
+import { FeaturePicker } from '/picking';
 
 var oldAutoClearDepth;
 var tagId;
@@ -30,11 +32,6 @@ var picker = {
   mouse: { x: 0, y: 0 },
   raycastPosition: new THREE.Vector3(),
   init: function () {
-    // Render at smaller size, we don't need pixel perfect accuracy
-    // and it saves a lot of memory
-    // Don't want this too low, or the picking is inaccurate
-    picker.resolution = 0.2;
-
     // Create materials for picking and raycasting and create scenes
     var pickerMaterial = new THREE.RawShaderMaterial( {
       name: 'picker',
@@ -43,13 +40,14 @@ var picker = {
         pickerUniforms
       ),
       vertexShader: pickerVertex.value,
-      fragmentShader: pickerFragment.value
+      fragmentShader: pickerFragment.value,
+      //transparent: true // causes issues when true (wrong render order)
     } );
+    //pickerMaterial.index0AttributeName = 'offset';
 
     pickerMaterial.defaultAttributeValues = material.marker.defaultAttributeValues;
-    picker.pickerScene = new THREE.Scene();
-    picker.pickerScene.overrideMaterial = pickerMaterial;
-    picker.pickerScene.lastCameraPosition = camera.position.clone();
+    scene.pickerScene.overrideMaterial = pickerMaterial;
+    scene.pickerScene.lastCameraPosition = camera.position.clone();
 
     var raycastMaterial = new THREE.RawShaderMaterial( {
       name: 'raycast',
@@ -66,11 +64,10 @@ var picker = {
       magFilter: THREE.NearestFilter
     };
 
-    // Downsized renderTarget for GPU picking
-    picker.renderTarget = new THREE.WebGLRenderTarget( picker.resolution * state.width, picker.resolution * state.height, parameters );
     // Single pixel render target, for position raycasting
     // we'll set a viewOffset when rendering to crop out
-    //the correct portion on the view
+    // the correct portion on the view
+    // TODO make work again and move to picking.js
     picker.renderTarget1px = new THREE.WebGLRenderTarget( 1, 1, parameters );
     picker.viewOffsetWidth = state.width;
     picker.viewOffsetHeight = state.height;
@@ -114,34 +111,49 @@ var picker = {
       picker.mouse = ContainerStore.fromClipSpace( picker.mouse );
     }
 
-    // Transform coordinates
-    picker.mouse.x = picker.resolution * picker.mouse.x;
-    picker.mouse.y = picker.renderTarget.height - picker.resolution * picker.mouse.y;
+    // Convert into 0-1 coordinates
+    let clickPosition = ContainerStore.toClipSpace( picker.mouse );
+    clickPosition.add( { x: 1, y: 1 } ).multiplyScalar( 0.5 );
+
+    if ( clickPosition.x < 0 || clickPosition.x > 1 ||
+         clickPosition.y < 0 || clickPosition.y > 1 ) {
+      console.error( 'Click outside valid bounds:', clickPosition.x, clickPosition.y );
+    }
+
+    // Convert into target coordinates
+    clickPosition.x = Math.round( clickPosition.x * FeaturePicker.target.width );
+    clickPosition.y = Math.round( clickPosition.y * FeaturePicker.target.height );
+
+    // Enable render target we want to work with
+    renderer.setRenderTarget( FeaturePicker.target );
 
     // Cache camera location to avoid unnecessary re-renders
-    if ( !picker.pickerScene.lastCameraPosition.equals( camera.position ) ) {
-      picker.pickerScene.lastCameraPosition.copy( camera.position );
+    if ( !scene.pickerScene.lastCameraPosition.equals( camera.position ) ) {
+      scene.pickerScene.lastCameraPosition.copy( camera.position );
       // In the case of picking, we have to render the terrain
       // first, to make sure the picker scene is correctly
       // obscured
       // TODO would be nice if we could re-use the depthTexture
       // for this, but it doesn't seem to work...
-      renderer.setRenderTarget( picker.renderTarget );
 
       // Important to clear otherwise old pick targets remain
       renderer.clear( true, true, true );
-      renderer.render( picker.raycastScene, camera );
+
+      // TODO re-enable rendering of terrain
+      //renderer.render( picker.raycastScene, camera );
 
       oldAutoClearDepth = renderer.autoClearDepth;
       renderer.autoClearDepth = false;
-      renderer.render( picker.pickerScene, camera );
+      renderer.render( scene.pickerScene, camera );
       renderer.autoClearDepth = oldAutoClearDepth;
       // TODO don't execute when performing tex copy
     }
 
-    renderer.readRenderTargetPixels( picker.renderTarget,
-      picker.mouse.x, picker.mouse.y,
+    // Read single pixel from target at mouse location
+    renderer.readRenderTargetPixels( FeaturePicker.target,
+      clickPosition.x, clickPosition.y,
       1, 1, picker.buffer );
+    renderer.setRenderTarget( null );
 
     // Interpret as id
     /*jslint bitwise: true */
@@ -196,36 +208,10 @@ var picker = {
 
     picker.raycastPosition.z = heightAt( picker.raycastPosition );
     return picker.raycastPosition;
-  },
-  render: function () {
-    // Testing, render to screen
-    renderer.setScissorTest( true );
-    var w = 50;
-
-    // Transfrom coordinates back again
-    var x = picker.mouse.x / picker.resolution;
-    var y = ( picker.renderTarget.height - picker.mouse.y ) / picker.resolution;
-    renderer.setScissor( x - w, y - w, 2 * w, 2 * w );
-
-    //renderer.render( picker.pickerScene, camera );
-    // Testing picker
-    renderer.render( picker.raycastScene, camera );
-    oldAutoClearDepth = renderer.autoClearDepth;
-    renderer.autoClearDepth = false;
-    renderer.setClearColor( '#ff0000', 1.0 );
-
-    renderer.render( picker.pickerScene, camera );
-    renderer.autoClearDepth = oldAutoClearDepth;
-
-    // Testing raycast
-    //renderer.render( picker.raycastScene, camera );
-    renderer.setScissorTest( false );
   }
 };
 
 ContainerStore.listen( function ( state ) {
-  picker.renderTarget.setSize( picker.resolution * state.width,
-    picker.resolution * state.height );
   picker.viewOffsetWidth = state.width;
   picker.viewOffsetHeight = state.height;
 } );
@@ -233,7 +219,7 @@ ContainerStore.listen( function ( state ) {
 RenderStore.listen( function ( state ) {
   if ( state.animating ) {
     // Move last camera to force re-render
-    picker.pickerScene.lastCameraPosition.x += 1000000;
+    scene.pickerScene.lastCameraPosition.x += 1000000;
   }
 } );
 

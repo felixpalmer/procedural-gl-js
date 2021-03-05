@@ -9,4 +9,5 @@ import THREE from 'three';
 var scene = new THREE.Scene();
 scene.hd = new THREE.Scene();
 scene.tilepickerScene = new THREE.Scene();
+scene.pickerScene = new THREE.Scene();
 export default scene;

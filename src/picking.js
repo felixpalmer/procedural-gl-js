@@ -12,21 +12,32 @@ import tilepickerUniforms from '/uniforms/tilepicker';
 
 // Picking
 const canvas = renderer.domElement;
-const tilepicker = {
+const TilePicker = {
   data: new Uint8Array( 4 * canvas.width * canvas.height ),
-  target: new THREE.WebGLRenderTarget( canvas.width, canvas.height )
-};
+  target: new THREE.WebGLRenderTarget( canvas.width, canvas.height ),
+}
+
+// Make independent target for picking to not intefere with terrain
+const FeaturePicker = {
+  data: new Uint8Array( 4 * canvas.width * canvas.height ),
+  target: new THREE.WebGLRenderTarget( canvas.width, canvas.height ),
+}
 
 function updateSize( { width, height, renderRatio } ) {
   // Want to scale down so that resulting canvas is 500 pixels
+  // This means 500 pixels total not 500 wide!!!
   let downScale = Math.sqrt( ( width * height ) / 500 );
   let w = 2 * Math.round( 0.5 * width / downScale );
   let h = 2 * Math.round( 0.5 * height / downScale );
-  if ( !tilepicker.target ||
-       w !== tilepicker.target.width ||
-       h !== tilepicker.target.height ) {
-    tilepicker.target = new THREE.WebGLRenderTarget( w, h );
-    tilepicker.data = new Uint8Array( 4 * tilepicker.target.width * tilepicker.target.height );
+  if ( !TilePicker.target ||
+       w !== TilePicker.target.width ||
+       h !== TilePicker.target.height ) {
+    TilePicker.target = new THREE.WebGLRenderTarget( w, h );
+    TilePicker.data = new Uint8Array( 4 * TilePicker.target.width * TilePicker.target.height );
+
+    // 16X picker to be improve click accuracy
+    FeaturePicker.target = new THREE.WebGLRenderTarget( 16 * w, 16 * h );
+    FeaturePicker.data = new Uint8Array( 4 * FeaturePicker.target.width * FeaturePicker.target.height );
 
     // Update shaders
     tilepickerUniforms.uScaling.value.set(
@@ -38,4 +49,6 @@ function updateSize( { width, height, renderRatio } ) {
 
 ContainerStore.listen( updateSize );
 
-export default tilepicker;
+export {
+  TilePicker, FeaturePicker 
+}

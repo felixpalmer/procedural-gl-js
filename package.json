@@ -1,6 +1,6 @@
 {
   "name": "procedural-gl",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "3D mapping engine for the web",
   "main": "build/procedural-gl.js",
   "module": "build/procedural-gl.module.js",

@@ -11,7 +11,7 @@ import tilebelt from '@mapbox/tilebelt';
 import MapTile from '/mapTile';
 import renderer from '/renderer';
 import scene from '/scene';
-import tilepicker from '/tilepicker';
+import { TilePicker } from '/picking';
 
 import ImageryDatasource from '/datasources/imagery';
 import ElevationDatasource from '/datasources/elevation';
@@ -151,9 +151,12 @@ function draw() {
 
   if ( doPickerRender ) {
     __dev__ && performance.mark( 'Render-start' );
-    renderer.setRenderTarget( tilepicker.target );
+
+    // Normal render
+    renderer.setRenderTarget( TilePicker.target );
     renderer.clear( true, true, true );
     renderer.render( scene.tilepickerScene, camera );
+    renderer.setRenderTarget( null );
 
     // Get matrix at point of render so it matches what
     // is in the render target
@@ -168,12 +171,12 @@ function draw() {
 
     // Grab pixels
     let slice = pipelinePicker ? ( frameN - 1 - waitFrames ) / skipFrames : 0;
-    let bytesPerSlice = 4 * tilepicker.target.width * tilepicker.target.height / sliceN;
-    let view = new Uint8Array( tilepicker.data.buffer,
+    let bytesPerSlice = 4 * TilePicker.target.width * TilePicker.target.height / sliceN;
+    let view = new Uint8Array( TilePicker.data.buffer,
       slice * bytesPerSlice, bytesPerSlice );
-    renderer.readRenderTargetPixels( tilepicker.target,
-      0, slice * tilepicker.target.height / sliceN,
-      tilepicker.target.width, tilepicker.target.height / sliceN,
+    renderer.readRenderTargetPixels( TilePicker.target,
+      0, slice * TilePicker.target.height / sliceN,
+      TilePicker.target.width, TilePicker.target.height / sliceN,
       view );
     renderer.setRenderTarget( null );
     __dev__ && readTime.stop();
@@ -187,9 +190,9 @@ function draw() {
     let pickedTile, terrainError;
 
     // Get center pixel and extract distance
-    let p = 2 * ( tilepicker.target.width + tilepicker.target.width * tilepicker.target.height );
+    let p = 2 * ( TilePicker.target.width + TilePicker.target.width * TilePicker.target.height );
     p = Math.round( p );
-    let fragZ = 256 * tilepicker.data[ p + 2 ] + tilepicker.data[ p + 3 ];
+    let fragZ = 256 * TilePicker.data[ p + 2 ] + TilePicker.data[ p + 3 ];
     fragZ /= 256.0 * 255.0;
     projectedDistance = projectionMatrix[ 14 ] / ( 2 * fragZ - 1.0 + projectionMatrix[ 10 ] );
     CameraStore.getState().controls.setDistanceToTarget( projectedDistance );
@@ -197,11 +200,11 @@ function draw() {
     // Debug tile
     if ( __dev__ && debugClick ) {
       let pixel = {};
-      pixel.x = Math.round( debugClick.x * tilepicker.target.width );
-      pixel.y = Math.round( ( 1 - debugClick.y ) * tilepicker.target.height );
-      let p = 4 * ( pixel.x + tilepicker.target.width * pixel.y );
-      pickedTile = 256 * tilepicker.data[ p ] + tilepicker.data[ p + 1 ];
-      terrainError = ( tilepicker.data[ p + 3 ] / 255 ); // range 0-1
+      pixel.x = Math.round( debugClick.x * TilePicker.target.width );
+      pixel.y = Math.round( ( 1 - debugClick.y ) * TilePicker.target.height );
+      let p = 4 * ( pixel.x + TilePicker.target.width * pixel.y );
+      pickedTile = 256 * TilePicker.data[ p ] + TilePicker.data[ p + 1 ];
+      terrainError = ( TilePicker.data[ p + 3 ] / 255 ); // range 0-1
       terrainError = 10 * terrainError - 5; // re-bias to -5 > 5
       let tile = tiles.find( x => x.id === pickedTile );
       if ( tile ) {
@@ -212,10 +215,10 @@ function draw() {
       debugClick = null;
     }
 
-    let pl = tilepicker.data.length;
+    let pl = TilePicker.data.length;
     for ( p = 0; p < pl; p += 4 ) {
-      pickedTile = 256 * tilepicker.data[ p ] + tilepicker.data[ p + 1 ];
-      terrainError = ( tilepicker.data[ p + 3 ] / 255 ); // range 0-1
+      pickedTile = 256 * TilePicker.data[ p ] + TilePicker.data[ p + 1 ];
+      terrainError = ( TilePicker.data[ p + 3 ] / 255 ); // range 0-1
       terrainError = 10 * terrainError - 5; // re-bias to -5 > 5
 
       if ( pickedTile === 0 ) {
