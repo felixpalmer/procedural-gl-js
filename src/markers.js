@@ -227,6 +227,7 @@ Markers.prototype.onNewData = function ( state ) {
         value = value.map( function ( v ) { return v / 255.0 } );
       }
 
+      self.geometry.deleteAttribute( key );
       self.material.defaultAttributeValues[ key ] = value;
     } else {
       var TypeArray = ( attr.normalized ? Uint8Array : Float32Array );
@@ -237,6 +238,7 @@ Markers.prototype.onNewData = function ( state ) {
         bufferAttribute.setUsage( THREE.DynamicDrawUsage );
       }
 
+      delete self.material.defaultAttributeValues[ key ];
       self.geometry.setAttribute( key, bufferAttribute );
     }
   } );
