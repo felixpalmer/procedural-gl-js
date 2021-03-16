@@ -29,7 +29,7 @@ uniform vec2 uViewportCanvasInverse;
 // fails. TODO investigate more robust solution
 
 // Shared attributes
-attribute vec3 tag;
+attribute vec4 tag; // Match marker.vert
 attribute vec3 position;
 
 // Piste attribute
@@ -54,7 +54,7 @@ varying vec4 vTag;
 #include positionFromTangent.glsl
 
 void main() {
-  vTag.rgb = tag;
+  vTag.rgb = tag.rgb;
 
   // If we have a tag of zero, do not even draw
   // TODO appears to break in Firefox!
