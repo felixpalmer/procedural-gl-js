@@ -39142,7 +39142,7 @@ precision highp float;uniform vec3 uScaling;varying vec4 vUV;void main(){vec2 a=
 	  }
 	} );
 
-	var pickerVertex = new Shader(`uniform mat4 viewMatrix;uniform mat4 projectionMatrix;uniform vec3 cameraPosition;uniform float uPixelRatio;uniform vec2 uViewportCanvasInverse;attribute vec3 tag;attribute vec3 position;attribute vec3 tangent;attribute vec4 atlas;attribute vec4 anchor;attribute vec4 clipping;attribute vec3 layout;attribute vec4 normal;attribute vec4 offset;varying vec4 vTag;float a(inout vec3 b){float c=dot(b,b);float d=inversesqrt(c);b=d*b;return c*d;}
+	var pickerVertex = new Shader(`uniform mat4 viewMatrix;uniform mat4 projectionMatrix;uniform vec3 cameraPosition;uniform float uPixelRatio;uniform vec2 uViewportCanvasInverse;attribute vec4 tag;attribute vec3 position;attribute vec3 tangent;attribute vec4 atlas;attribute vec4 anchor;attribute vec4 clipping;attribute vec3 layout;attribute vec4 normal;attribute vec4 offset;varying vec4 vTag;float a(inout vec3 b){float c=dot(b,b);float d=inversesqrt(c);b=d*b;return c*d;}
 #define VIRTUAL_TEXTURE_ARRAY_BLOCKS 4.0
 
 #define VIRTUAL_TEXTURE_ARRAY_SIZE 512.0
@@ -39164,7 +39164,7 @@ return texture2D(r,w);
 #define TUBE_RADIUS 20.0
 
 #define SIZE vec2( 512.0, 1024.0 )
-uniform vec2 uViewportInverse;vec4 O(const in vec3 P,const in float Q){vec4 D=vec4(P,1.0);vec4 R=projectionMatrix*viewMatrix*D;D.xyz+=tangent.xyz;vec4 S=projectionMatrix*viewMatrix*D;vec2 T=S.xy/S.w-R.xy/R.w;vec2 U=T.yx*vec2(1.0,-1.0);U=Q*R.w*normalize(U)*uViewportInverse;R.xy+=U;return R;}void main(){vTag.rgb=tag;float V=1.0-step(length(tag),0.0);float W=length(position.x);float X=step(W,1.00001);X*=step(0.99999,W);vec3 Y=mix(position,offset.xyz,X);Y.z=C(Y.xy);vec4 Z=O(Y,TUBE_RADIUS);vec3 ba=cameraPosition-Y;float bb=a(ba);vec2 bc=vec2(1.0,-1.0)*position.xy;vec2 bd=0.5*bc+vec2(0.5);vec4 be;vec2 bf=vec2(normal.w,offset.w);bf=smoothstep(bf,vec2(0.95,0.9)*bf,vec2(bb));be.w=(0.6*bf.x+0.4)*bf.y;vec2 bg=mix(atlas.ww*vec2(SIZE.y/SIZE.x,1.0),atlas.zw,bf.x);be.xy=atlas.xy+bg*bd;be.w*=smoothstep(0.0,0.15,clipping.y+dot(ba,normal.xyz));be.w*=step(0.3,be.w);vec2 u=layout.xx+layout.yy;be.xy+=(u*bc)/SIZE;vec2 bh=SIZE*bg+2.0*u;bh*=uPixelRatio;float bi=min(0.5*bb,100.0+200.0*clipping.x);vec4 D=vec4(Y+bi*ba,1.0);vec4 bj=projectionMatrix*viewMatrix*D;vec2 bk=2.0*bj.w*uViewportCanvasInverse;
+uniform vec2 uViewportInverse;vec4 O(const in vec3 P,const in float Q){vec4 D=vec4(P,1.0);vec4 R=projectionMatrix*viewMatrix*D;D.xyz+=tangent.xyz;vec4 S=projectionMatrix*viewMatrix*D;vec2 T=S.xy/S.w-R.xy/R.w;vec2 U=T.yx*vec2(1.0,-1.0);U=Q*R.w*normalize(U)*uViewportInverse;R.xy+=U;return R;}void main(){vTag.rgb=tag.rgb;float V=1.0-step(length(tag),0.0);float W=length(position.x);float X=step(W,1.00001);X*=step(0.99999,W);vec3 Y=mix(position,offset.xyz,X);Y.z=C(Y.xy);vec4 Z=O(Y,TUBE_RADIUS);vec3 ba=cameraPosition-Y;float bb=a(ba);vec2 bc=vec2(1.0,-1.0)*position.xy;vec2 bd=0.5*bc+vec2(0.5);vec4 be;vec2 bf=vec2(normal.w,offset.w);bf=smoothstep(bf,vec2(0.95,0.9)*bf,vec2(bb));be.w=(0.6*bf.x+0.4)*bf.y;vec2 bg=mix(atlas.ww*vec2(SIZE.y/SIZE.x,1.0),atlas.zw,bf.x);be.xy=atlas.xy+bg*bd;be.w*=smoothstep(0.0,0.15,clipping.y+dot(ba,normal.xyz));be.w*=step(0.3,be.w);vec2 u=layout.xx+layout.yy;be.xy+=(u*bc)/SIZE;vec2 bh=SIZE*bg+2.0*u;bh*=uPixelRatio;float bi=min(0.5*bb,100.0+200.0*clipping.x);vec4 D=vec4(Y+bi*ba,1.0);vec4 bj=projectionMatrix*viewMatrix*D;vec2 bk=2.0*bj.w*uViewportCanvasInverse;
 #ifdef READ_DEPTH
 vec3 bl=0.5*bj.xyz/bj.w+vec3(0.5);float bm=texture2D(uDepth,bl.xy).x;float bn=projectionMatrix[3][2];bm/=1.0+0.02*bm/bn;be.w*=step(clipping.x*bl.z,bm);
 #endif
@@ -41950,6 +41950,7 @@ return texture2D(n,s);
 	        value = value.map( function ( v ) { return v / 255.0 } );
 	      }
 
+	      self.geometry.deleteAttribute( key );
 	      self.material.defaultAttributeValues[ key ] = value;
 	    } else {
 	      var TypeArray = ( attr.normalized ? Uint8Array : Float32Array );
@@ -41960,6 +41961,7 @@ return texture2D(n,s);
 	        bufferAttribute.setUsage( THREE.DynamicDrawUsage );
 	      }
 
+	      delete self.material.defaultAttributeValues[ key ];
 	      self.geometry.setAttribute( key, bufferAttribute );
 	    }
 	  } );
@@ -43416,8 +43418,8 @@ void main(){vec2 z=gl_FragCoord.xy*STEP;vec3 o=2.0*vec3(z-0.5,0.0);float A=min(0
 	 * License, v. 2.0. If a copy of the MPL was not distributed with this
 	 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
 	 */
-	/*global '1.0.17'*/
-	console.log( 'Procedural v' + '1.0.17' );
+	/*global '1.0.18'*/
+	console.log( 'Procedural v' + '1.0.18' );
 
 	// Re-export public API
 	const Procedural$9 = {
