@@ -73,6 +73,7 @@ Examples
 - [🏞️ New Zealand National Parks](https://github.com/felixpalmer/new-zealand-3d/)
 - [🏔️ Peaks of Austria](https://github.com/felixpalmer/peaks-of-austria/)
 - [🌋 Volcanoes of Japan](https://github.com/felixpalmer/volcanoes-of-japan)
+- [🗺️ XYCarto(NZ 8m DEM)](https://xycarto.github.io/3D_Aotearoa/)
 
 Sponsor
 =======
@@ -84,6 +85,7 @@ Blog posts / Guides
 
 - [Quickstart setup of datasources for Procedural GL JS](https://github.com/felixpalmer/procedural-gl-js/wiki/Data-sources)
 - [Build New Zealand in an afternoon](https://www.pheelicks.com/posts/build-new-zealand-in-an-afternoon/)
+- [RGB Elevation Creation for 3D Online Mapping](https://xycarto.com/2021/04/16/rgb-elevation-creation-for-3d-online-mapping-terrain-rgb/)
 
 
 License
