@@ -128,7 +128,9 @@ class BaseDatasource {
 
         this.updateIndirectionTexture();
         this.notifyUpdate();
-      }, () => {
+      },
+      () => { /* progress */ },
+      () => {
         console.error( 'Failed to get image', quadkey );
         delete this.fetching[ quadkey ];
       } );
