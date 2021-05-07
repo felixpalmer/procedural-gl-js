@@ -28,6 +28,7 @@ class BaseDatasource {
     this.listeners = [];
     this.lookup = {};
     this.fetching = {};
+    this.failed = {};
     this.imgCache = {};
     this.indexPool = new IntegerPool( poolSize );
 
@@ -87,8 +88,9 @@ class BaseDatasource {
 
   fetchIfNeeded( quadkey ) {
     if ( this.lookup[ quadkey ] !== undefined ||
-      this.fetching[ quadkey ] !== undefined ) {
-      // Have data, or download in progress, skip
+         this.fetching[ quadkey ] !== undefined ||
+         this.failed[ quadkey ]) {
+      // Have data, or download in progress, or failed, skip
       return;
     }
 
@@ -131,6 +133,7 @@ class BaseDatasource {
       }, () => {
         console.error( 'Failed to get image', quadkey );
         delete this.fetching[ quadkey ];
+        this.failed[ quadkey ] = true;
       } );
   }
 
