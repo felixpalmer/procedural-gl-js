@@ -80,9 +80,12 @@ class BaseDatasource {
     }
   }
 
-  urlForTile( x, y, z ) {
+  urlForTile( quadkey ) {
+    const [x, y, z] = tilebelt.quadkeyToTile( quadkey );
+    
     return this.urlFormat.replace( '{x}', x ).replace( '{y}', y )
-      .replace( '{z}', z ).replace( '{apiKey}', this.apiKey );
+      .replace( '{z}', z ).replace('{quadkey}', quadkey)
+      .replace( '{apiKey}', this.apiKey );
   }
 
   fetchIfNeeded( quadkey ) {
@@ -105,7 +108,7 @@ class BaseDatasource {
     this.fetching[ quadkey ] = newIndex;
 
     // Actually fetch data
-    let url = this.urlForTile( ...tilebelt.quadkeyToTile( quadkey ) );
+    let url = this.urlForTile( quadkey );
     ImageLoader.load( url, ( image ) => {
       // Image loaded OK
         this.imgCache[ quadkey ] = image;
